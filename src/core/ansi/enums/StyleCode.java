@@ -1,0 +1,50 @@
+package core.ansi.enums;
+
+import core.ansi.interfaces.AnsiCode;
+
+/**
+ * Represents ANSI escape codes for text styling (like italic, underline, etc.).
+ */
+public enum StyleCode implements AnsiCode {
+    // Enum constants with their corresponding ANSI codes
+    BOLD("\u001B[1m"),
+    DIM("\u001B[2m"),
+    ITALIC("\u001B[3m"),
+    UNDERLINE("\u001B[4m"),
+    BLINK("\u001B[5m"),
+    RAPID_BLINK("\u001B[6m"),
+    REVERSE_VIDEO("\u001B[7m"),
+    INVISIBLE_TEXT("\u001B[8m");
+
+    // Field to hold the ANSI code string
+    private final String code;
+
+    /**
+     * Constructs a FontStyleCode enum value.
+     *
+     * @param code The ANSI escape code string.
+     */
+    StyleCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * Gets the ANSI escape code string for the font style.
+     *
+     * @return The ANSI escape code string.
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * Returns the ANSI code itself, making it easy to use in print statements.
+     *
+     * @return The ANSI escape code string.
+     */
+    @Override
+    public String toString() {
+        return code;
+    }
+}
+

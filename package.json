@@ -1,0 +1,17 @@
+{
+  "src" : {
+    "core" : {
+       "ansi" : {
+         "interfaces" : "AnsiCode",
+         "enums" : ["BackgroundCode, ColorCode, ResetCode, StyleCode"]
+       },
+      "clique" : {
+        "factory-classes" : "Clique"
+      },
+      "style" : {
+         "interfaces" : "StyleBuilder",
+        "classes" : "StyleBuilderImpl"
+      }
+    }
+  }
+}
