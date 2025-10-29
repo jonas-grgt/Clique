@@ -7,12 +7,12 @@ import core.ansi.interfaces.AnsiCode;
  */
 public enum StyleCode implements AnsiCode {
     // Enum constants with their corresponding ANSI codes
+    // The single constant representing the reset code
+    RESET("\u001B[0m"),
     BOLD("\u001B[1m"),
     DIM("\u001B[2m"),
     ITALIC("\u001B[3m"),
     UNDERLINE("\u001B[4m"),
-    BLINK("\u001B[5m"),
-    RAPID_BLINK("\u001B[6m"),
     REVERSE_VIDEO("\u001B[7m"),
     INVISIBLE_TEXT("\u001B[8m");
 

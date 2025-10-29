@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="" />
+    <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/parser/CliqueParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/parser/maps/CliqueParserMaps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/parser/token/ParserToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RANDOM.md" beforeDir="false" afterPath="$PROJECT_DIR$/RANDOM.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ansi/enums/BackgroundCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ansi/enums/BackgroundCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ansi/enums/ColorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ansi/enums/ColorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ansi/enums/ResetCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ansi/enums/StyleCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ansi/enums/StyleCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/clique/Clique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/style/builder/StyleBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/style/builder/StyleBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/style/builder/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/style/builder/StyleBuilderImpl.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +30,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
@@ -21,6 +38,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "kusoroadeolu"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/kusoroadeolu/Clique.git",
+    "accountId": "10531cfc-5bc6-448d-a6e9-794c551920aa"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -36,7 +65,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -51,6 +80,20 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\eastw\Git Projects\Personal\Clique" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Clique" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -68,7 +111,7 @@
       <option name="presentableId" value="Default" />
       <updated>1761647399181</updated>
       <workItem from="1761647400639" duration="8716000" />
-      <workItem from="1761672721277" duration="4733000" />
+      <workItem from="1761672721277" duration="24710000" />
     </task>
     <servers />
   </component>

@@ -6,7 +6,7 @@ import core.style.builder.StyleBuilderImpl;
 /**
  * A factory class to hide the instantiation of the style builder
  * */
-public class Clique {
+public final class Clique {
     public static StyleBuilder printer(){
         return new StyleBuilderImpl();
     }

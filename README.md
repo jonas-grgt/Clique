@@ -40,7 +40,7 @@ You can get the styledText after appending strings by using the `get` method
 - Markdown based parsing 
 ```java
 CliqueParser parser = new CliqueParser(StyleCode.UNDERLINE); //Style code that will apply to all the text parsed with the parser
-parser.print("[red, bold] Hello [green dim] World") //Should output a Hello World fully underlined with their respective colors
+parser.print("[red, ul]Hello[green dim]World[/]") //Should output a Hello World fully underlined with their respective colors
 ```
 - Tables
 - Interactive options
