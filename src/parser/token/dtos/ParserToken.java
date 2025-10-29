@@ -1,4 +1,4 @@
-package parser.token;
+package parser.token.dtos;
 
 import core.ansi.interfaces.AnsiCode;
 

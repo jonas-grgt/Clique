@@ -1,4 +1,4 @@
-package parser.maps;
+package parser.map;
 
 import core.ansi.enums.BackgroundCode;
 import core.ansi.enums.ColorCode;
@@ -7,9 +7,9 @@ import core.ansi.enums.StyleCode;
 import java.util.Map;
 
 //A simple class which holds the maps of the syntax
-public final class CliqueParserMaps {
+public final class StyleMaps {
 
-    private CliqueParserMaps(){
+    private StyleMaps(){
 
     }
 
@@ -59,7 +59,7 @@ public final class CliqueParserMaps {
             Map.entry("*bg_red", BackgroundCode.BRIGHT_RED),
             Map.entry("*bg_green", BackgroundCode.BRIGHT_GREEN),
             Map.entry("*bg_yellow", BackgroundCode.BRIGHT_YELLOW),
-            Map.entry("*bg_blue", BackgroundCode.BRIGHT_BLUE), // Kept your original example
+            Map.entry("*bg_blue", BackgroundCode.BRIGHT_BLUE),
             Map.entry("*bg_magenta", BackgroundCode.BRIGHT_MAGENTA),
             Map.entry("*bg_cyan", BackgroundCode.BRIGHT_CYAN),
             Map.entry("*bg_white", BackgroundCode.BRIGHT_WHITE)

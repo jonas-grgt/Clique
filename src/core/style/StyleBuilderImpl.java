@@ -1,4 +1,4 @@
-package core.style.builder;
+package core.style;
 
 import core.ansi.enums.StyleCode;
 import core.ansi.interfaces.AnsiCode;
@@ -20,7 +20,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * @return The styled text
      * */
     @Override
-    public String apply(String text, AnsiCode ansiCode) {
+    public String format(String text, AnsiCode ansiCode) {
         if (ansiCode == null)return text;
         return this.style(text, ansiCode);
     }
@@ -32,7 +32,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * @return The styled text
      * */
     @Override
-    public String apply(String text, AnsiCode... ansiCodes) {
+    public String format(String text, AnsiCode... ansiCodes) {
         return this.style(text, ansiCodes)
                 .toString();
     }
@@ -45,8 +45,8 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * @return The styled text
      * */
     @Override
-    public String applyAndReset(String text, AnsiCode ansiCode) {
-        return this.apply(text, ansiCode) + RESET;
+    public String formatReset(String text, AnsiCode ansiCode) {
+        return this.format(text, ansiCode) + RESET;
     }
 
     /**
@@ -56,57 +56,57 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * @return The styled text
      * */
     @Override
-    public String applyAndReset(String text, AnsiCode... ansiCodes) {
-        return this.apply(text, ansiCodes) + RESET;
+    public String formatReset(String text, AnsiCode... ansiCodes) {
+        return this.format(text, ansiCodes) + RESET;
     }
 
 
     /**
-     * Applies an ANSI Code to this text
+     * Appends an ANSI Code to this text
      * @param text The text we're appending to the style builder
      * @param ansiCode The ANSI code we're applying to the text
      * @return The instance of this class
      * */
     @Override
-    public StyleBuilder append(String text, AnsiCode ansiCode) {
+    public StyleBuilder stack(String text, AnsiCode ansiCode) {
        this.styleText.append(this.style(text, ansiCode));
        return this;
     }
 
     /**
-     * Applies multiple ANSI Codes to this text
+     * Appends multiple ANSI Codes to this text
      * @param text The text we're appending to the style builder
      * @param ansiCodes The ansiCodes we're applying to the text
      * @return The instance of this class
      * */
     @Override
-    public StyleBuilder append(String text, AnsiCode... ansiCodes) {
+    public StyleBuilder stack(String text, AnsiCode... ansiCodes) {
         this.styleText.append(this.style(text, ansiCodes));
         return this;
     }
 
     /**
-     * Applies an ANSI code to this text and then resets the terminal
+     * Appends an ANSI code to this text and then resets the terminal
      * @param text The text we're applying the ansiCode to
      * @param ansiCode The ANSI code we're applying to the text
      * @return The styled text
      * */
     @Override
-    public StyleBuilder appendAndReset(String text, AnsiCode ansiCode) {
-        this.append(text, ansiCode);
+    public StyleBuilder append(String text, AnsiCode ansiCode) {
+        this.stack(text, ansiCode);
         styleText.append(RESET);
         return this;
     }
 
     /**
-     * Applies an ANSI code to this text and then resets the terminal
+     * Appends an ANSI code to this text and then resets the terminal
      * @param text The text we're applying the ansiCode to
      * @param ansiCodes The ANSI code we're applying to the text
      * @return The styled text
      * */
     @Override
-    public StyleBuilder appendAndReset(String text, AnsiCode... ansiCodes) {
-        this.append(text, ansiCodes);
+    public StyleBuilder append(String text, AnsiCode... ansiCodes) {
+        this.stack(text, ansiCodes);
         styleText.append(RESET);
         return this;
     }

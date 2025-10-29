@@ -12,4 +12,5 @@ This just contains random things I encountered while making this mini lib
 </br>I noticed that my parser could handle [[[]]] nested brackets like this so, I tried modifying the form close if statement to check if the next character in the string was an opening tag. 
 </br>it worked until it didn't lol. None of my text was getting styled, but it was pretty funny I couldn't wrap my head around how it worked at first
 </br> Genuinely how do you handle nested tags though?? Like its so hard keeping track of depth. Maybe a queue? A stack?
+</br> Damn how do you even fix this lol, every trick breaks the parser one way or the other. Ahh i'll just document it and tell people not to do that
 
