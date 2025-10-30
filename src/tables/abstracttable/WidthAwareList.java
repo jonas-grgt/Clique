@@ -1,21 +1,19 @@
-package tables;
-
-import com.sun.source.tree.NewArrayTree;
+package tables.abstracttable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class LengthAwareList{
+public class WidthAwareList {
     private int longest;
     private final List<String> list;
 
-    public LengthAwareList(){
+    public WidthAwareList(){
         this.longest = 0;
         this.list = new ArrayList<>();
     }
 
-    public LengthAwareList(LengthAwareList list){
+    public WidthAwareList(WidthAwareList list){
         this();
         this.addAll(list);
     }
@@ -78,13 +76,12 @@ public class LengthAwareList{
 
     private int calculateLongest(){
         return this.list.stream()
-                .map(String::length)
-                .sorted(Comparator.reverseOrder())
-                .toList()
-                .getFirst();
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
     }
 
-    private void addAll(LengthAwareList list) {
+    private void addAll(WidthAwareList list) {
         for(int i = 0; i < list.list().size(); i++){
             this.add(list.list().get(i));
         }

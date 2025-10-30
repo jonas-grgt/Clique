@@ -13,4 +13,7 @@ This just contains random things I encountered while making this mini lib
 </br>it worked until it didn't lol. None of my text was getting styled, but it was pretty funny I couldn't wrap my head around how it worked at first
 </br> Genuinely how do you handle nested tags though?? Like its so hard keeping track of depth. Maybe a queue? A stack?
 </br> Damn how do you even fix this lol, every trick breaks the parser one way or the other. Ahh i'll just document it and tell people not to do that
+</br> I actually fixed the bug, it was actually just a simple if check to see if the extracted char started with a form start lol. 
+</br> Ok no that didn't work, another bug popped up, honestly I'll leave it as it was just don't put in malformed input
 
+- Ok I just got 3 tables working. They were actually easier than I expected lol, maybe I'll add more table styles later but for now I need to add table configurations 

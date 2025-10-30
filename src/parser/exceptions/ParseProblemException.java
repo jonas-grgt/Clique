@@ -1,4 +1,4 @@
-package parser.token.exceptions;
+package parser.exceptions;
 
 public class ParseProblemException extends RuntimeException {
     public ParseProblemException(String message) {

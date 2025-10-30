@@ -1,10 +1,10 @@
 package parser.token.stringparser.interfaces;
 
-import parser.token.stringparser.AnsiParserType;
-import parser.token.stringparser.DefaultAnsiStringParser;
-import parser.token.stringparser.DynamicAnsiStringParser;
+import parser.configuration.ParserConfiguration;
 
 public interface AnsiStringParser {
+
+    AnsiStringParser configuration(ParserConfiguration configuration);
 
     String parse(String stringToParse);
 
@@ -12,12 +12,4 @@ public interface AnsiStringParser {
         System.out.println(this.parse(stringToParse));
     }
 
-    static AnsiStringParser typeOf(AnsiParserType type){
-        if (type == null) throw new IllegalArgumentException("Parser type cannot be null");
-
-        return switch (type){
-            case DEFAULT -> new DefaultAnsiStringParser();
-            case DYNAMIC -> new DynamicAnsiStringParser();
-        };
-    }
 }

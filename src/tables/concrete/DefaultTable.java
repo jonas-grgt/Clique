@@ -1,8 +1,11 @@
-package tables;
+package tables.concrete;
+
+import tables.abstracttable.WidthAwareList;
+import tables.abstracttable.AbstractTable;
 
 import static utils.StringUtils.clearStringBuilder;
 
-public class DefaultTable extends AbstractTable{
+public class DefaultTable extends AbstractTable {
 
     private final StringBuilder tableBuilder;
     private static final String B_EDGE = "+";
@@ -19,17 +22,17 @@ public class DefaultTable extends AbstractTable{
         clearStringBuilder(this.tableBuilder);
 
         final StringBuilder sb = new StringBuilder();
-        final String headerAndFooter = this.calculateHeaderAndFooter(sb);
+        final String headerAndFooter = this.calculateHeader(sb);
 
         clearStringBuilder(sb);
         this.tableBuilder.append(headerAndFooter).append("\n");
 
-        for (final LengthAwareList list : this.rows) {
+        for (final WidthAwareList list : this.rows) {
             this.tableBuilder.append(V_LINE);
 
             for (int j = 0; j < list.size(); j++) {
                 final String s = list.get(j);
-                final LengthAwareList cl = this.columns.get(j);
+                final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
 
                 final int offset = (longest - s.length()) + 1; //Add one to avoid cramping
@@ -53,8 +56,8 @@ public class DefaultTable extends AbstractTable{
 
 
     //Dynamically calculate the header and footer for the table
-    private String calculateHeaderAndFooter(StringBuilder sb){
-        for (final LengthAwareList l : this.columns) {
+    public String calculateHeader(StringBuilder sb){
+        for (final WidthAwareList l : this.columns) {
             sb.append(B_EDGE);
             sb.repeat(H_LINE, l.longest() + 1);
         }

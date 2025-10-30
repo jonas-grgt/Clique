@@ -1,8 +1,7 @@
 package parser.token;
 
 import core.ansi.interfaces.AnsiCode;
-import parser.token.dtos.ParserToken;
-import parser.token.exceptions.UnidentifiedStyleException;
+import parser.exceptions.UnidentifiedStyleException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +48,8 @@ public final class TokenExtractor {
 
             if (c == FORM_CLOSE){
                 String extractedStr = stringToParse.substring(fs, i + 1); //Parse the extracted string and skip the braces
-                List<AnsiCode> validStyles = this.getValidStyles(extractedStr);
 
+                List<AnsiCode> validStyles = this.getValidStyles(extractedStr);
                 if(validStyles != null && !validStyles.isEmpty()){ //Check if there are any valid styles in the list
                     tokens.add(new ParserToken(fs, i, validStyles));
                 }
@@ -71,7 +70,7 @@ public final class TokenExtractor {
         final List<AnsiCode> validStyles = new ArrayList<>();
         for (String s : styles){
             s = s.toLowerCase(Locale.ROOT).trim();
-            this.addExistingValidStyles(s, validStyles);
+            this.addValidStyles(s, validStyles);
 
         }
 
@@ -82,8 +81,8 @@ public final class TokenExtractor {
         return s.replace(String.valueOf(FORM_START), EMPTY).replace(String.valueOf(FORM_CLOSE), EMPTY);
     }
 
-    // A helper method that checks if each map contains a key of s
-    private void addExistingValidStyles(String s, List<AnsiCode> validStyles){
+    // A helper method that checks if each map contains a key of the given string
+    private void addValidStyles(String s, List<AnsiCode> validStyles){
         AnsiCode code = colorCodes.get(s);
         if(code != null){
             validStyles.add(code);
@@ -107,12 +106,14 @@ public final class TokenExtractor {
         }
     }
 
-    public void setDelimiter(char delimiter) {
+    public TokenExtractor setDelimiter(String delimiter) {
         this.delimiter = String.valueOf(delimiter);
+        return this;
     }
 
-    public void setEnableStrictParsing(boolean enableStrictParsing) {
+    public TokenExtractor setEnableStrictParsing(boolean enableStrictParsing) {
         this.enableStrictParsing = enableStrictParsing;
+        return this;
 
     }
 }

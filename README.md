@@ -11,7 +11,7 @@ System.out.println("\u001B[31m\u001B[1mError:\u001B[0m File not found");
 
 Clique makes it clean:
 ```java
-Clique.ofDefault().print("[red, bold]Error:[/] File not found");
+Clique.parser().print("[red, bold]Error:[/] File not found");
 ```
 
 ### IMPLEMENTATION
@@ -58,40 +58,46 @@ String styledText = Clique.styleBuilder()
 ### Markup Parsing
 Clique supports a markup parsing format for less verbose style building
 
-The `AnsiStringParser` interface currently supports 2 parsing styles
-- `DefaultAnsiStringParser`. This allows you to parse supported markup strings with lenient parsing and the default delimiter. It is not configurable
+- `AnsiStringParser`. This allows you to parse supported markup strings with default parsing configurations i.e. lenient parsing, a default delimiter and tags are
 
 ```java
-import parser.token.stringparser.interfaces.AnsiStringParser;
-
-String str = "[red, bold]Hello[/] [blue, ul]World";
-AnsiStringParser defaultParser = Clique.ofDefault(); 
-defaultParser.print(str); //This will print `Hello` as red and bold, reset and print `World` as blue and underlined
+String str = "[red, bold]Hello [blue, ul]World";
+AnsiStringParser parser = Clique.parser(); 
+parser.print(str); //This will print `Hello` as red and bold, reset and print `World` as blue and underlined
 ```
 
-- `DynamicAnsiStringPrinter`. This allows you to configure your parser to enable strict parsing or set your custom delimiter
+- `ParserConfiguration`. This allows you to configure your parser to enable strict parsing, set your custom delimiter or auto close tags
+
 ```java
-String str = "[red bold]Hello[/] [blue ul]World";
-AnsiStringParser dynamicParser = Clique.ofDynamic()
-      .setDelimiter(' ');
-dynamicParser.print(str);
+import parser.configuration.ParserConfiguration;
+
+String str = "[red bold]Hello[blue] World"; //Notice there are no commas as the delimiter here
+ParserConfiguration configuration = ParserConfiguration
+                                        .builder()
+                                        .enableAutoCloseTags() //Auto closes tags for you
+                                        .enableStrictParsing() //Parser will throw an error if it finds a style that does not exist
+                                        .delimiter(' '); //Set the default delimiter to a space
+AnsiStringParser configuredParser = Clique.parser()
+        .configuration(configuration);
+
+
+configuredParser.print(str);
 ```
 Here we can see we set a custom delimiter. This allows for more flexibility for those who don't want to use the default `comma` delimiter
 
 ```java
+import core.clique.Clique;
+
 //What if we have a misplaced style or a style that doesn't exist, the parser will throw an error
 String str = "[red bol]Hello[/] [blue ul]World";
-AnsiStringParser dynamicParser = Clique.ofDynamic()
-        .enableStrictParsing()
-        .setDelimiter(' ');
-dynamicParser.print(str);
+AnsiStringParser parser = Clique.parser();
+String parsed = parser.parse(str);
 ```
 Here, because the style `bol` doesn't exist and strict parsing is enabled, the parser will throw an `UnidentifedStyleException` indicating the style doesn't exist.
 
-**NOTE:** Malformed styles i.e `[[[red]` will cause the parser to fail and throw a `ParseProblemException`
+**NOTE:** Malformed styles i.e. `[[[red]` will cause the parser to fail and throw a `ParseProblemException`
 
 ## Supported Markup Options
-
 Clique supports **text color**, **background color**, and **text style** tags inside markup strings.
 
 ---
@@ -101,14 +107,14 @@ Clique supports **text color**, **background color**, and **text style** tags in
 Use standard or bright color names:
 
 | Type | Example | Description |
-|------|----------|-------------|
+|------|----------|------------|
 | Standard | `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`, `black` | Basic ANSI text colors |
 | Bright | `*red`, `*green`, `*yellow`, `*blue`, `*magenta`, `*cyan`, `*white`, `*black` | Brighter versions of the standard colors |
 
 **Example**
 ```java
-Clique.ofDefault().print("[red, bold]Error:[/] File not found");
-Clique.ofDefault().print("[*blue]Bright blue text[/]");
+Clique.parser().print("[red, bold]Error:[/] File not found");
+Clique.parser().print("[*blue]Bright blue text[/]");
 ```
 
 ---
@@ -125,8 +131,8 @@ Use `*bg_` for bright backgrounds.
 
 **Example**
 ```java
-Clique.ofDefault().print("[bg_red, white]Alert![/]");
-Clique.ofDefault().print("[*bg_blue, *white]Bright background[/]");
+Clique.parser().print("[bg_red, white]Alert![/]");
+Clique.parser().print("[*bg_blue, *white]Bright background[/]");
 ```
 
 ---
@@ -147,8 +153,8 @@ Clique supports a range of ANSI text effects:
 
 **Example**
 ```java
-Clique.ofDefault().print("[bold, ul]Important[/] [dim]subtle note[/]");
-Clique.ofDefault().print("[rv]Inverted colors![/]");
+Clique.parser().print("[bold, ul]Important[/] [dim]subtle note[/]");
+Clique.parser().print("[rv]Inverted colors![/]");
 ```
 
 ---
@@ -165,8 +171,24 @@ Clique.ofDefault().print("[rv]Inverted colors![/]");
 | Reset | `[red]Text[/][/]` | Resets style after closing tag |
 
 
+## Tables
+Tables are a feature of Clique that are still in development. For a brief introduction, there are currently 3 tables
+1. Default table 
+2. Compact table
+3. Box Draw Table
+
+All of these tables are hidden behind the table interface and can be accessed using the `TableFactory` class. 
+
+**Note that some things here are subject to change**
+
+```java
+TableFactory.getTable(TableType.COMPACT)
+.addHeaders("Name", "Age", "Class")
+.addRows("John", "25", "Class A")
+.addRows("Doe", "26", "Class B")
+.render();
+```
 
 ## Features yet to be implemented
-- Tables
 - Interactive options(Still considering this)
 - Full terminal support for all OS's

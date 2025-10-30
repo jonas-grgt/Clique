@@ -3,13 +3,18 @@ package parser.token;
 import core.ansi.interfaces.AnsiCode;
 import core.clique.Clique;
 import core.style.StyleBuilder;
-import parser.token.dtos.ParserToken;
-import parser.token.exceptions.ParseProblemException;
+import parser.exceptions.ParseProblemException;
 
 import java.util.List;
 
 
 public final class StyleApplicator {
+
+    private boolean enableAutoCloseTags;
+
+    public StyleApplicator(){
+        this.enableAutoCloseTags = false;
+    }
 
     //Restyle the extracted string with the given colors
     public String restyleString(List<ParserToken> tokens, String extractedString) {
@@ -29,15 +34,21 @@ public final class StyleApplicator {
 
         try{
             for (int i = 0; i < size; i++){
-                ParserToken curr = tokens.get(i);
-                ParserToken next = i != (size - 1) ? tokens.get(i + 1) :
+                final ParserToken curr = tokens.get(i);
+                final ParserToken next = i != (size - 1) ? tokens.get(i + 1) :
                         new ParserToken(extractedString.length(), 0, null); //if we're at the end of the loop, we apply the current style to the rem of the string
 
                 final AnsiCode[] codes = curr.validStyles().toArray(new AnsiCode[0]);
                 final int start = curr.end() + 1;
                 final int end = next.start();
                 val = extractedString.substring(start , end);
-                sb.append(stb.format(val, codes)); //Append the styled string to the builder. Does not reset the terminal
+
+                if(this.enableAutoCloseTags){
+                    sb.append(stb.formatReset(val, codes));
+                    continue;
+                }
+
+                sb.append(stb.format(val, codes));
             }
         }catch (StringIndexOutOfBoundsException e){
             throw new ParseProblemException("Failed to parse string. This often happens when style tags have nested brackets like '[[red]]'.", e);
@@ -46,4 +57,12 @@ public final class StyleApplicator {
         return sb.toString();
     }
 
+    public boolean autoCloseTags() {
+        return enableAutoCloseTags;
+    }
+
+    public StyleApplicator setEnableAutoCloseTags(boolean enableAutoCloseTags) {
+        this.enableAutoCloseTags = enableAutoCloseTags;
+        return this;
+    }
 }

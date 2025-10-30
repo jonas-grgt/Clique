@@ -1,11 +1,14 @@
-package tables;
+package tables.abstracttable;
+
+import tables.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractTable{
-    protected final List<LengthAwareList> columns; //This is used to track the max length in that column
-    protected final List<LengthAwareList> rows;
+public abstract class AbstractTable implements Table {
+    protected final List<WidthAwareList> columns; //This is used to track the max length in that column
+    protected final List<WidthAwareList> rows;
+
 
     public AbstractTable(){
         this.columns = new ArrayList<>();
@@ -14,14 +17,14 @@ public abstract class AbstractTable{
 
     //Add the headers.
     public AbstractTable addHeaders(String... headers){
-        LengthAwareList rl = new LengthAwareList();
+        WidthAwareList rl = new WidthAwareList();
         this.rows.add(rl);
 
         for (int i = 0; i < headers.length; i++) {
             final String header = headers[i];
             rl.add(header);
 
-            final LengthAwareList cl = new LengthAwareList(); //To keep track of all values in this column
+            final WidthAwareList cl = new WidthAwareList(); //To keep track of all values in this column
             cl.add(header);
             this.columns.add(i, cl);
         }
@@ -35,7 +38,7 @@ public abstract class AbstractTable{
         final int headerSize = this.rows
                 .getFirst()
                 .size();
-        final LengthAwareList rl = new LengthAwareList();
+        final WidthAwareList rl = new WidthAwareList();
         this.rows.add(rl);
 
 
@@ -43,13 +46,13 @@ public abstract class AbstractTable{
             String val;
 
             if(i >= rows.length){
-                val = " ";
+                val = "";
             }else {
                 val = rows[i];
             }
 
             rl.add(val);
-            final LengthAwareList cl = this.columns.get(i);
+            final WidthAwareList cl = this.columns.get(i);
             cl.add(val);
         }
 
@@ -59,5 +62,6 @@ public abstract class AbstractTable{
     public abstract String buildTable();
 
     public abstract void render();
+
 
 }

@@ -1,14 +1,18 @@
-package tables;
+package tables.concrete;
+
+import tables.abstracttable.WidthAwareList;
+import tables.abstracttable.AbstractTable;
 
 import static utils.StringUtils.clearStringBuilder;
 
-public class MinimalTable extends AbstractTable{
+public class CompactTable extends AbstractTable {
 
     private final StringBuilder tableBuilder;
     private static final String H_LINE = "-";
     private static final String V_LINE = "  ";
 
-    public MinimalTable(){
+    public CompactTable(){
+        super();
         this.tableBuilder = new StringBuilder();
     }
 
@@ -18,11 +22,11 @@ public class MinimalTable extends AbstractTable{
         final StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < this.rows.size(); i++) {
-            final LengthAwareList list = this.rows.get(i);
+            final WidthAwareList list = this.rows.get(i);
 
             for (int j = 0; j < list.size(); j++) {
                 final String s = list.get(j);
-                final LengthAwareList cl = this.columns.get(j);
+                final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
 
                 final int offset = longest - s.length();
@@ -52,9 +56,9 @@ public class MinimalTable extends AbstractTable{
     }
 
     //Dynamically calculate the header for the table
-    private String calculateHeader(StringBuilder sb){
+    public String calculateHeader(StringBuilder sb){
         for (int i = 0; i < this.columns.size(); i++) {
-            final LengthAwareList col = this.columns.get(i);
+            final WidthAwareList col = this.columns.get(i);
             sb.repeat(H_LINE, col.longest());
 
             if (i < this.columns.size() - 1) {
