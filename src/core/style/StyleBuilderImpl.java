@@ -2,12 +2,14 @@ package core.style;
 
 import core.ansi.enums.StyleCode;
 import core.ansi.interfaces.AnsiCode;
+import utils.StringUtils;
+
+import static utils.StringUtils.clearStringBuilder;
 
 public non-sealed class StyleBuilderImpl implements StyleBuilder {
 
     private final StringBuilder styleText;
     private final static AnsiCode RESET = StyleCode.RESET;
-    private final static int CLEAR = 0;
 
     public StyleBuilderImpl(){
         this.styleText = new StringBuilder();
@@ -125,7 +127,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
     public void print() {
         System.out.println(this.styleText);
         this.styleText.append(RESET); //Reset all styles
-        this.styleText.setLength(CLEAR); //Clear the sting builder
+        clearStringBuilder(styleText);
     }
 
     //A helper method to style text with the given code

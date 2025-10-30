@@ -6,12 +6,18 @@
          "enums" : ["BackgroundCode, ColorCode, ResetCode, StyleCode"]
        },
       "clique" : {
-        "factory-classes" : "Clique"
+        "facade-class" : "Clique"
       },
       "style" : {
          "interfaces" : "StyleBuilder",
         "classes" : "StyleBuilderImpl"
       }
+    },
+    "parser": {
+      "map": {
+        "classes" : "StyleMaps"
+      },
+      "token":
     }
   }
 }
