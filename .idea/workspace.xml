@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/tables/LengthAwareList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tables/Table.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/StringUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tables/AbstractTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tables/DefaultTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tables/MinimalTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tables/RowBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/LengthAwareList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/LengthAwareList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/Table.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +108,8 @@
       <workItem from="1761647400639" duration="8716000" />
       <workItem from="1761672721277" duration="25506000" />
       <workItem from="1761759681930" duration="13757000" />
-      <workItem from="1761774035340" duration="10775000" />
+      <workItem from="1761774035340" duration="11072000" />
+      <workItem from="1761818502016" duration="6321000" />
     </task>
     <servers />
   </component>

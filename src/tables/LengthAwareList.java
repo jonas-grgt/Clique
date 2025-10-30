@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LengthAwareList{
     private int longest;
-    private List<String> list;
+    private final List<String> list;
 
     public LengthAwareList(){
         this.longest = 0;
