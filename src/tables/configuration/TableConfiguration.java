@@ -3,40 +3,58 @@ package tables.configuration;
 import parser.token.stringparser.interfaces.AnsiStringParser;
 import tables.CellAlign;
 
-/**
- * Configuration settings for table rendering, using a Fluent Setter pattern.
- * Note: This design makes the configuration object mutable.
- */
 public class TableConfiguration {
     private int padding;
-    private CellAlign align;
+    private CellAlign alignment;
     private AnsiStringParser parser;
     private String nullReplacement;
+    private TableBorderStyle tableBorderStyle;
 
 
-    public TableConfiguration() {
-        // Default initialization
+    private TableConfiguration() {
+        // Default config
         this.padding = 1;
-        this.align = CellAlign.LEFT;
+        this.alignment = CellAlign.LEFT;
         this.parser = null;
         this.nullReplacement = "";
+        this.tableBorderStyle = null;
+    }
+
+    public static TableConfiguration builder(){
+        return new TableConfiguration();
     }
 
 
     public int getPadding() {
-        return padding;
+        return this.padding;
     }
 
-    public CellAlign getAlign() {
-        return align;
+    public CellAlign getAlignment() {
+        return this.alignment;
     }
 
     public AnsiStringParser getParser() {
-        return parser;
+        return this.parser;
     }
 
     public String getNullReplacement() {
-        return nullReplacement;
+        return this.nullReplacement;
+    }
+
+
+
+    public TableBorderStyle getTableBorderStyle() {
+        return this.tableBorderStyle;
+    }
+
+    /**
+     * Sets the default table style. Default is null.
+     * @param tableBorderStyle The table style value.
+     * @return The TableConfiguration instance.
+     */
+    public TableConfiguration tableBorderStyle(TableBorderStyle tableBorderStyle) {
+        this.tableBorderStyle = tableBorderStyle;
+        return this;
     }
 
     /**
@@ -54,11 +72,11 @@ public class TableConfiguration {
 
     /**
      * Sets the default cell alignment. Default is CellAlign.LEFT.
-     * @param align The CellAlign value.
+     * @param alignment The CellAlign value.
      * @return The TableConfiguration instance.
      */
-    public TableConfiguration align(CellAlign align) {
-        this.align = align;
+    public TableConfiguration alignment(CellAlign alignment) {
+        this.alignment = alignment;
         return this;
     }
 

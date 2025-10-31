@@ -4,7 +4,6 @@ import core.ansi.interfaces.AnsiCode;
 import parser.exceptions.ParseProblemException;
 import parser.exceptions.UnidentifiedStyleException;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -22,22 +21,22 @@ public final class TokenExtractor {
     private String delimiter;
     private boolean enableStrictParsing;
     private final static String EMPTY = "";
-
     public TokenExtractor(){
         this.delimiter = String.valueOf(',');
         this.enableStrictParsing = false;
     }
 
 
-
     /**
-     * Extracts valid tokens from the given string
+     * Extracts valid tokens and form tags from the given string
      * @param stringToParse The string to parse
-     * @return A list of parser tokens
+     * @return A parse result containing the form tags and the parser tokens
      * */
-    public List<ParserToken> extractTokens(String stringToParse){
+    public ParseResult getParseResult(String stringToParse){
         final List<ParserToken> tokens = new ArrayList<>(); //List to store the tokens gotten from this string
-        if(stringToParse == null || stringToParse.isEmpty()) return tokens;
+        final List<String> formTags = new ArrayList<>(); //Tracks the form tags extracted from this string
+
+        if(stringToParse == null || stringToParse.isEmpty()) return new ParseResult(List.of(), List.of());
 
         final int len = stringToParse.length();
         int fs = 0; //The start of the tag
@@ -56,6 +55,7 @@ public final class TokenExtractor {
 
             if (c == FORM_CLOSE && isTracking){ //Only parse the string if we're still tracking the valid tag
                 String extractedStr = stringToParse.substring(fs, i + 1); //Parse the extracted string and skip the braces
+                formTags.add(extractedStr);
 
                 List<AnsiCode> validStyles = this.getValidStyles(extractedStr);
                 if(validStyles != null && !validStyles.isEmpty()){
@@ -65,14 +65,13 @@ public final class TokenExtractor {
             }
         }
 
-        return tokens;
+        return new ParseResult(tokens, formTags);
     }
 
 
     //Check if there are valid styles in the extracted string
     private List<AnsiCode> getValidStyles(String extractedStr) {
         if (extractedStr.length() <= 2) return null;  //Check if the extracted string is probably empty braces
-
         extractedStr = this.cleanString(extractedStr); //Clean the string
 
         final String[] styles = extractedStr.split(delimiter);
@@ -85,6 +84,7 @@ public final class TokenExtractor {
 
         return validStyles;
     }
+
 
     //Replaces forms with empty strings
     private String cleanString(String s){
@@ -120,6 +120,7 @@ public final class TokenExtractor {
         this.delimiter = String.valueOf(delimiter);
         return this;
     }
+
 
     public TokenExtractor setEnableStrictParsing(boolean enableStrictParsing) {
         this.enableStrictParsing = enableStrictParsing;

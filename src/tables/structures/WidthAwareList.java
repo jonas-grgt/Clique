@@ -1,11 +1,11 @@
-package tables.abstracttable;
+package tables.structures;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WidthAwareList {
     private int longest;
-    private final List<String> list;
+    private final List<Cell> list;
     private String nullReplacement;
 
     public WidthAwareList(){
@@ -20,36 +20,54 @@ public class WidthAwareList {
         this.nullReplacement = nullReplacement;
     }
 
-    public void add(String s){
-        this.validateString(s);
-        this.list.add(s);
+    public void add(Cell c){
+        this.validateCell(c);
+        this.list.add(c);
     }
 
-    public void addFirst(String s){
-        this.validateString(s);
-        this.list.addFirst(s);
+    public void update(int i, Cell c){
+        this.validateCell(c);
+        this.list.set(i, c);
     }
 
-    public void validateString(String s){
-        if(s == null) s = this.nullReplacement;
+    public void addFirst(Cell c){
+        this.validateCell(c);
+        this.list.addFirst(c);
+    }
 
-        final int len = s.length();
+
+    public void validateCell(Cell c){
+        if(c.text() == null){
+            c.setText(this.nullReplacement);
+            c.setText(this.nullReplacement);
+        }
+
+        final int len = c.text().length();
 
         if(len > this.longest){
             this.longest = len;
         }
     }
 
-    public String get(int pos){
+    //Gets the styled text from the table
+    public String getStyledText(int pos){
+        return this.list.get(pos).styledText();
+    }
+
+    public String getOriginalText(int pos){
+        return this.list.get(pos).text();
+    }
+
+    public Cell get(int pos){
         return this.list.get(pos);
     }
 
-    public boolean remove(String s){
 
-        if(s == null) return false;
+    public boolean remove(Cell c){
+        if(c == null) return false;
 
-        final int len = s.length();
-        this.list.remove(s);
+        final int len = c.text().length();
+        this.list.remove(c);
 
         if(this.list.isEmpty()){
             this.longest = 0;
@@ -67,8 +85,11 @@ public class WidthAwareList {
         return this.longest;
     }
 
+    //Get the styled text from the list
     public List<String> list() {
-        return this.list;
+        return this.list.stream()
+                .map(Cell::styledText)
+                .toList();
     }
 
     public int size(){
@@ -77,14 +98,10 @@ public class WidthAwareList {
 
     private int calculateLongest(){
         return this.list.stream()
+                .map(Cell::text)
                 .mapToInt(String::length)
                 .max()
                 .orElse(0);
     }
 
-    private void addAll(WidthAwareList list) {
-        for(int i = 0; i < list.list().size(); i++){
-            this.add(list.list().get(i));
-        }
-    }
 }

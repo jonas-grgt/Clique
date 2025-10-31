@@ -1,9 +1,11 @@
 package tables.concrete;
 
+import core.style.StyleBuilder;
 import tables.CellAlign;
-import tables.abstracttable.WidthAwareList;
+import tables.configuration.TableBorderStyle;
+import tables.configuration.TableConfiguration;
+import tables.structures.WidthAwareList;
 import tables.abstracttable.AbstractTable;
-import utils.TableUtils;
 
 import static utils.StringUtils.clearStringBuilder;
 import static utils.TableUtils.align;
@@ -11,32 +13,35 @@ import static utils.TableUtils.align;
 public class CompactTable extends AbstractTable {
 
     private final StringBuilder tableBuilder;
-    private static final String H_LINE = "-";
+    private String hLine;
     private String vLine;
 
-    public CompactTable(){
-        super();
+    public CompactTable(TableConfiguration tableConfiguration){
+        super(tableConfiguration);
         this.tableBuilder = new StringBuilder();
         this.vLine = " ".repeat(this.tableConfiguration.getPadding());
+        this.hLine = "-";
+        this.styleTableBorders();
     }
 
     @Override
     public String buildTable() {
         clearStringBuilder(this.tableBuilder);
         final StringBuilder sb = new StringBuilder();
-        final CellAlign cellAlign = this.tableConfiguration.getAlign();
+        final CellAlign cellAlign = this.tableConfiguration.getAlignment();
 
 
         for (int i = 0; i < this.rows.size(); i++) {
             final WidthAwareList list = this.rows.get(i);
 
             for (int j = 0; j < list.size(); j++) {
-                final String cell = list.get(j);
+                final String styledCell = list.getStyledText(j);
+                final String originalCell = list.getOriginalText(j);
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
 
-                final int offset = longest - cell.length();
-                this.tableBuilder.append(align(cellAlign, sb, offset, cell, ""));
+                final int offset = longest - originalCell.length();
+                this.tableBuilder.append(align(cellAlign, sb, offset, styledCell, ""));
 
                 if (j < list.size() - 1) {
                     this.tableBuilder.append(vLine);
@@ -64,7 +69,7 @@ public class CompactTable extends AbstractTable {
     public String calculateHeader(StringBuilder sb){
         for (int i = 0; i < this.columns.size(); i++) {
             final WidthAwareList col = this.columns.get(i);
-            sb.repeat(H_LINE, col.longest());
+            sb.repeat(hLine, col.longest());
 
             if (i < this.columns.size() - 1) {
                 sb.append(vLine);
@@ -72,5 +77,12 @@ public class CompactTable extends AbstractTable {
         }
 
         return sb.toString();
+    }
+
+
+    private void styleTableBorders(){
+        if(this.tableConfiguration.getTableBorderStyle() == null)return;
+        final StyleBuilder sb = TableBorderStyle.styleBuilder();
+        this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles());
     }
 }

@@ -1,7 +1,11 @@
 package tables.concrete;
 
+import core.ansi.interfaces.AnsiCode;
+import core.style.StyleBuilder;
 import tables.CellAlign;
-import tables.abstracttable.WidthAwareList;
+import tables.configuration.TableBorderStyle;
+import tables.configuration.TableConfiguration;
+import tables.structures.WidthAwareList;
 import tables.abstracttable.AbstractTable;
 
 import static utils.StringUtils.clearStringBuilder;
@@ -9,24 +13,37 @@ import static utils.TableUtils.align;
 
 public class BoxDrawTable extends AbstractTable{
     private final StringBuilder tableBuilder;
-    private static final String H_LINE = "─";
-    private static final String V_LINE = "│";
+    private String hLine;
+    private String vLine;
 
-    private static final String TOP_LEFT = "┌";
-    private static final String TOP_RIGHT = "┐";
-    private static final String BOTTOM_LEFT = "└";
-    private static final String BOTTOM_RIGHT = "┘";
+    private String topLeft;
+    private String topRight;
+    private String bottomLeft;
+    private String bottomRight;
 
-    private static final String TOP_JOIN = "┬";
-    private static final String BOTTOM_JOIN = "┴";
-    private static final String LEFT_JOIN = "├";
-    private static final String RIGHT_JOIN = "┤";
+    private String topJoin;
+    private String bottomJoin;
+    private String leftJoin;
+    private String rightJoin;
 
-    private static final String CROSS = "┼";
+    private String cross;
 
-    public BoxDrawTable(){
-        super();
+    public BoxDrawTable(TableConfiguration tableConfiguration){
+        super(tableConfiguration);
         this.tableBuilder = new StringBuilder();
+
+        this.hLine = "─";
+        this.vLine = "│";
+        this.topLeft = "┌";
+        this.topRight = "┐";
+        this.bottomLeft = "└";
+        this.bottomRight = "┘";
+        this.topJoin = "┬";
+        this.bottomJoin = "┴";
+        this.leftJoin = "├";
+        this.rightJoin = "┤";
+        this.cross = "┼";
+        this.styleTableBorders();
     }
 
     @Override
@@ -41,7 +58,7 @@ public class BoxDrawTable extends AbstractTable{
         final String headerEnd = this.calculateHeaderEnd(sb);
         clearStringBuilder(sb);
         final int padding = this.tableConfiguration.getPadding();
-        final CellAlign cellAlign = this.tableConfiguration.getAlign();
+        final CellAlign cellAlign = this.tableConfiguration.getAlignment();
 
 
         //Build
@@ -49,15 +66,16 @@ public class BoxDrawTable extends AbstractTable{
         for (int i = 0; i < this.rows.size(); i++) {
             final WidthAwareList list = this.rows.get(i);
             //noinspection DuplicatedCode
-            this.tableBuilder.append(V_LINE);
+            this.tableBuilder.append(vLine);
 
             for (int j = 0; j < list.size(); j++) {
-                final String cell = list.get(j);
+                final String styledCell = list.getStyledText(j);
+                final String originalCell = list.getOriginalText(j);
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
 
-                final int offset = longest - cell.length() + padding; //Add one to avoid cramping
-                this.tableBuilder.append(align(CellAlign.LEFT, sb, offset, cell, V_LINE));
+                final int offset = (longest - originalCell.length()) + padding; //Add one to avoid cramping
+                this.tableBuilder.append(align(cellAlign, sb, offset, styledCell, vLine));
                 clearStringBuilder(sb);
             }
 
@@ -68,27 +86,27 @@ public class BoxDrawTable extends AbstractTable{
             this.tableBuilder.append("\n");
         }
 
-        this.tableBuilder.append(footer).append("\n");
+        this.tableBuilder.append(footer);
         return this.tableBuilder.toString();
     }
 
     public String calculateHeader(StringBuilder sb) {
-        return calculateEdges(sb, TOP_LEFT, TOP_JOIN, TOP_RIGHT);
+        return calculateEdges(sb, topLeft, topJoin, topRight);
     }
 
     public String calculateFooter(StringBuilder sb) {
-        return calculateEdges(sb, BOTTOM_LEFT, BOTTOM_JOIN, BOTTOM_RIGHT);
+        return calculateEdges(sb, bottomLeft, bottomJoin, bottomRight);
     }
 
     public String calculateHeaderEnd(StringBuilder sb){
-        return calculateEdges(sb, LEFT_JOIN, CROSS, RIGHT_JOIN);
+        return calculateEdges(sb, leftJoin, cross, rightJoin);
     }
 
     private String calculateEdges(StringBuilder sb, String left, String join, String right) {
         sb.append(left);
         for (int i = 0; i < this.columns.size(); i++){
             final WidthAwareList l = this.columns.get(i);
-            sb.repeat(H_LINE, l.longest() + this.tableConfiguration.getPadding());
+            sb.repeat(hLine, l.longest() + this.tableConfiguration.getPadding());
 
             if(i < this.columns.size() - 1){
                 sb.append(join);
@@ -99,10 +117,33 @@ public class BoxDrawTable extends AbstractTable{
         return sb.toString();
     }
 
-    @Override
+
     public void render() {
         System.out.println(this.buildTable());
     }
+
+
+    private void styleTableBorders(){
+        if(this.tableConfiguration.getTableBorderStyle() == null) return;
+        final StyleBuilder sb = TableBorderStyle.styleBuilder();
+        final AnsiCode[] horizontalStyles = this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles();
+        final AnsiCode[] verticalStyles = this.tableConfiguration.getTableBorderStyle().getVerticalBorderStyles();
+        final AnsiCode[] cornerStyles = this.tableConfiguration.getTableBorderStyle().getEdgeBorderStyles();
+
+        this.hLine = sb.formatReset(this.hLine, horizontalStyles);
+        this.vLine = sb.formatReset(this.vLine, verticalStyles);
+        this.topLeft = sb.formatReset(this.topLeft, cornerStyles);
+        this.topRight = sb.formatReset(this.topRight, cornerStyles);
+        this.bottomLeft = sb.formatReset(this.bottomLeft, cornerStyles);
+        this.bottomRight = sb.formatReset(this.bottomRight, cornerStyles);
+        this.topJoin = sb.formatReset(this.topJoin, horizontalStyles);
+        this.bottomJoin = sb.formatReset(this.bottomJoin, horizontalStyles);
+        this.leftJoin = sb.formatReset(this.leftJoin, verticalStyles);
+        this.rightJoin = sb.formatReset(this.rightJoin, verticalStyles);
+        this.cross = sb.formatReset(this.cross, horizontalStyles);
+
+    }
+
 
 
 }

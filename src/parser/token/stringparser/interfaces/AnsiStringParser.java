@@ -12,4 +12,5 @@ public interface AnsiStringParser {
         System.out.println(this.parse(stringToParse));
     }
 
+    String getOriginalString();
 }

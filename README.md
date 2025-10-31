@@ -172,23 +172,46 @@ Clique.parser().print("[rv]Inverted colors![/]");
 
 
 ## Tables
-Tables are a feature of Clique that are still in development. For a brief introduction, there are currently 3 tables
+Tables are a feature of Clique that will still be expanded(i.e. More tables). For a brief introduction, there are currently 3 tables
 1. Default table 
-2. Compact table
+2. Compact/Minimal table
 3. Box Draw Table
 
-All of these tables are hidden behind the table interface and can be accessed using the `TableFactory` class. 
+All of these tables are abstracted behind the table interface and can be accessed using the `Clique` facade.
+```java
+Table t = Clique.table(TableType.COMPACT);
+t.addHeaders("Name", "Age", "Class")
+                .addRows("John", "25", "Class A")
+                .addRows("Doe", "26", "Class B")
+t.render(); //Print the table on the terminal
+```
 
-**Note that some things here are subject to change**
+#### Table Configuration
+If you want more stylistic choices for your tables, you can use the `TableConfiguration` class to configure and style your tables
 
 ```java
-TableFactory.getTable(TableType.COMPACT)
-.addHeaders("Name", "Age", "Class")
-.addRows("John", "25", "Class A")
-.addRows("Doe", "26", "Class B")
-.render();
+TableBorderStyle style = TableBorderStyle.builder() 
+                .horizontalBorderStyles(ColorCode.CYAN)
+                .verticalBorderStyles(ColorCode.MAGENTA)
+                .edgeBorderStyles(ColorCode.YELLOW))
+
+TableConfiguration configuration = TableConfiguration
+        .builder()
+        .tableBorderStyle(style) //Style class for styling table borders
+        .parser(Clique.parser()); //Set a parser for the table to enable markup formatting for rows
+        .alignemnt(CellAlign.CENTER) //Centers each row's values. Rows are left aligned by default
+        .padding(2) //The amount of whitespace added to each value in a cell to avoid cramping
+        .nullReplacement("empty") //The value to replace null cells in the table with. This by default is set to " ";
+
+Table t = Clique.table(TableType.DEFAULT);
+Table t = Clique.table(TableType.DEFAULT, configuration)
+        .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]") //Notice the markup. This will automatically be parsed by the parser
+        .addRows("[red]John[/]", "25", "Class A")
+        .addRows("[red]Doe[/]", "26", "Class B");
+t.render();
 ```
+
+**NOTE** That more table styles will be implemented soon. Rounded Box Draw, Markdown tables
 
 ## Features yet to be implemented
 - Interactive options(Still considering this)
-- Full terminal support for all OS's
