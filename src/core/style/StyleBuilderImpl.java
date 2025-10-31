@@ -125,8 +125,8 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * */
     @Override
     public void print() {
-        System.out.println(this.styleText);
         this.styleText.append(RESET); //Reset all styles
+        System.out.println(this.styleText);
         clearStringBuilder(styleText);
     }
 

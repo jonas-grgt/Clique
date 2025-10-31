@@ -15,5 +15,6 @@ This just contains random things I encountered while making this mini lib
 </br> Damn how do you even fix this lol, every trick breaks the parser one way or the other. Ahh i'll just document it and tell people not to do that
 </br> I actually fixed the bug, it was actually just a simple if check to see if the extracted char started with a form start lol. 
 </br> Ok no that didn't work, another bug popped up, honestly I'll leave it as it was just don't put in malformed input
+</br> Wait, I just added a is tracking tag cuz of a mini bug that popped up and it worked? How???? How did that fix the main bug lmao
 
 - Ok I just got 3 tables working. They were actually easier than I expected lol, maybe I'll add more table styles later but for now I need to add table configurations 

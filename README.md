@@ -95,7 +95,7 @@ String parsed = parser.parse(str);
 ```
 Here, because the style `bol` doesn't exist and strict parsing is enabled, the parser will throw an `UnidentifedStyleException` indicating the style doesn't exist.
 
-**NOTE:** Malformed styles i.e. `[[[red]` will cause the parser to fail and throw a `ParseProblemException`
+**NOTE:** Malformed styles i.e. `[[[red]` or `[red[bold]]`might cause weird styling issues. With strict parsing enabled it will throw a parse problem exception
 
 ## Supported Markup Options
 Clique supports **text color**, **background color**, and **text style** tags inside markup strings.
@@ -168,7 +168,7 @@ Clique.parser().print("[rv]Inverted colors![/]");
 | Background | `[bg_yellow, black]Text[/]` | Black text on yellow background |
 | Bright Background | `[*bg_green, white]Text[/]` | White text on bright green background |
 | Style | `[bold, ul, red]Text[/]` | Red, bold, and underlined |
-| Reset | `[red]Text[/][/]` | Resets style after closing tag |
+| Reset | `[red]Text[/]` | Resets style after closing tag |
 
 
 ## Tables

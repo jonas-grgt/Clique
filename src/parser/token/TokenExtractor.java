@@ -1,8 +1,10 @@
 package parser.token;
 
 import core.ansi.interfaces.AnsiCode;
+import parser.exceptions.ParseProblemException;
 import parser.exceptions.UnidentifiedStyleException;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -39,19 +41,26 @@ public final class TokenExtractor {
 
         final int len = stringToParse.length();
         int fs = 0; //The start of the tag
+        boolean isTracking = false; //Tracking boolean to keep track of if we're currently tracking a style or not
 
         for (int i = 0; i < len; i++){
             final char c = stringToParse.charAt(i);
             if (c == FORM_START){ //This will always switch the form start, if it finds another [ after this
+                if(isTracking && this.enableStrictParsing){ //If we're still tracking, this means we have nested form starts
+                    throw new ParseProblemException("Nested tag detected without closure at char: " + i);
+                }
+
                 fs = i;
+                isTracking = true;
             }
 
-            if (c == FORM_CLOSE){
+            if (c == FORM_CLOSE && isTracking){ //Only parse the string if we're still tracking the valid tag
                 String extractedStr = stringToParse.substring(fs, i + 1); //Parse the extracted string and skip the braces
 
                 List<AnsiCode> validStyles = this.getValidStyles(extractedStr);
-                if(validStyles != null && !validStyles.isEmpty()){ //Check if there are any valid styles in the list
+                if(validStyles != null && !validStyles.isEmpty()){
                     tokens.add(new ParserToken(fs, i, validStyles));
+                    isTracking = false;
                 }
             }
         }
@@ -77,6 +86,7 @@ public final class TokenExtractor {
         return validStyles;
     }
 
+    //Replaces forms with empty strings
     private String cleanString(String s){
         return s.replace(String.valueOf(FORM_START), EMPTY).replace(String.valueOf(FORM_CLOSE), EMPTY);
     }
