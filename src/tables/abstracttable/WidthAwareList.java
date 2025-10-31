@@ -1,23 +1,24 @@
 package tables.abstracttable;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class WidthAwareList {
     private int longest;
     private final List<String> list;
+    private String nullReplacement;
 
     public WidthAwareList(){
         this.longest = 0;
         this.list = new ArrayList<>();
+        this.nullReplacement = "";
     }
 
-    public WidthAwareList(WidthAwareList list){
-        this();
-        this.addAll(list);
+    public WidthAwareList(String nullReplacement){
+        this.longest = 0;
+        this.list = new ArrayList<>();
+        this.nullReplacement = nullReplacement;
     }
-
 
     public void add(String s){
         this.validateString(s);
@@ -30,7 +31,7 @@ public class WidthAwareList {
     }
 
     public void validateString(String s){
-        if(s == null) s = "";
+        if(s == null) s = this.nullReplacement;
 
         final int len = s.length();
 

@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/tables/CellAlign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/TableUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RANDOM.md" beforeDir="false" afterPath="$PROJECT_DIR$/RANDOM.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser/token/TokenExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/token/TokenExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/WidthAwareList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/WidthAwareList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +117,7 @@
       <workItem from="1761774035340" duration="11072000" />
       <workItem from="1761818502016" duration="6502000" />
       <workItem from="1761836639387" duration="4038000" />
-      <workItem from="1761852893679" duration="10917000" />
+      <workItem from="1761852893679" duration="17323000" />
     </task>
     <servers />
   </component>

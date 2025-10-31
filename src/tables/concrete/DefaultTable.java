@@ -1,9 +1,12 @@
 package tables.concrete;
 
+import tables.CellAlign;
 import tables.abstracttable.WidthAwareList;
 import tables.abstracttable.AbstractTable;
+import utils.TableUtils;
 
 import static utils.StringUtils.clearStringBuilder;
+import static utils.TableUtils.align;
 
 public class DefaultTable extends AbstractTable {
 
@@ -19,25 +22,27 @@ public class DefaultTable extends AbstractTable {
 
     @Override
     public String buildTable(){
+        //Declarations
         clearStringBuilder(this.tableBuilder);
-
         final StringBuilder sb = new StringBuilder();
         final String headerAndFooter = this.calculateHeader(sb);
-
+        final int padding = this.tableConfiguration.getPadding();
+        final CellAlign cellAlign = this.tableConfiguration.getAlign();
         clearStringBuilder(sb);
-        this.tableBuilder.append(headerAndFooter).append("\n");
 
+
+        //Build
+        this.tableBuilder.append(headerAndFooter).append("\n");
         for (final WidthAwareList list : this.rows) {
             this.tableBuilder.append(V_LINE);
 
             for (int j = 0; j < list.size(); j++) {
-                final String s = list.get(j);
+                final String cell = list.get(j);
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
 
-                final int offset = (longest - s.length()) + 1; //Add one to avoid cramping
-                final String empty = sb.repeat(" ", offset) + V_LINE; //TODO Extract character layout
-                this.tableBuilder.append(s).append(empty);
+                final int offset = (longest - cell.length()) + padding; //Add one to avoid cramping
+                this.tableBuilder.append(align(cellAlign, sb, offset, cell, V_LINE));
                 clearStringBuilder(sb);
             }
 
@@ -59,7 +64,7 @@ public class DefaultTable extends AbstractTable {
     public String calculateHeader(StringBuilder sb){
         for (final WidthAwareList l : this.columns) {
             sb.append(B_EDGE);
-            sb.repeat(H_LINE, l.longest() + 1);
+            sb.repeat(H_LINE, l.longest() + this.tableConfiguration.getPadding());
         }
         sb.append(B_EDGE);
         return sb.toString();
