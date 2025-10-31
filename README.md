@@ -1,7 +1,7 @@
 
 # CLIQUE - README [UNRELEASED]
 ## INTRODUCTION 
-Clique is my mini CLI framework aimed at beautifying CLI applications in Java.
+Clique is my dependency free mini CLI framework aimed at beautifying CLI applications in Java.
 
 ## Why Clique?
 Raw ANSI codes are ugly and hard to read plus Java doesn't have great CLI tooling for ANSI codes:
@@ -175,7 +175,8 @@ Clique.parser().print("[rv]Inverted colors![/]");
 Tables are a feature of Clique that will still be expanded(i.e. More tables). For a brief introduction, there are currently 3 tables
 1. Default table 
 2. Compact/Minimal table
-3. Box Draw Table
+3. Box Draw table
+4. Rounded Box Draw table
 
 All of these tables are abstracted behind the table interface and can be accessed using the `Clique` facade.
 ```java
@@ -199,19 +200,18 @@ TableConfiguration configuration = TableConfiguration
         .builder()
         .tableBorderStyle(style) //Style class for styling table borders
         .parser(Clique.parser()); //Set a parser for the table to enable markup formatting for rows
-        .alignemnt(CellAlign.CENTER) //Centers each row's values. Rows are left aligned by default
+        .alignment(CellAlign.CENTER) //Centers each row's values. Rows are left aligned by default
         .padding(2) //The amount of whitespace added to each value in a cell to avoid cramping
         .nullReplacement("empty") //The value to replace null cells in the table with. This by default is set to " ";
 
-Table t = Clique.table(TableType.DEFAULT);
 Table t = Clique.table(TableType.DEFAULT, configuration)
-        .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]") //Notice the markup. This will automatically be parsed by the parser
+        .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]") //Notice the markup, Clique automatically parses this under the hood
         .addRows("[red]John[/]", "25", "Class A")
         .addRows("[red]Doe[/]", "26", "Class B");
 t.render();
 ```
 
-**NOTE** That more table styles will be implemented soon. Rounded Box Draw, Markdown tables
+**NOTE** That more table styles will be implemented soon. Markdown tables, Dynamic tables
 
 ## Features yet to be implemented
 - Interactive options(Still considering this)

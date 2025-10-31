@@ -54,6 +54,11 @@ public abstract class AbstractTable implements Table {
     }
 
     public AbstractTable addRows(String... rows){
+
+        if (!this.headersAdded) {
+            throw new IllegalStateException("Headers must be added before adding rows. Call addHeaders() first.");
+        }
+
         //Get the header's size
         final int headerSize = this.rows.getFirst().size();
         final WidthAwareList rl = new WidthAwareList();
@@ -83,10 +88,8 @@ public abstract class AbstractTable implements Table {
         this.validateHeaders(index, index);
         this.validateRowIndex(index);
         this.rows.remove(index);
-        for (int i = 0; i < this.columns.size(); i++){
-            if(i == index){
-                this.columns.remove(i);
-            }
+        for (WidthAwareList cl : this.columns){
+            cl.remove(cl.get(index));
         }
 
         return this;

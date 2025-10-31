@@ -16,10 +16,10 @@ public class BoxDrawTable extends AbstractTable{
     private String hLine;
     private String vLine;
 
-    private String topLeft;
-    private String topRight;
-    private String bottomLeft;
-    private String bottomRight;
+    protected String topLeft;
+    protected String topRight;
+    protected String bottomLeft;
+    protected String bottomRight;
 
     private String topJoin;
     private String bottomJoin;
@@ -123,7 +123,7 @@ public class BoxDrawTable extends AbstractTable{
     }
 
 
-    private void styleTableBorders(){
+    protected void styleTableBorders(){
         if(this.tableConfiguration.getTableBorderStyle() == null) return;
         final StyleBuilder sb = TableBorderStyle.styleBuilder();
         final AnsiCode[] horizontalStyles = this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles();
