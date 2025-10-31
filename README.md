@@ -177,6 +177,7 @@ Tables are a feature of Clique that will still be expanded(i.e. More tables). Fo
 2. Compact/Minimal table
 3. Box Draw table
 4. Rounded Box Draw table
+5. Markdown table
 
 All of these tables are abstracted behind the table interface and can be accessed using the `Clique` facade.
 ```java
@@ -204,7 +205,7 @@ TableConfiguration configuration = TableConfiguration
         .padding(2) //The amount of whitespace added to each value in a cell to avoid cramping
         .nullReplacement("empty") //The value to replace null cells in the table with. This by default is set to " ";
 
-Table t = Clique.table(TableType.DEFAULT, configuration)
+Table t = Clique.table(TableType.MARKDOWN, configuration)
         .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]") //Notice the markup, Clique automatically parses this under the hood
         .addRows("[red]John[/]", "25", "Class A")
         .addRows("[red]Doe[/]", "26", "Class B");

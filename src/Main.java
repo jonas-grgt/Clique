@@ -15,7 +15,7 @@ public class Main {
                         .edgeBorderStyles(ColorCode.BLACK))
                 .parser(Clique.parser());
 
-        Table t = Clique.table(TableType.ROUNDED_BOX_DRAW, configuration)
+        Table t = Clique.table(TableType.MARKDOWN, configuration)
                 .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]")
                 .addRows("[red]John[/]", "25", "Class A")
                 .addRows("[red]Doe[/]", "26", "Class B");  //2

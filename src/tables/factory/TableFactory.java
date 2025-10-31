@@ -1,10 +1,7 @@
 package tables.factory;
 
 import tables.Table;
-import tables.concrete.BoxDrawTable;
-import tables.concrete.CompactTable;
-import tables.concrete.DefaultTable;
-import tables.concrete.RoundedBoxDrawTable;
+import tables.concrete.*;
 import tables.configuration.TableConfiguration;
 
 public class TableFactory {
@@ -24,6 +21,7 @@ public class TableFactory {
             case COMPACT -> new CompactTable(configuration);
             case BOX_DRAW -> new BoxDrawTable(configuration);
             case ROUNDED_BOX_DRAW -> new RoundedBoxDrawTable(configuration);
+            case MARKDOWN -> new MarkdownTable(configuration);
             case null -> throw new IllegalArgumentException("TableType cannot be null");
         };
     }

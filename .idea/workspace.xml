@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/tables/concrete/RoundedBoxDrawTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/Table.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tables/factory/TableType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/factory/TableType.java" afterDir="false" />
     </list>
@@ -116,7 +113,7 @@
       <workItem from="1761774035340" duration="11072000" />
       <workItem from="1761818502016" duration="6502000" />
       <workItem from="1761836639387" duration="4038000" />
-      <workItem from="1761852893679" duration="38748000" />
+      <workItem from="1761852893679" duration="40203000" />
     </task>
     <servers />
   </component>
