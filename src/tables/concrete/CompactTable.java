@@ -1,7 +1,7 @@
 package tables.concrete;
 
 import core.style.StyleBuilder;
-import tables.CellAlign;
+import tables.configuration.CellAlign;
 import tables.configuration.TableBorderStyle;
 import tables.configuration.TableConfiguration;
 import tables.structures.WidthAwareList;
@@ -14,18 +14,17 @@ public class CompactTable extends AbstractTable {
 
     private final StringBuilder tableBuilder;
     private String hLine;
-    private String vLine;
+    private final String vLine;
 
     public CompactTable(TableConfiguration tableConfiguration){
         super(tableConfiguration);
         this.tableBuilder = new StringBuilder();
         this.vLine = " ".repeat(this.tableConfiguration.getPadding());
         this.hLine = "-";
-        this.styleTableBorders();
     }
 
-    @Override
     public String buildTable() {
+        this.styleTableBorders();
         clearStringBuilder(this.tableBuilder);
         final StringBuilder sb = new StringBuilder();
         final CellAlign cellAlign = this.tableConfiguration.getAlignment();
@@ -60,11 +59,6 @@ public class CompactTable extends AbstractTable {
         return this.tableBuilder.toString();
     }
 
-    @Override
-    public void render(){
-        System.out.println(this.buildTable());
-    }
-
     //Dynamically calculate the header for the table
     public String calculateHeader(StringBuilder sb){
         for (int i = 0; i < this.columns.size(); i++) {
@@ -80,7 +74,7 @@ public class CompactTable extends AbstractTable {
     }
 
 
-    private void styleTableBorders(){
+    protected void styleTableBorders(){
         if(this.tableConfiguration.getTableBorderStyle() == null)return;
         final StyleBuilder sb = TableBorderStyle.styleBuilder();
         this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles());

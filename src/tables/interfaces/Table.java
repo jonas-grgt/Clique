@@ -1,6 +1,4 @@
-package tables;
-
-import tables.abstracttable.AbstractTable;
+package tables.interfaces;
 
 public interface Table {
     Table addHeaders(String... headers);

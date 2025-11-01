@@ -19,4 +19,4 @@ This just contains random things I encountered while making this mini lib
 
 - Ok I just got 3 tables working. They were actually easier than I expected lol, maybe I'll add more table styles later but for now I need to add table configurations 
 
-- Ok I've added configurations to tables and markup parsing. Solid day. Im already done with this library. Maybe i'll add 2 more tables next. A dynamic and a curved box draw table 
+- Ok I've added configurations to tables and markup parsing. Solid day. Im already done with this library. Maybe i'll add 2 more tables next. A customizable and a curved box draw table 

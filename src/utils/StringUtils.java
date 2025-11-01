@@ -8,6 +8,4 @@ public class StringUtils {
         sb.setLength(ZERO);
     }
 
-
-
 }

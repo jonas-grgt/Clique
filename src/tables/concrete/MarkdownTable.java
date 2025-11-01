@@ -1,7 +1,7 @@
 package tables.concrete;
 
 import core.style.StyleBuilder;
-import tables.CellAlign;
+import tables.configuration.CellAlign;
 import tables.abstracttable.AbstractTable;
 import tables.configuration.TableBorderStyle;
 import tables.configuration.TableConfiguration;
@@ -20,11 +20,11 @@ public class MarkdownTable extends AbstractTable {
         this.tableBuilder = new StringBuilder();
         this.vLine = "|";
         this.hLine = "-";
-        this.styleTableBorders();
+
     }
 
-    @Override
     public String buildTable() {
+        this.styleTableBorders();
         clearStringBuilder(this.tableBuilder);
         final StringBuilder sb = new StringBuilder();
         final CellAlign cellAlign = this.tableConfiguration.getAlignment();
@@ -55,16 +55,10 @@ public class MarkdownTable extends AbstractTable {
         return this.tableBuilder.toString();
     }
 
-    @Override
-    public void render(){
-        System.out.println(this.buildTable());
-    }
-
     //Dynamically calculate the header for the table
     public String calculateHeader(StringBuilder sb){
         sb.append(this.vLine);
-        for (int i = 0; i < this.columns.size(); i++) {
-            final WidthAwareList col = this.columns.get(i);
+        for (final WidthAwareList col : this.columns) {
             sb.repeat(this.hLine, col.longest() + this.tableConfiguration.getPadding());
             sb.append(this.vLine);
         }
@@ -73,7 +67,7 @@ public class MarkdownTable extends AbstractTable {
     }
 
 
-    private void styleTableBorders(){
+    protected void styleTableBorders(){
         if(this.tableConfiguration.getTableBorderStyle() == null)return;
         final StyleBuilder sb = TableBorderStyle.styleBuilder();
         this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles());

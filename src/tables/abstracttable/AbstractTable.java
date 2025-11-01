@@ -1,7 +1,8 @@
 package tables.abstracttable;
 
+import core.clique.Clique;
 import parser.token.stringparser.interfaces.AnsiStringParser;
-import tables.Table;
+import tables.interfaces.Table;
 import tables.structures.Cell;
 import tables.structures.WidthAwareList;
 import tables.configuration.TableConfiguration;
@@ -15,16 +16,12 @@ public abstract class AbstractTable implements Table {
     private boolean headersAdded;
     protected TableConfiguration tableConfiguration;
 
-
-    public AbstractTable(){
-        this(TableConfiguration.builder());
-    }
-
     public AbstractTable(TableConfiguration configuration){
         this.columns = new ArrayList<>();
         this.rows = new ArrayList<>();
         this.tableConfiguration = configuration;
         this.headersAdded = false;
+
     }
 
     public AbstractTable configuration(TableConfiguration configuration){
@@ -123,6 +120,10 @@ public abstract class AbstractTable implements Table {
         }
     }
 
+    public void render() {
+        System.out.println(this.buildTable());
+    }
+
     private String handleNulls(String val){
         if(val != null) return val;
         return this.tableConfiguration.getNullReplacement();
@@ -140,9 +141,9 @@ public abstract class AbstractTable implements Table {
         if(colIdx > (this.columns.size() - 1)) throw new IllegalArgumentException("Column: " + colIdx + "does not exist");
     }
 
-    public abstract String buildTable();
+    protected abstract void styleTableBorders();
 
-    public abstract void render();
+    public abstract String buildTable();
 
 
 }

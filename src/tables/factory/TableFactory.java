@@ -1,6 +1,7 @@
 package tables.factory;
 
-import tables.Table;
+import tables.interfaces.Customizable;
+import tables.interfaces.Table;
 import tables.concrete.*;
 import tables.configuration.TableConfiguration;
 
@@ -25,6 +26,24 @@ public class TableFactory {
             case null -> throw new IllegalArgumentException("TableType cannot be null");
         };
     }
+
+    public static Customizable getCustomizableTable(TableType type, TableConfiguration config) {
+        return switch (type) {
+            case DEFAULT -> (Customizable) table(type, config);
+            default -> throw new UnsupportedOperationException(type + " is not customizable");
+        };
+    }
+
+    public static Customizable getCustomizableTable(TableType type) {
+        TableConfiguration configuration = TableConfiguration.builder();
+        return switch (type) {
+            case DEFAULT -> (Customizable) table(type, configuration);
+            default -> throw new UnsupportedOperationException(type + " is not customizable");
+        };
+    }
+
+
+
 
 
 }

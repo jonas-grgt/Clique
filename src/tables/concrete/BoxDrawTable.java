@@ -2,7 +2,7 @@ package tables.concrete;
 
 import core.ansi.interfaces.AnsiCode;
 import core.style.StyleBuilder;
-import tables.CellAlign;
+import tables.configuration.CellAlign;
 import tables.configuration.TableBorderStyle;
 import tables.configuration.TableConfiguration;
 import tables.structures.WidthAwareList;
@@ -43,11 +43,11 @@ public class BoxDrawTable extends AbstractTable{
         this.leftJoin = "├";
         this.rightJoin = "┤";
         this.cross = "┼";
-        this.styleTableBorders();
     }
 
     @Override
     public String buildTable() {
+        this.styleTableBorders();
         //Declarations
         final StringBuilder sb = new StringBuilder();
         clearStringBuilder(this.tableBuilder);
@@ -115,11 +115,6 @@ public class BoxDrawTable extends AbstractTable{
 
         sb.append(right);
         return sb.toString();
-    }
-
-
-    public void render() {
-        System.out.println(this.buildTable());
     }
 
 

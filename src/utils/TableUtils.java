@@ -1,6 +1,6 @@
 package utils;
 
-import tables.CellAlign;
+import tables.configuration.CellAlign;
 
 public class TableUtils {
 
@@ -18,7 +18,6 @@ public class TableUtils {
                 final int rightOffset = len - leftOffset;
                 yield sb.append(BLANK.repeat(leftOffset)).append(cell).append(BLANK.repeat(rightOffset)).append(vLine).toString();
             }
-
         };
     }
 }

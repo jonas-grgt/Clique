@@ -1,4 +1,4 @@
-package tables;
+package tables.configuration;
 
 public enum CellAlign {
     RIGHT,

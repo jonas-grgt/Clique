@@ -212,7 +212,20 @@ Table t = Clique.table(TableType.MARKDOWN, configuration)
 t.render();
 ```
 
-**NOTE** That more table styles will be implemented soon. Markdown tables, Dynamic tables
+### Customizable tables
+Customizable tables are tables whose edges, vertical lines and horizontal lines can be modified. Allows you to make crazy table ideas
+</br>Right now only the default table is customizable. Customizable tables can be accessed through the `Clique.customizableTable()` method
+
+```java
+Clique.customizableTable(TableType.DEFAULT)
+      .customizeVerticalLine(':')
+      .customizeHorizontalLine('~')
+      .customizeEdge('*')
+      .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]")
+      .addRows("[red]John[/]", "25", "Class A")
+      .addRows("[red]Doe[/]", "26", "Class B")
+      .render();
+```
 
 ## Features yet to be implemented
 - Interactive options(Still considering this)

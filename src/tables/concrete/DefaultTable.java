@@ -1,16 +1,17 @@
 package tables.concrete;
 
 import core.style.StyleBuilder;
-import tables.CellAlign;
+import tables.configuration.CellAlign;
 import tables.configuration.TableBorderStyle;
 import tables.configuration.TableConfiguration;
+import tables.interfaces.Customizable;
 import tables.structures.WidthAwareList;
 import tables.abstracttable.AbstractTable;
 
 import static utils.StringUtils.clearStringBuilder;
 import static utils.TableUtils.align;
 
-public class DefaultTable extends AbstractTable {
+public class DefaultTable extends AbstractTable implements Customizable {
 
     private final StringBuilder tableBuilder;
     private String edge;
@@ -23,11 +24,11 @@ public class DefaultTable extends AbstractTable {
         this.edge = "+";
         this.hLine = "-";
         this.vLine = "|";
-        this.styleTableBorders();
+
     }
 
-    @Override
     public String buildTable(){
+        this.styleTableBorders();
         //Declarations
         clearStringBuilder(this.tableBuilder);
         final StringBuilder sb = new StringBuilder();
@@ -60,12 +61,6 @@ public class DefaultTable extends AbstractTable {
         return this.tableBuilder.toString();
     }
 
-    @Override
-    public void render(){
-        System.out.println(this.buildTable());
-    }
-
-
     //Dynamically calculate the header and footer for the table
     public String calculateHeader(StringBuilder sb){
         for (final WidthAwareList l : this.columns) {
@@ -76,7 +71,23 @@ public class DefaultTable extends AbstractTable {
         return sb.toString();
     }
 
-    private void styleTableBorders(){
+    public Customizable customizeEdge(char edge) {
+        this.edge = String.valueOf(edge);
+        return this;
+    }
+
+    public Customizable customizeVerticalLine(char vLine) {
+        this.vLine = String.valueOf(vLine);
+        return this;
+    }
+
+    public Customizable customizeHorizontalLine(char hLine) {
+        this.hLine = String.valueOf(hLine);
+        return this;
+    }
+
+
+     protected void styleTableBorders(){
         if(this.tableConfiguration.getTableBorderStyle() == null) return;
         final StyleBuilder sb = TableBorderStyle.styleBuilder();
         this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles());
