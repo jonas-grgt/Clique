@@ -1,3 +1,5 @@
+package demo;
+
 import core.ansi.enums.ColorCode;
 import core.ansi.enums.StyleCode;
 import core.clique.Clique;
@@ -8,7 +10,7 @@ import tables.configuration.TableConfiguration;
 import tables.factory.TableType;
 import tables.interfaces.Table;
 
-public class CliArtGallery {
+class CliArtGallery {
 
     public static void main(String[] args) {
         displayGalleryEntrance();

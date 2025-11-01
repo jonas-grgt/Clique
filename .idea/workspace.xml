@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CliArtGallery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CodeScanner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ProjectExplorer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/QuizGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RANDOM.md" beforeDir="false" afterPath="$PROJECT_DIR$/RANDOM.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" afterDir="false" />
-    </list>
+    <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -98,15 +83,15 @@
   </component>
   <component name="RunManager" selected="Application.ProjectExplorer">
     <configuration name="CliArtGallery" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CliArtGallery" />
-      <module name="Clique" />
+      <option name="MAIN_CLASS_NAME" value="demo.CliArtGallery" />
+      <module name="clique" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="CodeScanner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CodeScanner" />
-      <module name="Clique" />
+      <option name="MAIN_CLASS_NAME" value="demo.CodeScanner" />
+      <module name="clique" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -119,15 +104,15 @@
       </method>
     </configuration>
     <configuration name="ProjectExplorer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ProjectExplorer" />
-      <module name="Clique" />
+      <option name="MAIN_CLASS_NAME" value="demo.ProjectExplorer" />
+      <module name="clique" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="QuizGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="QuizGame" />
-      <module name="Clique" />
+      <option name="MAIN_CLASS_NAME" value="demo.QuizGame" />
+      <module name="clique" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -165,7 +150,7 @@
       <workItem from="1761836639387" duration="4038000" />
       <workItem from="1761852893679" duration="41131000" />
       <workItem from="1761995948813" duration="6819000" />
-      <workItem from="1762010904862" duration="6373000" />
+      <workItem from="1762010904862" duration="6685000" />
     </task>
     <servers />
   </component>

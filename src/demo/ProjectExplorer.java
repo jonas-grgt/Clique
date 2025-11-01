@@ -1,3 +1,5 @@
+package demo;
+
 import core.clique.Clique;
 import tables.configuration.CellAlign;
 import tables.configuration.TableConfiguration;
@@ -10,7 +12,7 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class ProjectExplorer {
+class ProjectExplorer {
 
     private static class FileStats {
         String extension;

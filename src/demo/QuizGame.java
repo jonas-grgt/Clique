@@ -1,3 +1,5 @@
+package demo;
+
 import core.ansi.enums.ColorCode;
 import core.clique.Clique;
 import tables.configuration.CellAlign;
@@ -8,7 +10,7 @@ import tables.interfaces.Table;
 
 import java.util.*;
 
-public class QuizGame {
+class QuizGame {
 
     private static class Question {
         String question;

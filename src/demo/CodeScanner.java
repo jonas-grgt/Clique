@@ -1,3 +1,5 @@
+package demo;
+
 import core.clique.Clique;
 import tables.configuration.CellAlign;
 import tables.configuration.TableConfiguration;
@@ -11,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class CodeScanner {
+class CodeScanner {
 
     private static class TodoItem {
         String file;
