@@ -1,5 +1,4 @@
-
-# CLIQUE - README [UNRELEASED]
+# CLIQUE - README 
 ## INTRODUCTION 
 Clique is my dependency free mini CLI framework aimed at beautifying CLI applications in Java.
 
@@ -11,12 +10,79 @@ System.out.println("\u001B[31m\u001B[1mError:\u001B[0m File not found");
 
 Clique makes it clean:
 ```java
-Clique.parser().print("[red, bold]Error:[/] File not found");
+Clique.parser().print("[blue, bold]Clique is awesome![/]");
 ```
 
-### IMPLEMENTATION
+## Setup
+[![](https://jitpack.io/v/kusoroadeolu/Clique.svg)](https://jitpack.io/#kusoroadeolu/Clique)
+### Maven
 
-#### StyleBuilder
+Add JitPack repository to your `pom.xml`:
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+Then add the Clique dependency:
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.github.kusoroadeolu</groupId>
+        <artifactId>Clique</artifactId>
+        <version>v1.0.0</version>
+    </dependency>
+</dependencies>
+```
+
+### Gradle
+
+Add JitPack repository to your `build.gradle`:
+```gradle
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+```
+
+Then add the dependency:
+```gradle
+dependencies {
+    implementation 'com.github.kusoroadeolu:Clique:v1.0.0'
+}
+```
+
+### Manual JAR Installation
+
+If you prefer not to use a build tool:
+
+1. Clone the repository:
+```bash
+git clone https://github.com/kusoroadeolu/Clique.git
+cd Clique
+```
+
+2. Build the JAR:
+```bash
+javac -d bin src/**/*.java
+jar cf clique.jar -C bin .
+```
+
+3. Add the JAR to your project's classpath or drop it in your `lib` folder and include it when compiling:
+```bash
+javac -cp clique.jar YourApp.java
+java -cp clique.jar:. YourApp
+```
+
+---
+
+
+
+## IMPLEMENTATION
+
+### StyleBuilder
 Clique uses a fluent builder pattern to chain styled strings with each other. If you enjoy using the builder pattern this is for you
 </br> You can append styles to a string using `append()` and print it to the terminal. This resets the terminal style after each append call
 ```java
@@ -55,7 +121,9 @@ String styledText = Clique.styleBuilder()
         .get(); 
 ```
 
-### Markup Parsing
+## Parser Methods
+
+### Quick Overview
 Clique supports a markup parsing format for less verbose style building
 
 - `AnsiStringParser`. This allows you to parse supported markup strings with default parsing configurations i.e. lenient parsing, a default delimiter and tags are
@@ -75,7 +143,6 @@ String str = "[red bold]Hello[blue] World"; //Notice there are no commas as the 
 ParserConfiguration configuration = ParserConfiguration
                                         .builder()
                                         .enableAutoCloseTags() //Auto closes tags for you
-                                        .enableStrictParsing() //Parser will throw an error if it finds a style that does not exist
                                         .delimiter(' '); //Set the default delimiter to a space
 AnsiStringParser configuredParser = Clique.parser()
         .configuration(configuration);
@@ -85,17 +152,41 @@ configuredParser.print(str);
 ```
 Here we can see we set a custom delimiter. This allows for more flexibility for those who don't want to use the default `comma` delimiter
 
+
+### Basic Parsing
 ```java
-import core.clique.Clique;
+// Parse and return styled string
+String styled = Clique.parser().parse("[red, bold]Error:[/] Something went wrong");
 
-//What if we have a misplaced style or a style that doesn't exist, the parser will throw an error
-String str = "[red bol]Hello[/] [blue ul]World";
+// Parse and print directly (convenient shorthand)
+Clique.parser().print("[red, bold]Error:[/] Something went wrong");
+
+// Get the original string without markup tags
 AnsiStringParser parser = Clique.parser();
-String parsed = parser.parse(str);
+parser.parse("[red, bold]Hello[/] World");
+String original = parser.getOriginalString(); // Returns "Hello World"
 ```
-Here, because the style `bol` doesn't exist and strict parsing is enabled, the parser will throw an `UnidentifedStyleException` indicating the style doesn't exist.
 
-**NOTE:** Malformed styles i.e. `[[[red]` or `[red[bold]]`might cause weird styling issues. With strict parsing enabled it will throw a parse problem exception
+### Parser Exceptions
+When using strict parsing, Clique can throw two types of exceptions:
+
+**UnidentifiedStyleException** - Thrown when a style doesn't exist:
+```java
+ParserConfiguration config = ParserConfiguration.builder()
+    .enableStrictParsing();
+AnsiStringParser parser = Clique.parser().configuration(config);
+
+// This will throw UnidentifiedStyleException because "bol" doesn't exist
+parser.parse("[red, bol]Text[/]");
+```
+
+**ParseProblemException** - Thrown when tags are malformed:
+```java
+// Nested brackets cause parsing issues
+parser.parse("[[[red]]]Text[/]");
+```
+
+Without strict parsing enabled, invalid styles are simply ignored.
 
 ## Supported Markup Options
 Clique supports **text color**, **background color**, and **text style** tags inside markup strings.
@@ -172,7 +263,7 @@ Clique.parser().print("[rv]Inverted colors![/]");
 
 
 ## Tables
-Tables are a feature of Clique that will still be expanded(i.e. More tables). For a brief introduction, there are currently 3 tables
+Tables are a feature of Clique that will still be expanded(i.e. More tables). For a brief introduction, there are currently 5 tables
 1. Default table 
 2. Compact/Minimal table
 3. Box Draw table
@@ -188,22 +279,45 @@ t.addHeaders("Name", "Age", "Class")
 t.render(); //Print the table on the terminal
 ```
 
-#### Table Configuration
+
+### Table Manipulation
+
+Tables support dynamic updates after creation:
+```java
+Table table = Clique.table(TableType.DEFAULT)
+    .addHeaders("Name", "Age", "Status")
+    .addRows("Alice", "25", "Active")
+    .addRows("Bob", "30", "Inactive");
+
+// Update a specific cell (row 1, column 2)
+table.updateCell(1, 2, "Active");
+
+// Remove a specific cell (replaces with null replacement)
+table.removeCell(1, 1);
+
+// Remove an entire row (cannot remove headers at row 0)
+table.removeRow(1);
+
+// Get table as string instead of printing
+String tableString = table.buildTable();
+System.out.println(tableString);
+```
+
+### Table Configuration
 If you want more stylistic choices for your tables, you can use the `TableConfiguration` class to configure and style your tables
 
 ```java
 TableBorderStyle style = TableBorderStyle.builder() 
                 .horizontalBorderStyles(ColorCode.CYAN)
                 .verticalBorderStyles(ColorCode.MAGENTA)
-                .edgeBorderStyles(ColorCode.YELLOW))
+                .edgeBorderStyles(ColorCode.YELLOW);
 
 TableConfiguration configuration = TableConfiguration
         .builder()
         .tableBorderStyle(style) //Style class for styling table borders
         .parser(Clique.parser()); //Set a parser for the table to enable markup formatting for rows
         .alignment(CellAlign.CENTER) //Centers each row's values. Rows are left aligned by default
-        .padding(2) //The amount of whitespace added to each value in a cell to avoid cramping
-        .nullReplacement("empty") //The value to replace null cells in the table with. This by default is set to " ";
+        .padding(2); //The amount of whitespace added to each value in a cell to avoid cramping
 
 Table t = Clique.table(TableType.MARKDOWN, configuration)
         .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]") //Notice the markup, Clique automatically parses this under the hood
@@ -212,20 +326,101 @@ Table t = Clique.table(TableType.MARKDOWN, configuration)
 t.render();
 ```
 
-### Customizable tables
-Customizable tables are tables whose edges, vertical lines and horizontal lines can be modified. Allows you to make crazy table ideas
-</br>Right now only the default table is customizable. Customizable tables can be accessed through the `Clique.customizableTable()` method
-
+### Null Handling
+When cells are null or removed, Clique replaces them with a configurable value:
 ```java
-Clique.customizableTable(TableType.DEFAULT)
-      .customizeVerticalLine(':')
-      .customizeHorizontalLine('~')
-      .customizeEdge('*')
-      .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]")
-      .addRows("[red]John[/]", "25", "Class A")
-      .addRows("[red]Doe[/]", "26", "Class B")
-      .render();
+TableConfiguration config = TableConfiguration.builder()
+    .nullReplacement("N/A");  // Default is empty string
+
+Table table = Clique.table(TableType.DEFAULT, config);
+table.addHeaders("Name", "Age", "City")
+    .addRows("Alice", null, "NYC");  // null becomes "N/A"
+
+table.render();
 ```
 
+This is especially useful when you have incomplete data or when using `removeCell()`.
+
+---
+
+## Additional Examples
+
+### Using StyleBuilder's get() method
+```java
+// Build styled text without printing
+StyleBuilder sb = Clique.styleBuilder();
+String styledText = sb
+    .append("Success: ", ColorCode.GREEN, StyleCode.BOLD)
+    .append("Operation completed", ColorCode.WHITE)
+    .get();
+
+// Use the styled text later
+System.out.println(styledText);
+```
+
+### Customizable Table Shorthand
+Customizable tables are tables whose edges, vertical lines and horizontal lines can be modified. Allows you to make crazy tables
+</br>Right now only the default table is customizable. Customizable tables can be accessed through the `Clique.customizableTable()` method
+```java
+TableConfiguration configuration = TableConfiguration
+        .builder();
+
+// With configuration
+Clique.customizableTable(TableType.DEFAULT, configuration)
+    .customizeEdge('*')
+    .render();
+
+// Without configuration (uses defaults)
+Clique.customizableTable(TableType.DEFAULT)
+    .customizeEdge('+')
+    .customizeHorizontalLine('=')
+    .customizeVerticalLine('|')
+    .addHeaders("Col1", "Col2")
+    .addRows("A", "B")
+    .render();
+```
+
+
+## Try the Demos
+
+Want to see Clique in action? Clone the repo and run the demo applications:
+```bash
+git clone https://github.com/kusoroadeolu/Clique.git
+cd Clique
+```
+
+### CLI Art Gallery
+An interactive showcase of colors, gradients, ASCII art, and styling possibilities:
+```bash
+javac src/demo/CliArtGallery.java
+java -cp src demo.CliArtGallery
+```
+
+### Quiz Game
+A colorful Java knowledge quiz with styled tables and real-time scoring:
+```bash
+javac src/demo/QuizGame.java
+java -cp src demo.QuizGame
+```
+
+### Code Scanner
+Analyze your Java projects with styled output showing file stats, complexity, and TODOs:
+```bash
+javac src/demo/CodeScanner.java
+java -cp src demo.CodeScanner <path-to-your-project>
+```
+
+### Project Explorer
+Browse file statistics and project structure with beautiful tables:
+```bash
+javac src/demo/ProjectExplorer.java
+java -cp src demo.ProjectExplorer <path-to-your-project>
+```
+
+**Note:** These demos use package-private visibility. If you want to run them separately, you may need to change them to `public class`.
+
+
+
 ## Features yet to be implemented
-- Interactive options(Still considering this)
+- Boxes
+- Interactive options (Still considering this)
