@@ -3,9 +3,13 @@ import core.clique.Clique;
 import tables.configuration.TableBorderStyle;
 import tables.configuration.TableConfiguration;
 import tables.factory.TableType;
+import tables.structures.Cell;
 
 public class Main {
     public static void main(String[] args) {
+
+        Clique.parser().print("[bold]Hello [red]There[/]");
+
         TableConfiguration configuration = TableConfiguration
                 .builder()
                 .tableBorderStyle(
@@ -26,6 +30,8 @@ public class Main {
 
 
     }
+
+
 
 
 }

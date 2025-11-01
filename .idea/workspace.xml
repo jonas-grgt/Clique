@@ -5,23 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/tables/interfaces/Customizable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CliArtGallery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CodeScanner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ProjectExplorer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QuizGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RANDOM.md" beforeDir="false" afterPath="$PROJECT_DIR$/RANDOM.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/clique/Clique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/CellAlign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/configuration/CellAlign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/interfaces/Table.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/StringUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/TableUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +31,9 @@
         <option value="Exception" />
         <option value="Enum" />
         <option value="Record" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
+        <option value="package-info" />
       </list>
     </option>
   </component>
@@ -65,31 +63,54 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/eastw/Git Projects/Personal/Clique/src/Main.java&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CliArtGallery.executor": "Run",
+    "Application.CodeScanner.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.ProjectExplorer.executor": "Run",
+    "Application.QuizGame.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/eastw/Git Projects/Personal/Clique/src/Main.java",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\eastw\Git Projects\Personal\Clique" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.ProjectExplorer">
+    <configuration name="CliArtGallery" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="CliArtGallery" />
+      <module name="Clique" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CodeScanner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="CodeScanner" />
+      <module name="Clique" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Clique" />
@@ -97,8 +118,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProjectExplorer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ProjectExplorer" />
+      <module name="Clique" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuizGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="QuizGame" />
+      <module name="Clique" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CodeScanner" />
+        <item itemvalue="Application.ProjectExplorer" />
+        <item itemvalue="Application.QuizGame" />
+        <item itemvalue="Application.CliArtGallery" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -125,7 +164,8 @@
       <workItem from="1761818502016" duration="6502000" />
       <workItem from="1761836639387" duration="4038000" />
       <workItem from="1761852893679" duration="41131000" />
-      <workItem from="1761995948813" duration="3359000" />
+      <workItem from="1761995948813" duration="6819000" />
+      <workItem from="1762010904862" duration="6373000" />
     </task>
     <servers />
   </component>

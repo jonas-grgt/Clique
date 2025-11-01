@@ -34,6 +34,7 @@ public abstract class AbstractTable implements Table {
         if (this.headersAdded) {
             throw new IllegalStateException("Headers have already been added to this table");
         }
+
         final WidthAwareList rl = new WidthAwareList();
         this.rows.add(rl);
 
