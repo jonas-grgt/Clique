@@ -2,16 +2,22 @@
 ## INTRODUCTION 
 Clique is my dependency free mini CLI framework aimed at beautifying CLI applications in Java.
 
+![Clique Hero](docs/images/clique-hero.png)
+
 ## Why Clique?
 Raw ANSI codes are ugly and hard to read plus Java doesn't have great CLI tooling for ANSI codes:
 ```java
 System.out.println("\u001B[31m\u001B[1mError:\u001B[0m File not found");
 ```
+![Raw Ansi Output](docs/images/raw.png)
+
 
 Clique makes it clean:
 ```java
 Clique.parser().print("[blue, bold]Clique is awesome![/]");
 ```
+![Clique Parser Output](docs/images/clique-parser.png)
+
 
 ## Setup
 [![](https://jitpack.io/v/kusoroadeolu/Clique.svg)](https://jitpack.io/#kusoroadeolu/Clique)
@@ -33,7 +39,7 @@ Then add the Clique dependency:
     <dependency>
         <groupId>com.github.kusoroadeolu</groupId>
         <artifactId>Clique</artifactId>
-        <version>v1.0.0</version>
+        <version>v1.0.2</version>
     </dependency>
 </dependencies>
 ```
@@ -50,7 +56,7 @@ repositories {
 Then add the dependency:
 ```gradle
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v1.0.0'
+    implementation 'com.github.kusoroadeolu:Clique:v1.0.2'
 }
 ```
 
@@ -270,6 +276,9 @@ Tables are a feature of Clique that will still be expanded(i.e. More tables). Fo
 4. Rounded Box Draw table
 5. Markdown table
 
+![Clique Tables](docs/images/tables.png)
+
+
 All of these tables are abstracted behind the table interface and can be accessed using the `Clique` facade.
 ```java
 Table t = Clique.table(TableType.COMPACT);
@@ -385,8 +394,6 @@ Before applying colors, clique will try to detect if the terminal supports ANSI,
 </br> You can also manually force enable ANSI dynamically
 
 ```java
- import core.clique.Clique;
-
 Clique.enableCliqueColors(true); // -> Force enables colors regardless of if the terminal supports it
 Clique.enableCliqueColors(false); // -> Force disable colors regardless of if the terminal supports it
 
