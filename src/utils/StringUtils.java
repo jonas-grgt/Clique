@@ -1,6 +1,6 @@
 package utils;
 
-public class StringUtils {
+public final class StringUtils {
 
     public final static int ZERO = 0;
 

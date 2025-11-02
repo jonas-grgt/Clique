@@ -2,8 +2,9 @@ package core.style;
 
 import core.ansi.enums.StyleCode;
 import core.ansi.interfaces.AnsiCode;
-import utils.StringUtils;
+import utils.AnsiDetector;
 
+import static utils.AnsiDetector.*;
 import static utils.StringUtils.clearStringBuilder;
 
 public non-sealed class StyleBuilderImpl implements StyleBuilder {
@@ -62,7 +63,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
     @Override
     public StyleBuilder append(String text, AnsiCode... ansiCodes) {
         this.stack(text, ansiCodes);
-        styleText.append(RESET);
+        this.styleText.append(RESET);
         return this;
     }
 
@@ -85,9 +86,12 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
 
     //A helper method to style text with the given codes
     private StringBuilder style(String text, AnsiCode... ansiCodes){
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
-        if (ansiCodes == null) return sb.append(text);
+        //Check if ansi is enabled
+        if(ansiCodes == null || !ansiEnabled()){
+            return sb.append(text);
+        }
 
         for (AnsiCode code : ansiCodes){
             if (code == null) continue;

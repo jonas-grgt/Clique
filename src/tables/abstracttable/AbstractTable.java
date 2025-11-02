@@ -1,11 +1,10 @@
 package tables.abstracttable;
 
-import core.clique.Clique;
 import parser.token.stringparser.interfaces.AnsiStringParser;
+import tables.configuration.TableConfiguration;
 import tables.interfaces.Table;
 import tables.structures.Cell;
 import tables.structures.WidthAwareList;
-import tables.configuration.TableConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;

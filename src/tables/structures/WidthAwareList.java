@@ -6,42 +6,25 @@ import java.util.List;
 public class WidthAwareList {
     private int longest;
     private final List<Cell> list;
-    private String nullReplacement;
 
     public WidthAwareList(){
         this.longest = 0;
         this.list = new ArrayList<>();
-        this.nullReplacement = "";
     }
 
-    public WidthAwareList(String nullReplacement){
-        this.longest = 0;
-        this.list = new ArrayList<>();
-        this.nullReplacement = nullReplacement;
-    }
 
     public void add(Cell c){
-        this.validateCell(c);
+        this.updateLongest(c);
         this.list.add(c);
     }
 
     public void update(int i, Cell c){
-        this.validateCell(c);
+        this.updateLongest(c);
         this.list.set(i, c);
     }
 
-    public void addFirst(Cell c){
-        this.validateCell(c);
-        this.list.addFirst(c);
-    }
 
-
-    public void validateCell(Cell c){
-        if(c.text() == null){
-            c.setText(this.nullReplacement);
-            c.setText(this.nullReplacement);
-        }
-
+    public void updateLongest(Cell c){
         final int len = c.text().length();
 
         if(len > this.longest){
@@ -75,7 +58,7 @@ public class WidthAwareList {
         }
 
         if(len == this.longest){
-            this.longest = this.calculateLongest();
+            this.longest = this.recalculateLongest();
         }
 
         return true;
@@ -96,7 +79,7 @@ public class WidthAwareList {
         return this.list.size();
     }
 
-    private int calculateLongest(){
+    private int recalculateLongest(){
         return this.list.stream()
                 .map(Cell::text)
                 .mapToInt(String::length)

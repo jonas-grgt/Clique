@@ -380,9 +380,20 @@ Clique.customizableTable(TableType.DEFAULT)
     .render();
 ```
 
+### Terminal Ansi Support
+Before applying colors, clique will try to detect if the terminal supports ANSI, if the terminal does, clique will apply ANSI colors
+</br> You can also manually force enable ANSI dynamically
+
+```java
+ import core.clique.Clique;
+
+Clique.enableCliqueColors(true); // -> Force enables colors regardless of if the terminal supports it
+Clique.enableCliqueColors(false); // -> Force disable colors regardless of if the terminal supports it
+
+```
+
 
 ## Try the Demos
-
 Want to see Clique in action? Clone the repo and run the demo applications:
 ```bash
 git clone https://github.com/kusoroadeolu/Clique.git

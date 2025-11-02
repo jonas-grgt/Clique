@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/utils/AnsiDetector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/clique/Clique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/structures/WidthAwareList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/structures/WidthAwareList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/StringUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +27,8 @@
         <option value="Enum" />
         <option value="Record" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="package-info" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -84,7 +91,7 @@
       <recent name="C:\Users\eastw\Git Projects\Personal\Clique" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ProjectExplorer">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="CliArtGallery" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="demo.CliArtGallery" />
       <module name="clique" />
@@ -101,7 +108,7 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="Clique" />
+      <module name="clique" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -122,11 +129,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.CodeScanner" />
         <item itemvalue="Application.ProjectExplorer" />
         <item itemvalue="Application.QuizGame" />
         <item itemvalue="Application.CliArtGallery" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -154,7 +161,11 @@
       <workItem from="1761852893679" duration="41131000" />
       <workItem from="1761995948813" duration="6819000" />
       <workItem from="1762010904862" duration="7437000" />
-      <workItem from="1762029708921" duration="1565000" />
+      <workItem from="1762029708921" duration="2512000" />
+      <workItem from="1762045852423" duration="155000" />
+      <workItem from="1762084185883" duration="2098000" />
+      <workItem from="1762086329554" duration="83000" />
+      <workItem from="1762086438439" duration="2124000" />
     </task>
     <servers />
   </component>

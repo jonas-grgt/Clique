@@ -9,6 +9,7 @@ import tables.interfaces.Table;
 import tables.configuration.TableConfiguration;
 import tables.factory.TableFactory;
 import tables.factory.TableType;
+import utils.AnsiDetector;
 
 /**
  * A facade class to hide the instantiation of multiple implementations of different classes
@@ -30,8 +31,17 @@ public final class Clique {
         return TableFactory.getTable(type, configuration);
     }
 
+    public static Customizable customizableTable(TableType type){
+        return TableFactory.getCustomizableTable(type);
+    }
+
     public static Customizable customizableTable(TableType type, TableConfiguration configuration){
         return TableFactory.getCustomizableTable(type, configuration);
+    }
+
+    public static void enableCliqueColors(boolean enable){
+        if (enable) AnsiDetector.enableCliqueColors();
+        else AnsiDetector.disableCliqueColors();
     }
 
 }
