@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/images/clique-hero.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/clique-parser.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/tables.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RANDOM.md" beforeDir="false" afterPath="$PROJECT_DIR$/RANDOM.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/TokenExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/token/TokenExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/interfaces/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/interfaces/Table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/structures/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/structures/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/TableUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +66,9 @@
   &quot;keyToString&quot;: {
     &quot;Application.CliArtGallery.executor&quot;: &quot;Run&quot;,
     &quot;Application.CodeScanner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GameOfLife.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MazeGenerator.executor&quot;: &quot;Run&quot;,
     &quot;Application.ProjectExplorer.executor&quot;: &quot;Run&quot;,
     &quot;Application.QuizGame.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
@@ -104,6 +112,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GameOfLife" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GameOfLife" />
+      <module name="clique" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="clique" />
@@ -111,15 +126,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProjectExplorer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="demo.ProjectExplorer" />
-      <module name="clique" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="QuizGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="demo.QuizGame" />
+    <configuration name="MazeGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MazeGenerator" />
       <module name="clique" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -128,10 +136,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.MazeGenerator" />
+        <item itemvalue="Application.GameOfLife" />
         <item itemvalue="Application.CliArtGallery" />
         <item itemvalue="Application.CodeScanner" />
-        <item itemvalue="Application.ProjectExplorer" />
-        <item itemvalue="Application.QuizGame" />
       </list>
     </recent_temporary>
   </component>
@@ -165,7 +173,14 @@
       <workItem from="1762086329554" duration="83000" />
       <workItem from="1762086438439" duration="2973000" />
       <workItem from="1762093119189" duration="2257000" />
-      <workItem from="1762095625053" duration="1279000" />
+      <workItem from="1762095625053" duration="1416000" />
+      <workItem from="1762110780968" duration="19000" />
+      <workItem from="1762117070552" duration="4199000" />
+      <workItem from="1762122866256" duration="744000" />
+      <workItem from="1762125249834" duration="16000" />
+      <workItem from="1762167573018" duration="4713000" />
+      <workItem from="1762184950038" duration="21000" />
+      <workItem from="1762185002700" duration="1895000" />
     </task>
     <servers />
   </component>

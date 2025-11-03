@@ -2,6 +2,8 @@ package utils;
 
 import tables.configuration.CellAlign;
 
+import java.util.Map;
+
 public class TableUtils {
 
     private static final String BLANK = " ";
@@ -19,5 +21,9 @@ public class TableUtils {
                 yield sb.append(BLANK.repeat(leftOffset)).append(cell).append(BLANK.repeat(rightOffset)).append(vLine).toString();
             }
         };
+    }
+
+    public static CellAlign chooseColAlignment(int colIdx, CellAlign defAlign, Map<Integer, CellAlign> cAlign){
+        return cAlign.get(colIdx) == null ? defAlign : cAlign.get(colIdx);
     }
 }

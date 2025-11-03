@@ -1,12 +1,21 @@
 package tables.structures;
 
+import tables.configuration.CellAlign;
+
 public class Cell {
     private String text;
     private String styledText;
+    private CellAlign alignment;
 
-    public Cell(String text, String styled) {
+    public Cell(String text, String styledText, CellAlign alignment) {
         this.text = text;
-        this.styledText = styled;
+        this.styledText = styledText;
+    }
+
+
+
+    public Cell(String text, String styledText){
+        this(text, styledText, null);
     }
 
     public String styledText() {

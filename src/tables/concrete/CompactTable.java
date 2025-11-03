@@ -9,6 +9,7 @@ import tables.abstracttable.AbstractTable;
 
 import static utils.StringUtils.clearStringBuilder;
 import static utils.TableUtils.align;
+import static utils.TableUtils.chooseColAlignment;
 
 public class CompactTable extends AbstractTable {
 
@@ -27,19 +28,21 @@ public class CompactTable extends AbstractTable {
         this.styleTableBorders();
         clearStringBuilder(this.tableBuilder);
         final StringBuilder sb = new StringBuilder();
-        final CellAlign cellAlign = this.tableConfiguration.getAlignment();
+        CellAlign cellAlign;
 
 
         for (int i = 0; i < this.rows.size(); i++) {
             final WidthAwareList list = this.rows.get(i);
 
             for (int j = 0; j < list.size(); j++) {
+                cellAlign = this.tableConfiguration.getAlignment();
                 final String styledCell = list.getStyledText(j);
                 final String originalCell = list.getOriginalText(j);
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
 
                 final int offset = longest - originalCell.length();
+                cellAlign = chooseColAlignment(j, cellAlign, this.tableConfiguration.getColumnAlignment());
                 this.tableBuilder.append(align(cellAlign, sb, offset, styledCell, ""));
 
                 if (j < list.size() - 1) {

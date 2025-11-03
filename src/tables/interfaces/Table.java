@@ -1,7 +1,11 @@
 package tables.interfaces;
 
+import tables.abstracttable.AbstractTable;
+import tables.configuration.CellAlign;
+
 public interface Table {
     Table addHeaders(String... headers);
+
     Table addRows(String... rows);
     Table removeRow(int index);
     Table removeCell(int row, int col);

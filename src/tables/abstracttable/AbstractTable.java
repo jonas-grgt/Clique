@@ -1,13 +1,16 @@
 package tables.abstracttable;
 
 import parser.token.stringparser.interfaces.AnsiStringParser;
+import tables.configuration.CellAlign;
 import tables.configuration.TableConfiguration;
 import tables.interfaces.Table;
 import tables.structures.Cell;
 import tables.structures.WidthAwareList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractTable implements Table {
     protected final List<WidthAwareList> columns; //This is used to track the max length in that column
