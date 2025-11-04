@@ -435,7 +435,7 @@ javac src/demo/ProjectExplorer.java
 java -cp src demo.ProjectExplorer <path-to-your-project>
 ```
 
-**Note:** These demos use package-private visibility. If you want to run them separately, you may need to change them to `public class`.
+**Note:** These demos [pom.xml](pom.xml)use package-private visibility. If you want to run them separately, you may need to change them to `public class`.
 
 
 

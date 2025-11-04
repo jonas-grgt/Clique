@@ -1,12 +1,14 @@
 package utils;
 
 import tables.configuration.CellAlign;
+import tables.structures.WidthAwareList;
 
+import java.util.List;
 import java.util.Map;
 
 public class TableUtils {
 
-    private static final String BLANK = " ";
+    public static final String BLANK = " ";
 
     public static String align(CellAlign cellAlign, StringBuilder sb, int offset, String cell ,String vLine){
         final String spaces = BLANK.repeat(offset);
@@ -21,6 +23,23 @@ public class TableUtils {
                 yield sb.append(BLANK.repeat(leftOffset)).append(cell).append(BLANK.repeat(rightOffset)).append(vLine).toString();
             }
         };
+    }
+
+    public static String handleNulls(String val, String nullReplacement){
+        if(val != null) return val;
+        return nullReplacement;
+    }
+
+    public static void validateRowIndex(int rowIdx, List<WidthAwareList> rows){
+        if(rowIdx > (rows.size() - 1)) throw new IllegalArgumentException("Row: " + rowIdx + "does not exist");
+    }
+
+    public static void validateHeaders(int idx, int col){
+        if(idx == 0 || col == 0) throw new IllegalArgumentException("Cannot remove a header from a table");
+    }
+
+    public static void validateColumnIndex(int colIdx, List<WidthAwareList> cols){
+        if(colIdx > (cols.size() - 1)) throw new IllegalArgumentException("Column: " + colIdx + "does not exist");
     }
 
     public static CellAlign chooseColAlignment(int colIdx, CellAlign defAlign, Map<Integer, CellAlign> cAlign){

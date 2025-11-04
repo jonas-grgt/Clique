@@ -5,18 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/boxes/AbstractBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/BoxConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/DefaultBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/enums/TextAlign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/BoxUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RANDOM.md" beforeDir="false" afterPath="$PROJECT_DIR$/RANDOM.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser/token/TokenExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/token/TokenExtractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/interfaces/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/interfaces/Table.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tables/structures/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/structures/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/StringUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/TableUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,10 +27,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Exception" />
-        <option value="Enum" />
         <option value="Record" />
         <option value="Interface" />
         <option value="package-info" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -180,7 +179,10 @@
       <workItem from="1762125249834" duration="16000" />
       <workItem from="1762167573018" duration="4713000" />
       <workItem from="1762184950038" duration="21000" />
-      <workItem from="1762185002700" duration="1895000" />
+      <workItem from="1762185002700" duration="4445000" />
+      <workItem from="1762201603990" duration="8330000" />
+      <workItem from="1762243373033" duration="8618000" />
+      <workItem from="1762256481195" duration="2213000" />
     </task>
     <servers />
   </component>
