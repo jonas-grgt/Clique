@@ -1,15 +1,15 @@
 package tables.concrete;
 
 import core.style.StyleBuilder;
-import tables.configuration.CellAlign;
+import core.misc.CellAlign;
 import tables.abstracttable.AbstractTable;
-import tables.configuration.TableBorderStyle;
+import core.misc.BorderStyle;
 import tables.configuration.TableConfiguration;
 import tables.structures.WidthAwareList;
 
-import static utils.StringUtils.clearStringBuilder;
-import static utils.TableUtils.align;
-import static utils.TableUtils.chooseColAlignment;
+import static core.utils.StringUtils.clearStringBuilder;
+import static core.utils.TableUtils.align;
+import static core.utils.TableUtils.chooseColAlignment;
 
 public class MarkdownTable extends AbstractTable {
     private final StringBuilder tableBuilder;
@@ -71,9 +71,9 @@ public class MarkdownTable extends AbstractTable {
 
 
     protected void styleTableBorders(){
-        if(this.tableConfiguration.getTableBorderStyle() == null)return;
-        final StyleBuilder sb = TableBorderStyle.styleBuilder();
-        this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles());
-        this.vLine = sb.formatReset(this.vLine, this.tableConfiguration.getTableBorderStyle().getVerticalBorderStyles());
+        if(this.tableConfiguration.getBorderStyle() == null)return;
+        final StyleBuilder sb = BorderStyle.styleBuilder();
+        this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles());
+        this.vLine = sb.formatReset(this.vLine, this.tableConfiguration.getBorderStyle().getVerticalBorderStyles());
     }
 }

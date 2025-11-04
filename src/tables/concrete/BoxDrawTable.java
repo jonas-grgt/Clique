@@ -2,15 +2,15 @@ package tables.concrete;
 
 import core.ansi.interfaces.AnsiCode;
 import core.style.StyleBuilder;
-import tables.configuration.CellAlign;
-import tables.configuration.TableBorderStyle;
+import core.misc.BorderStyle;
+import core.misc.CellAlign;
 import tables.configuration.TableConfiguration;
 import tables.structures.WidthAwareList;
 import tables.abstracttable.AbstractTable;
 
-import static utils.StringUtils.clearStringBuilder;
-import static utils.TableUtils.align;
-import static utils.TableUtils.chooseColAlignment;
+import static core.utils.StringUtils.clearStringBuilder;
+import static core.utils.TableUtils.align;
+import static core.utils.TableUtils.chooseColAlignment;
 
 public class BoxDrawTable extends AbstractTable{
     private final StringBuilder tableBuilder;
@@ -120,18 +120,18 @@ public class BoxDrawTable extends AbstractTable{
 
 
     protected void styleTableBorders(){
-        if(this.tableConfiguration.getTableBorderStyle() == null) return;
-        final StyleBuilder sb = TableBorderStyle.styleBuilder();
-        final AnsiCode[] horizontalStyles = this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles();
-        final AnsiCode[] verticalStyles = this.tableConfiguration.getTableBorderStyle().getVerticalBorderStyles();
-        final AnsiCode[] cornerStyles = this.tableConfiguration.getTableBorderStyle().getEdgeBorderStyles();
+        if(this.tableConfiguration.getBorderStyle() == null) return;
+        final StyleBuilder sb = BorderStyle.styleBuilder();
+        final AnsiCode[] horizontalStyles = this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles();
+        final AnsiCode[] verticalStyles = this.tableConfiguration.getBorderStyle().getVerticalBorderStyles();
+        final AnsiCode[] edgeStyles = this.tableConfiguration.getBorderStyle().getEdgeBorderStyles();
 
         this.hLine = sb.formatReset(this.hLine, horizontalStyles);
         this.vLine = sb.formatReset(this.vLine, verticalStyles);
-        this.topLeft = sb.formatReset(this.topLeft, cornerStyles);
-        this.topRight = sb.formatReset(this.topRight, cornerStyles);
-        this.bottomLeft = sb.formatReset(this.bottomLeft, cornerStyles);
-        this.bottomRight = sb.formatReset(this.bottomRight, cornerStyles);
+        this.topLeft = sb.formatReset(this.topLeft, edgeStyles);
+        this.topRight = sb.formatReset(this.topRight, edgeStyles);
+        this.bottomLeft = sb.formatReset(this.bottomLeft, edgeStyles);
+        this.bottomRight = sb.formatReset(this.bottomRight, edgeStyles);
         this.topJoin = sb.formatReset(this.topJoin, horizontalStyles);
         this.bottomJoin = sb.formatReset(this.bottomJoin, horizontalStyles);
         this.leftJoin = sb.formatReset(this.leftJoin, verticalStyles);

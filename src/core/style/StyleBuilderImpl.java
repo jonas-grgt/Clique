@@ -2,10 +2,9 @@ package core.style;
 
 import core.ansi.enums.StyleCode;
 import core.ansi.interfaces.AnsiCode;
-import utils.AnsiDetector;
 
-import static utils.AnsiDetector.*;
-import static utils.StringUtils.clearStringBuilder;
+import static core.utils.AnsiDetector.ansiEnabled;
+import static core.utils.StringUtils.clearStringBuilder;
 
 public non-sealed class StyleBuilderImpl implements StyleBuilder {
 

@@ -5,18 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/boxes/AbstractBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boxes/BoxConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boxes/DefaultBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boxes/enums/TextAlign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/BoxUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/Box.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/BoxWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/CustomizableBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/abstractboxes/AbstractBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/concrete/ClassicBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/concrete/DefaultBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/concrete/DoubleLineBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/concrete/RoundedBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/misc/interfaces/Renderable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/utils/BoxUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tables/interfaces/CustomizableTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/AbstractBox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/BoxConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/configuration/BoxConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/DefaultBox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/clique/Clique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/CliArtGallery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/demo/CliArtGallery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/CodeScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/demo/CodeScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/ProjectExplorer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/demo/ProjectExplorer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/QuizGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/demo/QuizGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/StyleApplicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/token/StyleApplicator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/structures/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/structures/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/StringUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/TableUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/configuration/CellAlign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/misc/CellAlign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/configuration/TableBorderStyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/misc/BorderStyle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/interfaces/Customizable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/misc/interfaces/Customizable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/interfaces/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/interfaces/Table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/structures/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/misc/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/structures/WidthAwareList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/structures/WidthAwareList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AnsiDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/AnsiDetector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/BoxUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/TableUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,10 +56,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Exception" />
-        <option value="Record" />
-        <option value="Interface" />
         <option value="package-info" />
         <option value="Enum" />
+        <option value="Record" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -182,7 +211,9 @@
       <workItem from="1762185002700" duration="4445000" />
       <workItem from="1762201603990" duration="8330000" />
       <workItem from="1762243373033" duration="8618000" />
-      <workItem from="1762256481195" duration="2213000" />
+      <workItem from="1762256481195" duration="3109000" />
+      <workItem from="1762263308699" duration="4263000" />
+      <workItem from="1762277502439" duration="14255000" />
     </task>
     <servers />
   </component>

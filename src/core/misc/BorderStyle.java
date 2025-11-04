@@ -1,4 +1,4 @@
-package tables.configuration;
+package core.misc;
 
 import core.ansi.interfaces.AnsiCode;
 import core.clique.Clique;
@@ -7,14 +7,14 @@ import core.style.StyleBuilder;
 /**
  * A class for styling table borders
  * */
-public class TableBorderStyle {
+public class BorderStyle {
     private AnsiCode[] verticalStyle;
     private AnsiCode[] horizontalStyle;
-    private AnsiCode[] cornerStyle;
+    private AnsiCode[] edgeStyle;
     private static final StyleBuilder styleBuilder = Clique.styleBuilder();
 
-    public static TableBorderStyle builder(){
-        return new TableBorderStyle();
+    public static BorderStyle builder(){
+        return new BorderStyle();
     }
 
     public static StyleBuilder styleBuilder(){
@@ -25,17 +25,17 @@ public class TableBorderStyle {
         return horizontalStyle;
     }
 
-    public TableBorderStyle horizontalBorderStyles(AnsiCode... horizontalStyles) {
+    public BorderStyle horizontalBorderStyles(AnsiCode... horizontalStyles) {
         this.horizontalStyle = horizontalStyles;
         return this;
     }
 
     public AnsiCode[] getEdgeBorderStyles() {
-        return cornerStyle;
+        return edgeStyle;
     }
 
-    public TableBorderStyle edgeBorderStyles(AnsiCode... edgeStyles) {
-        this.cornerStyle = edgeStyles;
+    public BorderStyle edgeBorderStyles(AnsiCode... edgeStyles) {
+        this.edgeStyle = edgeStyles;
         return this;
     }
 
@@ -43,7 +43,7 @@ public class TableBorderStyle {
         return verticalStyle;
     }
 
-    public TableBorderStyle verticalBorderStyles(AnsiCode... verticalStyles) {
+    public BorderStyle verticalBorderStyles(AnsiCode... verticalStyles) {
         this.verticalStyle = verticalStyles;
         return this;
     }

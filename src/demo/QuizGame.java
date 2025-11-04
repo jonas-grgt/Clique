@@ -2,10 +2,13 @@ package demo;
 
 import core.ansi.enums.ColorCode;
 import core.clique.Clique;
-import tables.configuration.CellAlign;
-import tables.configuration.TableBorderStyle;
+import core.misc.BorderStyle;
+import core.misc.CellAlign;
+import core.misc.interfaces.Customizable;
+import tables.concrete.DefaultTable;
 import tables.configuration.TableConfiguration;
 import tables.factory.TableType;
+import tables.interfaces.CustomizableTable;
 import tables.interfaces.Table;
 
 import java.util.*;
@@ -116,13 +119,13 @@ class QuizGame {
         Clique.parser().print("[*magenta, bold]═══════════════════════════════════════════════[/]\n");
 
         // Use rounded box table for the question
-        TableBorderStyle questionStyle = TableBorderStyle.builder()
+        BorderStyle questionStyle = BorderStyle.builder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_BLUE)
                 .verticalBorderStyles(ColorCode.BRIGHT_BLUE)
                 .edgeBorderStyles(ColorCode.BRIGHT_CYAN);
 
         TableConfiguration config = TableConfiguration.builder()
-                .tableBorderStyle(questionStyle)
+                .borderStyle(questionStyle)
                 .parser(Clique.parser())
                 .padding(2)
                 .alignment(CellAlign.LEFT);
@@ -135,11 +138,11 @@ class QuizGame {
         System.out.println();
 
         // Use compact table for options
-        TableBorderStyle optionsStyle = TableBorderStyle.builder()
+        BorderStyle optionsStyle = BorderStyle.builder()
                 .horizontalBorderStyles(ColorCode.CYAN);
 
         TableConfiguration optionsConfig = TableConfiguration.builder()
-                .tableBorderStyle(optionsStyle)
+                .borderStyle(optionsStyle)
                 .parser(Clique.parser())
                 .padding(3)
                 .alignment(CellAlign.LEFT);
@@ -185,26 +188,26 @@ class QuizGame {
 
     private static void displayScore(int score, int questionNumber) {
         // Use default table with custom styling
-        TableBorderStyle scoreStyle = TableBorderStyle.builder()
+        BorderStyle scoreStyle = BorderStyle.builder()
                 .horizontalBorderStyles(ColorCode.YELLOW)
                 .verticalBorderStyles(ColorCode.YELLOW)
                 .edgeBorderStyles(ColorCode.BRIGHT_YELLOW);
 
         TableConfiguration config = TableConfiguration.builder()
-                .tableBorderStyle(scoreStyle)
+                .borderStyle(scoreStyle)
                 .parser(Clique.parser())
                 .padding(2)
                 .alignment(CellAlign.CENTER);
 
 
-        Table scoreTable = Clique.customizableTable(TableType.DEFAULT, config)
-                .customizeEdge('*')
+        CustomizableTable scoreTable = (DefaultTable) Clique.customizableTable(TableType.DEFAULT, config)
                 .customizeHorizontalLine('═')
                 .customizeVerticalLine('║');
 
         scoreTable.addHeaders("[*yellow, bold]Current Score[/]");
         scoreTable.addRows("[*white, bold]" + score + " / " + questionNumber + "[/]");
         scoreTable.render();
+
     }
 
     private static void displayFinalResults(int score, List<String> results) {
@@ -216,13 +219,13 @@ class QuizGame {
         double percentage = (score * 100.0) / QUESTIONS.size();
 
         // Final score with box draw table
-        TableBorderStyle finalStyle = TableBorderStyle.builder()
+        BorderStyle finalStyle = BorderStyle.builder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_MAGENTA)
                 .verticalBorderStyles(ColorCode.BRIGHT_MAGENTA)
                 .edgeBorderStyles(ColorCode.BRIGHT_CYAN);
 
         TableConfiguration finalConfig = TableConfiguration.builder()
-                .tableBorderStyle(finalStyle)
+                .borderStyle(finalStyle)
                 .parser(Clique.parser())
                 .padding(3)
                 .alignment(CellAlign.CENTER);
@@ -251,12 +254,12 @@ class QuizGame {
         System.out.println();
 
         // Question breakdown with markdown table
-        TableBorderStyle breakdownStyle = TableBorderStyle.builder()
+        BorderStyle breakdownStyle = BorderStyle.builder()
                 .horizontalBorderStyles(ColorCode.CYAN)
                 .verticalBorderStyles(ColorCode.BLUE);
 
         TableConfiguration breakdownConfig = TableConfiguration.builder()
-                .tableBorderStyle(breakdownStyle)
+                .borderStyle(breakdownStyle)
                 .parser(Clique.parser())
                 .padding(2)
                 .alignment(CellAlign.LEFT);

@@ -1,8 +1,9 @@
-package utils;
+package core.utils;
 
-import tables.configuration.CellAlign;
+import core.misc.CellAlign;
 import tables.structures.WidthAwareList;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -45,4 +46,6 @@ public class TableUtils {
     public static CellAlign chooseColAlignment(int colIdx, CellAlign defAlign, Map<Integer, CellAlign> cAlign){
         return cAlign.get(colIdx) == null ? defAlign : cAlign.get(colIdx);
     }
+
+
 }

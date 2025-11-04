@@ -1,7 +1,7 @@
 package demo;
 
 import core.clique.Clique;
-import tables.configuration.CellAlign;
+import core.misc.CellAlign;
 import tables.configuration.TableConfiguration;
 import tables.factory.TableType;
 import tables.interfaces.Table;

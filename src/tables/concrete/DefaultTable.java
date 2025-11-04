@@ -2,17 +2,19 @@ package tables.concrete;
 
 import core.style.StyleBuilder;
 import tables.abstracttable.AbstractTable;
-import tables.configuration.CellAlign;
-import tables.configuration.TableBorderStyle;
+import core.misc.BorderStyle;
+import core.misc.CellAlign;
 import tables.configuration.TableConfiguration;
-import tables.interfaces.Customizable;
+import core.misc.interfaces.Customizable;
+import tables.interfaces.CustomizableTable;
+import tables.interfaces.Table;
 import tables.structures.WidthAwareList;
 
-import static utils.StringUtils.clearStringBuilder;
-import static utils.TableUtils.align;
-import static utils.TableUtils.chooseColAlignment;
+import static core.utils.StringUtils.clearStringBuilder;
+import static core.utils.TableUtils.align;
+import static core.utils.TableUtils.chooseColAlignment;
 
-public class DefaultTable extends AbstractTable implements Customizable {
+public class DefaultTable extends AbstractTable implements CustomizableTable {
 
     private final StringBuilder tableBuilder;
     private String edge;
@@ -76,27 +78,27 @@ public class DefaultTable extends AbstractTable implements Customizable {
         return sb.toString();
     }
 
-    public Customizable customizeEdge(char edge) {
+    public CustomizableTable customizeEdge(char edge) {
         this.edge = String.valueOf(edge);
         return this;
     }
 
-    public Customizable customizeVerticalLine(char vLine) {
+    public CustomizableTable customizeVerticalLine(char vLine) {
         this.vLine = String.valueOf(vLine);
         return this;
     }
 
-    public Customizable customizeHorizontalLine(char hLine) {
+    public CustomizableTable customizeHorizontalLine(char hLine) {
         this.hLine = String.valueOf(hLine);
         return this;
     }
 
 
      protected void styleTableBorders(){
-        if(this.tableConfiguration.getTableBorderStyle() == null) return;
-        final StyleBuilder sb = TableBorderStyle.styleBuilder();
-        this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getTableBorderStyle().getHorizontalBorderStyles());
-        this.vLine = sb.formatReset(this.vLine, this.tableConfiguration.getTableBorderStyle().getVerticalBorderStyles());
-        this.edge = sb.formatReset(this.edge, this.tableConfiguration.getTableBorderStyle().getEdgeBorderStyles());
+        if(this.tableConfiguration.getBorderStyle() == null) return;
+        final StyleBuilder sb = BorderStyle.styleBuilder();
+        this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles());
+        this.vLine = sb.formatReset(this.vLine, this.tableConfiguration.getBorderStyle().getVerticalBorderStyles());
+        this.edge = sb.formatReset(this.edge, this.tableConfiguration.getBorderStyle().getEdgeBorderStyles());
     }
 }

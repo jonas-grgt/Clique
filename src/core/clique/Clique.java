@@ -4,12 +4,13 @@ import core.style.StyleBuilder;
 import core.style.StyleBuilderImpl;
 import parser.token.stringparser.AnsiStringParserImpl;
 import parser.token.stringparser.interfaces.AnsiStringParser;
-import tables.interfaces.Customizable;
+import core.misc.interfaces.Customizable;
+import tables.interfaces.CustomizableTable;
 import tables.interfaces.Table;
 import tables.configuration.TableConfiguration;
 import tables.factory.TableFactory;
 import tables.factory.TableType;
-import utils.AnsiDetector;
+import core.utils.AnsiDetector;
 
 /**
  * A facade class to hide the instantiation of multiple implementations of different classes
@@ -31,11 +32,11 @@ public final class Clique {
         return TableFactory.getTable(type, configuration);
     }
 
-    public static Customizable customizableTable(TableType type){
+    public static CustomizableTable customizableTable(TableType type){
         return TableFactory.getCustomizableTable(type);
     }
 
-    public static Customizable customizableTable(TableType type, TableConfiguration configuration){
+    public static CustomizableTable customizableTable(TableType type, TableConfiguration configuration){
         return TableFactory.getCustomizableTable(type, configuration);
     }
 

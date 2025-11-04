@@ -38,7 +38,7 @@ public final class StyleApplicator {
                 final ParserToken next = i != (size - 1) ? tokens.get(i + 1) :
                         new ParserToken(extractedString.length(), 0, null); //if we're at the end of the loop, we apply the current style to the rem of the string
 
-                final AnsiCode[] codes = curr.validStyles().toArray(new AnsiCode[0]);
+                final AnsiCode[] codes = curr.validStyles().toArray(AnsiCode[]::new);
                 final int start = curr.end() + 1;
                 final int end = next.start();
                 val = extractedString.substring(start , end);

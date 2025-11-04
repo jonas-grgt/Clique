@@ -1,7 +1,7 @@
-package utils;
+package core.utils;
 
 import parser.token.stringparser.interfaces.AnsiStringParser;
-import tables.structures.Cell;
+import core.misc.Cell;
 
 public final class StringUtils {
 
@@ -19,5 +19,7 @@ public final class StringUtils {
             return new Cell(cell, cell);
         }
     }
+
+
 
 }

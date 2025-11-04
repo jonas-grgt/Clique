@@ -316,14 +316,14 @@ System.out.println(tableString);
 If you want more stylistic choices for your tables, you can use the `TableConfiguration` class to configure and style your tables
 
 ```java
-TableBorderStyle style = TableBorderStyle.builder() 
+BorderStyle style = BorderStyle.builder() 
                 .horizontalBorderStyles(ColorCode.CYAN)
                 .verticalBorderStyles(ColorCode.MAGENTA)
                 .edgeBorderStyles(ColorCode.YELLOW);
 
 TableConfiguration configuration = TableConfiguration
         .builder()
-        .tableBorderStyle(style) //Style class for styling table borders
+        .borderStyle(style) //Style class for styling table borders
         .parser(Clique.parser()); //Set a parser for the table to enable markup formatting for rows
         .alignment(CellAlign.CENTER) //Centers each row's values. Rows are left aligned by default
         .padding(2); //The amount of whitespace added to each value in a cell to avoid cramping

@@ -1,4 +1,4 @@
-package utils;
+package core.utils;
 
 public final class AnsiDetector {
 

@@ -1,6 +1,4 @@
-package tables.structures;
-
-import tables.configuration.CellAlign;
+package core.misc;
 
 public class Cell {
     private String text;

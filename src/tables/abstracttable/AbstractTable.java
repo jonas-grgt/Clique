@@ -1,23 +1,18 @@
 package tables.abstracttable;
 
-import parser.token.stringparser.interfaces.AnsiStringParser;
-import tables.configuration.CellAlign;
+import core.misc.interfaces.Renderable;
 import tables.configuration.TableConfiguration;
 import tables.interfaces.Table;
-import tables.structures.Cell;
+import core.misc.Cell;
 import tables.structures.WidthAwareList;
-import utils.StringUtils;
-import utils.TableUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static utils.StringUtils.parseCell;
-import static utils.TableUtils.*;
+import static core.utils.StringUtils.parseCell;
+import static core.utils.TableUtils.*;
 
-public abstract class AbstractTable implements Table {
+public abstract class AbstractTable implements Table, Renderable {
     protected final List<WidthAwareList> columns; //This is used to track the max length in that column
     protected final List<WidthAwareList> rows;
     private boolean headersAdded;
@@ -123,8 +118,6 @@ public abstract class AbstractTable implements Table {
     public void render() {
         System.out.println(this.buildTable());
     }
-
-
 
     protected abstract void styleTableBorders();
 

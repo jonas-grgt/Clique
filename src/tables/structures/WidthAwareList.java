@@ -1,5 +1,7 @@
 package tables.structures;
 
+import core.misc.Cell;
+
 import java.util.ArrayList;
 import java.util.List;
 

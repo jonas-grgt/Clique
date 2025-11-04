@@ -1,5 +1,7 @@
 package tables.configuration;
 
+import core.misc.BorderStyle;
+import core.misc.CellAlign;
 import parser.token.stringparser.interfaces.AnsiStringParser;
 
 import java.util.HashMap;
@@ -10,7 +12,7 @@ public class TableConfiguration {
     private AnsiStringParser parser;
     private String nullReplacement;
     private HashMap<Integer, CellAlign> columnAlignment;
-    private TableBorderStyle tableBorderStyle;
+    private BorderStyle borderStyle;
 
 
     private TableConfiguration() {
@@ -20,7 +22,7 @@ public class TableConfiguration {
         this.columnAlignment = new HashMap<>();
         this.parser = null;
         this.nullReplacement = "";
-        this.tableBorderStyle = null;
+        this.borderStyle = null;
     }
 
     public static TableConfiguration builder(){
@@ -46,12 +48,12 @@ public class TableConfiguration {
 
 
 
-    public TableBorderStyle getTableBorderStyle() {
-        return this.tableBorderStyle;
+    public BorderStyle getBorderStyle() {
+        return this.borderStyle;
     }
 
-    public TableConfiguration tableBorderStyle(TableBorderStyle tableBorderStyle) {
-        this.tableBorderStyle = tableBorderStyle;
+    public TableConfiguration borderStyle(BorderStyle borderStyle) {
+        this.borderStyle = borderStyle;
         return this;
     }
 

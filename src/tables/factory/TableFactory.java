@@ -1,6 +1,7 @@
 package tables.factory;
 
-import tables.interfaces.Customizable;
+import core.misc.interfaces.Customizable;
+import tables.interfaces.CustomizableTable;
 import tables.interfaces.Table;
 import tables.concrete.*;
 import tables.configuration.TableConfiguration;
@@ -27,19 +28,15 @@ public class TableFactory {
         };
     }
 
-    public static Customizable getCustomizableTable(TableType type, TableConfiguration config) {
+    public static CustomizableTable getCustomizableTable(TableType type, TableConfiguration config) {
         return switch (type) {
-            case DEFAULT -> (Customizable) table(type, config);
+            case DEFAULT -> (CustomizableTable) table(type, config);
             default -> throw new UnsupportedOperationException(type + " is not customizable");
         };
     }
 
-    public static Customizable getCustomizableTable(TableType type) {
-        TableConfiguration configuration = TableConfiguration.builder();
-        return switch (type) {
-            case DEFAULT -> (Customizable) table(type, configuration);
-            default -> throw new UnsupportedOperationException(type + " is not customizable");
-        };
+    public static CustomizableTable getCustomizableTable(TableType type) {
+        return getCustomizableTable(type, TableConfiguration.builder());
     }
 
 

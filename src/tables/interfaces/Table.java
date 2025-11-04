@@ -1,8 +1,5 @@
 package tables.interfaces;
 
-import tables.abstracttable.AbstractTable;
-import tables.configuration.CellAlign;
-
 public interface Table {
     Table addHeaders(String... headers);
 

@@ -4,8 +4,8 @@ import core.ansi.enums.ColorCode;
 import core.ansi.enums.StyleCode;
 import core.clique.Clique;
 import core.style.StyleBuilder;
-import tables.configuration.CellAlign;
-import tables.configuration.TableBorderStyle;
+import core.misc.BorderStyle;
+import core.misc.CellAlign;
 import tables.configuration.TableConfiguration;
 import tables.factory.TableType;
 import tables.interfaces.Table;
@@ -42,13 +42,13 @@ class CliArtGallery {
         Clique.parser().print("\n\n");
 
         // Use table for perfect alignment
-        TableBorderStyle style = TableBorderStyle.builder()
+        BorderStyle style = BorderStyle.builder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_CYAN)
                 .verticalBorderStyles(ColorCode.BRIGHT_CYAN)
                 .edgeBorderStyles(ColorCode.BRIGHT_CYAN);
 
         TableConfiguration config = TableConfiguration.builder()
-                .tableBorderStyle(style)
+                .borderStyle(style)
                 .parser(Clique.parser())
                 .padding(3)
                 .alignment(CellAlign.CENTER);
@@ -152,13 +152,13 @@ class CliArtGallery {
         System.out.println();
 
         // Quote 4 - styled box
-        TableBorderStyle quoteStyle = TableBorderStyle.builder()
+        BorderStyle quoteStyle = BorderStyle.builder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_YELLOW)
                 .verticalBorderStyles(ColorCode.BRIGHT_YELLOW)
                 .edgeBorderStyles(ColorCode.BRIGHT_MAGENTA);
 
         TableConfiguration config = TableConfiguration.builder()
-                .tableBorderStyle(quoteStyle)
+                .borderStyle(quoteStyle)
                 .parser(Clique.parser())
                 .padding(2)
                 .alignment(CellAlign.CENTER);
@@ -301,13 +301,13 @@ class CliArtGallery {
         Clique.parser().print("\n\n");
 
         // Use table for alignment
-        TableBorderStyle style = TableBorderStyle.builder()
+        BorderStyle style = BorderStyle.builder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_MAGENTA)
                 .verticalBorderStyles(ColorCode.BRIGHT_MAGENTA)
                 .edgeBorderStyles(ColorCode.BRIGHT_MAGENTA);
 
         TableConfiguration config = TableConfiguration.builder()
-                .tableBorderStyle(style)
+                .borderStyle(style)
                 .parser(Clique.parser())
                 .padding(3)
                 .alignment(CellAlign.CENTER);
