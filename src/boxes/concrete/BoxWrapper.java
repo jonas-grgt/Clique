@@ -1,4 +1,4 @@
-package boxes;
+package boxes.concrete;
 
 import boxes.configuration.BoxConfiguration;
 import core.misc.Cell;

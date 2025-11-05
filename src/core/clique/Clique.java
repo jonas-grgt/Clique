@@ -1,15 +1,14 @@
 package core.clique;
 
-import boxes.BoxFactory;
+import boxes.factory.BoxFactory;
 import boxes.configuration.BoxConfiguration;
-import boxes.enums.BoxType;
+import boxes.factory.BoxType;
 import boxes.interfaces.Box;
 import boxes.interfaces.CustomizableBox;
 import core.style.StyleBuilder;
 import core.style.StyleBuilderImpl;
 import parser.token.stringparser.AnsiStringParserImpl;
 import parser.token.stringparser.interfaces.AnsiStringParser;
-import core.misc.interfaces.Customizable;
 import tables.interfaces.CustomizableTable;
 import tables.interfaces.Table;
 import tables.configuration.TableConfiguration;

@@ -1,11 +1,10 @@
-package boxes;
+package boxes.factory;
 
 import boxes.concrete.ClassicBox;
 import boxes.concrete.DefaultBox;
 import boxes.concrete.DoubleLineBox;
 import boxes.concrete.RoundedBox;
 import boxes.configuration.BoxConfiguration;
-import boxes.enums.BoxType;
 import boxes.interfaces.Box;
 import boxes.interfaces.CustomizableBox;
 

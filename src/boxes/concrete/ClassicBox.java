@@ -1,13 +1,14 @@
 package boxes.concrete;
 
-import boxes.BoxWrapper;
 import boxes.abstractboxes.AbstractBox;
 import boxes.configuration.BoxConfiguration;
 import core.ansi.interfaces.AnsiCode;
 import core.misc.BorderStyle;
 import core.style.StyleBuilder;
+import core.utils.BoxUtils;
 
 import static core.utils.BoxUtils.drawBox;
+import static core.utils.BoxUtils.handleDimensionsEx;
 
 public class ClassicBox extends AbstractBox {
 
@@ -32,24 +33,25 @@ public class ClassicBox extends AbstractBox {
     }
 
     public String buildBox() {
-        this.styleBox();
-        this.wrapWord();
-        System.out.println(width);
-        final StringBuilder sb = new StringBuilder();
-        final BoxWrapper wrapper = new BoxWrapper(
-                this.width,
-                this.length,
-                this.boxConfiguration,
-                this.wordWrap,
-                this.hLine,
-                this.vLine,
-                this.topLeft,
-                this.topRight,
-                this.bottomRight,
-                this.bottomLeft
-        );
-        drawBox(sb, wrapper);
-        return sb.toString();
+        return handleDimensionsEx(() -> {
+            this.styleBox();
+            this.wrapWord();
+            final StringBuilder sb = new StringBuilder();
+            final BoxWrapper wrapper = new BoxWrapper(
+                    this.width,
+                    this.length,
+                    this.boxConfiguration,
+                    this.wordWrap,
+                    this.hLine,
+                    this.vLine,
+                    this.topLeft,
+                    this.topRight,
+                    this.bottomRight,
+                    this.bottomLeft
+            );
+            drawBox(sb, wrapper);
+            return sb.toString();
+        });
     }
 
     private void styleBox(){

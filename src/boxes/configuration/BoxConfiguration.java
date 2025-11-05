@@ -10,7 +10,7 @@ public class BoxConfiguration {
     private TextAlign textAlign;
     private AnsiStringParser parser;
     private BorderStyle borderStyle;
-    private boolean autoAdjustBox;
+    private boolean autoSize;
 
 
     public int getCenterPadding() {
@@ -22,12 +22,12 @@ public class BoxConfiguration {
         return this;
     }
 
-    public boolean getAutoAdjustBox() {
-        return autoAdjustBox;
+    public boolean getAutoSize() {
+        return autoSize;
     }
 
-    public BoxConfiguration autoAdjustBox(boolean autoAdjustBox) {
-        this.autoAdjustBox = autoAdjustBox;
+    public BoxConfiguration autoSize(boolean autoSize) {
+        this.autoSize = autoSize;
         return this;
     }
 
@@ -67,6 +67,6 @@ public class BoxConfiguration {
         this.textAlign = TextAlign.CENTER;
         this.parser = Clique.parser();
         this.borderStyle = null;
-        this.autoAdjustBox = false;
+        this.autoSize = false;
     }
 }

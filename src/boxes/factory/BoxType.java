@@ -1,4 +1,4 @@
-package boxes.enums;
+package boxes.factory;
 
 public enum BoxType {
     DEFAULT,

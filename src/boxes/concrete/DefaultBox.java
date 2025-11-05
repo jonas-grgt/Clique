@@ -1,6 +1,5 @@
 package boxes.concrete;
 
-import boxes.BoxWrapper;
 import boxes.configuration.BoxConfiguration;
 import boxes.interfaces.CustomizableBox;
 import boxes.abstractboxes.AbstractBox;
@@ -9,6 +8,7 @@ import core.misc.BorderStyle;
 import core.style.StyleBuilder;
 
 import static core.utils.BoxUtils.drawBox;
+import static core.utils.BoxUtils.handleDimensionsEx;
 
 public class DefaultBox extends AbstractBox implements CustomizableBox {
 
@@ -25,16 +25,18 @@ public class DefaultBox extends AbstractBox implements CustomizableBox {
     }
 
     public String buildBox() {
-        this.wrapWord();
-        this.styleBox();
-        final StringBuilder sb = new StringBuilder();
-        final BoxWrapper wrapper = new BoxWrapper(
-                this.width, this.length, this.boxConfiguration,
-                this.wordWrap, this.hLine, this.vLine,
-                this.edge, this.edge, this.edge, this.edge
-        );
-        drawBox(sb, wrapper);
-        return sb.toString();
+        return handleDimensionsEx(() -> {
+            this.wrapWord();
+            this.styleBox();
+            final StringBuilder sb = new StringBuilder();
+            final BoxWrapper wrapper = new BoxWrapper(
+                    this.width, this.length, this.boxConfiguration,
+                    this.wordWrap, this.hLine, this.vLine,
+                    this.edge, this.edge, this.edge, this.edge
+            );
+            drawBox(sb, wrapper);
+            return sb.toString();
+        });
     }
 
     public CustomizableBox customizeEdge(char edge) {

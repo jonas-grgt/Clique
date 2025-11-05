@@ -1,12 +1,15 @@
 package tables.factory;
 
-import core.misc.interfaces.Customizable;
-import tables.interfaces.CustomizableTable;
-import tables.interfaces.Table;
 import tables.concrete.*;
 import tables.configuration.TableConfiguration;
+import tables.interfaces.CustomizableTable;
+import tables.interfaces.Table;
 
 public class TableFactory {
+
+    private TableFactory(){
+
+    }
 
     public static Table getTable(TableType type, TableConfiguration config) {
         return table(type, config);

@@ -322,6 +322,7 @@ BorderStyle style = BorderStyle.builder()
 
 TableConfiguration configuration = TableConfiguration
         .builder()
+        .columnAlignment(0, CellAlign.LEFT)  //Column alignment will always take precedence over table alignment
         .borderStyle(style) //Style class for styling table borders
         .parser(Clique.parser()); //Set a parser for the table to enable markup formatting for rows
         .alignment(CellAlign.CENTER) //Centers each row's values. Rows are left aligned by default
@@ -387,7 +388,7 @@ BoxConfiguration config = BoxConfiguration.builder()
      .borderStyle(style) 
      .textAlign(TextAlign.CENTER) //Where the text should be aligned in the box
      .centerPadding(3) //The amount of padding from both sides, when the content of the box is centered
-     .autoAdjustBox(true) // Will automatically resize the box if the box cannot wrap around the content
+     .autoSize(true) // Will automatically resize the box, if the box cannot wrap around the content
      .parser(Clique.parser()); // A parser is provided by default, but you can pass a customized parser here
 
 Box b = Clique.box(BOX.DOUBLE_LINE)
@@ -400,14 +401,13 @@ Box b = Clique.box(BOX.DOUBLE_LINE)
 You can customize your box edges and borders. Right now only the `DEFAULT` box can be customized. You can get a customizable box using the `Clique.customizableBox()`
 ```java
 BoxConfiguration config = BoxConfiguration.builder()
-        .autoAdjustBox(true);
+        .autoSize(true);
 
 Box b = Clique.customizableBox(BoxType.DEFAULT, config)
         .customizeEdge('<')
         .customizeVerticalLine('~')
         .content("[red]This is my custom box :)");
 ```
-
 
 
 ## Additional Examples

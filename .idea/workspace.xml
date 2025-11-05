@@ -5,20 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/boxes/BoxFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boxes/enums/BoxType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/exceptions/InvalidDimensionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boxes/interfaces/ExceptionSupplier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/interfaces/Box.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/CustomizableBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/interfaces/CustomizableBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/BoxFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/factory/BoxFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/BoxWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/concrete/BoxWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boxes/abstractboxes/AbstractBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/abstractboxes/AbstractBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boxes/concrete/ClassicBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/concrete/ClassicBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boxes/concrete/DefaultBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/concrete/DefaultBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/DoubleLineBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/concrete/DoubleLineBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/RoundedBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/concrete/RoundedBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/configuration/BoxConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/configuration/BoxConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/enums/BoxType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/factory/BoxType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/clique/Clique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils/BoxUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/BoxUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,12 +30,12 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Exception" />
         <option value="package-info" />
         <option value="Record" />
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Exception" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -187,7 +189,9 @@
       <workItem from="1762256481195" duration="3109000" />
       <workItem from="1762263308699" duration="4263000" />
       <workItem from="1762277502439" duration="15124000" />
-      <workItem from="1762301948187" duration="2200000" />
+      <workItem from="1762301948187" duration="3862000" />
+      <workItem from="1762340699390" duration="31000" />
+      <workItem from="1762365784724" duration="3450000" />
     </task>
     <servers />
   </component>

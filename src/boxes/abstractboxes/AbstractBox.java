@@ -1,7 +1,7 @@
 package boxes.abstractboxes;
 
-import boxes.interfaces.Box;
 import boxes.configuration.BoxConfiguration;
+import boxes.interfaces.Box;
 import core.misc.Cell;
 import core.misc.interfaces.Renderable;
 import core.utils.StringUtils;
@@ -9,17 +9,17 @@ import core.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static core.utils.BoxUtils.filterWhitespace;
 import static core.utils.BoxUtils.splitPreservingAnsi;
-import static core.utils.StringUtils.clearStringBuilder;
+import static core.utils.StringUtils.*;
 import static core.utils.TableUtils.BLANK;
+import static java.lang.Math.max;
 
 
 public abstract class AbstractBox implements Box, Renderable {
     protected int width;
     protected int length;
     protected Cell boxContent;
-    protected List<Cell> wordWrap;  // Changed to List<Cell> to store both styled and original
+    protected List<Cell> wordWrap;
     protected String vLine;
     protected String hLine;
     protected String edge;
@@ -71,6 +71,7 @@ public abstract class AbstractBox implements Box, Renderable {
         if(this.boxContent == null || this.boxContent.text().isBlank()){
             return;
         }
+
         this.autoAdjust();
         final int maxCharsPerLine = this.width - (this.boxConfiguration.getCenterPadding() * 2);
 
@@ -90,6 +91,7 @@ public abstract class AbstractBox implements Box, Renderable {
             // Check length using original word
             if ((currentOriginal.length() + originalWord.length()) + 1 > maxCharsPerLine) {
                 if (!currentOriginal.isEmpty()) {
+
                     // Store the cell
                     this.wordWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
                     clearStringBuilder(currentOriginal);
@@ -111,25 +113,19 @@ public abstract class AbstractBox implements Box, Renderable {
             this.wordWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
         }
 
-        if(this.boxConfiguration.getAutoAdjustBox()){
-            this.length = this.wordWrap.size() + 2; //Add 2 to include the both borders
-            System.out.println(length);
+        if(this.boxConfiguration.getAutoSize() && this.length < this.wordWrap.size()){
+                this.length = this.wordWrap.size() + 2; //Add 2 to include the both borders
         }
-
     }
 
     protected void autoAdjust(){
-        if(this.boxConfiguration.getAutoAdjustBox()){
-            final String originalContent = this.boxContent.text();
-            final String[] originalWords = filterWhitespace(originalContent.split("\\s+"));
-            int longest = 0;
-            for (String s : originalWords){
-                if (s.length() > longest) {
-                    longest = s.length();
-                }
-            }
+        final String originalContent = this.boxContent.text();
+        if(originalContent.isEmpty()) return;
 
-            this.width = Math.max(this.width, longest) + (this.boxConfiguration.getCenterPadding() * 2);
+        final String[] originalWords = filterWhitespace(originalContent.split("\\s+"));
+        final int longest = getLongest(originalWords);
+        if(this.boxConfiguration.getAutoSize()){
+            this.width = max(this.width, longest) + (this.boxConfiguration.getCenterPadding() * 2);
         }
     }
 

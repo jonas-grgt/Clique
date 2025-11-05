@@ -1,21 +1,23 @@
 package core.utils;
 
-import boxes.BoxWrapper;
+import boxes.concrete.BoxWrapper;
 import boxes.enums.TextAlign;
+import boxes.exceptions.InvalidDimensionException;
+import boxes.interfaces.ExceptionSupplier;
 import core.ansi.enums.StyleCode;
 import core.misc.Cell;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static core.utils.StringUtils.clearStringBuilder;
-import static core.utils.TableUtils.BLANK;
 
 public class BoxUtils {
 
     public final static String BLANK = TableUtils.BLANK;
     private final static String RESET = StyleCode.RESET.getCode();
+    private final static char ANSI_END = 'm';
+    private final static char ANSI_BEGIN = '\u001b';
 
     public static void alignText(StringBuilder sb, int idx, TextAlign textAlign, String spaces, List<Cell> wordWrap, String vLine){
         final String s = wordWrap.get(idx).text();
@@ -106,13 +108,13 @@ public class BoxUtils {
         for (int i = 0; i < styledContent.length(); i++) {
             final char c = styledContent.charAt(i);
 
-            if (c == '\u001b') {
+            if (c == ANSI_BEGIN) {
                 inEscapeSequence = true;
                 clearStringBuilder(currentEscape);
                 currentEscape.append(c);
             } else if (inEscapeSequence) {
                 currentEscape.append(c);
-                if (c == 'm') { //End of ansi seq
+                if (c == ANSI_END) { //End of ansi seq
                     inEscapeSequence = false;
                     final String escapeSeq = currentEscape.toString();
 
@@ -127,14 +129,14 @@ public class BoxUtils {
                     }
                 }
 
-            } else if (Character.isWhitespace(c)) {
+            } else if (Character.isWhitespace(c)) { //Check if a char is a whitespace
                 if (!currentWord.isEmpty()) {
                     // Close any active formatting
                     if (!activeAnsiCodes.isEmpty()) {
                         currentWord.append(RESET);
                     }
-                    words.add(currentWord.toString());
 
+                    words.add(currentWord.toString());
                     // Start new word with active formatting
                     clearStringBuilder(currentWord);
                     if (!activeAnsiCodes.isEmpty()) {
@@ -158,13 +160,12 @@ public class BoxUtils {
         return words.toArray(String[]::new);
     }
 
-    public static String[] filterWhitespace(String[] arr){
-         return Arrays.stream(arr)
-                .filter(s -> {
-                    // Remove all ANSI codes and check if anything remains
-                    String withoutAnsi = s.replaceAll("\u001b\\[[;\\d]*m", "");
-                    return !withoutAnsi.isBlank();
-                })
-                .toArray(String[]::new);
+    public static <T> T handleDimensionsEx(ExceptionSupplier<T> e){
+        try {
+             return e.supply();
+        }catch (IllegalArgumentException ex){
+            throw new InvalidDimensionException("The dimensions of this box are too small to wrap around the given content. You can prevent this by using the `autoSize` box configuration");
+        }
     }
+
 }
