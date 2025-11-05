@@ -1,4 +1,4 @@
-package boxes;
+package boxes.interfaces;
 
 import core.misc.interfaces.Customizable;
 

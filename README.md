@@ -269,7 +269,7 @@ Clique.parser().print("[rv]Inverted colors![/]");
 
 
 ## Tables
-Tables are a feature of Clique that will still be expanded(i.e. More tables). For a brief introduction, there are currently 5 tables
+Tables are a feature of Clique which support structured data. For a brief introduction, there are currently 5 tables
 1. Default table 
 2. Compact/Minimal table
 3. Box Draw table
@@ -290,7 +290,6 @@ t.render(); //Print the table on the terminal
 
 
 ### Table Manipulation
-
 Tables support dynamic updates after creation:
 ```java
 Table table = Clique.table(TableType.DEFAULT)
@@ -314,7 +313,7 @@ System.out.println(tableString);
 
 ### Table Configuration
 If you want more stylistic choices for your tables, you can use the `TableConfiguration` class to configure and style your tables
-
+**NOTE:** Markup parsing is enabled by default
 ```java
 BorderStyle style = BorderStyle.builder() 
                 .horizontalBorderStyles(ColorCode.CYAN)
@@ -351,6 +350,65 @@ table.render();
 This is especially useful when you have incomplete data or when using `removeCell()`.
 
 ---
+
+
+## Boxes
+Boxes are single cell objects which support text wrapping, unlike tables. Boxes are best used to display standalone/long text data
+</br> Clique currently has 4 box types.
+1. Default box
+2. Classic box
+3. Rounded box
+4. Double line box
+
+All of these boxes are abstracted behind the box interface and can be accessed using the `Clique` facade.
+
+```java
+Box box = Clique.box(BoxType.CLASSIC)
+        .width(10)
+        .length(10)
+        .content("This is my first box");
+        
+box.render(); //Print the box to the terminal
+```
+
+### Box Configuration
+Box configuration allows for more stylistic choices to your boxes. It defines how boxes are drawn, styled, its content is aligned, and rendered within the terminal.
+**NOTE:** Markup parsing is enabled by default
+
+```java
+// Define a colorful border style
+BorderStyle style = BorderStyle.builder()
+     .horizontalBorderStyles(ColorCode.CYAN)
+     .verticalBorderStyles(ColorCode.MAGENTA)
+     .edgeBorderStyles(ColorCode.YELLOW);
+
+// Build the box configuration
+BoxConfiguration config = BoxConfiguration.builder()
+     .borderStyle(style) 
+     .textAlign(TextAlign.CENTER) //Where the text should be aligned in the box
+     .centerPadding(3) //The amount of padding from both sides, when the content of the box is centered
+     .autoAdjustBox(true) // Will automatically resize the box if the box cannot wrap around the content
+     .parser(Clique.parser()); // A parser is provided by default, but you can pass a customized parser here
+
+Box b = Clique.box(BOX.DOUBLE_LINE)
+        .configuration(config)
+        .content("[bold, blue]This is a configured box") //This box will be autoAdjusted, no need for a length or width if you don't need it
+        .render();
+```
+
+### Box Customization
+You can customize your box edges and borders. Right now only the `DEFAULT` box can be customized. You can get a customizable box using the `Clique.customizableBox()`
+```java
+BoxConfiguration config = BoxConfiguration.builder()
+        .autoAdjustBox(true);
+
+Box b = Clique.customizableBox(BoxType.DEFAULT, config)
+        .customizeEdge('<')
+        .customizeVerticalLine('~')
+        .content("[red]This is my custom box :)");
+```
+
+
 
 ## Additional Examples
 

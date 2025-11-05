@@ -1,7 +1,8 @@
 package boxes.concrete;
 
 import boxes.BoxWrapper;
-import boxes.CustomizableBox;
+import boxes.configuration.BoxConfiguration;
+import boxes.interfaces.CustomizableBox;
 import boxes.abstractboxes.AbstractBox;
 import core.ansi.interfaces.AnsiCode;
 import core.misc.BorderStyle;
@@ -13,6 +14,10 @@ public class DefaultBox extends AbstractBox implements CustomizableBox {
 
     public DefaultBox(int width, int length, String content) {
         super(width, length, content);
+    }
+
+    public DefaultBox(BoxConfiguration configuration) {
+        super(configuration);
     }
 
     public DefaultBox(){

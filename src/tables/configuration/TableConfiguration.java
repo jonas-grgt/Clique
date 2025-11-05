@@ -1,5 +1,6 @@
 package tables.configuration;
 
+import core.clique.Clique;
 import core.misc.BorderStyle;
 import core.misc.CellAlign;
 import parser.token.stringparser.interfaces.AnsiStringParser;
@@ -20,7 +21,7 @@ public class TableConfiguration {
         this.padding = 1;
         this.alignment = CellAlign.LEFT;
         this.columnAlignment = new HashMap<>();
-        this.parser = null;
+        this.parser = Clique.parser();
         this.nullReplacement = "";
         this.borderStyle = null;
     }

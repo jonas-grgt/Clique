@@ -2,6 +2,7 @@ package boxes.concrete;
 
 import boxes.BoxWrapper;
 import boxes.abstractboxes.AbstractBox;
+import boxes.configuration.BoxConfiguration;
 import core.ansi.interfaces.AnsiCode;
 import core.misc.BorderStyle;
 import core.style.StyleBuilder;
@@ -17,16 +18,17 @@ public class ClassicBox extends AbstractBox {
 
     public ClassicBox(){
         super();
+        this.initBorders();
+    }
+
+    public ClassicBox(BoxConfiguration configuration) {
+        super(configuration);
+        this.initBorders();
     }
 
     public ClassicBox(int width, int length, String content) {
         super(width, length, content);
-        this.hLine = "─";
-        this.vLine = "│";
-        this.topLeft = "┌";
-        this.topRight = "┐";
-        this.bottomLeft = "└";
-        this.bottomRight = "┘";
+        this.initBorders();
     }
 
     public String buildBox() {
@@ -66,5 +68,14 @@ public class ClassicBox extends AbstractBox {
             this.bottomRight = sb.formatReset(this.bottomRight, edgeStyles);
 
         }
+    }
+
+    private void initBorders(){
+        this.hLine = "─";
+        this.vLine = "│";
+        this.topLeft = "┌";
+        this.topRight = "┐";
+        this.bottomLeft = "└";
+        this.bottomRight = "┘";
     }
 }

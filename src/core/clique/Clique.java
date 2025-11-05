@@ -1,5 +1,10 @@
 package core.clique;
 
+import boxes.BoxFactory;
+import boxes.configuration.BoxConfiguration;
+import boxes.enums.BoxType;
+import boxes.interfaces.Box;
+import boxes.interfaces.CustomizableBox;
 import core.style.StyleBuilder;
 import core.style.StyleBuilderImpl;
 import parser.token.stringparser.AnsiStringParserImpl;
@@ -39,6 +44,23 @@ public final class Clique {
     public static CustomizableTable customizableTable(TableType type, TableConfiguration configuration){
         return TableFactory.getCustomizableTable(type, configuration);
     }
+
+    public static Box box(BoxType type, BoxConfiguration configuration){
+        return BoxFactory.getBox(type, configuration);
+    }
+
+    public static Box box(BoxType type){
+        return BoxFactory.getCustomizableBox(type);
+    }
+
+    public static CustomizableBox customizableBox(BoxType type, BoxConfiguration configuration){
+        return BoxFactory.getCustomizableBox(type, configuration);
+    }
+
+    public static CustomizableBox customizableBox(BoxType type){
+        return BoxFactory.getCustomizableBox(type);
+    }
+
 
     public static void enableCliqueColors(boolean enable){
         if (enable) AnsiDetector.enableCliqueColors();
