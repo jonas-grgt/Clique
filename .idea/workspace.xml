@@ -5,22 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/boxes/exceptions/InvalidDimensionException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boxes/interfaces/ExceptionSupplier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/indent/Flag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/indent/Indent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/indent/Indenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/indent/IndenterConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/indent/IndenterImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/misc/interfaces/Printable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/BoxFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/factory/BoxFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/BoxWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/concrete/BoxWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/abstractboxes/AbstractBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/abstractboxes/AbstractBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/ClassicBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/concrete/ClassicBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/DefaultBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/concrete/DefaultBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/configuration/BoxConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/configuration/BoxConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/enums/BoxType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/factory/BoxType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/clique/Clique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/utils/BoxUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/BoxUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/misc/CellAlign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/misc/CellAlign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/style/StyleBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/style/StyleBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/StringUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/TableUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/QuizGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/demo/QuizGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/stringparser/AnsiStringParserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/token/stringparser/AnsiStringParserImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/stringparser/interfaces/AnsiStringParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/token/stringparser/interfaces/AnsiStringParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,10 +35,10 @@
       <list>
         <option value="package-info" />
         <option value="Record" />
-        <option value="Enum" />
-        <option value="Class" />
         <option value="Exception" />
+        <option value="Enum" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -65,36 +68,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CliArtGallery.executor&quot;: &quot;Run&quot;,
-    &quot;Application.CodeScanner.executor&quot;: &quot;Run&quot;,
-    &quot;Application.GameOfLife.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MazeGenerator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProjectExplorer.executor&quot;: &quot;Run&quot;,
-    &quot;Application.QuizGame.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/eastw/Git Projects/Personal/Clique/src/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CliArtGallery.executor": "Run",
+    "Application.CodeScanner.executor": "Run",
+    "Application.GameOfLife.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.MazeGenerator.executor": "Run",
+    "Application.ProjectExplorer.executor": "Run",
+    "Application.QuizGame.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/eastw/Git Projects/Personal/Clique/src/Main.java",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\eastw\Git Projects\Personal\Clique" />
@@ -191,7 +195,7 @@
       <workItem from="1762277502439" duration="15124000" />
       <workItem from="1762301948187" duration="3862000" />
       <workItem from="1762340699390" duration="31000" />
-      <workItem from="1762365784724" duration="3450000" />
+      <workItem from="1762365784724" duration="17324000" />
     </task>
     <servers />
   </component>

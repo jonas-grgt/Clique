@@ -80,7 +80,6 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
     public void print() {
         this.styleText.append(RESET); //Reset all styles
         System.out.println(this.styleText);
-        clearStringBuilder(styleText);
     }
 
     //A helper method to style text with the given codes
@@ -99,5 +98,9 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
         }
 
         return sb.append(text);
+    }
+
+    public void flush() {
+        clearStringBuilder(styleText);
     }
 }

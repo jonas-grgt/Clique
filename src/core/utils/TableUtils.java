@@ -3,7 +3,6 @@ package core.utils;
 import core.misc.CellAlign;
 import tables.structures.WidthAwareList;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

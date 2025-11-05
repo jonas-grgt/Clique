@@ -5,6 +5,8 @@ import boxes.configuration.BoxConfiguration;
 import boxes.factory.BoxType;
 import boxes.interfaces.Box;
 import boxes.interfaces.CustomizableBox;
+import core.indent.Indenter;
+import core.indent.IndenterImpl;
 import core.style.StyleBuilder;
 import core.style.StyleBuilderImpl;
 import parser.token.stringparser.AnsiStringParserImpl;
@@ -49,7 +51,7 @@ public final class Clique {
     }
 
     public static Box box(BoxType type){
-        return BoxFactory.getCustomizableBox(type);
+        return BoxFactory.getBox(type);
     }
 
     public static CustomizableBox customizableBox(BoxType type, BoxConfiguration configuration){
@@ -60,6 +62,9 @@ public final class Clique {
         return BoxFactory.getCustomizableBox(type);
     }
 
+    public static Indenter indenter(){
+        return new IndenterImpl();
+    }
 
     public static void enableCliqueColors(boolean enable){
         if (enable) AnsiDetector.enableCliqueColors();

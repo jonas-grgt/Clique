@@ -27,13 +27,17 @@ public class AnsiStringParserImpl implements AnsiStringParser {
          return this;
     }
 
-    public String parse(String stringToParse){
+    public String parse(String string){
         final ParseResult result = this.tokenExtractor
-                .getParseResult(stringToParse);
+                .getParseResult(string);
 
-        this.stringToParse = stringToParse;
+        this.stringToParse = string;
         this.parseResult = result;
-        return this.applicator.restyleString(result.tokens(), stringToParse);
+        return this.applicator.restyleString(result.tokens(), string);
+    }
+
+    public String parse(Object object){
+         return this.parse(object.toString());
     }
 
     public String getOriginalString(){

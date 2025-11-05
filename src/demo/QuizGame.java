@@ -200,7 +200,7 @@ class QuizGame {
                 .alignment(CellAlign.CENTER);
 
 
-        CustomizableTable scoreTable = (DefaultTable) Clique.customizableTable(TableType.DEFAULT, config)
+        CustomizableTable scoreTable = Clique.customizableTable(TableType.DEFAULT, config)
                 .customizeHorizontalLine('═')
                 .customizeVerticalLine('║');
 

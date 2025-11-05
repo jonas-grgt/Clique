@@ -8,9 +8,15 @@ public interface AnsiStringParser {
 
     String parse(String stringToParse);
 
-    default void print(String stringToParse){
-        System.out.println(this.parse(stringToParse));
+    default void print(String string){
+        System.out.println(this.parse(string));
     }
+
+    default void print(Object object){
+        System.out.println(this.parse(object.toString()));
+    }
+
+    String parse(Object object);
 
     String getOriginalString();
 }

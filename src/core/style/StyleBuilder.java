@@ -1,8 +1,9 @@
 package core.style;
 
 import core.ansi.interfaces.AnsiCode;
+import core.misc.interfaces.Printable;
 
-public sealed interface StyleBuilder permits StyleBuilderImpl {
+public sealed interface StyleBuilder extends Printable permits StyleBuilderImpl {
     String format(String text, AnsiCode... ansiCodes);
     String formatReset(String text, AnsiCode... ansiCodes);
     StyleBuilder stack(String text, AnsiCode... ansiCodes);
@@ -10,5 +11,6 @@ public sealed interface StyleBuilder permits StyleBuilderImpl {
     StyleBuilder append(String text, AnsiCode... ansiCodes);
     void print();
     String get();
+    void flush();
 
 }

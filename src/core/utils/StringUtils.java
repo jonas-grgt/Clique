@@ -1,10 +1,9 @@
 package core.utils;
 
-import parser.token.stringparser.interfaces.AnsiStringParser;
 import core.misc.Cell;
+import parser.token.stringparser.interfaces.AnsiStringParser;
 
 import java.util.Arrays;
-import java.util.Collection;
 
 public final class StringUtils {
 

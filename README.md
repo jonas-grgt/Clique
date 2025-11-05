@@ -39,7 +39,7 @@ Then add the Clique dependency:
     <dependency>
         <groupId>com.github.kusoroadeolu</groupId>
         <artifactId>Clique</artifactId>
-        <version>v1.0.2</version>
+        <version>v1.1.0</version>
     </dependency>
 </dependencies>
 ```
@@ -56,7 +56,7 @@ repositories {
 Then add the dependency:
 ```gradle
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v1.0.2'
+    implementation 'com.github.kusoroadeolu:Clique:v1.1.0'
 }
 ```
 
@@ -409,6 +409,173 @@ Box b = Clique.customizableBox(BoxType.DEFAULT, config)
         .content("[red]This is my custom box :)");
 ```
 
+## Indenter
+Indenter is a feature that helps you create hierarchical and nested text structures with ease. It's perfect for building tree views, nested lists, file structures, or any content that needs multiple levels of indentation.
+
+All indenters are abstracted behind the indenter interface and can be accessed using the `Clique` facade.
+
+```java
+Indenter indenter = Clique.indenter()
+        .indent()  // Create first indent level
+        .add("Root Level")
+        .indent()  // Nest deeper
+        .add("Nested Item 1")
+        .add("Nested Item 2")
+        .unindent()  // Go back up
+        .add("Back to Root");
+
+indenter.print();  // Print the indented structure
+```
+
+### Basic Usage
+The indenter uses a stack-based approach to manage indent levels:
+```java
+Indenter indenter = Clique.indenter()
+        .indent(2, "-")  // Indent 2 spaces with "-" flag
+        .add("First item")
+        .add("Second item")
+        .indent(2, "•")  // Nest deeper with bullet flag
+        .add("Nested item")
+        .unindent()  // Pop back to previous level
+        .add("Back to first level");
+
+indenter.print();
+```
+
+### Custom Flags
+Flags are the characters/symbols that appear at the start of each indented line. You can use custom flags to create different visual styles:
+```java
+Indenter indenter = Clique.indenter()
+        .indent("-")  // Dash flag
+        .add("Item 1")
+        .indent("•")  // Bullet flag
+        .add("Sub-item")
+        .indent("→")  // Arrow flag
+        .add("Nested sub-item");
+
+indenter.print();
+```
+
+You can also use the `Flag` enum for common flags:
+```java
+Indenter indenter = Clique.indenter()
+        .indent(Flag.BULLET)
+        .add("Bullet item")
+        .indent(Flag.ARROW)
+        .add("Arrow item");
+```
+
+### Indenter Configuration
+Configure your indenter for more control over spacing, default flags, and styling:
+**NOTE:** Markup parsing is enabled by default
+
+```java
+IndenterConfiguration config = IndenterConfiguration.builder()
+        .indentLevel(4)  // 4 spaces per indent level
+        .defaultFlag("→")  // Default flag when none specified
+        .parser(Clique.parser());  // Enable markup parsing
+
+Indenter indenter = Clique.indenter()
+        .configuration(config)
+        .indent()
+        .add("[blue, bold]Root[/]")
+        .indent()
+        .add("[green]Nested item[/]");
+
+indenter.print();
+```
+
+### Managing Indent Levels
+The indenter provides several methods to control indent depth:
+```java
+Indenter indenter = Clique.indenter();
+
+// Indent with custom level and flag
+indenter.indent(3, "•");  // 3 spaces with bullet
+
+// Indent with just a level (uses default flag)
+indenter.indent(2);
+
+// Indent with just a flag (uses default level from config)
+indenter.indent("→");
+
+// Indent with no arguments (uses defaults)
+indenter.indent();
+
+// Go back up one level
+indenter.unindent();
+
+// Reset to zero indentation
+indenter.resetLevel();
+```
+
+### Adding Content
+The indenter supports adding single strings, multiple strings via arrays, collections, or any object at the current indent level:
+```java
+Indenter indenter = Clique.indenter()
+        .indent("-");
+
+// Add single strings
+indenter.add("Item 1");
+indenter.add("Item 2");
+
+// Add multiple strings at once (varargs)
+indenter.add("Item 3", "Item 4", "Item 5");
+
+// Add a collection
+List<String> items = Arrays.asList("A", "B", "C");
+indenter.add(items);
+
+// Add any object (calls toString())
+indenter.add(new Date());
+
+indenter.print();
+```
+
+### Getting and Clearing Content
+```java
+Indenter indenter = Clique.indenter()
+        .indent("-")
+        .add("Item 1")
+        .add("Item 2");
+
+// Get the indented string without printing
+String result = indenter.get();
+System.out.println(result);
+
+// Clear content but keep indent levels
+indenter.clear();
+
+// Clear content AND reset indent levels
+indenter.flush();
+```
+
+### Practical Example: File Tree
+```java
+IndenterConfiguration config = IndenterConfiguration.builder()
+        .indentLevel(2);
+
+Indenter tree = Clique.indenter()
+        .configuration(config)
+        .add("[blue, bold]project/[/]")
+        .indent("[magenta]├─ ")
+        .add("[yellow]src/[/]")
+        .indent()
+        .add("Main.java")
+        .add("Utils.java")
+        .unindent()
+        .add("[yellow]test/[/]")
+        .indent()
+        .add("MainTest.java")
+        .unindent()
+        .unindent()
+        .indent("[magenta]└─ ")
+        .add("README.md");
+
+tree.print();
+```
+
+This produces a clean file tree structure with proper indentation and visual hierarchy.
 
 ## Additional Examples
 
@@ -497,6 +664,6 @@ java -cp src demo.ProjectExplorer <path-to-your-project>
 
 
 
-## Features yet to be implemented
-- Boxes
-- Interactive options (Still considering this)
+## Features that will not be implemented
+- Interactive features
+
