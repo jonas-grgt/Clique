@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/abstractboxes/AbstractBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/abstractboxes/AbstractBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/configuration/BoxConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/configuration/BoxConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boxes/exceptions/InvalidDimensionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boxes/exceptions/InvalidDimensionException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/utils/BoxUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/BoxUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/utils/StringUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +181,8 @@
       <workItem from="1762365784724" duration="18064000" />
       <workItem from="1762385150754" duration="325000" />
       <workItem from="1762385516715" duration="3224000" />
-      <workItem from="1762393659343" duration="1824000" />
+      <workItem from="1762393659343" duration="2515000" />
+      <workItem from="1762425585637" duration="892000" />
     </task>
     <servers />
   </component>

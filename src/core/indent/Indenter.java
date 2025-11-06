@@ -3,6 +3,8 @@ package core.indent;
 import java.util.Collection;
 
 public interface Indenter {
+    Indenter configuration(IndenterConfiguration configuration);
+
     Indenter indent(int level, String flag);
 
     Indenter indent(int level);

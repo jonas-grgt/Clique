@@ -39,7 +39,7 @@ Then add the Clique dependency:
     <dependency>
         <groupId>com.github.kusoroadeolu</groupId>
         <artifactId>Clique</artifactId>
-        <version>v1.1.1</version>
+        <version>v1.1.2</version>
     </dependency>
 </dependencies>
 ```
@@ -56,7 +56,7 @@ repositories {
 Then add the dependency:
 ```gradle
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v1.1.1'
+    implementation 'com.github.kusoroadeolu:Clique:v1.1.2'
 }
 ```
 
@@ -409,10 +409,13 @@ Box b = Clique.customizableBox(BoxType.DEFAULT, config)
         .content("[red]This is my custom box :)");
 ```
 
+
+![Boxes Output](docs/images/boxes.png)
+
+
 ## Indenter
 Indenter is a feature that helps you create hierarchical and nested text structures with ease. It's perfect for building tree views, nested lists, file structures, or any content that needs multiple levels of indentation.
-
-All indenters are abstracted behind the indenter interface and can be accessed using the `Clique` facade.
+The indenter is abstracted behind the indenter interface and can be accessed using the `Clique` facade.
 
 ```java
 Indenter indenter = Clique.indenter()
@@ -550,7 +553,7 @@ indenter.clear();
 indenter.flush();
 ```
 
-### Practical Example: File Tree
+###  Example: File Tree
 ```java
 IndenterConfiguration config = IndenterConfiguration.builder()
         .indentLevel(2);
@@ -574,6 +577,9 @@ Indenter tree = Clique.indenter()
 
 tree.print();
 ```
+
+![Indenter Output](docs/images/indent.png)
+
 
 This produces a clean file tree structure with proper indentation and visual hierarchy.
 
