@@ -39,7 +39,7 @@ Then add the Clique dependency:
     <dependency>
         <groupId>com.github.kusoroadeolu</groupId>
         <artifactId>Clique</artifactId>
-        <version>v1.1.2</version>
+        <version>v1.1.3</version>
     </dependency>
 </dependencies>
 ```
@@ -56,7 +56,7 @@ repositories {
 Then add the dependency:
 ```gradle
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v1.1.2'
+    implementation 'com.github.kusoroadeolu:Clique:v1.1.3'
 }
 ```
 
@@ -677,5 +677,6 @@ java -cp src demo.ProjectExplorer <path-to-your-project>
 
 ## Features that will not be implemented
 - Interactive features
+
 
 
