@@ -1,15 +1,20 @@
 package boxes.abstractboxes;
 
 import boxes.configuration.BoxConfiguration;
+import boxes.exceptions.InvalidDimensionException;
 import boxes.interfaces.Box;
 import core.misc.Cell;
 import core.misc.interfaces.Renderable;
+import core.utils.BoxUtils;
 import core.utils.StringUtils;
+import core.utils.TableUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static core.utils.BoxUtils.splitPreservingAnsi;
+import static core.utils.BoxUtils.validateDimensions;
 import static core.utils.StringUtils.*;
 import static core.utils.TableUtils.BLANK;
 import static java.lang.Math.max;
@@ -68,11 +73,14 @@ public abstract class AbstractBox implements Box, Renderable {
     }
 
     protected void wrapWord(){
-        if(this.boxContent == null || this.boxContent.text().isBlank()){
+        if(this.boxContent == null || this.boxContent.text().isBlank() && !this.boxConfiguration.getAutoSize()){
             return;
         }
 
-        this.autoAdjust();
+        this.wordWrap.clear();
+        this.adjust();
+
+
         final int maxCharsPerLine = this.width - (this.boxConfiguration.getCenterPadding() * 2);
 
         // Split original text (for calculations)
@@ -81,8 +89,10 @@ public abstract class AbstractBox implements Box, Renderable {
         final String[] originalWords = filterWhitespace(originalContent.split("\\s+"));
         final String[] styledWords = filterWhitespace(splitPreservingAnsi(styledContent));
 
+
         final StringBuilder currentOriginal = new StringBuilder();
         final StringBuilder currentStyled = new StringBuilder();
+
 
         for (int i = 0; i < originalWords.length; i++) {
             final String originalWord = originalWords[i];
@@ -90,8 +100,8 @@ public abstract class AbstractBox implements Box, Renderable {
 
             // Check length using original word
             if ((currentOriginal.length() + originalWord.length()) + 1 > maxCharsPerLine) {
+                wrapLongString(currentOriginal, currentStyled, this.wordWrap ,maxCharsPerLine);
                 if (!currentOriginal.isEmpty()) {
-
                     // Store the cell
                     this.wordWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
                     clearStringBuilder(currentOriginal);
@@ -110,23 +120,34 @@ public abstract class AbstractBox implements Box, Renderable {
 
         // Add the last line
         if (!currentOriginal.isEmpty()) {
+            wrapLongString(currentOriginal, currentStyled, this.wordWrap, maxCharsPerLine);
             this.wordWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
         }
 
         if(this.boxConfiguration.getAutoSize() && this.length < this.wordWrap.size()){
-                this.length = this.wordWrap.size() + 2; //Add 2 to include the both borders
+            this.length = this.wordWrap.size() + 2; //Add 2 to include the both borders
+            return;
+        }
+
+        if (this.length < this.wordWrap.size()){
+            throw new InvalidDimensionException("The length of this box is too little. Try enabling auto size");
         }
     }
 
-    protected void autoAdjust(){
+
+
+
+    protected void adjust(){
         final String originalContent = this.boxContent.text();
-        if(originalContent.isEmpty()) return;
 
         final String[] originalWords = filterWhitespace(originalContent.split("\\s+"));
         final int longest = getLongest(originalWords);
         if(this.boxConfiguration.getAutoSize()){
             this.width = max(this.width, longest) + (this.boxConfiguration.getCenterPadding() * 2);
+        }else{
+            validateDimensions(this.width, this.length);
         }
+
     }
 
     public void render(){

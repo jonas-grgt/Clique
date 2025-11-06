@@ -39,7 +39,7 @@ Then add the Clique dependency:
     <dependency>
         <groupId>com.github.kusoroadeolu</groupId>
         <artifactId>Clique</artifactId>
-        <version>v1.1.0</version>
+        <version>v1.1.1</version>
     </dependency>
 </dependencies>
 ```
@@ -56,7 +56,7 @@ repositories {
 Then add the dependency:
 ```gradle
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v1.1.0'
+    implementation 'com.github.kusoroadeolu:Clique:v1.1.1'
 }
 ```
 
@@ -613,6 +613,9 @@ Clique.customizableTable(TableType.DEFAULT)
     .addRows("A", "B")
     .render();
 ```
+
+**NOTE:** Emojis will mess with the width calculation for boxes and tables. So try to refrain from using them in tables/boxes
+
 
 ### Terminal Ansi Support
 Before applying colors, clique will try to detect if the terminal supports ANSI, if the terminal does, clique will apply ANSI colors

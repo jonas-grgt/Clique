@@ -19,6 +19,12 @@ public class BoxUtils {
     private final static char ANSI_END = 'm';
     private final static char ANSI_BEGIN = '\u001b';
 
+    public static void validateDimensions(int width, int len){
+        if(width <= 0 || len <= 0){
+            throw new InvalidDimensionException("Width or length cannot be 0");
+        }
+    }
+
     public static void alignText(StringBuilder sb, int idx, TextAlign textAlign, String spaces, List<Cell> wordWrap, String vLine){
         final String s = wordWrap.get(idx).text();
         final String ss = wordWrap.get(idx).styledText();
@@ -164,7 +170,7 @@ public class BoxUtils {
         try {
              return e.supply();
         }catch (IllegalArgumentException ex){
-            throw new InvalidDimensionException("The dimensions of this box are too small to wrap around the given content. You can prevent this by using the `autoSize` box configuration");
+            throw new InvalidDimensionException("The dimensions of this box are too small to wrap around the given content. You can prevent this by using the `autoSize` box configuration", ex);
         }
     }
 

@@ -18,6 +18,9 @@ public class BoxConfiguration {
     }
 
     public BoxConfiguration centerPadding(int centerPadding) {
+        if(centerPadding < 0){
+            centerPadding = 2;
+        }
         this.centerPadding = centerPadding;
         return this;
     }
