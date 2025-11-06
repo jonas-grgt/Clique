@@ -143,18 +143,20 @@ parser.print(str); //This will print `Hello` as red and bold, reset and print `W
 - `ParserConfiguration`. This allows you to configure your parser to enable strict parsing, set your custom delimiter or auto close tags
 
 ```java
-import parser.configuration.ParserConfiguration;
+import com.github.kusoroadeolu.parser.configuration.ParserConfiguration;
 
 String str = "[red bold]Hello[blue] World"; //Notice there are no commas as the delimiter here
 ParserConfiguration configuration = ParserConfiguration
-                                        .builder()
-                                        .enableAutoCloseTags() //Auto closes tags for you
-                                        .delimiter(' '); //Set the default delimiter to a space
+        .builder()
+        .enableAutoCloseTags() //Auto closes tags for you
+        .delimiter(' '); //Set the default delimiter to a space
 AnsiStringParser configuredParser = Clique.parser()
         .configuration(configuration);
 
 
-configuredParser.print(str);
+configuredParser.
+
+print(str);
 ```
 Here we can see we set a custom delimiter. This allows for more flexibility for those who don't want to use the default `comma` delimiter
 
@@ -564,7 +566,7 @@ Indenter tree = Clique.indenter()
         .indent("[magenta]├─ ")
         .add("[yellow]src/[/]")
         .indent()
-        .add("Main.java")
+        .add("com.github.kusoroadeolu.Main.java")
         .add("Utils.java")
         .unindent()
         .add("[yellow]test/[/]")

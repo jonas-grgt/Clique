@@ -7,7 +7,7 @@
 
     <groupId>com.github.kusoroadeolu</groupId>
     <artifactId>clique</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <packaging>jar</packaging>
 
     <name>Clique</name>
@@ -21,7 +21,6 @@
     </properties>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

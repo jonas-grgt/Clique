@@ -5,8 +5,75 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clique.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Clique.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/abstractboxes/AbstractBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/abstractboxes/AbstractBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/BoxWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/concrete/BoxWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/ClassicBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/concrete/ClassicBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/DefaultBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/concrete/DefaultBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/DoubleLineBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/concrete/DoubleLineBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/concrete/RoundedBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/concrete/RoundedBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/configuration/BoxConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/configuration/BoxConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/enums/TextAlign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/enums/TextAlign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/exceptions/InvalidDimensionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/exceptions/InvalidDimensionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/factory/BoxFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/factory/BoxFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/factory/BoxType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/factory/BoxType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/interfaces/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/interfaces/Box.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/interfaces/CustomizableBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/interfaces/CustomizableBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxes/interfaces/ExceptionSupplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/boxes/interfaces/ExceptionSupplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ansi/enums/BackgroundCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/ansi/enums/BackgroundCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ansi/enums/ColorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/ansi/enums/ColorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ansi/enums/StyleCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/ansi/enums/StyleCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ansi/interfaces/AnsiCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/ansi/interfaces/AnsiCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/clique/Clique.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/indent/Flag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/indent/Flag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/indent/Indent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/indent/Indent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/indent/Indenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/indent/Indenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/indent/IndenterConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/indent/IndenterConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/indent/IndenterImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/indent/IndenterImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/misc/BorderStyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/misc/BorderStyle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/misc/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/misc/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/misc/CellAlign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/misc/CellAlign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/misc/interfaces/Customizable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/misc/interfaces/Customizable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/misc/interfaces/Printable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/misc/interfaces/Printable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/misc/interfaces/Renderable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/misc/interfaces/Renderable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/style/StyleBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/style/StyleBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/style/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/style/StyleBuilderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils/AnsiDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/utils/AnsiDetector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils/BoxUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/utils/BoxUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/utils/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/core/utils/TableUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/CliArtGallery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/demo/CliArtGallery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/CodeScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/demo/CodeScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/ProjectExplorer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/demo/ProjectExplorer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/demo/QuizGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/demo/QuizGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/configuration/ParserConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/configuration/ParserConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/exceptions/ParseProblemException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/exceptions/ParseProblemException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/exceptions/UnidentifiedStyleException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/exceptions/UnidentifiedStyleException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/map/StyleMaps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/map/StyleMaps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/ParseResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/token/ParseResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/ParserToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/token/ParserToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/StyleApplicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/token/StyleApplicator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/TokenExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/token/TokenExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/stringparser/AnsiStringParserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/token/stringparser/AnsiStringParserImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/token/stringparser/interfaces/AnsiStringParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/parser/token/stringparser/interfaces/AnsiStringParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/abstracttable/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/abstracttable/AbstractTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/concrete/BoxDrawTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/concrete/CompactTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/concrete/DefaultTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/MarkdownTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/concrete/MarkdownTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/concrete/RoundedBoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/concrete/RoundedBoxDrawTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/configuration/TableConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/configuration/TableConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/factory/TableFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/factory/TableFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/factory/TableType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/factory/TableType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/interfaces/CustomizableTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/interfaces/CustomizableTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/interfaces/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/interfaces/Table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tables/structures/WidthAwareList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/tables/structures/WidthAwareList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +127,7 @@
     &quot;Application.MazeGenerator.executor&quot;: &quot;Run&quot;,
     &quot;Application.ProjectExplorer.executor&quot;: &quot;Run&quot;,
     &quot;Application.QuizGame.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.github.kusoroadeolu.Main.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
@@ -87,16 +155,9 @@
       <recent name="C:\Users\eastw\Git Projects\Personal\Clique" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.com.github.kusoroadeolu.Main">
     <configuration name="CliArtGallery" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="demo.CliArtGallery" />
-      <module name="clique" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CodeScanner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="demo.CodeScanner" />
       <module name="clique" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -110,7 +171,7 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="main.java.com.github.kusoroadeolu.Main" />
       <module name="clique" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -123,13 +184,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="com.github.kusoroadeolu.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.Main" />
+      <module name="clique" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.kusoroadeolu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.com.github.kusoroadeolu.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.MazeGenerator" />
         <item itemvalue="Application.GameOfLife" />
         <item itemvalue="Application.CliArtGallery" />
-        <item itemvalue="Application.CodeScanner" />
       </list>
     </recent_temporary>
   </component>
@@ -182,7 +256,14 @@
       <workItem from="1762385150754" duration="325000" />
       <workItem from="1762385516715" duration="3224000" />
       <workItem from="1762393659343" duration="2515000" />
-      <workItem from="1762425585637" duration="892000" />
+      <workItem from="1762425585637" duration="1653000" />
+      <workItem from="1762433817799" duration="58000" />
+      <workItem from="1762441254148" duration="480000" />
+      <workItem from="1762441937408" duration="33000" />
+      <workItem from="1762442052165" duration="809000" />
+      <workItem from="1762442912336" duration="3288000" />
+      <workItem from="1762446270272" duration="1146000" />
+      <workItem from="1762458346733" duration="743000" />
     </task>
     <servers />
   </component>
