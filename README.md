@@ -143,7 +143,7 @@ parser.print(str); //This will print `Hello` as red and bold, reset and print `W
 - `ParserConfiguration`. This allows you to configure your parser to enable strict parsing, set your custom delimiter or auto close tags
 
 ```java
-import com.github.kusoroadeolu.parser.configuration.ParserConfiguration;
+import com.github.kusoroadeolu.clique.config.ParserConfiguration;
 
 String str = "[red bold]Hello[blue] World"; //Notice there are no commas as the delimiter here
 ParserConfiguration configuration = ParserConfiguration
