@@ -84,8 +84,6 @@ java -cp clique.jar:. YourApp
 
 ---
 
-
-
 ## IMPLEMENTATION
 
 ### StyleBuilder
@@ -622,8 +620,10 @@ Clique.customizableTable(TableType.DEFAULT)
     .render();
 ```
 
-**NOTE:** Emojis will mess with the width calculation for boxes and tables. So try to refrain from using them in tables/boxes
-
+### Things to look out for
+- Emojis will mess with the width calculation for boxes and tables. So try to refrain from using them in tables/boxes
+- Configuration objects are currently mutable
+- Box autosize is not new line aware
 
 ### Terminal Ansi Support
 Before applying colors, clique will try to detect if the terminal supports ANSI, if the terminal does, clique will apply ANSI colors
