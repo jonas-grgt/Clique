@@ -1,14 +1,14 @@
 package com.github.kusoroadeolu.clique.demo;
 
+import com.github.kusoroadeolu.clique.Clique;
 import com.github.kusoroadeolu.clique.ansi.ColorCode;
 import com.github.kusoroadeolu.clique.ansi.StyleCode;
-import com.github.kusoroadeolu.clique.Clique;
-import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
-import com.github.kusoroadeolu.clique.tables.TableType;
+import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.tables.Table;
+import com.github.kusoroadeolu.clique.tables.TableType;
 
 public final class CliArtGallery {
 
@@ -42,16 +42,18 @@ public final class CliArtGallery {
         Clique.parser().print("\n\n");
 
         // Use table for perfect alignment
-        BorderStyle style = BorderStyle.builder()
+        BorderStyle style = BorderStyle.immutableBuilder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_CYAN)
                 .verticalBorderStyles(ColorCode.BRIGHT_CYAN)
-                .edgeBorderStyles(ColorCode.BRIGHT_CYAN);
+                .edgeBorderStyles(ColorCode.BRIGHT_CYAN)
+                .build();
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .borderStyle(style)
                 .parser(Clique.parser())
                 .padding(3)
-                .alignment(CellAlign.CENTER);
+                .alignment(CellAlign.CENTER)
+                .build();
 
         Table entrance = Clique.table(TableType.BOX_DRAW, config);
         entrance.addHeaders("[*magenta, bold] CLI ART GALLERY [/]");
@@ -152,16 +154,18 @@ public final class CliArtGallery {
         System.out.println();
 
         // Quote 4 - styled box
-        BorderStyle quoteStyle = BorderStyle.builder()
+        BorderStyle quoteStyle = BorderStyle.immutableBuilder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_YELLOW)
                 .verticalBorderStyles(ColorCode.BRIGHT_YELLOW)
-                .edgeBorderStyles(ColorCode.BRIGHT_MAGENTA);
+                .edgeBorderStyles(ColorCode.BRIGHT_MAGENTA)
+                .build();
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .borderStyle(quoteStyle)
                 .parser(Clique.parser())
                 .padding(2)
-                .alignment(CellAlign.CENTER);
+                .alignment(CellAlign.CENTER)
+                .build();
 
         Table quoteTable = Clique.table(TableType.ROUNDED_BOX_DRAW, config);
         quoteTable.addHeaders("[*white, italic, bold]The only way to do great work[/]");
@@ -301,16 +305,18 @@ public final class CliArtGallery {
         Clique.parser().print("\n\n");
 
         // Use table for alignment
-        BorderStyle style = BorderStyle.builder()
+        BorderStyle style = BorderStyle.immutableBuilder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_MAGENTA)
                 .verticalBorderStyles(ColorCode.BRIGHT_MAGENTA)
-                .edgeBorderStyles(ColorCode.BRIGHT_MAGENTA);
+                .edgeBorderStyles(ColorCode.BRIGHT_MAGENTA)
+                .build();
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .borderStyle(style)
                 .parser(Clique.parser())
                 .padding(3)
-                .alignment(CellAlign.CENTER);
+                .alignment(CellAlign.CENTER)
+                .build();
 
         Table exit = Clique.table(TableType.BOX_DRAW, config);
         exit.addHeaders("[*cyan, bold]Thank You For Visiting! [/]");

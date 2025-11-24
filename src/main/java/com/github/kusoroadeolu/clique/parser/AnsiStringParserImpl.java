@@ -11,16 +11,20 @@ public class AnsiStringParserImpl implements AnsiStringParser {
      private ParseResult parseResult;
 
      public AnsiStringParserImpl(){
-        this.parserConfiguration = ParserConfiguration.builder();
+        this(ParserConfiguration.immutableBuilder().build());
+    }
+
+    public AnsiStringParserImpl(ParserConfiguration parserConfiguration){
+        this.parserConfiguration = parserConfiguration;
         this.applicator = new StyleApplicator();
         this.tokenExtractor = new TokenExtractor();
         this.updateConfiguration();
     }
 
-    public AnsiStringParser configuration(ParserConfiguration configuration){
-        this.parserConfiguration = configuration;
-        this.updateConfiguration();
-         return this;
+
+    public AnsiStringParser configuration(ParserConfiguration configuration) {
+         this.parserConfiguration = configuration;
+        return this;
     }
 
     public String parse(String string){

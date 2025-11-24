@@ -1,10 +1,10 @@
 package com.github.kusoroadeolu.clique.core.utils;
 
+import com.github.kusoroadeolu.clique.ansi.StyleCode;
 import com.github.kusoroadeolu.clique.boxes.BoxWrapper;
 import com.github.kusoroadeolu.clique.config.TextAlign;
-import com.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import com.github.kusoroadeolu.clique.core.exceptions.ExceptionSupplier;
-import com.github.kusoroadeolu.clique.ansi.StyleCode;
+import com.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import com.github.kusoroadeolu.clique.tables.structures.Cell;
 
 import java.util.ArrayList;
@@ -155,11 +155,9 @@ public class BoxUtils {
         }
 
         if (!currentWord.isEmpty()) {
-
             if (!activeAnsiCodes.isEmpty()) {
                 currentWord.append(RESET);
             }
-
             words.add(currentWord.toString());
         }
 

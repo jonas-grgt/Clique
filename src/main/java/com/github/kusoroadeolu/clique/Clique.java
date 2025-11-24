@@ -1,22 +1,23 @@
 package com.github.kusoroadeolu.clique;
 
-import com.github.kusoroadeolu.clique.boxes.BoxFactory;
-import com.github.kusoroadeolu.clique.config.BoxConfiguration;
-import com.github.kusoroadeolu.clique.boxes.BoxType;
 import com.github.kusoroadeolu.clique.boxes.Box;
+import com.github.kusoroadeolu.clique.boxes.BoxFactory;
+import com.github.kusoroadeolu.clique.boxes.BoxType;
 import com.github.kusoroadeolu.clique.boxes.CustomizableBox;
+import com.github.kusoroadeolu.clique.config.BoxConfiguration;
+import com.github.kusoroadeolu.clique.config.IndenterConfiguration;
+import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import com.github.kusoroadeolu.clique.indent.Indenter;
 import com.github.kusoroadeolu.clique.indent.IndenterImpl;
+import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import com.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.style.StyleBuilderImpl;
-import com.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
-import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import com.github.kusoroadeolu.clique.tables.CustomizableTable;
 import com.github.kusoroadeolu.clique.tables.Table;
-import com.github.kusoroadeolu.clique.config.TableConfiguration;
 import com.github.kusoroadeolu.clique.tables.TableFactory;
 import com.github.kusoroadeolu.clique.tables.TableType;
-import com.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 
 /**
  * A facade class to hide the instantiation of multiple implementations of different classes
@@ -64,6 +65,10 @@ public final class Clique {
 
     public static Indenter indenter(){
         return new IndenterImpl();
+    }
+
+    public static Indenter indenter(IndenterConfiguration indenterConfiguration){
+        return new IndenterImpl(indenterConfiguration);
     }
 
     public static void enableCliqueColors(boolean enable){

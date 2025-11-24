@@ -5,6 +5,7 @@ import com.github.kusoroadeolu.clique.config.IndenterConfiguration;
 import java.util.Collection;
 
 public interface Indenter {
+    @Deprecated(since = "1.2.1")
     Indenter configuration(IndenterConfiguration configuration);
 
     Indenter indent(int level, String flag);

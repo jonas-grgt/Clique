@@ -13,7 +13,7 @@ public class TableFactory {
     }
 
     public static Table getTable(TableType type) {
-        TableConfiguration configuration = TableConfiguration.builder();
+        TableConfiguration configuration = TableConfiguration.immutableBuilder().build();
         return table(type, configuration);
     }
 
@@ -36,7 +36,7 @@ public class TableFactory {
     }
 
     public static CustomizableTable getCustomizableTable(TableType type) {
-        return getCustomizableTable(type, TableConfiguration.builder());
+        return getCustomizableTable(type, TableConfiguration.immutableBuilder().build());
     }
 
 

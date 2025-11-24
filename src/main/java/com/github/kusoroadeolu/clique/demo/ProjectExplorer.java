@@ -1,19 +1,24 @@
 package com.github.kusoroadeolu.clique.demo;
 
-import com.github.kusoroadeolu.clique.config.BoxConfiguration;
-import com.github.kusoroadeolu.clique.boxes.BoxType;
-import com.github.kusoroadeolu.clique.ansi.ColorCode;
 import com.github.kusoroadeolu.clique.Clique;
+import com.github.kusoroadeolu.clique.ansi.ColorCode;
+import com.github.kusoroadeolu.clique.boxes.BoxType;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
+import com.github.kusoroadeolu.clique.config.BoxConfiguration;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
-import com.github.kusoroadeolu.clique.tables.TableType;
 import com.github.kusoroadeolu.clique.tables.Table;
+import com.github.kusoroadeolu.clique.tables.TableType;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.*;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class ProjectExplorer {
@@ -48,12 +53,12 @@ public class ProjectExplorer {
         String projectPath = args.length > 0 ? args[0] : ".";
         Path root = Paths.get(projectPath);
         BorderStyle style = BorderStyle
-                .builder().edgeBorderStyles(ColorCode.CYAN).horizontalBorderStyles(ColorCode.CYAN).verticalBorderStyles(ColorCode.CYAN);
+                .immutableBuilder().edgeBorderStyles(ColorCode.CYAN).horizontalBorderStyles(ColorCode.CYAN).verticalBorderStyles(ColorCode.CYAN).build();
 
         // Print header
         Clique.box(BoxType.DOUBLE_LINE)
                 .content("[yellow]PROJECT FILE EXPLORER")
-                .configuration(BoxConfiguration.builder().autoSize(true).borderStyle(style))
+                .configuration(BoxConfiguration.immutableBuilder().autoSize(true).borderStyle(style).build())
                 .render();
 
         Clique.parser().print("[dim]Scanning:[/] [yellow]" + root.toAbsolutePath() + "[/]\n");
@@ -99,10 +104,11 @@ public class ProjectExplorer {
         // Files by type table
         Clique.parser().print("[*green, bold]📊 Files by Type[/]\n");
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .parser(Clique.parser())
                 .alignment(CellAlign.LEFT)
-                .padding(2);
+                .padding(2)
+                .build();
 
         Table typeTable = Clique.table(TableType.BOX_DRAW, config);
         typeTable.addHeaders("[cyan, bold]Extension[/]", "[cyan, bold]Files[/]", "[cyan, bold]Lines[/]", "[cyan, bold]Size (KB)[/]");

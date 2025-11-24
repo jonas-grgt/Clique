@@ -1,15 +1,18 @@
 package com.github.kusoroadeolu.clique.demo;
 
-import com.github.kusoroadeolu.clique.ansi.ColorCode;
 import com.github.kusoroadeolu.clique.Clique;
+import com.github.kusoroadeolu.clique.ansi.ColorCode;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
-import com.github.kusoroadeolu.clique.tables.TableType;
 import com.github.kusoroadeolu.clique.tables.CustomizableTable;
 import com.github.kusoroadeolu.clique.tables.Table;
+import com.github.kusoroadeolu.clique.tables.TableType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class QuizGame {
 
@@ -117,16 +120,18 @@ public class QuizGame {
         Clique.parser().print("[*magenta, bold]═══════════════════════════════════════════════[/]\n");
 
         // Use rounded box table for the question
-        BorderStyle questionStyle = BorderStyle.builder()
+        BorderStyle questionStyle = BorderStyle.immutableBuilder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_BLUE)
                 .verticalBorderStyles(ColorCode.BRIGHT_BLUE)
-                .edgeBorderStyles(ColorCode.BRIGHT_CYAN);
+                .edgeBorderStyles(ColorCode.BRIGHT_CYAN)
+                .build();
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .borderStyle(questionStyle)
                 .parser(Clique.parser())
                 .padding(2)
-                .alignment(CellAlign.LEFT);
+                .alignment(CellAlign.LEFT)
+                .build();
 
         Table questionTable = Clique.table(TableType.ROUNDED_BOX_DRAW, config);
         questionTable.addHeaders("[*yellow, bold]Question[/]");
@@ -136,14 +141,16 @@ public class QuizGame {
         System.out.println();
 
         // Use compact table for options
-        BorderStyle optionsStyle = BorderStyle.builder()
-                .horizontalBorderStyles(ColorCode.CYAN);
+        BorderStyle optionsStyle = BorderStyle.immutableBuilder()
+                .horizontalBorderStyles(ColorCode.CYAN)
+                .build();
 
-        TableConfiguration optionsConfig = TableConfiguration.builder()
+        TableConfiguration optionsConfig = TableConfiguration.immutableBuilder()
                 .borderStyle(optionsStyle)
                 .parser(Clique.parser())
                 .padding(3)
-                .alignment(CellAlign.LEFT);
+                .alignment(CellAlign.LEFT)
+                .build();
 
         Table optionsTable = Clique.table(TableType.COMPACT, optionsConfig);
         optionsTable.addHeaders("[cyan, bold]#[/]", "[cyan, bold]Answer[/]");
@@ -186,16 +193,18 @@ public class QuizGame {
 
     private static void displayScore(int score, int questionNumber) {
         // Use default table with custom styling
-        BorderStyle scoreStyle = BorderStyle.builder()
+        BorderStyle scoreStyle = BorderStyle.immutableBuilder()
                 .horizontalBorderStyles(ColorCode.YELLOW)
                 .verticalBorderStyles(ColorCode.YELLOW)
-                .edgeBorderStyles(ColorCode.BRIGHT_YELLOW);
+                .edgeBorderStyles(ColorCode.BRIGHT_YELLOW)
+                .build();
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .borderStyle(scoreStyle)
                 .parser(Clique.parser())
                 .padding(2)
-                .alignment(CellAlign.CENTER);
+                .alignment(CellAlign.CENTER)
+                .build();
 
 
         CustomizableTable scoreTable = Clique.customizableTable(TableType.DEFAULT, config)
@@ -217,16 +226,18 @@ public class QuizGame {
         double percentage = (score * 100.0) / QUESTIONS.size();
 
         // Final score with box draw table
-        BorderStyle finalStyle = BorderStyle.builder()
+        BorderStyle finalStyle = BorderStyle.immutableBuilder()
                 .horizontalBorderStyles(ColorCode.BRIGHT_MAGENTA)
                 .verticalBorderStyles(ColorCode.BRIGHT_MAGENTA)
-                .edgeBorderStyles(ColorCode.BRIGHT_CYAN);
+                .edgeBorderStyles(ColorCode.BRIGHT_CYAN)
+                .build();
 
-        TableConfiguration finalConfig = TableConfiguration.builder()
+        TableConfiguration finalConfig = TableConfiguration.immutableBuilder()
                 .borderStyle(finalStyle)
                 .parser(Clique.parser())
                 .padding(3)
-                .alignment(CellAlign.CENTER);
+                .alignment(CellAlign.CENTER)
+                .build();
 
 
         Table finalTable = Clique.table(TableType.BOX_DRAW, finalConfig);
@@ -252,15 +263,17 @@ public class QuizGame {
         System.out.println();
 
         // Question breakdown with markdown table
-        BorderStyle breakdownStyle = BorderStyle.builder()
+        BorderStyle breakdownStyle = BorderStyle.immutableBuilder()
                 .horizontalBorderStyles(ColorCode.CYAN)
-                .verticalBorderStyles(ColorCode.BLUE);
+                .verticalBorderStyles(ColorCode.BLUE)
+                .build();
 
-        TableConfiguration breakdownConfig = TableConfiguration.builder()
+        TableConfiguration breakdownConfig = TableConfiguration.immutableBuilder()
                 .borderStyle(breakdownStyle)
                 .parser(Clique.parser())
                 .padding(2)
-                .alignment(CellAlign.LEFT);
+                .alignment(CellAlign.LEFT)
+                .build();
 
         Table breakdownTable = Clique.table(TableType.MARKDOWN, breakdownConfig);
         breakdownTable.addHeaders("[cyan, bold]Q#[/]", "[cyan, bold]Category[/]", "[cyan, bold]Result[/]");

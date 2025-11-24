@@ -1,56 +1,101 @@
 package com.github.kusoroadeolu.clique.config;
 
 import com.github.kusoroadeolu.clique.Clique;
+import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
 import com.github.kusoroadeolu.clique.indent.Flag;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 public class IndenterConfiguration {
 
-    private AnsiStringParser parser;
-    private int indentLevel;
-    private String defaultFlag;
+    private final AnsiStringParser parser;
+    private final int indentLevel;
+    private final String defaultFlag;
 
-    public AnsiStringParser getParser() {
-        return parser;
+    @Deprecated(since = "1.2.1", forRemoval = true)
+    public static IndenterConfiguration builder() {
+        return new IndenterConfiguration();
     }
 
     private IndenterConfiguration() {
         this.indentLevel = 1;
         this.parser = Clique.parser().configuration(
-                ParserConfiguration.builder().enableAutoCloseTags()
+                ParserConfiguration.immutableBuilder().enableAutoCloseTags().build()
         );
         this.defaultFlag = " "; // default to a space
     }
 
-    public static IndenterConfiguration builder() {
-        return new IndenterConfiguration();
+    private IndenterConfiguration(IndenterConfigurationBuilder builder) {
+        this.indentLevel = builder.indentLevel;
+        this.parser = builder.parser;
+        this.defaultFlag = builder.defaultFlag;
+    }
+
+
+    public static IndenterConfigurationBuilder immutableBuilder() {
+        return new IndenterConfigurationBuilder();
+    }
+
+    public AnsiStringParser getParser() {
+        return parser;
+    }
+
+    @Deprecated(since = "1.2.1", forRemoval = true)
+    public IndenterConfiguration parser(AnsiStringParser parser) {
+        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
     public String getDefaultFlag() {
         return defaultFlag;
     }
 
+    @Deprecated(since = "1.2.1", forRemoval = true)
     public IndenterConfiguration defaultFlag(String defaultFlag) {
-        this.defaultFlag = defaultFlag;
-        return this;
+        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
+    @Deprecated(since = "1.2.1", forRemoval = true)
     public IndenterConfiguration defaultFlag(Flag defaultFlag) {
-        return this.defaultFlag(defaultFlag.flag());
-    }
-
-
-    public IndenterConfiguration parser(AnsiStringParser parser) {
-        this.parser = parser;
-        return this;
+        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
     public int getIndentLevel() {
         return indentLevel;
     }
 
+    @Deprecated(since = "1.2.1", forRemoval = true)
     public IndenterConfiguration indentLevel(int indentLevel) {
-        this.indentLevel = indentLevel;
-        return this;
+        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
+    }
+
+    public static class IndenterConfigurationBuilder {
+        private int indentLevel = 1;
+        private AnsiStringParser parser = Clique.parser().configuration(
+                ParserConfiguration.immutableBuilder().enableAutoCloseTags().build()
+        );
+        private String defaultFlag = " ";
+
+        public IndenterConfigurationBuilder indentLevel(int indentLevel) {
+            this.indentLevel = indentLevel;
+            return this;
+        }
+
+        public IndenterConfigurationBuilder parser(AnsiStringParser parser) {
+            this.parser = parser;
+            return this;
+        }
+
+        public IndenterConfigurationBuilder defaultFlag(String defaultFlag) {
+            this.defaultFlag = defaultFlag;
+            return this;
+        }
+
+        public IndenterConfigurationBuilder defaultFlag(Flag defaultFlag) {
+            this.defaultFlag = defaultFlag.flag();
+            return this;
+        }
+
+        public IndenterConfiguration build() {
+            return new IndenterConfiguration(this);
+        }
     }
 }

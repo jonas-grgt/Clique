@@ -1,10 +1,10 @@
 package com.github.kusoroadeolu.clique.tables;
 
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
-import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
@@ -43,11 +43,11 @@ public class BoxDrawTable extends AbstractTable{
         this.leftJoin = "├";
         this.rightJoin = "┤";
         this.cross = "┼";
+        this.styleTableBorders();
     }
 
     @Override
     public String buildTable() {
-        this.styleTableBorders();
         //Declarations
         final StringBuilder sb = new StringBuilder();
         clearStringBuilder(this.tableBuilder);
@@ -120,10 +120,11 @@ public class BoxDrawTable extends AbstractTable{
 
     protected void styleTableBorders(){
         if(this.tableConfiguration.getBorderStyle() == null) return;
-        final StyleBuilder sb = BorderStyle.styleBuilder();
-        final AnsiCode[] horizontalStyles = this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles();
-        final AnsiCode[] verticalStyles = this.tableConfiguration.getBorderStyle().getVerticalBorderStyles();
-        final AnsiCode[] edgeStyles = this.tableConfiguration.getBorderStyle().getEdgeBorderStyles();
+        final BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
+        final StyleBuilder sb = borderStyle.styleBuilder();
+        final AnsiCode[] horizontalStyles = borderStyle.getHorizontalBorderStyles();
+        final AnsiCode[] verticalStyles = borderStyle.getVerticalBorderStyles();
+        final AnsiCode[] edgeStyles = borderStyle.getEdgeBorderStyles();
 
         this.hLine = sb.formatReset(this.hLine, horizontalStyles);
         this.vLine = sb.formatReset(this.vLine, verticalStyles);

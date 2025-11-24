@@ -1,9 +1,9 @@
 package com.github.kusoroadeolu.clique.tables;
 
-import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
@@ -23,11 +23,11 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
         this.edge = "+";
         this.hLine = "-";
         this.vLine = "|";
+        this.styleTableBorders();
 
     }
 
     public String buildTable(){
-        this.styleTableBorders();
         //Declarations
         clearStringBuilder(this.tableBuilder);
         final StringBuilder sb = new StringBuilder();
@@ -92,9 +92,10 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
 
      protected void styleTableBorders(){
         if(this.tableConfiguration.getBorderStyle() == null) return;
-        final StyleBuilder sb = BorderStyle.styleBuilder();
-        this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles());
-        this.vLine = sb.formatReset(this.vLine, this.tableConfiguration.getBorderStyle().getVerticalBorderStyles());
-        this.edge = sb.formatReset(this.edge, this.tableConfiguration.getBorderStyle().getEdgeBorderStyles());
+        final BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
+        final StyleBuilder sb = borderStyle.styleBuilder();
+        this.hLine = sb.formatReset(this.hLine, borderStyle.getHorizontalBorderStyles());
+        this.vLine = sb.formatReset(this.vLine, borderStyle.getVerticalBorderStyles());
+        this.edge = sb.formatReset(this.edge, borderStyle.getEdgeBorderStyles());
     }
 }

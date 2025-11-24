@@ -3,14 +3,15 @@ package com.github.kusoroadeolu.clique.demo;
 import com.github.kusoroadeolu.clique.Clique;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
-import com.github.kusoroadeolu.clique.tables.TableType;
 import com.github.kusoroadeolu.clique.tables.Table;
+import com.github.kusoroadeolu.clique.tables.TableType;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class CodeScanner {
@@ -167,10 +168,11 @@ public class CodeScanner {
     private static void displayFileComplexity(List<FileStats> fileStats) {
         Clique.parser().print("[*blue, bold]📁 File Complexity[/]\n");
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .parser(Clique.parser())
                 .alignment(CellAlign.LEFT)
-                .padding(2);
+                .padding(2)
+                .build();
 
 
         Table table = Clique.table(TableType.BOX_DRAW, config);
@@ -211,10 +213,11 @@ public class CodeScanner {
 
         Clique.parser().print("[*yellow, bold]⚠ Long Methods (>30 lines)[/]\n");
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .parser(Clique.parser())
                 .alignment(CellAlign.LEFT)
-                .padding(2);
+                .padding(2)
+                .build();
 
         Table table = Clique.table(TableType.BOX_DRAW, config);
         table.addHeaders("[cyan, bold]Method[/]", "[cyan, bold]Lines[/]", "[cyan, bold]File[/]");
@@ -240,10 +243,11 @@ public class CodeScanner {
 
         Clique.parser().print("[*cyan, bold]📝 TODOs & FIXMEs[/]\n");
 
-        TableConfiguration config = TableConfiguration.builder()
+        TableConfiguration config = TableConfiguration.immutableBuilder()
                 .parser(Clique.parser())
                 .alignment(CellAlign.LEFT)
-                .padding(2);
+                .padding(2)
+                .build();
 
         Table table = Clique.table(TableType.BOX_DRAW, config);
         table.addHeaders("[cyan, bold]Type[/]", "[cyan, bold]File[/]",

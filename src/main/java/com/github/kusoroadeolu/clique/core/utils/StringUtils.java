@@ -1,7 +1,7 @@
 package com.github.kusoroadeolu.clique.core.utils;
 
-import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import com.github.kusoroadeolu.clique.tables.structures.Cell;
 
 import java.util.Arrays;
 import java.util.List;

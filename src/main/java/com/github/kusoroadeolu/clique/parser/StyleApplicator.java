@@ -1,9 +1,9 @@
 package com.github.kusoroadeolu.clique.parser;
 
-import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.Clique;
-import com.github.kusoroadeolu.clique.style.StyleBuilder;
+import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.core.exceptions.ParseProblemException;
+import com.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.List;
 

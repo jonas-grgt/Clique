@@ -1,9 +1,8 @@
 package com.github.kusoroadeolu.clique.tables;
 
-import com.github.kusoroadeolu.clique.style.StyleBuilder;
-import com.github.kusoroadeolu.clique.config.BorderStyle;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
@@ -21,10 +20,10 @@ public class CompactTable extends AbstractTable {
         this.tableBuilder = new StringBuilder();
         this.vLine = " ".repeat(this.tableConfiguration.getPadding());
         this.hLine = "-";
+        this.styleTableBorders();
     }
 
     public String buildTable() {
-        this.styleTableBorders();
         clearStringBuilder(this.tableBuilder);
         final StringBuilder sb = new StringBuilder();
         CellAlign cellAlign;
@@ -78,7 +77,7 @@ public class CompactTable extends AbstractTable {
 
     protected void styleTableBorders(){
         if(this.tableConfiguration.getBorderStyle() == null)return;
-        final StyleBuilder sb = BorderStyle.styleBuilder();
+        final StyleBuilder sb = this.tableConfiguration.getBorderStyle().styleBuilder();
         this.hLine = sb.formatReset(this.hLine, this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles());
     }
 }

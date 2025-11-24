@@ -11,6 +11,8 @@ com\github\kusoroadeolu\clique\demo\QuizGame.class
 com\github\kusoroadeolu\clique\demo\CodeScanner$MethodInfo.class
 com\github\kusoroadeolu\clique\ansi\AnsiCode.class
 com\github\kusoroadeolu\clique\boxes\ClassicBox.class
+com\github\kusoroadeolu\clique\core\exceptions\DeprecatedMethodException.class
+com\github\kusoroadeolu\clique\config\IndenterConfiguration$IndenterConfigurationBuilder.class
 com\github\kusoroadeolu\clique\demo\CodeScanner$TodoItem.class
 com\github\kusoroadeolu\clique\parser\ParseResult.class
 com\github\kusoroadeolu\clique\config\TextAlign.class
@@ -22,7 +24,9 @@ com\github\kusoroadeolu\clique\core\display\Renderable.class
 com\github\kusoroadeolu\clique\demo\ProjectExplorer.class
 com\github\kusoroadeolu\clique\tables\BoxDrawTable.class
 com\github\kusoroadeolu\clique\config\ParserConfiguration.class
+com\github\kusoroadeolu\clique\config\ParserConfiguration$ParserConfigurationBuilder.class
 com\github\kusoroadeolu\clique\core\exceptions\InvalidDimensionException.class
+com\github\kusoroadeolu\clique\config\TableConfiguration$TableConfigurationBuilder.class
 com\github\kusoroadeolu\clique\demo\ProjectExplorer$FileInfo.class
 com\github\kusoroadeolu\clique\core\utils\TableUtils.class
 com\github\kusoroadeolu\clique\indent\Indenter.class
@@ -62,6 +66,7 @@ com\github\kusoroadeolu\clique\tables\TableFactory$1.class
 com\github\kusoroadeolu\clique\tables\TableType.class
 com\github\kusoroadeolu\clique\boxes\AbstractBox.class
 com\github\kusoroadeolu\clique\boxes\CustomizableBox.class
+com\github\kusoroadeolu\clique\config\BoxConfiguration$BoxConfigurationBuilder.class
 com\github\kusoroadeolu\clique\boxes\BoxWrapper.class
 com\github\kusoroadeolu\clique\config\BoxConfiguration.class
 com\github\kusoroadeolu\clique\demo\ProjectExplorer$FileStats.class
@@ -70,4 +75,5 @@ com\github\kusoroadeolu\clique\boxes\Box.class
 com\github\kusoroadeolu\clique\parser\StyleApplicator.class
 com\github\kusoroadeolu\clique\demo\CliArtGallery.class
 com\github\kusoroadeolu\clique\boxes\BoxType.class
+com\github\kusoroadeolu\clique\config\BorderStyle$BorderStyleBuilder.class
 com\github\kusoroadeolu\clique\tables\CompactTable.class

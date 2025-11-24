@@ -7,17 +7,19 @@ public class RoundedBox extends ClassicBox {
     public RoundedBox(){
         super();
         this.initBorders();
+        this.styleBox();
     }
 
     public RoundedBox(BoxConfiguration configuration) {
         super(configuration);
         this.initBorders();
+        this.styleBox();
     }
 
     public RoundedBox(int width, int length, String content) {
         super(width, length, content);
         this.initBorders();
-
+        this.styleBox();
     }
 
     public void initBorders(){

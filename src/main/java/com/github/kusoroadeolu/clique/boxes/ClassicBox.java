@@ -1,8 +1,8 @@
 package com.github.kusoroadeolu.clique.boxes;
 
-import com.github.kusoroadeolu.clique.config.BoxConfiguration;
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
+import com.github.kusoroadeolu.clique.config.BoxConfiguration;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import static com.github.kusoroadeolu.clique.core.utils.BoxUtils.drawBox;
@@ -18,11 +18,14 @@ public class ClassicBox extends AbstractBox {
     public ClassicBox(){
         super();
         this.initBorders();
+        this.styleBox();
     }
 
     public ClassicBox(BoxConfiguration configuration) {
         super(configuration);
         this.initBorders();
+        this.styleBox();
+
     }
 
     public ClassicBox(int width, int length, String content) {
@@ -32,14 +35,13 @@ public class ClassicBox extends AbstractBox {
 
     public String buildBox() {
         return handleDimensionsEx(() -> {
-            this.styleBox();
             this.wrapWord();
             final StringBuilder sb = new StringBuilder();
             final BoxWrapper wrapper = new BoxWrapper(
                     this.width,
                     this.length,
                     this.boxConfiguration,
-                    this.wordWrap,
+                    this.contentWrap,
                     this.hLine,
                     this.vLine,
                     this.topLeft,
@@ -52,10 +54,10 @@ public class ClassicBox extends AbstractBox {
         });
     }
 
-    private void styleBox(){
+    protected void styleBox(){
         if(this.boxConfiguration.getBorderStyle() != null){
             final BorderStyle borderStyle = this.boxConfiguration.getBorderStyle();
-            final StyleBuilder sb = BorderStyle.styleBuilder();
+            final StyleBuilder sb = borderStyle.styleBuilder();
             final AnsiCode[] horizontalStyles = borderStyle.getHorizontalBorderStyles();
             final AnsiCode[] verticalStyles = borderStyle.getVerticalBorderStyles();
             final AnsiCode[] edgeStyles = borderStyle.getEdgeBorderStyles();

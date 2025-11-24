@@ -55,11 +55,10 @@ public final class TokenExtractor {
 
             if (c == FORM_CLOSE && isTracking){ //Only parse the string if we're still tracking the valid tag
                 final String fullTag = stringToParse.substring(fs, i + 1); //Parse the extracted string and skip the braces
-                formTags.add(fullTag);
-
-                List<AnsiCode> validStyles = this.getValidStyles(fullTag);
+                final List<AnsiCode> validStyles = this.getValidStyles(fullTag);
                 if(validStyles != null && !validStyles.isEmpty()){
                     tokens.add(new ParserToken(fs, i, validStyles));
+                    formTags.add(fullTag);
                     isTracking = false;
                 }
             }

@@ -39,7 +39,7 @@ Then add the Clique dependency:
     <dependency>
         <groupId>com.github.kusoroadeolu</groupId>
         <artifactId>Clique</artifactId>
-        <version>v1.2.0</version>
+        <version>v1.2.1</version>
     </dependency>
 </dependencies>
 ```
@@ -56,7 +56,7 @@ repositories {
 Then add the dependency:
 ```gradle
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v1.2.0'
+    implementation 'com.github.kusoroadeolu:Clique:v1.2.1'
 }
 ```
 
@@ -145,16 +145,14 @@ import com.github.kusoroadeolu.clique.config.ParserConfiguration;
 
 String str = "[red bold]Hello[blue] World"; //Notice there are no commas as the delimiter here
 ParserConfiguration configuration = ParserConfiguration
-        .builder()
+        .immutableBuilder()
         .enableAutoCloseTags() //Auto closes tags for you
-        .delimiter(' '); //Set the default delimiter to a space
+        .delimiter(' ') //Set the default delimiter to a space
+        .build();
 AnsiStringParser configuredParser = Clique.parser()
         .configuration(configuration);
 
-
-configuredParser.
-
-print(str);
+configuredParser.print(str);
 ```
 Here we can see we set a custom delimiter. This allows for more flexibility for those who don't want to use the default `comma` delimiter
 
@@ -178,8 +176,8 @@ When using strict parsing, Clique can throw two types of exceptions:
 
 **UnidentifiedStyleException** - Thrown when a style doesn't exist:
 ```java
-ParserConfiguration config = ParserConfiguration.builder()
-    .enableStrictParsing();
+ParserConfiguration config = ParserConfiguration.immutableBuilder()
+    .enableStrictParsing().build();    
 AnsiStringParser parser = Clique.parser().configuration(config);
 
 // This will throw UnidentifiedStyleException because "bol" doesn't exist
@@ -193,80 +191,6 @@ parser.parse("[[[red]]]Text[/]");
 ```
 
 Without strict parsing enabled, invalid styles are simply ignored.
-
-## Supported Markup Options
-Clique supports **text color**, **background color**, and **text style** tags inside markup strings.
-
----
-
-### Text Colors
-
-Use standard or bright color names:
-
-| Type | Example | Description |
-|------|----------|------------|
-| Standard | `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`, `black` | Basic ANSI text colors |
-| Bright | `*red`, `*green`, `*yellow`, `*blue`, `*magenta`, `*cyan`, `*white`, `*black` | Brighter versions of the standard colors |
-
-**Example**
-```java
-Clique.parser().print("[red, bold]Error:[/] File not found");
-Clique.parser().print("[*blue]Bright blue text[/]");
-```
-
----
-
-### Background Colors
-
-Prefix color names with `bg_` for background colors.  
-Use `*bg_` for bright backgrounds.
-
-| Type | Example | Description |
-|------|----------|-------------|
-| Standard | `bg_red`, `bg_blue`, `bg_yellow`, `bg_white` | Standard background colors |
-| Bright | `*bg_red`, `*bg_blue`, `*bg_yellow`, `*bg_white` | Bright background colors |
-
-**Example**
-```java
-Clique.parser().print("[bg_red, white]Alert![/]");
-Clique.parser().print("[*bg_blue, *white]Bright background[/]");
-```
-
----
-
-### Text Styles
-
-Clique supports a range of ANSI text effects:
-
-| Style | Tag | Description |
-|--------|------|-------------|
-| **Bold** | `bold` | Emphasizes text |
-| **Dim** | `dim` | Lowers brightness |
-| **Italic** | `italic` | Slants the text |
-| **Underline** | `ul` | Underlines text |
-| **Reverse Video** | `rv` | Swaps foreground/background colors |
-| **Invisible Text** | `inv` | Hides text (useful for debugging or tricks) |
-| **Reset** | `/` | Resets all styles |
-
-**Example**
-```java
-Clique.parser().print("[bold, ul]Important[/] [dim]subtle note[/]");
-Clique.parser().print("[rv]Inverted colors![/]");
-```
-
----
-
-### Quick Reference
-
-| Category | Example Syntax | Result |
-|-----------|----------------|--------|
-| Text Color | `[red]Text[/]` | Red text |
-| Bright Color | `[*blue]Text[/]` | Bright blue text |
-| Background | `[bg_yellow, black]Text[/]` | Black text on yellow background |
-| Bright Background | `[*bg_green, white]Text[/]` | White text on bright green background |
-| Style | `[bold, ul, red]Text[/]` | Red, bold, and underlined |
-| Reset | `[red]Text[/]` | Resets style after closing tag |
-
 
 ## Tables
 Tables are a feature of Clique which support structured data. For a brief introduction, there are currently 5 tables
@@ -321,12 +245,13 @@ BorderStyle style = BorderStyle.builder()
                 .edgeBorderStyles(ColorCode.YELLOW);
 
 TableConfiguration configuration = TableConfiguration
-        .builder()
+        .immutableBuilder()
         .columnAlignment(0, CellAlign.LEFT)  //Column alignment will always take precedence over table alignment
         .borderStyle(style) //Style class for styling table borders
         .parser(Clique.parser()); //Set a parser for the table to enable markup formatting for rows
         .alignment(CellAlign.CENTER) //Centers each row's values. Rows are left aligned by default
-        .padding(2); //The amount of whitespace added to each value in a cell to avoid cramping
+        .padding(2) //The amount of whitespace added to each value in a cell to avoid cramping
+        .build();
 
 Table t = Clique.table(TableType.MARKDOWN, configuration)
         .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]") //Notice the markup, Clique automatically parses this under the hood
@@ -378,18 +303,20 @@ Box configuration allows for more stylistic choices to your boxes. It defines ho
 
 ```java
 // Define a colorful border style
-BorderStyle style = BorderStyle.builder()
+BorderStyle style = BorderStyle.immutableBuilder()
      .horizontalBorderStyles(ColorCode.CYAN)
      .verticalBorderStyles(ColorCode.MAGENTA)
-     .edgeBorderStyles(ColorCode.YELLOW);
+     .edgeBorderStyles(ColorCode.YELLOW)
+     .build();  
 
 // Build the box configuration
-BoxConfiguration config = BoxConfiguration.builder()
+BoxConfiguration config = BoxConfiguration.immutableBuilder()
      .borderStyle(style) 
      .textAlign(TextAlign.CENTER) //Where the text should be aligned in the box
      .centerPadding(3) //The amount of padding from both sides, when the content of the box is centered
      .autoSize(true) // Will automatically resize the box, if the box cannot wrap around the content
-     .parser(Clique.parser()); // A parser is provided by default, but you can pass a customized parser here
+     .parser(Clique.parser()) // A parser is provided by default, but you can pass a customized parser here
+     .build();
 
 Box b = Clique.box(BOX.DOUBLE_LINE)
         .configuration(config)
@@ -400,8 +327,9 @@ Box b = Clique.box(BOX.DOUBLE_LINE)
 ### Box Customization
 You can customize your box edges and borders. Right now only the `DEFAULT` box can be customized. You can get a customizable box using the `Clique.customizableBox()`
 ```java
-BoxConfiguration config = BoxConfiguration.builder()
-        .autoSize(true);
+BoxConfiguration config = BoxConfiguration.immutableBuilder()
+        .autoSize(true)
+        .build();
 
 Box b = Clique.customizableBox(BoxType.DEFAULT, config)
         .customizeEdge('<')
@@ -473,13 +401,13 @@ Configure your indenter for more control over spacing, default flags, and stylin
 **NOTE:** Markup parsing is enabled by default
 
 ```java
-IndenterConfiguration config = IndenterConfiguration.builder()
+IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
         .indentLevel(4)  // 4 spaces per indent level
         .defaultFlag("→")  // Default flag when none specified
-        .parser(Clique.parser());  // Enable markup parsing
+        .parser(Clique.parser())  // Enable markup parsing
+        .build();
 
-Indenter indenter = Clique.indenter()
-        .configuration(config)
+Indenter indenter = Clique.indenter(config)
         .indent()
         .add("[blue, bold]Root[/]")
         .indent()
@@ -555,8 +483,8 @@ indenter.flush();
 
 ###  Example: File Tree
 ```java
-IndenterConfiguration config = IndenterConfiguration.builder()
-        .indentLevel(2);
+IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
+        .indentLevel(2).build();
 
 Indenter tree = Clique.indenter()
         .configuration(config)
@@ -583,7 +511,81 @@ tree.print();
 
 This produces a clean file tree structure with proper indentation and visual hierarchy.
 
-## Additional Examples
+## More References
+
+## Supported Markup Options
+Clique supports **text color**, **background color**, and **text style** tags inside markup strings.
+
+---
+
+### Text Colors
+
+Use standard or bright color names:
+
+| Type | Example | Description |
+|------|----------|------------|
+| Standard | `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`, `black` | Basic ANSI text colors |
+| Bright | `*red`, `*green`, `*yellow`, `*blue`, `*magenta`, `*cyan`, `*white`, `*black` | Brighter versions of the standard colors |
+
+**Example**
+```java
+Clique.parser().print("[red, bold]Error:[/] File not found");
+Clique.parser().print("[*blue]Bright blue text[/]");
+```
+
+---
+
+### Background Colors
+
+Prefix color names with `bg_` for background colors.  
+Use `*bg_` for bright backgrounds.
+
+| Type | Example | Description |
+|------|----------|-------------|
+| Standard | `bg_red`, `bg_blue`, `bg_yellow`, `bg_white` | Standard background colors |
+| Bright | `*bg_red`, `*bg_blue`, `*bg_yellow`, `*bg_white` | Bright background colors |
+
+**Example**
+```java
+Clique.parser().print("[bg_red, white]Alert![/]");
+Clique.parser().print("[*bg_blue, *white]Bright background[/]");
+```
+
+---
+
+### Text Styles
+
+Clique supports a range of ANSI text effects:
+
+| Style | Tag | Description |
+|--------|------|-------------|
+| **Bold** | `bold` | Emphasizes text |
+| **Dim** | `dim` | Lowers brightness |
+| **Italic** | `italic` | Slants the text |
+| **Underline** | `ul` | Underlines text |
+| **Reverse Video** | `rv` | Swaps foreground/background colors |
+| **Invisible Text** | `inv` | Hides text (useful for debugging or tricks) |
+| **Reset** | `/` | Resets all styles |
+
+**Example**
+```java
+Clique.parser().print("[bold, ul]Important[/] [dim]subtle note[/]");
+Clique.parser().print("[rv]Inverted colors![/]");
+```
+
+---
+
+### Quick Reference
+
+| Category | Example Syntax | Result |
+|-----------|----------------|--------|
+| Text Color | `[red]Text[/]` | Red text |
+| Bright Color | `[*blue]Text[/]` | Bright blue text |
+| Background | `[bg_yellow, black]Text[/]` | Black text on yellow background |
+| Bright Background | `[*bg_green, white]Text[/]` | White text on bright green background |
+| Style | `[bold, ul, red]Text[/]` | Red, bold, and underlined |
+| Reset | `[red]Text[/]` | Resets style after closing tag |
+
 
 ### Using StyleBuilder's get() method
 ```java
@@ -622,7 +624,6 @@ Clique.customizableTable(TableType.DEFAULT)
 
 ### Things to look out for
 - Emojis will mess with the width calculation for boxes and tables. So try to refrain from using them in tables/boxes
-- Configuration objects are currently mutable
 - Box autosize is not new line aware
 
 ### Terminal Ansi Support
@@ -672,8 +673,6 @@ java -cp src demo.ProjectExplorer <path-to-your-project>
 ```
 
 **Note:** These demos [pom.xml](pom.xml)use package-private visibility. If you want to run them separately, you may need to change them to `public class`.
-
-
 
 ## Features that will not be implemented
 - Interactive features

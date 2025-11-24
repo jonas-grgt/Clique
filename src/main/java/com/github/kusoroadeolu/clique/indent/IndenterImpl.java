@@ -18,9 +18,13 @@ public class IndenterImpl implements Indenter{
     private IndenterConfiguration configuration;
 
     public IndenterImpl(){
+        this(IndenterConfiguration.immutableBuilder().build());
+    }
+
+    public IndenterImpl(IndenterConfiguration indenterConfiguration){
         this.indents = new Stack<>();
         this.sb = new StringBuilder();
-        this.configuration = IndenterConfiguration.builder();
+        this.configuration = indenterConfiguration;
         this.currentFlag = String.valueOf(this.configuration.getDefaultFlag());
     }
 

@@ -18,11 +18,11 @@ public class BoxFactory {
     }
 
     public static Box getBox(BoxType type){
-        return getBox(type, BoxConfiguration.builder());
+        return getBox(type, BoxConfiguration.immutableBuilder().build());
     }
 
     public static CustomizableBox getCustomizableBox(BoxType type){
-        return getCustomizableBox(type, BoxConfiguration.builder());
+        return getCustomizableBox(type, BoxConfiguration.immutableBuilder().build());
     }
 
     public static CustomizableBox getCustomizableBox(BoxType type, BoxConfiguration config){

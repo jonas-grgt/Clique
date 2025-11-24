@@ -1,8 +1,8 @@
 package com.github.kusoroadeolu.clique.tables;
 
-import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
 import com.github.kusoroadeolu.clique.core.display.Renderable;
+import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
 import java.util.ArrayList;
@@ -22,12 +22,13 @@ public abstract class AbstractTable implements Table, Renderable {
         this.rows = new ArrayList<>();
         this.tableConfiguration = configuration;
         this.headersAdded = false;
-
     }
 
-    public AbstractTable configuration(TableConfiguration configuration){
-        this.tableConfiguration = configuration;
-        return this;
+    public AbstractTable(){
+        this.columns = new ArrayList<>();
+        this.rows = new ArrayList<>();
+        this.tableConfiguration = TableConfiguration.immutableBuilder().build();
+        this.headersAdded = false;
     }
 
     //Add the headers to the table
@@ -43,7 +44,7 @@ public abstract class AbstractTable implements Table, Renderable {
         for (int i = 0; i < headers.length; i++) {
             String header = headers[i];
             header = handleNulls(header, this.tableConfiguration.getNullReplacement());
-            Cell c = parseCell(header, this.tableConfiguration.getParser());
+            final Cell c = parseCell(header, this.tableConfiguration.getParser());
             rl.add(c);
             final WidthAwareList cl = new WidthAwareList(); //To keep track of all values in this column
             cl.add(c);

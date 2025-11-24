@@ -1,7 +1,7 @@
 package com.github.kusoroadeolu.clique.style;
 
-import com.github.kusoroadeolu.clique.ansi.StyleCode;
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
+import com.github.kusoroadeolu.clique.ansi.StyleCode;
 
 import static com.github.kusoroadeolu.clique.core.utils.AnsiDetector.ansiEnabled;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;

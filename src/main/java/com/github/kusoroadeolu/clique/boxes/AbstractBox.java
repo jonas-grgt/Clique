@@ -1,10 +1,9 @@
 package com.github.kusoroadeolu.clique.boxes;
 
 import com.github.kusoroadeolu.clique.config.BoxConfiguration;
+import com.github.kusoroadeolu.clique.core.display.Renderable;
 import com.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import com.github.kusoroadeolu.clique.tables.structures.Cell;
-import com.github.kusoroadeolu.clique.core.display.Renderable;
-import com.github.kusoroadeolu.clique.core.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public abstract class AbstractBox implements Box, Renderable {
     protected int width;
     protected int length;
     protected Cell boxContent;
-    protected List<Cell> wordWrap;
+    protected List<Cell> contentWrap;
     protected String vLine;
     protected String hLine;
     protected String edge;
@@ -36,30 +35,30 @@ public abstract class AbstractBox implements Box, Renderable {
     }
 
 
+    public Box configuration(BoxConfiguration boxConfiguration){
+        this.boxConfiguration = boxConfiguration;
+        return this;
+    }
+
     public AbstractBox(int width, int length, String content){
         this.width = width;
         this.length = length;
         this.vLine = "|";
         this.hLine = "-";
         this.edge = "+";
-        this.wordWrap = new ArrayList<>();
-        this.boxConfiguration = BoxConfiguration.builder();
-        this.boxContent = StringUtils.parseCell(content, this.boxConfiguration.getParser());
+        this.contentWrap = new ArrayList<>();
+        this.boxConfiguration = BoxConfiguration.immutableBuilder().build();
+        this.boxContent = parseCell(content, this.boxConfiguration.getParser());
     }
 
-    public Box configuration(BoxConfiguration boxConfiguration){
-        this.boxConfiguration = boxConfiguration;
-        return this;
-    }
 
     public Box width(int width) {
         this.width = width;
         return this;
     }
 
-
     public Box content(String content) {
-        this.boxContent = StringUtils.parseCell(content, this.boxConfiguration.getParser());
+        this.boxContent = parseCell(content, this.boxConfiguration.getParser());
         return this;
     }
 
@@ -73,9 +72,8 @@ public abstract class AbstractBox implements Box, Renderable {
             return;
         }
 
-        this.wordWrap.clear();
+        this.contentWrap.clear();
         this.adjust();
-
 
         final int maxCharsPerLine = this.width - (this.boxConfiguration.getCenterPadding() * 2);
 
@@ -96,10 +94,10 @@ public abstract class AbstractBox implements Box, Renderable {
 
             // Check length using original word
             if ((currentOriginal.length() + originalWord.length()) + 1 > maxCharsPerLine) {
-                wrapLongString(currentOriginal, currentStyled, this.wordWrap ,maxCharsPerLine);
+                wrapLongString(currentOriginal, currentStyled, this.contentWrap,maxCharsPerLine);
                 if (!currentOriginal.isEmpty()) {
                     // Store the cell
-                    this.wordWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
+                    this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
                     clearStringBuilder(currentOriginal);
                     clearStringBuilder(currentStyled);
                 }
@@ -116,21 +114,19 @@ public abstract class AbstractBox implements Box, Renderable {
 
         // Add the last line
         if (!currentOriginal.isEmpty()) {
-            wrapLongString(currentOriginal, currentStyled, this.wordWrap, maxCharsPerLine);
-            this.wordWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
+            wrapLongString(currentOriginal, currentStyled, this.contentWrap, maxCharsPerLine);
+            this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
         }
 
-        if(this.boxConfiguration.getAutoSize() && this.length < this.wordWrap.size()){
-            this.length = this.wordWrap.size() + 2; //Add 2 to include the both borders
+        if(this.boxConfiguration.getAutoSize() && this.length <= this.contentWrap.size()){
+            this.length = this.contentWrap.size() + 2; //Add 2 to include the both borders
             return;
         }
 
-        if (this.length < this.wordWrap.size()){
+        if (this.length < this.contentWrap.size()){
             throw new InvalidDimensionException("The length of this box is too little. Try enabling auto size");
         }
     }
-
-
 
 
     protected void adjust(){
@@ -147,5 +143,6 @@ public abstract class AbstractBox implements Box, Renderable {
     public void render(){
         System.out.println(this.buildBox());
     }
+
 
 }

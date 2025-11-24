@@ -4,6 +4,7 @@ import com.github.kusoroadeolu.clique.config.ParserConfiguration;
 
 public interface AnsiStringParser {
 
+    @Deprecated(since = "1.2.1")
     AnsiStringParser configuration(ParserConfiguration configuration);
 
     String parse(String stringToParse);
