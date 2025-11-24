@@ -511,7 +511,30 @@ tree.print();
 
 This produces a clean file tree structure with proper indentation and visual hierarchy.
 
-## More References
+## Quick Tips
+
+### Escaping Special Characters
+
+Since `[]` brackets are used for styling tags, you may need to escape them when displaying literal brackets in your output.
+
+### Escaping Brackets
+
+To display literal brackets, use `[/]` to close the tag interpretation:
+```java
+// Display literal [123, 456]
+Clique.table(TableType.DEFAULT)
+    .addHeaders("[123, 456[/]]", "text asd", "another qwe")
+    .render();
+```
+
+**Pattern:** `[your text with brackets[/]]`
+
+**Examples:**
+```java
+"[red, bold[/]]"        // Displays: [red, bold]
+"[x, y, z[/]]"          // Displays: [x, y, z]
+"Coords: [10, 20[/]]"   // Displays: Coords: [10, 20]
+```
 
 ## Supported Markup Options
 Clique supports **text color**, **background color**, and **text style** tags inside markup strings.
@@ -676,6 +699,9 @@ java -cp src demo.ProjectExplorer <path-to-your-project>
 
 ## Features that will not be implemented
 - Interactive features
+
+##
+**This library is in maintenance mode meaning no breaking features will be added soon**
 
 
 

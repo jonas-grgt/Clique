@@ -8,7 +8,6 @@ public interface Box {
 
     Box width(int width);
 
-
     Box content(String content);
 
     Box length(int length);
