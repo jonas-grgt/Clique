@@ -20,6 +20,4 @@ This just contains random things I encountered while making this mini lib
 - Ok I just got 3 tables working. They were actually easier than I expected lol, maybe I'll add more table styles later but for now I need to add table configurations 
 
 - Ok I've added configurations to tables and markup parsing. Solid day. Im already done with this library. Maybe i'll add 2 more tables next. A customizable and a curved box draw table 
-- Finally done. Interactive options? But we already have Scanner I guess depends I think its alright like this
 
-User uploads image -> We compute a hash -> Check the db for similar or equal hashes -> we pass through an image processing tool -> we get a name or smth similar for the gif -> we pass to tenor -> we get similar images -> We compute a hash -> compare it to the original's hash

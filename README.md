@@ -1,6 +1,6 @@
 # CLIQUE - README 
 ## INTRODUCTION 
-Clique is my dependency free mini CLI framework aimed at beautifying CLI applications in Java.
+Clique is my dependency free mini CLI library aimed at beautifying CLI applications in Java.
 
 ![Clique Hero](docs/images/clique-hero.png)
 
@@ -239,10 +239,11 @@ System.out.println(tableString);
 If you want more stylistic choices for your tables, you can use the `TableConfiguration` class to configure and style your tables
 **NOTE:** Markup parsing is enabled by default
 ```java
-BorderStyle style = BorderStyle.builder() 
+BorderStyle style = BorderStyle.immutableBuilder() 
                 .horizontalBorderStyles(ColorCode.CYAN)
                 .verticalBorderStyles(ColorCode.MAGENTA)
-                .edgeBorderStyles(ColorCode.YELLOW);
+                .edgeBorderStyles(ColorCode.YELLOW)
+                .build();
 
 TableConfiguration configuration = TableConfiguration
         .immutableBuilder()
@@ -263,9 +264,9 @@ t.render();
 ### Null Handling
 When cells are null or removed, Clique replaces them with a configurable value:
 ```java
-TableConfiguration config = TableConfiguration.builder()
-    .nullReplacement("N/A");  // Default is empty string
-
+TableConfiguration config = TableConfiguration.immutableBuilder()
+    .nullReplacement("N/A")  // Default is empty string
+    .build();
 Table table = Clique.table(TableType.DEFAULT, config);
 table.addHeaders("Name", "Age", "City")
     .addRows("Alice", null, "NYC");  // null becomes "N/A"
@@ -484,7 +485,8 @@ indenter.flush();
 ###  Example: File Tree
 ```java
 IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
-        .indentLevel(2).build();
+        .indentLevel(2)
+        .build();
 
 Indenter tree = Clique.indenter()
         .configuration(config)
@@ -628,7 +630,8 @@ Customizable tables are tables whose edges, vertical lines and horizontal lines 
 </br>Right now only the default table is customizable. Customizable tables can be accessed through the `Clique.customizableTable()` method
 ```java
 TableConfiguration configuration = TableConfiguration
-        .builder();
+        .immutableBuilder()
+        .build();
 
 // With configuration
 Clique.customizableTable(TableType.DEFAULT, configuration)
@@ -697,7 +700,7 @@ java -cp src demo.ProjectExplorer <path-to-your-project>
 
 **Note:** These demos [pom.xml](pom.xml)use package-private visibility. If you want to run them separately, you may need to change them to `public class`.
 
-## Features that will not be implemented
+## Features that will not be implemented soon
 - Interactive features
 
 ##
