@@ -489,7 +489,7 @@ IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
 
 Indenter tree = Clique.indenter(config)
         .add("[blue, bold]project/[/]")
-        .indent("[magenta]├─ ")
+        .indent("[magenta]├─[/] ")
         .add("[yellow]src/[/]")
         .indent()
         .add("com.github.kusoroadeolu.Main.java")
@@ -499,8 +499,8 @@ Indenter tree = Clique.indenter(config)
         .indent()
         .add("MainTest.java")
         .unindent()
-        .unindent()
-        .indent("[magenta]└─ ")
+        .unindent() 
+        .indent("[magenta]└─[/] ")
         .add("README.md");
 
 tree.print();

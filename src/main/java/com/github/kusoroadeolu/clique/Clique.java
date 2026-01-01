@@ -6,6 +6,7 @@ import com.github.kusoroadeolu.clique.boxes.BoxType;
 import com.github.kusoroadeolu.clique.boxes.CustomizableBox;
 import com.github.kusoroadeolu.clique.config.BoxConfiguration;
 import com.github.kusoroadeolu.clique.config.IndenterConfiguration;
+import com.github.kusoroadeolu.clique.config.ParserConfiguration;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
 import com.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import com.github.kusoroadeolu.clique.indent.Indenter;
@@ -29,6 +30,10 @@ public final class Clique {
 
     public static AnsiStringParser parser(){
         return new AnsiStringParserImpl();
+    }
+
+    public static AnsiStringParser parser(ParserConfiguration configuration){
+        return new AnsiStringParserImpl(configuration);
     }
 
     public static Table table(TableType type){
