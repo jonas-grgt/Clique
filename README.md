@@ -39,7 +39,7 @@ Then add the Clique dependency:
     <dependency>
         <groupId>com.github.kusoroadeolu</groupId>
         <artifactId>Clique</artifactId>
-        <version>v1.2.1</version>
+        <version>v1.2.2</version>
     </dependency>
 </dependencies>
 ```
@@ -56,7 +56,7 @@ repositories {
 Then add the dependency:
 ```gradle
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v1.2.1'
+    implementation 'com.github.kusoroadeolu:Clique:v1.2.2'
 }
 ```
 
