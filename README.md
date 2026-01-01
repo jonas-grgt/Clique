@@ -319,8 +319,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
      .parser(Clique.parser()) // A parser is provided by default, but you can pass a customized parser here
      .build();
 
-Box b = Clique.box(BOX.DOUBLE_LINE)
-        .configuration(config)
+Box b = Clique.box(BoxType.DOUBLE_LINE, config)
         .content("[bold, blue]This is a configured box") //This box will be autoAdjusted, no need for a length or width if you don't need it
         .render();
 ```
@@ -488,8 +487,7 @@ IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
         .indentLevel(2)
         .build();
 
-Indenter tree = Clique.indenter()
-        .configuration(config)
+Indenter tree = Clique.indenter(config)
         .add("[blue, bold]project/[/]")
         .indent("[magenta]├─ ")
         .add("[yellow]src/[/]")
