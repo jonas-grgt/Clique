@@ -5,15 +5,15 @@ import com.github.kusoroadeolu.clique.tables.structures.Cell;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public final class StringUtils {
 
     public final static int ZERO = 0;
     private final static char ANSI_END = 'm';
     private final static char ANSI_BEGIN = '\u001b';
-    private final static int MIN_WIDTH = 15;
-    private final static int DEFAULT_WIDTH = 25;
-    private final static int DEFAULT_LENGTH = 8;
+    public final static Pattern NEWLINE = Pattern.compile("\\n");
+    private final static Pattern WHITESPACE_PATTERN = Pattern.compile("\u001b\\[[;\\d]*m");
 
     public static void clearStringBuilder(StringBuilder sb){
         sb.setLength(ZERO);
@@ -30,32 +30,22 @@ public final class StringUtils {
 
 
     //Automatically get a suitable width when the width is not given
-    public static int getDynamicCharsPerLine(String originalContent){
-
-        if(originalContent.length() <= MIN_WIDTH){
-            return originalContent.length() + 2;
+    public static int getDynamicCharsPerLine(String content){
+        if (content.isBlank()) return content.length();
+        String[] arr = content.split(NEWLINE.pattern());
+        int longest = arr[0].length();
+        for (String s : arr){
+            if (s.length() > longest) longest = s.length();
         }
 
-        int modulo = originalContent.length() % DEFAULT_WIDTH;
-
-        if(modulo > 0 && modulo <= 10){
-            return DEFAULT_WIDTH + modulo;
-        }
-
-        final int len = originalContent.length() / DEFAULT_WIDTH;
-
-        if(len > DEFAULT_LENGTH){
-            return 2 * len;
-        }
-
-        return DEFAULT_WIDTH;
+        return longest;
     }
 
     public static String[] filterWhitespace(String[] arr){
         return Arrays.stream(arr)
                 .filter(s -> {
                     // Remove all ANSI codes and check if anything remains
-                    String withoutAnsi = s.replaceAll("\u001b\\[[;\\d]*m", "");
+                    String withoutAnsi = s.replaceAll(WHITESPACE_PATTERN.pattern(), "");
                     return !withoutAnsi.isBlank();
                 })
                 .toArray(String[]::new);

@@ -24,7 +24,8 @@ public class AnsiStringParserImpl implements AnsiStringParser {
 
     public AnsiStringParser configuration(ParserConfiguration configuration) {
          this.parserConfiguration = configuration;
-        return this;
+         this.updateConfiguration();
+         return this;
     }
 
     public String parse(String string){
@@ -46,7 +47,8 @@ public class AnsiStringParserImpl implements AnsiStringParser {
          }
 
          String originalString = this.stringToParse;
-         for (int i = 0; i < this.parseResult.extractedFormTags().size(); i++){
+         int size = this.parseResult.extractedFormTags().size();
+         for (int i = 0; i < size; i++){
               originalString =
                       originalString.replace(this.parseResult.extractedFormTags().get(i), "");
          }

@@ -87,7 +87,6 @@ public abstract class AbstractBox implements Box, Renderable {
         final StringBuilder currentOriginal = new StringBuilder();
         final StringBuilder currentStyled = new StringBuilder();
 
-
         for (int i = 0; i < originalWords.length; i++) {
             final String originalWord = originalWords[i];
             final String styledWord = styledWords[i];
@@ -134,9 +133,9 @@ public abstract class AbstractBox implements Box, Renderable {
         final int longest = getDynamicCharsPerLine(originalContent);
         if(this.boxConfiguration.getAutoSize()){
             this.width = max(this.width, longest) + (this.boxConfiguration.getCenterPadding() * 2);
-        }else{
-            validateDimensions(this.width, this.length);
         }
+        else validateDimensions(this.width, this.length);
+
 
     }
 

@@ -7,6 +7,7 @@ import com.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import static com.github.kusoroadeolu.clique.parser.StyleMaps.*;
 
@@ -73,7 +74,7 @@ public final class TokenExtractor {
         if (extractedStr.length() <= 2) return null;  //Check if the extracted string is probably empty braces
         extractedStr = this.cleanString(extractedStr); //Clean the string
 
-        final String[] styles = extractedStr.split(delimiter);
+        final String[] styles = extractedStr.split(Pattern.quote(this.delimiter));
         final List<AnsiCode> validStyles = new ArrayList<>();
         for (String s : styles){
             s = s.toLowerCase(Locale.ROOT).trim();
