@@ -49,7 +49,7 @@ public class WidthAwareList {
     public void remove(Cell c){
         if(c == null) return;
 
-        final int len = c.text().length();
+        final int len = c.displayWidth();
         this.list.remove(c);
 
         if(this.list.isEmpty()){

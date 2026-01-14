@@ -1,27 +1,8 @@
 package com.github.kusoroadeolu.clique.tables.structures;
 
-public class Cell {
-    private String text;
-    private String styledText;
-    public Cell(String text, String styledText) {
-        this.text = text;
-        this.styledText = styledText;
-    }
+public record Cell(String text, String styledText) {
 
-    public String styledText() {
-        return styledText;
-    }
-
-    public Cell setStyledText(String styledText) {
-        this.styledText = styledText;
-        return this;
-    }
-
-    public String text() {
-        return text;
-    }
-
-    public int displayWidth(){
+    public int displayWidth() {
         int width = 0;
         for (int i = 0; i < text.length(); ) {
             int codePoint = text.codePointAt(i);
@@ -37,8 +18,4 @@ public class Cell {
         return width;
     }
 
-    public Cell setText(String text) {
-        this.text = text;
-        return this;
-    }
 }

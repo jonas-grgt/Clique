@@ -6,15 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/StringUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/AbstractTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/BoxDrawTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/CompactTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/DefaultTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/MarkdownTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/MarkdownTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/TableUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/structures/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/structures/Cell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/structures/WidthAwareList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/structures/WidthAwareList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/BoxFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/BoxFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/TableUtils$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/TableUtils$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/TableUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/TableUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/BoxDrawTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/BoxDrawTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/TableFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/TableFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/structures/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/structures/Cell.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/structures/WidthAwareList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/structures/WidthAwareList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.1-javadoc.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.1-sources.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,39 +66,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.CliArtGallery.executor": "Run",
-    "Application.CodeScanner.executor": "Run",
-    "Application.GameOfLife.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.MazeGenerator.executor": "Run",
-    "Application.ProjectExplorer.executor": "Run",
-    "Application.QuizGame.executor": "Run",
-    "Application.com.github.kusoroadeolu.Main.executor": "Run",
-    "Application.com.github.kusoroadeolu.clique.demo.CliArtGallery.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/eastw/Git Projects/Personal/Clique/src/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CliArtGallery.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CodeScanner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GameOfLife.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MazeGenerator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProjectExplorer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuizGame.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.github.kusoroadeolu.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.github.kusoroadeolu.clique.demo.CliArtGallery.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/eastw/Git Projects/Personal/Clique/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\eastw\Git Projects\Personal\Clique" />
@@ -240,6 +247,8 @@
       <workItem from="1768407485137" duration="356000" />
       <workItem from="1768409108266" duration="4000" />
       <workItem from="1768419376776" duration="2794000" />
+      <workItem from="1768422599514" duration="1099000" />
+      <workItem from="1768431692634" duration="272000" />
     </task>
     <servers />
   </component>

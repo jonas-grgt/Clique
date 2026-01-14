@@ -11,6 +11,7 @@ public class TableUtils {
     public static final String BLANK = " ";
 
     public static String align(CellAlign cellAlign, StringBuilder sb, int offset, String cell ,String vLine){
+
         final String spaces = BLANK.repeat(offset);
         return switch (cellAlign){
             case LEFT -> sb.append(cell).append(spaces).append(vLine).toString();
