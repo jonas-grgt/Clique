@@ -3,6 +3,7 @@ package com.github.kusoroadeolu.clique.boxes;
 import com.github.kusoroadeolu.clique.config.BoxConfiguration;
 import com.github.kusoroadeolu.clique.core.display.Renderable;
 import com.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
+import com.github.kusoroadeolu.clique.core.utils.StringUtils;
 import com.github.kusoroadeolu.clique.tables.structures.Cell;
 
 import java.util.ArrayList;
@@ -77,48 +78,60 @@ public abstract class AbstractBox implements Box, Renderable {
 
         final int maxCharsPerLine = this.width - (this.boxConfiguration.getCenterPadding() * 2);
 
-        // Split original text (for calculations)
         final String originalContent = this.boxContent.text();
         final String styledContent = this.boxContent.styledText();
-        final String[] originalWords = filterWhitespace(originalContent.split("\\s+"));
-        final String[] styledWords = filterWhitespace(splitPreservingAnsi(styledContent));
+        final String[] originalLines = originalContent.split(StringUtils.NEWLINE.pattern(), -1);
+        final String[] styledLines = styledContent.split(StringUtils.NEWLINE.pattern(), -1);
 
+        // Process each line independently
+        for (int i = 0; i < originalLines.length; i++) {
+            final String originalLine = originalLines[i];
+            final String styledLine = styledLines[i];
 
-        final StringBuilder currentOriginal = new StringBuilder();
-        final StringBuilder currentStyled = new StringBuilder();
+            if (originalLine.isEmpty()) {
+                this.contentWrap.add(new Cell("", ""));
+                continue;
+            }
 
-        for (int i = 0; i < originalWords.length; i++) {
-            final String originalWord = originalWords[i];
-            final String styledWord = styledWords[i];
+            // Split line into words
+            final String[] originalWords = filterWhitespace(originalLine.split(SPACES.pattern()));
+            final String[] styledWords = filterWhitespace(splitPreservingAnsi(styledLine));
 
-            // Check length using original word
-            if ((currentOriginal.length() + originalWord.length()) + 1 > maxCharsPerLine) {
-                wrapLongString(currentOriginal, currentStyled, this.contentWrap,maxCharsPerLine);
-                if (!currentOriginal.isEmpty()) {
-                    // Store the cell
-                    this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
-                    clearStringBuilder(currentOriginal);
-                    clearStringBuilder(currentStyled);
+            final StringBuilder currentOriginal = new StringBuilder();
+            final StringBuilder currentStyled = new StringBuilder();
+
+            for (int j = 0; j < originalWords.length; j++) {
+                final String originalWord = originalWords[j];
+                final String styledWord = styledWords[j];
+
+                // Check if adding this word would overflow
+                if ((currentOriginal.length() + originalWord.length()) + 1 > maxCharsPerLine) {
+                    wrapLongString(currentOriginal, currentStyled, this.contentWrap, maxCharsPerLine);
+                    if (!currentOriginal.isEmpty()) {
+                        this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
+                        clearStringBuilder(currentOriginal);
+                        clearStringBuilder(currentStyled);
+                    }
                 }
+
+                if (!currentOriginal.isEmpty()) {
+                    currentOriginal.append(BLANK);
+                    currentStyled.append(BLANK);
+                }
+
+                currentOriginal.append(originalWord);
+                currentStyled.append(styledWord);
             }
 
+            // Add the last line from this newline
             if (!currentOriginal.isEmpty()) {
-                currentOriginal.append(BLANK);
-                currentStyled.append(BLANK);
+                wrapLongString(currentOriginal, currentStyled, this.contentWrap, maxCharsPerLine);
+                this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
             }
-
-            currentOriginal.append(originalWord);
-            currentStyled.append(styledWord);
-        }
-
-        // Add the last line
-        if (!currentOriginal.isEmpty()) {
-            wrapLongString(currentOriginal, currentStyled, this.contentWrap, maxCharsPerLine);
-            this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
         }
 
         if(this.boxConfiguration.getAutoSize() && this.length <= this.contentWrap.size()){
-            this.length = this.contentWrap.size() + 2; //Add 2 to include the both borders
+            this.length = this.contentWrap.size() + 2;
             return;
         }
 

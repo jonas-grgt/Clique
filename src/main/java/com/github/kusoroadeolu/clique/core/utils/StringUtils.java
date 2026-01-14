@@ -13,6 +13,7 @@ public final class StringUtils {
     private final static char ANSI_END = 'm';
     private final static char ANSI_BEGIN = '\u001b';
     public final static Pattern NEWLINE = Pattern.compile("\\n");
+    public final static Pattern SPACES = Pattern.compile("\\s+");
     private final static Pattern WHITESPACE_PATTERN = Pattern.compile("\u001b\\[[;\\d]*m");
 
     public static void clearStringBuilder(StringBuilder sb){
