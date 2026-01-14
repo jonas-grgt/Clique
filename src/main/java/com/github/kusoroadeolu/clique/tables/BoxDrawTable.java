@@ -69,11 +69,12 @@ public class BoxDrawTable extends AbstractTable{
 
             for (int j = 0; j < list.size(); j++) {
                 cellAlign = this.tableConfiguration.getAlignment();
-                final String styledCell = list.getStyledText(j), originalCell = list.getOriginalText(j);
+                final String styledCell = list.getStyledText(j);
+                final int displayWidth = list.get(j).displayWidth();
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
 
-                final int offset = (longest - originalCell.length()) + padding; //Add one to avoid cramping
+                final int offset = (longest - displayWidth) + padding; //Add one to avoid cramping
                 cellAlign = chooseColAlignment(j, cellAlign, this.tableConfiguration.getColumnAlignment());
                 this.tableBuilder.append(align(cellAlign, sb, offset, styledCell, vLine));
                 clearStringBuilder(sb);

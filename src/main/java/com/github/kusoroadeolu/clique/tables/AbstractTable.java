@@ -50,6 +50,7 @@ public abstract class AbstractTable implements Table, Renderable {
             cl.add(c);
             this.columns.add(i, cl);
         }
+
         this.headersAdded = true;
         return this;
     }

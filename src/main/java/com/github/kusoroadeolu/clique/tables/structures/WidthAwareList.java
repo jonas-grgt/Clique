@@ -25,12 +25,12 @@ public class WidthAwareList {
 
 
     public void updateLongest(Cell c){
-        final int len = c.text().length();
-
+        final int len = c.displayWidth();
         if(len > this.longest){
             this.longest = len;
         }
     }
+
 
     //Gets the styled text from the table
     public String getStyledText(int pos){
@@ -46,22 +46,21 @@ public class WidthAwareList {
     }
 
 
-    public boolean remove(Cell c){
-        if(c == null) return false;
+    public void remove(Cell c){
+        if(c == null) return;
 
         final int len = c.text().length();
         this.list.remove(c);
 
         if(this.list.isEmpty()){
             this.longest = 0;
-            return true;
+            return;
         }
 
         if(len == this.longest){
             this.longest = this.recalculateLongest();
         }
 
-        return true;
     }
 
     public int longest() {
@@ -81,8 +80,8 @@ public class WidthAwareList {
 
     private int recalculateLongest(){
         return this.list.stream()
-                .map(Cell::text)
-                .mapToInt(String::length)
+                .map(Cell::displayWidth)
+                .mapToInt(Integer::intValue)
                 .max()
                 .orElse(0);
     }

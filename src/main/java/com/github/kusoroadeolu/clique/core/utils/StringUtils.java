@@ -20,12 +20,12 @@ public final class StringUtils {
         sb.setLength(ZERO);
     }
 
-    public static Cell parseCell(String cell, AnsiStringParser parser){
+    public static Cell parseCell(String text, AnsiStringParser parser){
         if(parser != null){
-            final String styled = parser.parse(cell);
+            final String styled = parser.parse(text);
             return new Cell(parser.getOriginalString(), styled);
         }else{
-            return new Cell(cell, cell);
+            return new Cell(text, text);
         }
     }
 
