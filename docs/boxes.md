@@ -47,7 +47,7 @@ Use `BoxConfiguration` to customize box appearance and behavior.
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .textAlign(TextAlign.CENTER)
-    .autoSize(true)
+    .autoSize()
     .build();
 
 Box box = Clique.box(BoxType.DOUBLE_LINE, config)
@@ -86,7 +86,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
 Let the box automatically resize to fit its content:
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .autoSize(true)  // No need to specify width/length
+    .autoSize()  // No need to specify width/length
     .build();
 
 Box box = Clique.box(BoxType.ROUNDED, config)
@@ -139,7 +139,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .borderStyle(style)
     .textAlign(TextAlign.CENTER)
     .centerPadding(3)
-    .autoSize(true)
+    .autoSize()
     .parser(Clique.parser())
     .build();
 
@@ -155,7 +155,7 @@ Customizable boxes let you modify edges, vertical lines, and horizontal lines. C
 ### Basic Customization
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .autoSize(true)
+    .autoSize()
     .build();
 
 Box box = Clique.customizableBox(BoxType.DEFAULT, config)
@@ -202,7 +202,7 @@ Box box = Clique.box(BoxType.CLASSIC)
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .textAlign(TextAlign.CENTER)
-    .autoSize(true)
+    .autoSize()
     .build();
 
 Clique.box(BoxType.DOUBLE_LINE, config)

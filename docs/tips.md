@@ -251,13 +251,13 @@ Clique.parser().print("[red]This will definitely be colored[/]");
 
 Emojis mess with width calculations in tables and boxes. Try to avoid using them:
 ```java
-// ❌ Avoid - emojis break alignment
+// Avoid - emojis break alignment
 Clique.table(TableType.DEFAULT)
     .addHeaders("Status", "Message")
-    .addRows("✅", "Success")
+    .addRows("1", "Success")
     .render();
 
-// ✅ Better - use text or ASCII art
+// Better - use text or ASCII art
 Clique.table(TableType.DEFAULT)
     .addHeaders("Status", "Message")
     .addRows("[green]OK[/]", "Success")
@@ -299,13 +299,13 @@ parser.print("[green]Success message[/]");
 
 When building large tables or indenters, batch your operations:
 ```java
-// ❌ Less efficient
+// Less efficient
 Table table = Clique.table(TableType.DEFAULT);
 for (Item item : items) {
     table.addRows(item.getName());
 }
 
-// ✅ More efficient
+//  More efficient
 Table table = Clique.table(TableType.DEFAULT);
 table.addHeaders("Name", "Value");
 
@@ -321,7 +321,7 @@ Create configuration objects once and reuse them:
 ```java
 // Create once
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .autoSize(true)
+    .autoSize()
     .textAlign(TextAlign.CENTER)
     .build();
 

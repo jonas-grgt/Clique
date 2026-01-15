@@ -44,6 +44,7 @@ com\github\kusoroadeolu\clique\boxes\BoxFactory$1.class
 com\github\kusoroadeolu\clique\tables\AbstractTable.class
 com\github\kusoroadeolu\clique\boxes\DoubleLineBox.class
 com\github\kusoroadeolu\clique\config\IndenterConfiguration.class
+com\github\kusoroadeolu\clique\parser\GlobalParserRegistry.class
 com\github\kusoroadeolu\clique\tables\structures\Cell.class
 com\github\kusoroadeolu\clique\tables\RoundedBoxDrawTable.class
 com\github\kusoroadeolu\clique\parser\ParserToken.class

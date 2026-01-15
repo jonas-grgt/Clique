@@ -56,9 +56,8 @@ public class ProjectExplorer {
                 .immutableBuilder().edgeBorderStyles(ColorCode.CYAN).horizontalBorderStyles(ColorCode.CYAN).verticalBorderStyles(ColorCode.CYAN).build();
 
         // Print header
-        Clique.box(BoxType.DOUBLE_LINE)
+        Clique.box(BoxType.DOUBLE_LINE, BoxConfiguration.immutableBuilder().autoSize().borderStyle(style).build())
                 .content("[yellow]PROJECT FILE EXPLORER")
-                .configuration(BoxConfiguration.immutableBuilder().autoSize(true).borderStyle(style).build())
                 .render();
 
         Clique.parser().print("[dim]Scanning:[/] [yellow]" + root.toAbsolutePath() + "[/]\n");

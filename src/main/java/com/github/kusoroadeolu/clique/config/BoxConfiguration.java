@@ -96,8 +96,8 @@ public class BoxConfiguration {
             return this;
         }
 
-        public BoxConfigurationBuilder autoSize(boolean autoSize) {
-            this.autoSize = autoSize;
+        public BoxConfigurationBuilder autoSize() {
+            this.autoSize = true;
             return this;
         }
 
