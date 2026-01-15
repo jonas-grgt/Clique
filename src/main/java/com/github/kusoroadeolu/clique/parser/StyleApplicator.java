@@ -57,11 +57,7 @@ public final class StyleApplicator {
         return sb.toString();
     }
 
-    public boolean autoCloseTags() {
-        return enableAutoCloseTags;
-    }
-
-    public StyleApplicator setEnableAutoCloseTags(boolean enableAutoCloseTags) {
+     StyleApplicator setEnableAutoCloseTags(boolean enableAutoCloseTags) {
         this.enableAutoCloseTags = enableAutoCloseTags;
         return this;
     }

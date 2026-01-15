@@ -8,11 +8,11 @@ import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringB
 
 public non-sealed class StyleBuilderImpl implements StyleBuilder {
 
-    private final StringBuilder styleText;
+    private final StringBuilder styledTextBuilder;
     private final static AnsiCode RESET = StyleCode.RESET;
 
     public StyleBuilderImpl(){
-        this.styleText = new StringBuilder();
+        this.styledTextBuilder = new StringBuilder();
     }
 
     /**
@@ -49,7 +49,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * */
     @Override
     public StyleBuilder stack(String text, AnsiCode... ansiCodes) {
-        this.styleText.append(this.style(text, ansiCodes));
+        this.styledTextBuilder.append(this.style(text, ansiCodes));
         return this;
     }
 
@@ -62,7 +62,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
     @Override
     public StyleBuilder append(String text, AnsiCode... ansiCodes) {
         this.stack(text, ansiCodes);
-        this.styleText.append(RESET);
+        this.styledTextBuilder.append(RESET);
         return this;
     }
 
@@ -70,7 +70,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * @return the content of the string builder
      * */
     public String get(){
-        return this.styleText.toString();
+        return this.styledTextBuilder.toString();
     }
 
     /**
@@ -78,8 +78,8 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * */
     @Override
     public void print() {
-        this.styleText.append(RESET); //Reset all styles
-        System.out.println(this.styleText);
+        this.styledTextBuilder.append(RESET); //Reset all styles
+        System.out.println(this.styledTextBuilder);
     }
 
     //A helper method to style text with the given codes
@@ -101,6 +101,6 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
     }
 
     public void flush() {
-        clearStringBuilder(styleText);
+        clearStringBuilder(styledTextBuilder);
     }
 }

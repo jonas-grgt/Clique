@@ -3,6 +3,7 @@ package com.github.kusoroadeolu.clique.tables;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.core.utils.Constants;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
@@ -38,7 +39,7 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
 
 
         //Build
-        this.tableBuilder.append(headerAndFooter).append("\n");
+        this.tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
 
         for (final WidthAwareList list : this.rows) {
             this.tableBuilder.append(vLine);
@@ -57,8 +58,8 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
                 clearStringBuilder(sb);
             }
 
-            this.tableBuilder.append("\n");
-            this.tableBuilder.append(headerAndFooter).append("\n");
+            this.tableBuilder.append(Constants.NEWLINE);
+            this.tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
         }
 
         return this.tableBuilder.toString();

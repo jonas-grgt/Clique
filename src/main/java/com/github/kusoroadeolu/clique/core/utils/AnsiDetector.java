@@ -1,16 +1,12 @@
 package com.github.kusoroadeolu.clique.core.utils;
 
+import static com.github.kusoroadeolu.clique.core.utils.Constants.*;
+
 public final class AnsiDetector {
 
-    private static final String TERM = "TERM";
-    private static final String PLAIN = "plain";
-    private static final String DUMB = "dumb";
-    private static final String NO_COLOR = "NO_COLOR";
-    private static final String CLIQUE_COLOR = "clique.color";
-    private static final String ALWAYS = "always";
-    private static final String NEVER = "never";
-    private static final String OS_NAME = "os.name";
-    private static final String WIN = "win";
+    private AnsiDetector(){
+        throw new AssertionError("cannot instantiate this");
+    }
 
     private static boolean detectAnsi(){
         final String colors = System.getProperty(CLIQUE_COLOR);

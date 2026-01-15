@@ -18,9 +18,7 @@ public class IndenterConfiguration {
 
     private IndenterConfiguration() {
         this.indentLevel = 1;
-        this.parser = Clique.parser().configuration(
-                ParserConfiguration.immutableBuilder().enableAutoCloseTags().build()
-        );
+        this.parser = Clique.parser(ParserConfiguration.immutableBuilder().enableAutoCloseTags().build());
         this.defaultFlag = " "; // default to a space
     }
 
@@ -69,9 +67,7 @@ public class IndenterConfiguration {
 
     public static class IndenterConfigurationBuilder {
         private int indentLevel = 1;
-        private AnsiStringParser parser = Clique.parser().configuration(
-                ParserConfiguration.immutableBuilder().enableAutoCloseTags().build()
-        );
+        private AnsiStringParser parser = Clique.parser(ParserConfiguration.immutableBuilder().enableAutoCloseTags().build());
         private String defaultFlag = " ";
 
         public IndenterConfigurationBuilder indentLevel(int indentLevel) {

@@ -24,7 +24,6 @@ public class TableFactory {
             case BOX_DRAW -> new BoxDrawTable(configuration);
             case ROUNDED_BOX_DRAW -> new RoundedBoxDrawTable(configuration);
             case MARKDOWN -> new MarkdownTable(configuration);
-            case null -> throw new IllegalArgumentException("TableType cannot be null");
         };
     }
 

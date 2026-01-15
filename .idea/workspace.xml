@@ -5,13 +5,110 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/AbstractBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/AbstractBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/IndenterConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/IndenterConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/AnsiDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/AnsiDetector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/BoxUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/BoxUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/TableUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/TableUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/indent/IndenterImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/indent/IndenterImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/StyleApplicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/StyleApplicator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/StyleMaps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/StyleMaps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/TokenExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/TokenExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/BoxDrawTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/structures/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/structures/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/BoxDrawTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/BoxDrawTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/structures/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/structures/Cell.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/CompactTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/DefaultTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/MarkdownTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/MarkdownTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/TableFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/TableFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/Clique.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/AnsiCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/BackgroundCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/ColorCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/StyleCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/AbstractBox.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/Box.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/BoxFactory$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/BoxFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/BoxType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/BoxWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/ClassicBox.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/CustomizableBox.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/DefaultBox.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/DoubleLineBox.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/RoundedBox.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle$BorderStyleBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration$BoxConfigurationBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/CellAlign.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration$IndenterConfigurationBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration$ParserConfigurationBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration$TableConfigurationBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TextAlign.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/display/Customizable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/display/Printable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/display/Renderable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/exceptions/DeprecatedMethodException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/exceptions/ExceptionSupplier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/exceptions/InvalidDimensionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/exceptions/ParseProblemException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/exceptions/UnidentifiedStyleException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/AnsiDetector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/BoxUtils$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/BoxUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/StringUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/TableUtils$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/TableUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CliArtGallery.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$FileStats.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$MethodInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$TodoItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer$FileInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer$FileStats.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/QuizGame$Question.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/QuizGame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/Flag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/Indent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/Indenter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/IndenterImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/ParseResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/ParserToken.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/StyleApplicator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/StyleMaps.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/TokenExtractor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/style/StyleBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/AbstractTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/BoxDrawTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/CompactTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/CustomizableTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/DefaultTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/MarkdownTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/RoundedBoxDrawTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/Table.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/TableFactory$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/TableFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/TableType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/structures/Cell.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/structures/WidthAwareList.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2-javadoc.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/clique-1.2.2-javadoc.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2-sources.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/clique-1.2.2-sources.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/clique-1.2.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +122,8 @@
         <option value="Record" />
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Exception" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -240,7 +337,7 @@
       <workItem from="1768422599514" duration="1099000" />
       <workItem from="1768431692634" duration="2115000" />
       <workItem from="1768433914899" duration="577000" />
-      <workItem from="1768475527723" duration="682000" />
+      <workItem from="1768475527723" duration="3959000" />
     </task>
     <servers />
   </component>

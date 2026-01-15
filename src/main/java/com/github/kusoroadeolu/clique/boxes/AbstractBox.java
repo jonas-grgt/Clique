@@ -3,7 +3,8 @@ package com.github.kusoroadeolu.clique.boxes;
 import com.github.kusoroadeolu.clique.config.BoxConfiguration;
 import com.github.kusoroadeolu.clique.core.display.Renderable;
 import com.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
-import com.github.kusoroadeolu.clique.core.utils.StringUtils;
+import com.github.kusoroadeolu.clique.core.utils.Constants;
+import com.github.kusoroadeolu.clique.core.utils.Constants.*;
 import com.github.kusoroadeolu.clique.tables.structures.Cell;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import java.util.List;
 
 import static com.github.kusoroadeolu.clique.core.utils.BoxUtils.splitPreservingAnsi;
 import static com.github.kusoroadeolu.clique.core.utils.BoxUtils.validateDimensions;
+import static com.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.*;
-import static com.github.kusoroadeolu.clique.core.utils.TableUtils.BLANK;
 import static java.lang.Math.max;
 
 
@@ -27,11 +28,11 @@ public abstract class AbstractBox implements Box, Renderable {
     protected BoxConfiguration boxConfiguration;
 
     public AbstractBox(){
-        this(0, 0, "");
+        this(ZERO, ZERO,EMPTY);
     }
 
     public AbstractBox(BoxConfiguration configuration){
-        this(0, 0, "");
+        this(ZERO, ZERO, EMPTY);
         this.boxConfiguration = configuration;
     }
 
@@ -80,8 +81,8 @@ public abstract class AbstractBox implements Box, Renderable {
 
         final String originalContent = this.boxContent.text();
         final String styledContent = this.boxContent.styledText();
-        final String[] originalLines = originalContent.split(StringUtils.NEWLINE.pattern(), -1);
-        final String[] styledLines = styledContent.split(StringUtils.NEWLINE.pattern(), -1);
+        final String[] originalLines = originalContent.split(Constants.NEWLINE_PATTERN.pattern(), -1);
+        final String[] styledLines = styledContent.split(Constants.NEWLINE_PATTERN.pattern(), -1);
 
         // Process each line independently
         for (int i = 0; i < originalLines.length; i++) {
@@ -89,12 +90,12 @@ public abstract class AbstractBox implements Box, Renderable {
             final String styledLine = styledLines[i];
 
             if (originalLine.isEmpty()) {
-                this.contentWrap.add(new Cell("", ""));
+                this.contentWrap.add(new Cell(Constants.EMPTY, Constants.EMPTY));
                 continue;
             }
 
             // Split line into words
-            final String[] originalWords = filterWhitespace(originalLine.split(SPACES.pattern()));
+            final String[] originalWords = filterWhitespace(originalLine.split(SPACES_PATTERN.pattern()));
             final String[] styledWords = filterWhitespace(splitPreservingAnsi(styledLine));
 
             final StringBuilder currentOriginal = new StringBuilder();

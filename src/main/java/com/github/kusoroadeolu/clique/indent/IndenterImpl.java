@@ -1,36 +1,38 @@
 package com.github.kusoroadeolu.clique.indent;
 
 import com.github.kusoroadeolu.clique.config.IndenterConfiguration;
+import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
+import com.github.kusoroadeolu.clique.core.utils.Constants;
 
+import java.util.ArrayDeque;
 import java.util.Collection;
-import java.util.Stack;
+import java.util.Deque;
 
+import static com.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
 public class IndenterImpl implements Indenter{
 
-    private final Stack<Indent> indents;
+    private final Deque<Indent> indents;
     private String currentFlag;
     private int currentLevel; //The current indent level
     private final StringBuilder sb;
-    private static final String BLANK = " ";
-    private static final String EMPTY = "";
-    private IndenterConfiguration configuration;
+    private final IndenterConfiguration configuration;
 
     public IndenterImpl(){
         this(IndenterConfiguration.immutableBuilder().build());
     }
 
     public IndenterImpl(IndenterConfiguration indenterConfiguration){
-        this.indents = new Stack<>();
+        this.indents = new ArrayDeque<>();
         this.sb = new StringBuilder();
         this.configuration = indenterConfiguration;
         this.currentFlag = String.valueOf(this.configuration.getDefaultFlag());
     }
 
     public Indenter configuration(IndenterConfiguration configuration){
-        this.configuration = configuration;
-        return this;
+        throw new DeprecatedMethodException("Deprecated method. Use constructor configurations instead");
+
     }
 
     public Indenter indent(int level, String flag){
@@ -48,7 +50,7 @@ public class IndenterImpl implements Indenter{
     }
 
     public Indenter indent(int level){
-        return this.indent(level, BLANK);
+        return this.indent(level, Constants.BLANK);
     }
 
     public Indenter indent(int level, Flag flag){
@@ -65,7 +67,7 @@ public class IndenterImpl implements Indenter{
     }
 
     public Indenter indent(){
-        return this.indent(BLANK);
+        return this.indent(Constants.BLANK);
     }
 
     public Indenter add(String... arr){
@@ -87,12 +89,12 @@ public class IndenterImpl implements Indenter{
         }
 
         if(!this.indents.isEmpty()){
-            this.sb.append(BLANK.repeat(this.currentLevel - 1));
+            this.sb.append(Constants.BLANK.repeat(this.currentLevel - 1));
         }
 
         this.sb.append(this.currentFlag)
                 .append(parseString(str))
-                .append("\n");
+                .append(Constants.NEWLINE);
         return this;
     }
 

@@ -7,14 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public final class StringUtils {
+import static com.github.kusoroadeolu.clique.core.utils.Constants.*;
 
-    public final static int ZERO = 0;
-    private final static char ANSI_END = 'm';
-    private final static char ANSI_BEGIN = '\u001b';
-    public final static Pattern NEWLINE = Pattern.compile("\\n");
-    public final static Pattern SPACES = Pattern.compile("\\s+");
-    private final static Pattern WHITESPACE_PATTERN = Pattern.compile("\u001b\\[[;\\d]*m");
+public final class StringUtils {
 
     public static void clearStringBuilder(StringBuilder sb){
         sb.setLength(ZERO);
@@ -33,7 +28,7 @@ public final class StringUtils {
     //Automatically get a suitable width when the width is not given
     public static int getDynamicCharsPerLine(String content){
         if (content.isBlank()) return content.length();
-        String[] arr = content.split(NEWLINE.pattern());
+        String[] arr = content.split(NEWLINE_PATTERN.pattern());
         int longest = arr[0].length();
         for (String s : arr){
             if (s.length() > longest) longest = s.length();
@@ -46,7 +41,7 @@ public final class StringUtils {
         return Arrays.stream(arr)
                 .filter(s -> {
                     // Remove all ANSI codes and check if anything remains
-                    String withoutAnsi = s.replaceAll(WHITESPACE_PATTERN.pattern(), "");
+                    String withoutAnsi = s.replaceAll(WHITESPACE_PATTERN.pattern(), EMPTY);
                     return !withoutAnsi.isBlank();
                 })
                 .toArray(String[]::new);

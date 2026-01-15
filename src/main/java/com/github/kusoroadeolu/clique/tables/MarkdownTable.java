@@ -2,6 +2,7 @@ package com.github.kusoroadeolu.clique.tables;
 
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.core.utils.Constants;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
@@ -47,11 +48,11 @@ public class MarkdownTable extends AbstractTable {
             }
 
             if(i == 0){
-                this.tableBuilder.append("\n").append(this.calculateHeader(sb));
+                this.tableBuilder.append(Constants.NEWLINE).append(this.calculateHeader(sb));
                 clearStringBuilder(sb);
             }
 
-            this.tableBuilder.append("\n");
+            this.tableBuilder.append(Constants.NEWLINE);
         }
 
         return this.tableBuilder.toString();

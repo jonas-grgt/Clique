@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import static com.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static com.github.kusoroadeolu.clique.parser.StyleMaps.*;
 
 /**
@@ -21,7 +22,6 @@ public final class TokenExtractor {
     private final static char FORM_CLOSE = ']';
     private String delimiter;
     private boolean enableStrictParsing;
-    private final static String EMPTY = "";
     public TokenExtractor(){
         this.delimiter = String.valueOf(',');
         this.enableStrictParsing = false;
@@ -116,15 +116,14 @@ public final class TokenExtractor {
         }
     }
 
-    public TokenExtractor setDelimiter(String delimiter) {
+     TokenExtractor setDelimiter(String delimiter) {
         this.delimiter = String.valueOf(delimiter);
         return this;
-    }
+     }
 
 
-    public TokenExtractor setEnableStrictParsing(boolean enableStrictParsing) {
+     TokenExtractor setEnableStrictParsing(boolean enableStrictParsing) {
         this.enableStrictParsing = enableStrictParsing;
         return this;
-
-    }
+     }
 }

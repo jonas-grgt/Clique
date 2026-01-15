@@ -1,12 +1,13 @@
 package com.github.kusoroadeolu.clique.parser;
 
 import com.github.kusoroadeolu.clique.config.ParserConfiguration;
+import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
 
 public class AnsiStringParserImpl implements AnsiStringParser {
 
      private final StyleApplicator applicator;
      private final TokenExtractor tokenExtractor;
-     private ParserConfiguration parserConfiguration;
+     private final ParserConfiguration parserConfiguration;
      private String stringToParse;
      private ParseResult parseResult;
 
@@ -21,11 +22,10 @@ public class AnsiStringParserImpl implements AnsiStringParser {
         this.updateConfiguration();
     }
 
-
+    @Deprecated
     public AnsiStringParser configuration(ParserConfiguration configuration) {
-         this.parserConfiguration = configuration;
-         this.updateConfiguration();
-         return this;
+        throw new DeprecatedMethodException("Deprecated method. Use constructor configurations instead");
+
     }
 
     public String parse(String string){

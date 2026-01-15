@@ -75,5 +75,6 @@ com\github\kusoroadeolu\clique\boxes\Box.class
 com\github\kusoroadeolu\clique\parser\StyleApplicator.class
 com\github\kusoroadeolu\clique\demo\CliArtGallery.class
 com\github\kusoroadeolu\clique\boxes\BoxType.class
+com\github\kusoroadeolu\clique\core\utils\Constants.class
 com\github\kusoroadeolu\clique\config\BorderStyle$BorderStyleBuilder.class
 com\github\kusoroadeolu\clique\tables\CompactTable.class

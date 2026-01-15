@@ -6,9 +6,10 @@ import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.kusoroadeolu.clique.core.utils.Constants.*;
+
 public class TableUtils {
 
-    public static final String BLANK = " ";
 
     public static String align(CellAlign cellAlign, StringBuilder sb, int offset, String cell ,String vLine){
 

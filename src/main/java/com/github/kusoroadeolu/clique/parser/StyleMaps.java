@@ -10,7 +10,7 @@ import java.util.Map;
 public final class StyleMaps {
 
     private StyleMaps(){
-
+        throw new AssertionError();
     }
 
     /**

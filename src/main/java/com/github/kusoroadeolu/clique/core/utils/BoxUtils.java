@@ -10,11 +10,11 @@ import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
 public class BoxUtils {
 
-    public final static String BLANK = TableUtils.BLANK;
     private final static String RESET = StyleCode.RESET.getCode();
     private final static char ANSI_END = 'm';
     private final static char ANSI_BEGIN = '\u001b';
@@ -55,7 +55,7 @@ public class BoxUtils {
             case TOP_CENTER, CENTER, BOTTOM_CENTER -> {
 
                 if(s.length() >= spaces.length()){
-                    sb.append(RESET).append(vLine).append(ss).append(RESET).append(vLine).append("\n");
+                    sb.append(RESET).append(vLine).append(ss).append(RESET).append(vLine).append(Constants.NEWLINE);
                     return;
                 }
 
@@ -68,7 +68,7 @@ public class BoxUtils {
                         .append(RESET)
                         .append(BLANK.repeat(rightPadding))
                         .append(vLine)
-                        .append("\n");
+                        .append(Constants.NEWLINE);
             }
         }
     }
@@ -80,7 +80,7 @@ public class BoxUtils {
         final String hLines = sb.repeat(boxWrapper.hLine(), boxWrapper.width() - centerPadding).toString();
         final TextAlign textAlign = boxWrapper.boxConfiguration().getTextAlign();
         clearStringBuilder(sb);
-        sb.append(boxWrapper.tLeft()).append(hLines).append(boxWrapper.tRight()).append("\n");
+        sb.append(boxWrapper.tLeft()).append(hLines).append(boxWrapper.tRight()).append(Constants.NEWLINE);
 
         int startLine = 1;
         final int availableLines = boxWrapper.length() - centerPadding;
@@ -97,7 +97,7 @@ public class BoxUtils {
                 int textIndex = i - startLine;
                 alignText(sb, textIndex, textAlign, spaces, boxWrapper.wordWrap(), boxWrapper.vLine());
             } else {
-                sb.append(boxWrapper.vLine()).append(spaces).append(boxWrapper.vLine()).append("\n");
+                sb.append(boxWrapper.vLine()).append(spaces).append(boxWrapper.vLine()).append(Constants.NEWLINE);
             }
         }
 

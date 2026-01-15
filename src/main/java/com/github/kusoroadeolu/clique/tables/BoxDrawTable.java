@@ -4,6 +4,7 @@ import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
 import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.core.utils.Constants;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
@@ -62,7 +63,7 @@ public class BoxDrawTable extends AbstractTable{
 
 
         //Build
-        this.tableBuilder.append(header).append("\n");
+        this.tableBuilder.append(header).append(Constants.NEWLINE);
         for (int i = 0; i < this.rows.size(); i++) {
             final WidthAwareList list = this.rows.get(i);
             this.tableBuilder.append(vLine);
@@ -84,10 +85,10 @@ public class BoxDrawTable extends AbstractTable{
             }
 
             if(i == 0){
-                this.tableBuilder.append("\n").append(headerEnd);
+                this.tableBuilder.append(Constants.NEWLINE).append(headerEnd);
             }
 
-            this.tableBuilder.append("\n");
+            this.tableBuilder.append(Constants.NEWLINE);
         }
 
         this.tableBuilder.append(footer);
