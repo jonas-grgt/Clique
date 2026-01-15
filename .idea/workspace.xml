@@ -4,15 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/demos.md" afterDir="false" />
+    <list default="true" id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/demo/CatpuccinColors.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/BoxConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/BoxConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/demo/ProjectExplorer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/demo/ProjectExplorer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2-javadoc.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/clique-1.2.2-javadoc.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2-sources.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/clique-1.2.2-sources.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/clique-1.2.2.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clique.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/parser-compose.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser-compose.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2-javadoc.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2-sources.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/javadoc-bundle-options/javadoc-options-javadoc-resources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,96 +30,71 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="package-info" />
-        <option value="Record" />
-        <option value="Enum" />
-        <option value="Interface" />
-        <option value="Exception" />
-        <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;kusoroadeolu&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "kusoroadeolu"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/kusoroadeolu/Clique.git&quot;,
-    &quot;accountId&quot;: &quot;10531cfc-5bc6-448d-a6e9-794c551920aa&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/kusoroadeolu/Clique.git",
+    "accountId": "10531cfc-5bc6-448d-a6e9-794c551920aa"
   }
-}</component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="34guA26JC0DMxIKtH2P7z0ldDii" />
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="38Iu6IYPjR24FJOfFblXbKugIQR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.CliArtGallery.executor": "Run",
-    "Application.CodeScanner.executor": "Run",
-    "Application.GameOfLife.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.MazeGenerator.executor": "Run",
-    "Application.ProjectExplorer.executor": "Run",
-    "Application.QuizGame.executor": "Run",
-    "Application.com.github.kusoroadeolu.Main.executor": "Run",
-    "Application.com.github.kusoroadeolu.clique.demo.CliArtGallery.executor": "Run",
+    "JUnit.AnsiDetectorTest.testAnsiDisabled.executor": "Run",
+    "JUnit.AnsiStringParserImplTest.executor": "Run",
+    "JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor": "Run",
+    "JUnit.BoxTest.executor": "Run",
+    "JUnit.TableTest.executor": "Run",
+    "JUnit.TokenExtractorTest.executor": "Run",
+    "JUnit.TokenExtractorTest.testTokenExtraction.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "extract.method.default.visibility": "private",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/eastw/Git Projects/Personal/Clique/src/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\eastw\Git Projects\Personal\Clique" />
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.github.kusoroadeolu.clique.boxes" />
+      <recent name="com.github.kusoroadeolu.clique.tables" />
+      <recent name="com.github.kusoroadeolu.clique.parser" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.github.kusoroadeolu.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.java.com.github.kusoroadeolu.Main" />
-      <module name="clique" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MazeGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MazeGenerator" />
-      <module name="clique" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="QuizGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.QuizGame" />
+  <component name="RunManager" selected="Application.CatppuccinDemo">
+    <configuration name="CatppuccinDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.CatppuccinDemo" />
       <module name="clique" />
       <extension name="coverage">
         <pattern>
@@ -123,39 +106,85 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.github.kusoroadeolu.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.Main" />
+    <configuration name="AnsiDetectorTest.testAnsiDisabled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="clique" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.github.kusoroadeolu.*" />
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.core.utils.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.core.utils" />
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.core.utils.AnsiDetectorTest" />
+      <option name="METHOD_NAME" value="testAnsiDisabled" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.github.kusoroadeolu.clique.demo.CliArtGallery" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.CliArtGallery" />
+    <configuration name="AnsiStringParserImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="clique" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.github.kusoroadeolu.clique.demo.*" />
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.parser.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.parser" />
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.parser.AnsiStringParserImplTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="BoxTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="clique" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.boxes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.boxes" />
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.boxes.BoxTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TableTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="clique" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.tables.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.tables" />
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.tables.TableTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Clique" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Clique" />
+      <option name="filePath" />
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.com.github.kusoroadeolu.Main" />
-        <item itemvalue="Application.QuizGame" />
-        <item itemvalue="Application.com.github.kusoroadeolu.clique.demo.CliArtGallery" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.MazeGenerator" />
+        <item itemvalue="Application.CatppuccinDemo" />
+        <item itemvalue="JUnit.AnsiDetectorTest.testAnsiDisabled" />
+        <item itemvalue="JUnit.BoxTest" />
+        <item itemvalue="JUnit.TableTest" />
+        <item itemvalue="JUnit.AnsiStringParserImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -169,95 +198,16 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="" />
-      <created>1761647399181</created>
+      <changelist id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="" />
+      <created>1768499231364</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1761647399181</updated>
-      <workItem from="1761647400639" duration="8716000" />
-      <workItem from="1761672721277" duration="25506000" />
-      <workItem from="1761759681930" duration="13757000" />
-      <workItem from="1761774035340" duration="11072000" />
-      <workItem from="1761818502016" duration="6502000" />
-      <workItem from="1761836639387" duration="4038000" />
-      <workItem from="1761852893679" duration="41131000" />
-      <workItem from="1761995948813" duration="6819000" />
-      <workItem from="1762010904862" duration="7437000" />
-      <workItem from="1762029708921" duration="2512000" />
-      <workItem from="1762045852423" duration="155000" />
-      <workItem from="1762084185883" duration="2098000" />
-      <workItem from="1762086329554" duration="83000" />
-      <workItem from="1762086438439" duration="2973000" />
-      <workItem from="1762093119189" duration="2257000" />
-      <workItem from="1762095625053" duration="1416000" />
-      <workItem from="1762110780968" duration="19000" />
-      <workItem from="1762117070552" duration="4199000" />
-      <workItem from="1762122866256" duration="744000" />
-      <workItem from="1762125249834" duration="16000" />
-      <workItem from="1762167573018" duration="4713000" />
-      <workItem from="1762184950038" duration="21000" />
-      <workItem from="1762185002700" duration="4445000" />
-      <workItem from="1762201603990" duration="8330000" />
-      <workItem from="1762243373033" duration="8618000" />
-      <workItem from="1762256481195" duration="3109000" />
-      <workItem from="1762263308699" duration="4263000" />
-      <workItem from="1762277502439" duration="15124000" />
-      <workItem from="1762301948187" duration="3862000" />
-      <workItem from="1762340699390" duration="31000" />
-      <workItem from="1762365784724" duration="18064000" />
-      <workItem from="1762385150754" duration="325000" />
-      <workItem from="1762385516715" duration="3224000" />
-      <workItem from="1762393659343" duration="2515000" />
-      <workItem from="1762425585637" duration="1653000" />
-      <workItem from="1762433817799" duration="58000" />
-      <workItem from="1762441254148" duration="480000" />
-      <workItem from="1762441937408" duration="33000" />
-      <workItem from="1762442052165" duration="809000" />
-      <workItem from="1762442912336" duration="3288000" />
-      <workItem from="1762446270272" duration="1146000" />
-      <workItem from="1762458346733" duration="1529000" />
-      <workItem from="1762530365371" duration="3664000" />
-      <workItem from="1762534270568" duration="789000" />
-      <workItem from="1762631601137" duration="1547000" />
-      <workItem from="1763479809796" duration="84000" />
-      <workItem from="1763487919726" duration="35000" />
-      <workItem from="1763582076899" duration="536000" />
-      <workItem from="1763592017934" duration="665000" />
-      <workItem from="1763635146589" duration="30000" />
-      <workItem from="1763941073826" duration="160000" />
-      <workItem from="1763942639592" duration="2414000" />
-      <workItem from="1763981437233" duration="5652000" />
-      <workItem from="1767135991332" duration="473000" />
-      <workItem from="1767297013595" duration="151000" />
-      <workItem from="1767297445740" duration="433000" />
-      <workItem from="1768318816077" duration="353000" />
-      <workItem from="1768328110608" duration="194000" />
-      <workItem from="1768331936100" duration="2071000" />
-      <workItem from="1768341795245" duration="299000" />
-      <workItem from="1768342868988" duration="13000" />
-      <workItem from="1768407485137" duration="356000" />
-      <workItem from="1768409108266" duration="4000" />
-      <workItem from="1768419376776" duration="2794000" />
-      <workItem from="1768422599514" duration="1099000" />
-      <workItem from="1768431692634" duration="2115000" />
-      <workItem from="1768433914899" duration="577000" />
-      <workItem from="1768475527723" duration="7621000" />
-      <workItem from="1768489130304" duration="3020000" />
+      <updated>1768499231364</updated>
+      <workItem from="1768499235843" duration="802000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/demo/ProjectExplorer.java</url>
-          <line>108</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

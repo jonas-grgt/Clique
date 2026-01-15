@@ -17,10 +17,12 @@ com\github\kusoroadeolu\clique\demo\CodeScanner$TodoItem.class
 com\github\kusoroadeolu\clique\parser\ParseResult.class
 com\github\kusoroadeolu\clique\config\TextAlign.class
 com\github\kusoroadeolu\clique\core\exceptions\UnidentifiedStyleException.class
+com\github\kusoroadeolu\clique\demo\CatpuccinColors$RGBColor.class
 com\github\kusoroadeolu\clique\demo\CodeScanner$FileStats.class
 com\github\kusoroadeolu\clique\parser\AnsiStringParser.class
 com\github\kusoroadeolu\clique\core\exceptions\ParseProblemException.class
 com\github\kusoroadeolu\clique\core\display\Renderable.class
+com\github\kusoroadeolu\clique\demo\CatpuccinColors.class
 com\github\kusoroadeolu\clique\demo\ProjectExplorer.class
 com\github\kusoroadeolu\clique\tables\BoxDrawTable.class
 com\github\kusoroadeolu\clique\config\ParserConfiguration.class
@@ -30,8 +32,10 @@ com\github\kusoroadeolu\clique\config\TableConfiguration$TableConfigurationBuild
 com\github\kusoroadeolu\clique\demo\ProjectExplorer$FileInfo.class
 com\github\kusoroadeolu\clique\core\utils\TableUtils.class
 com\github\kusoroadeolu\clique\indent\Indenter.class
+com\github\kusoroadeolu\clique\demo\CatpuccinColors$1.class
 com\github\kusoroadeolu\clique\style\StyleBuilder.class
 com\github\kusoroadeolu\clique\tables\Table.class
+com\github\kusoroadeolu\clique\demo\CatpuccinColors$CompositeStyle.class
 com\github\kusoroadeolu\clique\ansi\ColorCode.class
 com\github\kusoroadeolu\clique\demo\CodeScanner.class
 com\github\kusoroadeolu\clique\parser\StyleMaps.class
@@ -63,6 +67,7 @@ com\github\kusoroadeolu\clique\core\utils\BoxUtils$1.class
 com\github\kusoroadeolu\clique\tables\TableFactory.class
 com\github\kusoroadeolu\clique\indent\Flag.class
 com\github\kusoroadeolu\clique\core\utils\TableUtils$1.class
+com\github\kusoroadeolu\clique\demo\CatppuccinDemo.class
 com\github\kusoroadeolu\clique\tables\TableFactory$1.class
 com\github\kusoroadeolu\clique\tables\TableType.class
 com\github\kusoroadeolu\clique\boxes\AbstractBox.class
