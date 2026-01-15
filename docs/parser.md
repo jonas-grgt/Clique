@@ -4,7 +4,6 @@ Clique's parser allows you to use a simple markup format for styling text instea
 
 ## Basic Usage
 ### Parse and Print
-
 ```java
 // Parse and print directly
 Clique.parser().print("[red, bold]Error:[/] Something went wrong");
@@ -20,17 +19,88 @@ System.out.println(styled);
 ### Getting Original String
 
 After parsing, you can retrieve the original text without markup tags:
-
 ```java
 AnsiStringParser parser = Clique.parser();
 parser.parse("[red, bold]Hello[/] World");
 String original = parser.getOriginalString(); // Returns "Hello World"
 ```
 
+## Custom Style Registration
+
+You can register your own custom styles globally to extend the available markup tags. This is useful when you want to create reusable style combinations or brand-specific colors.
+
+### Register Single Style
+```java
+// Create a custom "danger" style
+Clique.registerStyle("danger", ColorCode.BRIGHT_RED);
+
+// Now you can use it in markup
+Clique.parser().print("[danger]Critical error![/]");
+```
+
+### Register Multiple Styles
+```java
+// Create a map of custom styles
+Map<String, AnsiCode> customStyles = new HashMap<>();
+customStyles.put("primary", ColorCode.BRIGHT_BLUE);
+customStyles.put("secondary", ColorCode.CYAN);
+customStyles.put("success", ColorCode.BRIGHT_GREEN);
+customStyles.put("warning", ColorCode.BRIGHT_YELLOW);
+customStyles.put("danger", ColorCode.BRIGHT_RED);
+
+// Register them all at once
+Clique.registerStyle(customStyles);
+
+// Use your custom styles
+Clique.parser().print("[primary]Primary text[/]");
+Clique.parser().print("[success]Success message[/]");
+Clique.parser().print("[warning]Warning message[/]");
+```
+
+### Combining Custom Styles
+
+Custom styles work just like built-in styles and can be combined:
+```java
+Clique.registerStyle("brand", ColorCode.BRIGHT_CYAN);
+Clique.registerStyle("highlight", BackgroundCode.YELLOW);
+
+// Combine with other styles
+Clique.parser().print("[brand, bold, highlight]Branded message[/]");
+```
+
+### Use Cases
+
+**Brand Colors:**
+```java
+// Define your brand colors once
+Clique.registerStyle("brand-primary", ColorCode.BRIGHT_BLUE);
+Clique.registerStyle("brand-accent", ColorCode.BRIGHT_MAGENTA);
+
+// Use throughout your application
+Clique.parser().print("[brand-primary, bold]Welcome to MyApp![/]");
+```
+
+**Semantic Colors:**
+```java
+// Create semantic meaning
+Map<String, AnsiCode> semanticColors = Map.of(
+    "info", ColorCode.CYAN,
+    "success", ColorCode.GREEN,
+    "warning", ColorCode.YELLOW,
+    "error", ColorCode.RED
+);
+Clique.registerStyle(semanticColors);
+
+// More readable code
+Clique.parser().print("[success]✓ Operation completed[/]");
+Clique.parser().print("[error]✗ Operation failed[/]");
+```
+
+**Note:** Custom styles are registered globally and persist throughout your application's runtime. They can be used with any parser instance and in tables, boxes, and indenters.
+
 ## Parser Configuration
 
 Customize how the parser behaves using `ParserConfiguration`:
-
 ```java
 ParserConfiguration configuration = ParserConfiguration
         .immutableBuilder()
@@ -58,7 +128,6 @@ When strict parsing is enabled, the parser can throw exceptions for invalid inpu
 ### UnidentifiedStyleException
 
 Thrown when you use a style that doesn't exist:
-
 ```java
 ParserConfiguration config = ParserConfiguration.immutableBuilder()
     .enableStrictParsing()
@@ -73,7 +142,6 @@ parser.parse("[red, bol]Text[/]");
 ### ParseProblemException
 
 Thrown when tags are malformed:
-
 ```java
 // Nested brackets cause parsing issues
 parser.parse("[[[red]]]Text[/]");
@@ -88,7 +156,6 @@ Since `[]` brackets are used for markup tags, you need to escape them when displ
 ### Escaping Brackets
 
 To display literal brackets, use `[/]` to close the tag interpretation:
-
 ```java
 // Display literal [123, 456]
 Clique.parser().print("[123, 456[/]]");
@@ -110,7 +177,6 @@ See [markup-reference.md](markup-reference.md) for a complete list of supported 
 ## Using Parser with Other Features
 
 The parser is integrated into tables, boxes, and indenters. By default, markup parsing is enabled for all of these features:
-
 ```java
 // Tables with markup
 Clique.table(TableType.DEFAULT)

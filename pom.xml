@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <name>Clique</name>
-    <description>A CLI framework for beautifying Java terminal applications</description>
+    <description>A CLI library for beautifying Java terminal applications</description>
     <url>https://github.com/kusoroadeolu/Clique</url>
 
     <properties>

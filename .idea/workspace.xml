@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c960f5d6-342e-4741-bd5b-d2735c6c79ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/New-REAME.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/markup-reference.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/parser.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/boxes.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/indenter.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/stylebuilder.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/tables.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/tips.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RANDOM.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/New-REAME.md" beforeDir="false" afterPath="$PROJECT_DIR$/New-REAME.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/parser.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +243,7 @@
       <workItem from="1768431692634" duration="2115000" />
       <workItem from="1768433914899" duration="577000" />
       <workItem from="1768475527723" duration="7621000" />
-      <workItem from="1768489130304" duration="663000" />
+      <workItem from="1768489130304" duration="1857000" />
     </task>
     <servers />
   </component>
