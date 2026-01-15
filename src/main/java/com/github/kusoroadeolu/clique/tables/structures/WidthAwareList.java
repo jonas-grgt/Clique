@@ -25,7 +25,7 @@ public class WidthAwareList {
 
 
     public void updateLongest(Cell c){
-        final int len = c.displayWidth();
+        final int len = c.text().length();
         if(len > this.longest){
             this.longest = len;
         }
@@ -49,7 +49,7 @@ public class WidthAwareList {
     public void remove(Cell c){
         if(c == null) return;
 
-        final int len = c.displayWidth();
+        final int len = c.text().length();
         this.list.remove(c);
 
         if(this.list.isEmpty()){
@@ -80,8 +80,8 @@ public class WidthAwareList {
 
     private int recalculateLongest(){
         return this.list.stream()
-                .map(Cell::displayWidth)
-                .mapToInt(Integer::intValue)
+                .map(Cell::text)
+                .mapToInt(String::length)
                 .max()
                 .orElse(0);
     }
