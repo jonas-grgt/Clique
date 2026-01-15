@@ -12,7 +12,9 @@ public enum StyleCode implements AnsiCode {
     ITALIC("\u001B[3m"),
     UNDERLINE("\u001B[4m"),
     REVERSE_VIDEO("\u001B[7m"),
-    INVISIBLE_TEXT("\u001B[8m");
+    INVISIBLE_TEXT("\u001B[8m"),
+    STRIKETHROUGH("\u001B[9m"),
+    DOUBLE_UNDERLINE("\u001B[21m");
 
     // Field to hold the ANSI code string
     private final String code;

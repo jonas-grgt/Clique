@@ -1,13 +1,15 @@
 package com.github.kusoroadeolu.clique.parser;
 
+import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.ansi.BackgroundCode;
 import com.github.kusoroadeolu.clique.ansi.ColorCode;
 import com.github.kusoroadeolu.clique.ansi.StyleCode;
 
+import java.util.HashMap;
 import java.util.Map;
 
 //A simple class which holds the maps of the syntax
-public final class StyleMaps {
+final class StyleMaps {
 
     private StyleMaps(){
         throw new AssertionError();
@@ -17,7 +19,7 @@ public final class StyleMaps {
      * A static, unmodifiable map that associates lowercase color names (keys)
      * with their corresponding ColorCode enum constants (values).
      */
-    public static final Map<String, ColorCode> colorCodes = Map.ofEntries(
+     static final Map<String, ColorCode> COLOR_CODES = Map.ofEntries(
             // Standard Colors
             Map.entry("black", ColorCode.BLACK),
             Map.entry("red", ColorCode.RED),
@@ -43,7 +45,7 @@ public final class StyleMaps {
      * A static, unmodifiable map that associates lowercase background color names (keys)
      * with their corresponding BackgroundCode enum constants (values).
      */
-    public static final Map<String, BackgroundCode> backgroundCodes = Map.ofEntries(
+     static final Map<String, BackgroundCode> BACKGROUND_CODES = Map.ofEntries(
             // Standard Background Colors
             Map.entry("bg_black", BackgroundCode.BLACK),
             Map.entry("bg_red", BackgroundCode.RED),
@@ -69,17 +71,17 @@ public final class StyleMaps {
      * A static, unmodifiable map that associates lowercase style names (keys)
      * with their corresponding StyleCode enum constants (values).
      */
-    public static final Map<String, StyleCode> styleCodes = Map.ofEntries(
+     static final Map<String, StyleCode> STYLE_CODES = Map.ofEntries(
             Map.entry("bold", StyleCode.BOLD),
             Map.entry("dim", StyleCode.DIM),
             Map.entry("italic", StyleCode.ITALIC),
             Map.entry("ul", StyleCode.UNDERLINE),
             Map.entry("rv", StyleCode.REVERSE_VIDEO),
             Map.entry("inv", StyleCode.INVISIBLE_TEXT),
-            Map.entry("/", StyleCode.RESET)
+            Map.entry("/", StyleCode.RESET),
+            Map.entry("dbl_ul", StyleCode.DOUBLE_UNDERLINE),
+            Map.entry("strike", StyleCode.STRIKETHROUGH)
     );
 
-
-
-
+     static final Map<String, AnsiCode> GLOBAL_CUSTOM_CODES = new HashMap<>();
 }

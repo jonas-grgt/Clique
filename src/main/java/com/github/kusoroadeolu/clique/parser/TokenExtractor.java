@@ -79,7 +79,6 @@ public final class TokenExtractor {
         for (String s : styles){
             s = s.toLowerCase(Locale.ROOT).trim();
             this.addValidStyles(s, validStyles);
-
         }
 
         return validStyles;
@@ -88,24 +87,31 @@ public final class TokenExtractor {
 
     //Replaces forms with empty strings
     private String cleanString(String s){
-        return s.replace(String.valueOf(FORM_START), EMPTY).replace(String.valueOf(FORM_CLOSE), EMPTY);
+        return s.replace(String.valueOf(FORM_START), EMPTY)
+                .replace(String.valueOf(FORM_CLOSE), EMPTY);
     }
 
     // A helper method that checks if each map contains a key of the given string
     private void addValidStyles(String s, List<AnsiCode> validStyles){
-        AnsiCode code = colorCodes.get(s);
+        AnsiCode code = GLOBAL_CUSTOM_CODES.get(s);
+        if (code != null){
+            validStyles.add(code);
+            return;
+        }
+
+        code = COLOR_CODES.get(s);
         if(code != null){
             validStyles.add(code);
             return;
         }
 
-        code = backgroundCodes.get(s);
+        code = BACKGROUND_CODES.get(s);
         if(code != null){
             validStyles.add(code);
             return;
         }
 
-        code = styleCodes.get(s);
+        code = STYLE_CODES.get(s);
         if(code != null){
             validStyles.add(code);
             return;

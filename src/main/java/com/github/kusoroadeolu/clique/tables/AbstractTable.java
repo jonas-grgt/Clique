@@ -6,6 +6,7 @@ import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
@@ -53,6 +54,15 @@ public abstract class AbstractTable implements Table, Renderable {
 
         this.headersAdded = true;
         return this;
+    }
+
+    public Table addHeaders(Collection<String> headers) {
+        return this.addHeaders(headers.toArray(String[]::new));
+    }
+
+    @Override
+    public Table addRows(Collection<String> rows) {
+        return this.addRows(rows.toArray(String[]::new));
     }
 
     public AbstractTable addRows(String... rows){
