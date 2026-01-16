@@ -206,7 +206,7 @@ Stick to a single or double themes for consistency:
 
 ```java
 // Good - consistent theme
-CliqueThemes.register("catppuccin-mocha");
+Clique.registerTheme("catppuccin-mocha");
 Clique.parser().print("[ctp_red]Error[/]");
 Clique.parser().print("[ctp_green]Success[/]");
 Clique.parser().print("[ctp_yellow]Warning[/]");
@@ -221,7 +221,7 @@ Clique.parser().print("[tokyo_green]Success[/]");  // Different theme
 Create semantic aliases for your theme colors:
 
 ```java
-Clique.registerThemes("nord");
+Clique.registerTheme("nord");
 
 // Create semantic mappings
 Clique.registerStyle("error", StyleMaps.GLOBAL_CUSTOM_CODES.get("nord_red"));
@@ -263,9 +263,7 @@ Clique.parser().print("[ctp_overlay0]└──[/] [ctp_green]✓ Complete[/]");
 List all themes programmatically:
 
 ```java
-import com.github.kusoroadeolu.clique.themes.CliqueThemes;
-
-List<CliqueTheme> themes = CliqueThemes.discover();
+List<CliqueTheme> themes = Clique.discoverThemes();
 themes.forEach(theme -> {
     System.out.println("Theme: " + theme.themeName());
 });
@@ -274,7 +272,7 @@ themes.forEach(theme -> {
 Check if a specific theme exists:
 
 ```java
-CliqueThemes.find("tokyo-night").ifPresentOrElse(
+Clique.findTheme("tokyo-night").ifPresentOrElse(
     theme -> {
         theme.register();
         System.out.println("Tokyo Night loaded!");

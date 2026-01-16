@@ -25,7 +25,9 @@ import com.github.kusoroadeolu.clique.themes.CliqueTheme;
 import com.github.kusoroadeolu.clique.themes.CliqueThemes;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * A facade class to hide the instantiation of multiple implementations of different classes
@@ -111,6 +113,15 @@ public final class Clique {
     public static void registerAllThemes() {
         CliqueThemes.registerAll();
     }
+
+    public static List<CliqueTheme> discoverThemes(){
+        return CliqueThemes.discover();
+    }
+
+    public static Optional<CliqueTheme> findTheme(String name){
+        return CliqueThemes.find(name);
+    }
+
 
 
 }

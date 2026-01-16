@@ -190,8 +190,9 @@ public class CatppuccinColors {
         public CompositeStyle(AnsiCode... codes) {
             StringBuilder sb = new StringBuilder();
             for (AnsiCode code : codes) {
-                sb.append(code.getCode());
+                sb.append(code.toString());
             }
+            
             this.compositeCode = sb.toString();
         }
 
@@ -252,28 +253,12 @@ public class CatppuccinColors {
 }
 
 // Usage
-CatppuccinColors.
+CatppuccinColors.register();
+CatppuccinColors.registerSemanticStyles();
 
-register();
-CatppuccinColors.
-
-registerSemanticStyles();
-
-Clique.
-
-parser().
-
-print("[ctp-mauve]Catppuccin Mauve![/]");
-Clique.
-
-parser().
-
-print("[success]✓ Build successful[/]");
-Clique.
-
-parser().
-
-print("[heading]My Heading[/]");
+Clique.parser().print("[ctp-mauve]Catppuccin Mauve![/]");
+Clique.parser().print("[success]✓ Build successful[/]");
+Clique.parser().print("[heading]My Heading[/]");
 ```
 
 ## Some Advanced Patterns
@@ -295,7 +280,7 @@ public class GradientGenerator {
             gradient.put(name + "-" + i, new RGBColor(r, g, b, false));
         }
         
-        Clique.registerStyle(gradient);
+        Clique.registerStyles(gradient);
     }
 }
 
