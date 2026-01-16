@@ -18,9 +18,50 @@ For themes to display correctly with their full color palette, your terminal mus
 - Terminal compatibility: Ensure your terminal emulator supports 24-bit color (most modern terminals like iTerm2, Alacritty, Kitty, Windows Terminal, and recent versions of GNOME Terminal do)
   Without truecolor support, themes may appear with reduced color accuracy or fall back to the nearest 256-color approximation.
 
-## Basic Theme Structure
+## Setup
+To create custom themes, you only need the core Clique library:
 
-All themes implement the `CliqueTheme` interface from this library:
+### Maven
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependencies>
+<dependency>
+    <groupId>com.github.kusoroadeolu</groupId>
+    <artifactId>Clique</artifactId>
+    <version>v2.0.0</version>
+</dependency>
+</dependencies>
+```
+
+### Gradle
+```gradle
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.kusoroadeolu:Clique:v2.0.0'
+}
+```
+
+**Optional:** If you want to reference or test against the pre-built themes, you can also include `clique-themes`:
+```xml
+<dependency>
+    <groupId>com.github.kusoroadeolu</groupId>
+    <artifactId>clique-themes</artifactId>
+    <version>v0.0.1</version>
+</dependency>
+```
+
+
+## Basic Theme Structure
+All themes implement the `CliqueTheme` interface from the `Clique` library:
 
 ```java
 package com.example.mytheme;
@@ -31,20 +72,21 @@ import com.github.kusoroadeolu.clique.themes.CliqueTheme;
 import java.util.Map;
 
 public class MyCustomTheme implements CliqueTheme {
-    
+
     @Override
     public String themeName() {
-        return "my-theme";  // Unique identifier for your theme
+        return "my-theme";
     }
-    
+
     @Override
     public Map<String, AnsiCode> styles() {
         return Map.ofEntries(
-            Map.entry("mytheme_primary", new CustomAnsiCode("\u001B[38;2;66;135;245m")),
-            Map.entry("mytheme_accent", new CustomAnsiCode("\u001B[38;2;156;39;176m"))
+                Map.entry("mytheme_primary", new CustomAnsiCode("\u001B[38;2;66;135;245m")),
+                Map.entry("mytheme_accent", new CustomAnsiCode("\u001B[38;2;156;39;176m")),
+                Map.entry("bg_mytheme_primary", new CustomAnsiCode("\u001B[48;2;66;135;245m"))
         );
     }
-    
+
     private record CustomAnsiCode(String code) implements AnsiCode {
         @Override
         public String toString() {
@@ -162,7 +204,7 @@ public class App {
 }
 ```
 
-## Naming Conventions
+## Proposed Naming Conventions
 
 Follow these conventions for consistency:
 
@@ -175,7 +217,6 @@ Use descriptive, lowercase names with underscores:
 "mytheme_primary"
 "mytheme_accent"
 "mytheme_error"
-"mytheme_bg_dark"
 
 // Avoid
 "MyThemePrimary"  // Wrong case
@@ -280,7 +321,6 @@ my-clique-themes/
     <version>1.0.0</version>
 </dependency>
 ```
-Ensure you add this dependency alongside
 
 Users can then discover and use your themes:
 ```java
@@ -305,24 +345,7 @@ theme.register();
 
 ### 1. Provide Complete Palettes
 
-Include both foreground and background variants:
-
-```java
-@Override
-public Map<String, AnsiCode> styles() {
-    return Map.ofEntries(
-        // Foreground
-        Map.entry("theme_primary", ...),
-        Map.entry("theme_secondary", ...),
-        Map.entry("theme_error", ...),
-        
-        // Backgrounds
-        Map.entry("bg_theme_primary", ...),
-        Map.entry("bg_theme_secondary", ...),
-        Map.entry("bg_theme_error", ...)
-    );
-}
-```
+Include both foreground and background variants for all your colors.
 
 ### 2. Include Semantic Colors
 
@@ -372,20 +395,20 @@ src/main/resources/META-INF/services/com.github.kusoroadeolu.clique.themes.Cliqu
 
 ### Forgetting toString() Implementation
 
-**Problem:** Colors don't appear, or you see object addresses
+**Problem:** Colors don't appear, or you see object addresses like `CustomAnsiCode@1a2b3c4d`
 
-**Solution:** Always implement `toString()` in your `AnsiCode` implementation:
+**Solution:** Always implement `toString()` in your `AnsiCode` implementation to return the actual ANSI escape code string:
 ```java
 private record CustomAnsiCode(String code) implements AnsiCode {
     @Override
-    public String toString() {  // Essential!
+    public String toString() {  // This is essential!
         return code;
     }
 }
 ```
 
 ### Conflicting Color Names
-**Problem:** Colors from different themes override each other
+**Problem:** Colors from different themes could override each other
 
 **Solution:** Always prefix your color names with your theme identifier:
 ```java
@@ -468,11 +491,6 @@ public class CorporateTheme implements CliqueTheme {
         }
     }
 }
-```
-
-**Service provider file** (`META-INF/services/com.github.kusoroadeolu.clique.themes.CliqueTheme`):
-```
-com.example.themes.CorporateTheme
 ```
 
 **Usage:**

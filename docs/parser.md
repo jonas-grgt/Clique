@@ -47,8 +47,7 @@ configuredParser.print("[red bold]Hello[blue] World");
 - **`enableStrictParsing()`** - Throw exceptions for invalid styles or malformed tags
 
 ## Parser Exceptions
-
-When strict parsing is enabled, the parser can throw exceptions for invalid input:
+When strict parsing is enabled, the parser can throw exceptions for invalid tags:
 
 ### UnidentifiedStyleException
 

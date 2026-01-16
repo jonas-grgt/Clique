@@ -9,7 +9,6 @@ C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeol
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\DefaultBox.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\ParseResult.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\ansi\BackgroundCode.java
-C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\demo\QuizGame.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\utils\AnsiDetector.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\structures\WidthAwareList.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\TableFactory.java
@@ -25,7 +24,6 @@ C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeol
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\BoxDrawTable.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\utils\Constants.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\exceptions\InvalidDimensionException.java
-C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\demo\CliArtGallery.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\structures\Cell.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\BoxConfiguration.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\exceptions\DeprecatedMethodException.java
@@ -47,13 +45,11 @@ C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeol
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\Main.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\indent\Flag.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\BoxWrapper.java
-C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\demo\ProjectExplorer.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\exceptions\ParseProblemException.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\ClassicBox.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\AnsiStringParser.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\CellAlign.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\display\Customizable.java
-C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\demo\CodeScanner.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\ansi\StyleCode.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\indent\Indenter.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\TokenExtractor.java

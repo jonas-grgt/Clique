@@ -6,6 +6,29 @@
   <component name="ChangeListManager">
     <list default="true" id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build-your-own-theme.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build-your-own-theme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/parser-compose.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser-compose.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/parser.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/themes.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/themes.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/Clique.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/Clique.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CliArtGallery.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$FileStats.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$MethodInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$TodoItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer$FileInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer$FileStats.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/QuizGame$Question.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/QuizGame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.3-ALPHA-javadoc.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.3-ALPHA-sources.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/clique-1.2.3-ALPHA.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +103,9 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.github.kusoroadeolu.clique" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.github.kusoroadeolu.clique.themes" />
       <recent name="com.github.kusoroadeolu.clique.core.utils" />
@@ -88,29 +114,35 @@
       <recent name="com.github.kusoroadeolu.clique.parser" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BoxTest">
-    <configuration name="CliqueDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.CliqueDemo" />
+  <component name="RunManager" selected="JUnit.AnsiStringParserImplTest.testCustomStyleRegistration">
+    <configuration name="AnsiStringParserImplTest.testCustomDelimiter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="clique" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.github.kusoroadeolu.clique.demo.*" />
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.parser.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.parser" />
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.parser.AnsiStringParserImplTest" />
+      <option name="METHOD_NAME" value="testCustomDelimiter" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MiniScoreboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.MiniScoreboard" />
+    <configuration name="AnsiStringParserImplTest.testCustomStyleRegistration" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="clique" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.github.kusoroadeolu.clique.demo.*" />
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.parser.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.parser" />
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.parser.AnsiStringParserImplTest" />
+      <option name="METHOD_NAME" value="testCustomStyleRegistration" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -174,11 +206,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AnsiStringParserImplTest.testCustomStyleRegistration" />
+        <item itemvalue="JUnit.AnsiStringParserImplTest.testCustomDelimiter" />
         <item itemvalue="JUnit.BoxTest" />
         <item itemvalue="JUnit.CliqueThemesTest" />
         <item itemvalue="JUnit.CliqueThemesTest.testServiceFileExists" />
-        <item itemvalue="Application.MiniScoreboard" />
-        <item itemvalue="Application.CliqueDemo" />
       </list>
     </recent_temporary>
   </component>
@@ -208,6 +240,8 @@
       <workItem from="1768578611514" duration="4767000" />
       <workItem from="1768589483124" duration="36000" />
       <workItem from="1768589655133" duration="23000" />
+      <workItem from="1768589772593" duration="1965000" />
+      <workItem from="1768593122642" duration="1570000" />
     </task>
     <servers />
   </component>

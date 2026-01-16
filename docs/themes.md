@@ -3,12 +3,7 @@
 Clique supports pre-built color themes that you can use in your CLI applications. Themes provide carefully curated color palettes with consistent naming conventions.
 
 ## Terminal Requirements
-For themes to display correctly with their full color palette, your terminal must support truecolor (24-bit color). Most modern terminals support this by default, but you may need to enable it:
-
-- Check support: Run echo $COLORTERM - it should output truecolor or 24bit
-- Enable truecolor: Set the environment variable COLORTERM=truecolor in your shell profile
-- Terminal compatibility: Ensure your terminal emulator supports 24-bit color (most modern terminals like iTerm2, Alacritty, Kitty, Windows Terminal, and recent versions of GNOME Terminal do)
-Without truecolor support, themes may appear with reduced color accuracy or fall back to the nearest 256-color approximation.
+Themes require truecolor (24-bit color) terminal support to display properly. Most modern terminals (iTerm2, Alacritty, Kitty, Windows Terminal, GNOME Terminal) support this by default. If colors don't look right, set `COLORTERM=truecolor` in your shell profile. See the [Custom Themes Guide](build-your-own-theme.md#terminal-requirements) for detailed setup instructions.
 
 ## Available Themes
 
@@ -22,6 +17,48 @@ Clique comes with popular terminal color schemes:
 - **nord** - Cool arctic-inspired color scheme
 - **tokyo-night** - Modern purple-blue dark theme
 
+### Installation
+
+To use pre-built themes, you need both the core Clique library and the clique-themes package.
+
+### Maven
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependencies>
+<!-- Core Clique library -->
+<dependency>
+    <groupId>com.github.kusoroadeolu</groupId>
+    <artifactId>Clique</artifactId>
+    <version>v2.0.0</version>
+</dependency>
+
+<!-- Pre-built themes -->
+<dependency>
+    <groupId>com.github.kusoroadeolu</groupId>
+    <artifactId>clique-themes</artifactId>
+    <version>v0.0.1</version>
+</dependency>
+</dependencies>
+```
+
+### Gradle
+```gradle
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.kusoroadeolu:Clique:v2.0.0'
+    implementation 'com.github.kusoroadeolu:clique-themes:v0.0.1'
+}
+```
+
 ## Quick Start
 
 ### Using a Single Theme
@@ -30,13 +67,12 @@ Register and use a theme in your application:
 
 ```java
 import com.github.kusoroadeolu.clique.Clique;
-import com.github.kusoroadeolu.clique.themes.CliqueThemes;
 
 public class App {
     public static void main(String[] args) {
         // Register the theme you want to use
         Clique.registerTheme("catppuccin-mocha");
-        
+
         // Use theme colors in your markup
         Clique.parser().print("[ctp_mauve]Styled with Catppuccin![/]");
         Clique.parser().print("[ctp_red]Error message[/]");
@@ -56,19 +92,6 @@ Clique.registerAllThemes();
 // Mix and match across themes
 Clique.parser().print("[ctp_mauve]Catppuccin[/] and [tokyo_cyan]Tokyo Night[/]");
 Clique.parser().print("[nord_frost0]Nord[/] meets [drac_pink]Dracula[/]");
-```
-
-### Manual Registration
-
-You can also instantiate and register themes manually:
-
-```java
-import com.github.kusoroadeolu.cliquethemes.CatppuccinMochaTheme;
-
-var theme = new CatppuccinMochaTheme();
-theme.register();
-
-Clique.parser().print("[ctp_mauve]Now available![/]");
 ```
 
 ## Theme Color Reference
@@ -191,44 +214,42 @@ Theme colors work seamlessly with Clique's text styling:
 ```java
 // Bold, underline, italic, etc.
 Clique.parser().print("[ctp_mauve, bold, ul]Important Heading[/]");
-Clique.parser().print("[drac_red, italic]Error message[/]");
-Clique.parser().print("[tokyo_cyan, bold]● [/][tokyo_fg]Status: Active[/]");
-
-// Multiple styles
 Clique.parser().print("[gruvbox_orange, bg_gruvbox_bg1, bold] WARNING [/]");
 ```
 
 ## Best Practices
 
-### 1. Choose One or Two Theme Per Application
+### 1. Choose One Primary Theme
 
-Stick to a single or double themes for consistency:
+Stick to a single theme for consistency:
 
 ```java
-// Good - consistent theme
 Clique.registerTheme("catppuccin-mocha");
 Clique.parser().print("[ctp_red]Error[/]");
 Clique.parser().print("[ctp_green]Success[/]");
 Clique.parser().print("[ctp_yellow]Warning[/]");
-
-// Avoid - mixing themes randomly
-Clique.parser().print("[ctp_red]Error[/]");
-Clique.parser().print("[tokyo_green]Success[/]");  // Different theme
 ```
 
 ### 2. Use Semantic Color Naming
 
-Create semantic aliases for your theme colors:
+Create semantic aliases for your theme colors by creating wrapper styles:
 
 ```java
 Clique.registerTheme("nord");
 
-// Create semantic mappings
-Clique.registerStyle("error", StyleMaps.GLOBAL_CUSTOM_CODES.get("nord_red"));
-Clique.registerStyle("success", StyleMaps.GLOBAL_CUSTOM_CODES.get("nord_green"));
-Clique.registerStyle("info", StyleMaps.GLOBAL_CUSTOM_CODES.get("nord_frost2"));
+// Create semantic color wrappers
+public class AppStyles {
+    public static final AnsiCode ERROR = new RGBColor(191, 97, 106, false);   // nord_red
+    public static final AnsiCode SUCCESS = new RGBColor(163, 190, 140, false); // nord_green
+    public static final AnsiCode INFO = new RGBColor(136, 192, 208, false);    // nord_frost2
+}
 
-// Use semantic names
+// Register semantic names
+Clique.registerStyle("error", AppStyles.ERROR);
+Clique.registerStyle("success", AppStyles.SUCCESS);
+Clique.registerStyle("info", AppStyles.INFO);
+
+// Use semantic names in your app
 Clique.parser().print("[error]Failed to connect[/]");
 Clique.parser().print("[success]Connection established[/]");
 ```
@@ -265,29 +286,28 @@ List all themes programmatically:
 ```java
 List<CliqueTheme> themes = Clique.discoverThemes();
 themes.forEach(theme -> {
-    System.out.println("Theme: " + theme.themeName());
-});
+        System.out.println("Theme: " + theme.themeName());
+        });
 ```
 
 Check if a specific theme exists:
 
 ```java
 Clique.findTheme("tokyo-night").ifPresentOrElse(
-    theme -> {
+        theme -> {
         theme.register();
         System.out.println("Tokyo Night loaded!");
     },
-    () -> System.out.println("Theme not found")
+            () -> System.out.println("Theme not found")
 );
 ```
 
 ## Creating Custom Themes
 
-Want to create your own theme? Check out the [Parser Composability Guide](parser-compose.md) for details on building custom themes that integrate with Clique's theme system.
+Want to create your own theme? Check out the [Custom Themes Guide](build-your-own-theme.md) for details on building custom themes that integrate with Clique's theme system.
 
 ## See Also
 
 - [Markup Reference](markup-reference.md) - Built-in color and style tags
-- [Custom Themes Reference](build-your-own-theme.md) - Built-in color and style tags
+- [Custom Themes Guide](build-your-own-theme.md) - Create your own themes
 - [Parser Documentation](parser.md) - How to use the parser
-- [Parser Composability](parser-compose.md) - Create custom themes and colors

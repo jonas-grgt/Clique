@@ -12,7 +12,7 @@ public interface AnsiCode {
 }
 ```
 
-**Important:** You must implement **both** methods. `getCode()` returns the ANSI escape sequence, and `toString()` should return the same value for compatibility with Clique's parser.
+This simple interface returns the ANSI escape sequence as a string. When you create custom styles, you'll implement this interface and return your computed ANSI code.
 
 ## Creating Custom ANSI Codes
 
@@ -45,12 +45,10 @@ public class RGBColor implements AnsiCode {
     }
 }
 
-// Register and use
+// Usage
 Clique.registerStyle("coral", new RGBColor(255, 127, 80, false));
 Clique.parser().print("[coral]Beautiful coral text![/]");
 ```
-
-**Pro tip:** Pre-compute the ANSI code in the constructor for better performance.
 
 ### 256-Color Support
 
@@ -74,7 +72,7 @@ public class Extended256Color implements AnsiCode {
     }
 }
 
-// Register 256 colors
+// Usage
 Clique.registerStyle("orange", new Extended256Color(214, false));
 Clique.parser().print("[orange]Orange text![/]");
 ```
@@ -97,7 +95,7 @@ public class CustomAnsiCode implements AnsiCode {
     }
 }
 
-// Register custom effects
+// Usage
 Clique.registerStyle("blink", new CustomAnsiCode("\u001B[5m"));
 Clique.parser().print("[blink]Blinking text![/]");
 ```
@@ -115,7 +113,7 @@ public class CompositeStyle implements AnsiCode {
     public CompositeStyle(AnsiCode... codes) {
         StringBuilder sb = new StringBuilder();
         for (AnsiCode code : codes) {
-            sb.append(code.getCode());
+            sb.append(code.toString());
         }
         this.compositeCode = sb.toString();
     }
@@ -138,11 +136,10 @@ AnsiCode successStyle = new CompositeStyle(
     StyleCode.BOLD
 );
 
-// Register them
+// Register and use
 Clique.registerStyle("error", errorStyle);
 Clique.registerStyle("success", successStyle);
 
-// Use with a single tag
 Clique.parser().print("[error]Critical error![/]");
 Clique.parser().print("[success]Operation complete![/]");
 ```
@@ -306,7 +303,7 @@ public class StyleWithFallback implements AnsiCode {
     
     public StyleWithFallback(AnsiCode primary, AnsiCode fallback) {
         boolean hasTrueColor = supportsTrueColor();
-        this.code = hasTrueColor ? primary.getCode() : fallback.getCode();
+        this.code = hasTrueColor ? primary.toString() : fallback.toString();
     }
     
     @Override
@@ -370,39 +367,38 @@ Clique.parser().print("[primary]Styled from config![/]");
 ## Best Practices
 
 ### 1. Pre-compute ANSI codes
-Store the computed code in the constructor rather than generating it every time `getCode()` is called.
+Store the computed code in the constructor rather than generating it in `toString()`.
 
 ```java
-// Good
+// Good - computed once in constructor
 public class RGBColor implements AnsiCode {
     private final String code;
     
     public RGBColor(int r, int g, int b, boolean isBackground) {
-        // Compute once
-        this.code = String.format("...", ...);
+        // Compute once and store
+        this.code = String.format("\u001B[%d;2;%d;%d;%dm", ...);
     }
-}
-
-// Bad
-public class RGBColor implements AnsiCode {
+    
     @Override
     public String toString() {
-        // Computes every time
-        return String.format("...", ...);
+        return code;  // Just return the stored value
+    }
+}
+
+// Bad - computes every time toString() is called
+public class RGBColor implements AnsiCode {
+    private final int r, g, b;
+    private final boolean isBackground;
+    
+    @Override
+    public String toString() {
+        // Recomputes on every call!
+        return String.format("\u001B[%d;2;%d;%d;%dm", ...);
     }
 }
 ```
 
-### 2. Always implement the interface method
-The parser requires overriding `toString()` to work correctly.
-
-```java
-@Override
-public String toString() {
-    return code;  // Return the code
-```
-
-### 3. Encapsulate registration logic
+### 2. Encapsulate registration logic
 Create a single registration point for your custom styles:
 
 ```java
@@ -430,19 +426,36 @@ AppStyles.register();
 ### Missing toString() implementation
 **Symptom:** You see `com.example.RGBColor@abc123` instead of colored text.
 
-**Fix:** Implement `toString()` to return the same value as the ansi code.
+**Fix:** Always implement `toString()` to return your ANSI escape code:
+
+```java
+public class MyColor implements AnsiCode {
+    private final String code;
+    
+    public MyColor(String ansiCode) {
+        this.code = ansiCode;
+    }
+    
+    @Override
+    public String toString() {  // Don't forget this!
+        return code;
+    }
+}
+```
 
 ### Forgetting to register styles
-Custom styles must be registered before use.
+**Symptom:** Tags don't work or appear as plain text.
+
+**Fix:** Custom styles must be registered before use:
 
 ```java
 // Create the style
 AnsiCode myColor = new RGBColor(255, 0, 0, false);
 
-//  This won't work - style not registered
+// ✗ This won't work - style not registered yet
 Clique.parser().print("[mycolor]Text[/]");
 
-// Register first
+// ✓ Register first, then use
 Clique.registerStyle("mycolor", myColor);
 Clique.parser().print("[mycolor]Text[/]");
 ```
