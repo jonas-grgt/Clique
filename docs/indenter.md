@@ -246,7 +246,7 @@ Indenter tree = Clique.indenter(config)
 tree.print();
 ```
 
-![Indenter Output](images/indent.png)
+![Indenter Output](../images/indent.png)
 
 ### Task List
 ```java

@@ -5,30 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/build-your-own-theme.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build-your-own-theme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/parser-compose.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser-compose.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/parser.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/themes.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/themes.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/Clique.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/Clique.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CliArtGallery.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$FileStats.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$MethodInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner$TodoItem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CodeScanner.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer$FileInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer$FileStats.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/ProjectExplorer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/QuizGame$Question.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/QuizGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.3-ALPHA-javadoc.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.3-ALPHA-sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.3-ALPHA.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/demos.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,38 +45,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CatppuccinDemo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.CliqueDemo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MiniScoreboard.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TokyoNightTheme.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AnsiDetectorTest.testAnsiDisabled.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AnsiStringParserImplTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoxTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CliqueThemesTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CliqueThemesTest.testServiceFileExists.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TableTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TokenExtractorTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TokenExtractorTest.testTokenExtraction.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CatppuccinDemo.executor": "Run",
+    "Application.CliqueDemo.executor": "Run",
+    "Application.MiniScoreboard.executor": "Run",
+    "Application.TokyoNightTheme.executor": "Run",
+    "JUnit.AnsiDetectorTest.testAnsiDisabled.executor": "Run",
+    "JUnit.AnsiStringParserImplTest.executor": "Run",
+    "JUnit.AnsiStringParserImplTest.testCustomDelimiter.executor": "Run",
+    "JUnit.AnsiStringParserImplTest.testCustomStyleRegistration.executor": "Run",
+    "JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor": "Run",
+    "JUnit.BoxTest.executor": "Run",
+    "JUnit.CliqueThemesTest.executor": "Run",
+    "JUnit.CliqueThemesTest.testServiceFileExists.executor": "Run",
+    "JUnit.TableTest.executor": "Run",
+    "JUnit.TokenExtractorTest.executor": "Run",
+    "JUnit.TokenExtractorTest.testTokenExtraction.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -242,6 +222,7 @@
       <workItem from="1768589655133" duration="23000" />
       <workItem from="1768589772593" duration="1965000" />
       <workItem from="1768593122642" duration="1570000" />
+      <workItem from="1768597969321" duration="368000" />
     </task>
     <servers />
   </component>

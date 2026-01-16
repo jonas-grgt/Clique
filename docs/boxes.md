@@ -11,7 +11,7 @@ Clique provides 4 built-in box styles:
 3. **ROUNDED** - Box with rounded corners
 4. **DOUBLE_LINE** - Box with double-line borders
 
-![Boxes Output](images/boxes.png)
+![Boxes Output](../images/boxes.png)
 
 ## Basic Usage
 

@@ -2,7 +2,7 @@
 
 A dependency-free mini CLI library for beautifying Java terminal applications.
 
-![Clique Hero](docs/images/clique-hero.png)
+![Clique Hero](images/clique-hero.png)
 
 ## Why Clique?
 
@@ -42,8 +42,12 @@ Clique.parser().print("[blue, bold]Clique is awesome![/]");
 ### Gradle
 
 ```gradle
-repositories {
-    maven { url 'https://jitpack.io' }
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		mavenCentral()
+		maven { url 'https://jitpack.io' }
+	}
 }
 
 dependencies {
@@ -66,6 +70,8 @@ Clique.registerTheme("catppuccin-mocha");
 Clique.parser().print("[ctp_mauve]Styled with Catppuccin![/]");
 ```
 **Built-in themes:** Catppuccin, Dracula, Gruvbox, Nord, Tokyo Night. 
+[Clique Themes Repository](https://github.com/kusoroadeolu/clique-themes)
+[Themes docs](docs/themes.md)
 [Create your own themes](docs/build-your-own-theme.md)
 
 ### Tables
@@ -111,7 +117,7 @@ Clique.styleBuilder()
 
 - **[Full Documentation](docs/)** - Complete guides for all features
 - **[Markup Reference](docs/markup-reference.md)** - Colors, styles, and syntax
-- **[Examples & Demos](docs/demos.md)** - Interactive examples
+- **[Examples & Demos](https://github.com/kusoroadeolu/clique-demos)** - Interactive examples
 
 ## Try the Demos
 
@@ -122,7 +128,7 @@ javac src/demo/QuizGame.java
 java -cp src demo.QuizGame
 ```
 
-See [docs/demos.md](docs/demos.md) for all available demos.
+- See [clique-demos](https://github.com/kusoroadeolu/clique-demos) for all available demos.
 
 ## License
 Apache 2.0 License
