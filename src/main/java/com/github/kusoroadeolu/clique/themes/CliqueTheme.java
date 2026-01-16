@@ -9,6 +9,6 @@ public interface CliqueTheme {
     String themeName();
     Map<String, AnsiCode> styles();
     default void register(){
-        Clique.registerStyle(this.styles());
+        Clique.registerStyles(this.styles());
     }
 }

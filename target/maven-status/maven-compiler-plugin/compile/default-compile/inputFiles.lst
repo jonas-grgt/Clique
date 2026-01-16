@@ -21,6 +21,7 @@ C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeol
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\GlobalParserRegistry.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\exceptions\ExceptionSupplier.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\TableConfiguration.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\themes\CliqueThemes.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\BoxDrawTable.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\utils\Constants.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\exceptions\InvalidDimensionException.java
@@ -57,10 +58,12 @@ C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeol
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\indent\Indenter.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\TokenExtractor.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\DefaultTable.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\themes\CliqueTheme.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\AnsiStringParserImpl.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\StyleMaps.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\Box.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\indent\IndenterImpl.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\utils\StringUtils.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\themes\TestTheme.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\style\StyleBuilder.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\RoundedBox.java

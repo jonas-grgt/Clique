@@ -59,6 +59,15 @@ Simple, readable syntax for styled text:
 Clique.parser().print("[red, bold]Error:[/] Something went wrong");
 ```
 
+### Themes
+Drop in popular color schemes with one line:
+```java
+Clique.registerTheme("catppuccin-mocha");
+Clique.parser().print("[ctp_mauve]Styled with Catppuccin![/]");
+```
+**Built-in themes:** Catppuccin, Dracula, Gruvbox, Nord, Tokyo Night. 
+[Create your own themes](docs/build-your-own-theme.md)
+
 ### Tables
 Build beautiful tables with multiple styles:
 ```java
@@ -117,9 +126,6 @@ See [docs/demos.md](docs/demos.md) for all available demos.
 
 ## License
 Apache 2.0 License
-MIT License
-
 
 ## Contributing
-
 Contributions are welcome! Please feel free to submit a Pull Request.

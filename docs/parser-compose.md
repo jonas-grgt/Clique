@@ -150,19 +150,21 @@ Clique.parser().print("[success]Operation complete![/]");
 ## Example: Design System Integration
 
 Here's a complete example integrating the Catppuccin Mocha color palette:
+
 ```java
 import com.github.kusoroadeolu.clique.Clique;
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.ansi.StyleCode;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class CatppuccinColors {
-    
+
     // RGBColor implementation
     public static class RGBColor implements AnsiCode {
         private final String code;
-        
+
         public RGBColor(int r, int g, int b, boolean isBackground) {
             r = clamp(r, 0, 255);
             g = clamp(g, 0, 255);
@@ -170,19 +172,21 @@ public class CatppuccinColors {
             int type = isBackground ? 48 : 38;
             this.code = String.format("\u001B[%d;2;%d;%d;%dm", type, r, g, b);
         }
-        
+
         @Override
-        public String toString() { return code; }
-        
+        public String toString() {
+            return code;
+        }
+
         private int clamp(int v, int min, int max) {
             return Math.max(min, Math.min(max, v));
         }
     }
-    
+
     // CompositeStyle implementation
     private static class CompositeStyle implements AnsiCode {
         private final String compositeCode;
-        
+
         public CompositeStyle(AnsiCode... codes) {
             StringBuilder sb = new StringBuilder();
             for (AnsiCode code : codes) {
@@ -190,11 +194,13 @@ public class CatppuccinColors {
             }
             this.compositeCode = sb.toString();
         }
-        
+
         @Override
-        public String toString() { return compositeCode; }
+        public String toString() {
+            return compositeCode;
+        }
     }
-    
+
     // Catppuccin Mocha palette
     private static final Map<String, int[]> PALETTE = new HashMap<>() {{
         put("ctp-mauve", new int[]{203, 166, 247});
@@ -206,38 +212,38 @@ public class CatppuccinColors {
         put("ctp-blue", new int[]{137, 180, 250});
         put("ctp-text", new int[]{205, 214, 244});
     }};
-    
+
     public static void register() {
         Map<String, AnsiCode> styles = new HashMap<>();
-        
+
         // Register all colors 
         for (Map.Entry<String, int[]> entry : PALETTE.entrySet()) {
             int[] rgb = entry.getValue();
             styles.put(entry.getKey(), new RGBColor(rgb[0], rgb[1], rgb[2], false));
             styles.put("bg-" + entry.getKey(), new RGBColor(rgb[0], rgb[1], rgb[2], true));
         }
-        
-        Clique.registerStyle(styles);
+
+        Clique.registerStyles(styles);
     }
-    
+
     public static void registerSemanticStyles() {
         Map<String, AnsiCode> semantic = new HashMap<>();
-        
+
         // Create semantic aliases
         semantic.put("success", getColor("ctp-green"));
         semantic.put("error", getColor("ctp-red"));
         semantic.put("warning", getColor("ctp-yellow"));
-        
+
         // Create composite styles
         semantic.put("heading", new CompositeStyle(
-            getColor("ctp-mauve"),
-            StyleCode.BOLD,
-            StyleCode.UNDERLINE
+                getColor("ctp-mauve"),
+                StyleCode.BOLD,
+                StyleCode.UNDERLINE
         ));
-        
-        Clique.registerStyle(semantic);
+
+        Clique.registerStyles(semantic);
     }
-    
+
     private static AnsiCode getColor(String name) {
         int[] rgb = PALETTE.get(name.replace("bg-", ""));
         boolean isBg = name.startsWith("bg-");
@@ -246,12 +252,28 @@ public class CatppuccinColors {
 }
 
 // Usage
-CatppuccinColors.register();
-CatppuccinColors.registerSemanticStyles();
+CatppuccinColors.
 
-Clique.parser().print("[ctp-mauve]Catppuccin Mauve![/]");
-Clique.parser().print("[success]✓ Build successful[/]");
-Clique.parser().print("[heading]My Heading[/]");
+register();
+CatppuccinColors.
+
+registerSemanticStyles();
+
+Clique.
+
+parser().
+
+print("[ctp-mauve]Catppuccin Mauve![/]");
+Clique.
+
+parser().
+
+print("[success]✓ Build successful[/]");
+Clique.
+
+parser().
+
+print("[heading]My Heading[/]");
 ```
 
 ## Some Advanced Patterns
@@ -386,16 +408,13 @@ public class RGBColor implements AnsiCode {
 }
 ```
 
-### 2. Always implement both interface methods
+### 2. Always implement the interface method
 The parser requires overriding `toString()` to work correctly.
 
 ```java
-
-
 @Override
 public String toString() {
-    return code;  // Return the same value
-}
+    return code;  // Return the code
 ```
 
 ### 3. Encapsulate registration logic
@@ -424,11 +443,9 @@ AppStyles.register();
 ## Common Pitfalls
 
 ### Missing toString() implementation
-If you only implement `getCode()`, the parser will output the object's default `toString()` instead of the ANSI codes.
-
 **Symptom:** You see `com.example.RGBColor@abc123` instead of colored text.
 
-**Fix:** Implement `toString()` to return the same value as `getCode()`.
+**Fix:** Implement `toString()` to return the same value as the ansi code.
 
 ### Forgetting to register styles
 Custom styles must be registered before use.

@@ -30,6 +30,20 @@ public class CliqueThemes {
         find(name).ifPresent(CliqueTheme::register);
     }
 
+    public static void registerThemes(String... names){
+        for (String name : names){
+            var optional = find(name);
+            optional.ifPresent(CliqueTheme::register);
+        }
+    }
+
+    public static void registerThemes(Collection<String> names){
+        for (String name : names){
+            var optional = find(name);
+            optional.ifPresent(CliqueTheme::register);
+        }
+    }
+
     public static void registerAll() {
         discover().forEach(CliqueTheme::register);
     }

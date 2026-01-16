@@ -30,6 +30,7 @@ com\github\kusoroadeolu\clique\config\TableConfiguration$TableConfigurationBuild
 com\github\kusoroadeolu\clique\demo\ProjectExplorer$FileInfo.class
 com\github\kusoroadeolu\clique\core\utils\TableUtils.class
 com\github\kusoroadeolu\clique\indent\Indenter.class
+com\github\kusoroadeolu\clique\themes\CliqueTheme.class
 com\github\kusoroadeolu\clique\style\StyleBuilder.class
 com\github\kusoroadeolu\clique\tables\Table.class
 com\github\kusoroadeolu\clique\ansi\ColorCode.class
@@ -54,15 +55,18 @@ com\github\kusoroadeolu\Main.class
 com\github\kusoroadeolu\clique\core\display\Printable.class
 com\github\kusoroadeolu\clique\core\utils\AnsiDetector.class
 com\github\kusoroadeolu\clique\parser\AnsiStringParserImpl.class
+com\github\kusoroadeolu\clique\themes\TestTheme$TestAnsiCode.class
 com\github\kusoroadeolu\clique\style\StyleBuilderImpl.class
 com\github\kusoroadeolu\clique\tables\structures\WidthAwareList.class
 com\github\kusoroadeolu\clique\boxes\RoundedBox.class
+com\github\kusoroadeolu\clique\themes\CliqueThemes.class
 com\github\kusoroadeolu\clique\boxes\DefaultBox.class
 com\github\kusoroadeolu\clique\Clique.class
 com\github\kusoroadeolu\clique\core\utils\BoxUtils$1.class
 com\github\kusoroadeolu\clique\tables\TableFactory.class
 com\github\kusoroadeolu\clique\indent\Flag.class
 com\github\kusoroadeolu\clique\core\utils\TableUtils$1.class
+com\github\kusoroadeolu\clique\themes\TestTheme.class
 com\github\kusoroadeolu\clique\tables\TableFactory$1.class
 com\github\kusoroadeolu\clique\tables\TableType.class
 com\github\kusoroadeolu\clique\boxes\AbstractBox.class

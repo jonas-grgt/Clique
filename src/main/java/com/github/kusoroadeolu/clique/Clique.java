@@ -21,7 +21,10 @@ import com.github.kusoroadeolu.clique.tables.CustomizableTable;
 import com.github.kusoroadeolu.clique.tables.Table;
 import com.github.kusoroadeolu.clique.tables.TableFactory;
 import com.github.kusoroadeolu.clique.tables.TableType;
+import com.github.kusoroadeolu.clique.themes.CliqueTheme;
+import com.github.kusoroadeolu.clique.themes.CliqueThemes;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -89,8 +92,25 @@ public final class Clique {
         GlobalParserRegistry.registerStyle(style, code);
     }
 
-    public static void registerStyle(Map<String, AnsiCode> codes){
+    public static void registerStyles(Map<String, AnsiCode> codes){
         GlobalParserRegistry.registerStyles(codes);
     }
+
+    public static void registerTheme(String name) {
+        CliqueThemes.register(name);
+    }
+
+    public static void registerThemes(String... themes){
+        CliqueThemes.registerThemes(themes);
+    }
+
+    public static void registerThemes(Collection<String> themes){
+        CliqueThemes.registerThemes(themes);
+    }
+
+    public static void registerAllThemes() {
+        CliqueThemes.registerAll();
+    }
+
 
 }
