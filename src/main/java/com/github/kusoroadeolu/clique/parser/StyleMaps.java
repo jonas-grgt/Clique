@@ -7,6 +7,7 @@ import com.github.kusoroadeolu.clique.ansi.StyleCode;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 //A simple class which holds the maps of the syntax
 final class StyleMaps {

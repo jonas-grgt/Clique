@@ -28,7 +28,7 @@ public abstract class AbstractBox implements Box, Renderable {
     protected BoxConfiguration boxConfiguration;
 
     public AbstractBox(){
-        this(ZERO, ZERO,EMPTY);
+        this(ZERO, ZERO, EMPTY);
     }
 
     public AbstractBox(BoxConfiguration configuration){
