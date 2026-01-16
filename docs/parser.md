@@ -12,7 +12,7 @@ Clique.parser().print("[red, bold]Error:[/] Something went wrong");
 String styled = Clique.parser().parse("[red, bold]Error:[/] Something went wrong");
 System.out.println(styled);
 ```
-[Ansi Output](../images/ansi.png)
+![Ansi Output](../images/ansi.png)
 
 ### Getting the Original String
 
