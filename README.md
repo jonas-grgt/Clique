@@ -34,7 +34,7 @@ Clique.parser().print("[blue, bold]Clique is awesome![/]");
     <dependency>
         <groupId>com.github.kusoroadeolu</groupId>
         <artifactId>Clique</artifactId>
-        <version>v1.2.2</version>
+        <version>v2.0.0</version>
     </dependency>
 </dependencies>
 ```
