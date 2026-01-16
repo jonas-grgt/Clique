@@ -13,9 +13,6 @@ String styled = Clique.parser().parse("[red, bold]Error:[/] Something went wrong
 System.out.println(styled);
 ```
 
-![Raw Ansi Output](docs/images/raw.png)
-
-
 ### Getting the Original String
 
 After parsing, you can retrieve the original text without markup tags:

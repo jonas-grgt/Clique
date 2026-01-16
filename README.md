@@ -47,7 +47,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v1.2.2'
+    implementation 'com.github.kusoroadeolu:Clique:v2.0.0'
 }
 ```
 
