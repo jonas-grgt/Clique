@@ -8,7 +8,6 @@ All styles in Clique implement the `AnsiCode` interface:
 
 ```java
 public interface AnsiCode {
-    String getCode();
     String toString();
 }
 ```
@@ -34,11 +33,6 @@ public class RGBColor implements AnsiCode {
         
         int type = isBackground ? 48 : 38;
         this.code = String.format("\u001B[%d;2;%d;%d;%dm", type, r, g, b);
-    }
-    
-    @Override
-    public String getCode() {
-        return code;
     }
     
     @Override
@@ -75,11 +69,6 @@ public class Extended256Color implements AnsiCode {
     }
     
     @Override
-    public String getCode() {
-        return code;
-    }
-    
-    @Override
     public String toString() {
         return code;
     }
@@ -100,11 +89,6 @@ public class CustomAnsiCode implements AnsiCode {
     
     public CustomAnsiCode(String ansiSequence) {
         this.code = ansiSequence;
-    }
-    
-    @Override
-    public String getCode() {
-        return code;
     }
     
     @Override
@@ -134,11 +118,6 @@ public class CompositeStyle implements AnsiCode {
             sb.append(code.getCode());
         }
         this.compositeCode = sb.toString();
-    }
-    
-    @Override
-    public String getCode() {
-        return compositeCode;
     }
     
     @Override
@@ -193,9 +172,6 @@ public class CatppuccinColors {
         }
         
         @Override
-        public String getCode() { return code; }
-        
-        @Override
         public String toString() { return code; }
         
         private int clamp(int v, int min, int max) {
@@ -214,9 +190,6 @@ public class CatppuccinColors {
             }
             this.compositeCode = sb.toString();
         }
-        
-        @Override
-        public String getCode() { return compositeCode; }
         
         @Override
         public String toString() { return compositeCode; }
@@ -330,9 +303,6 @@ public class StyleWithFallback implements AnsiCode {
     }
     
     @Override
-    public String getCode() { return code; }
-    
-    @Override
     public String toString() { return code; }
     
     private static boolean supportsTrueColor() {
@@ -409,7 +379,7 @@ public class RGBColor implements AnsiCode {
 // Bad
 public class RGBColor implements AnsiCode {
     @Override
-    public String getCode() {
+    public String toString() {
         // Computes every time
         return String.format("...", ...);
     }
@@ -417,13 +387,10 @@ public class RGBColor implements AnsiCode {
 ```
 
 ### 2. Always implement both interface methods
-The parser requires both `getCode()` and `toString()` to work correctly.
+The parser requires overriding `toString()` to work correctly.
 
 ```java
-@Override
-public String getCode() {
-    return code;
-}
+
 
 @Override
 public String toString() {

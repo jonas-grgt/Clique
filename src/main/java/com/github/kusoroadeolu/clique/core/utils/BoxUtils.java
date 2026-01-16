@@ -15,7 +15,7 @@ import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringB
 
 public class BoxUtils {
 
-    private final static String RESET = StyleCode.RESET.getCode();
+    private final static String RESET = StyleCode.RESET.toString();
     private final static char ANSI_END = 'm';
     private final static char ANSI_BEGIN = '\u001b';
 

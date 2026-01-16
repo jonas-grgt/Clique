@@ -5,22 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/demo/CatpuccinColors.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clique.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/parser-compose.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser-compose.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2-javadoc.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2-sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-1.2.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/javadoc-bundle-options/javadoc-options-javadoc-resources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/parser.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/ansi/AnsiCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/ansi/AnsiCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/ansi/BackgroundCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/ansi/BackgroundCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/ansi/ColorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/ansi/ColorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/ansi/StyleCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/ansi/StyleCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/BoxUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/BoxUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/parser/AnsiStringParserImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/parser/AnsiStringParserImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/AnsiCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/AnsiCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/BackgroundCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/BackgroundCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/ColorCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/ColorCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/StyleCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/ansi/StyleCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/BoxUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/BoxUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CatppuccinDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CatpuccinColors$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CatpuccinColors$CompositeStyle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CatpuccinColors$RGBColor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/demo/CatpuccinColors.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.github.kusoroadeolu.clique.parser.TokenExtractorTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.github.kusoroadeolu.clique.parser.TokenExtractorTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/github/kusoroadeolu/clique/boxes/BoxTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/github/kusoroadeolu/clique/core/utils/AnsiDetectorTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/github/kusoroadeolu/clique/parser/AnsiStringParserImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/github/kusoroadeolu/clique/parser/CompositeStyle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/github/kusoroadeolu/clique/tables/TableTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,70 +48,116 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "kusoroadeolu"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;kusoroadeolu&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/kusoroadeolu/Clique.git",
-    "accountId": "10531cfc-5bc6-448d-a6e9-794c551920aa"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kusoroadeolu/Clique.git&quot;,
+    &quot;accountId&quot;: &quot;10531cfc-5bc6-448d-a6e9-794c551920aa&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="38Iu6IYPjR24FJOfFblXbKugIQR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.AnsiDetectorTest.testAnsiDisabled.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor": "Run",
-    "JUnit.BoxTest.executor": "Run",
-    "JUnit.TableTest.executor": "Run",
-    "JUnit.TokenExtractorTest.executor": "Run",
-    "JUnit.TokenExtractorTest.testTokenExtraction.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CatppuccinDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CliqueDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MiniScoreboard.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TokyoNightTheme.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiDetectorTest.testAnsiDisabled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoxTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TableTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TokenExtractorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TokenExtractorTest.testTokenExtraction.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.github.kusoroadeolu.clique.core.utils" />
       <recent name="com.github.kusoroadeolu.clique.boxes" />
       <recent name="com.github.kusoroadeolu.clique.tables" />
       <recent name="com.github.kusoroadeolu.clique.parser" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CatppuccinDemo">
+  <component name="RunManager" selected="Application.MiniScoreboard">
     <configuration name="CatppuccinDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.CatppuccinDemo" />
+      <module name="clique" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CliqueDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.CliqueDemo" />
+      <module name="clique" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MiniScoreboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.MiniScoreboard" />
+      <module name="clique" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.kusoroadeolu.clique.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokyoNightTheme" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.demo.TokyoNightTheme" />
       <module name="clique" />
       <extension name="coverage">
         <pattern>
@@ -122,51 +185,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AnsiStringParserImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="clique" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.kusoroadeolu.clique.parser.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.parser" />
-      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.parser.AnsiStringParserImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BoxTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="clique" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.kusoroadeolu.clique.boxes.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.boxes" />
-      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.boxes.BoxTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TableTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="clique" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.kusoroadeolu.clique.tables.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.kusoroadeolu.clique.tables" />
-      <option name="MAIN_CLASS_NAME" value="com.github.kusoroadeolu.clique.tables.TableTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Clique" />
       <method v="2">
@@ -180,11 +198,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MiniScoreboard" />
+        <item itemvalue="Application.CliqueDemo" />
+        <item itemvalue="Application.TokyoNightTheme" />
         <item itemvalue="Application.CatppuccinDemo" />
         <item itemvalue="JUnit.AnsiDetectorTest.testAnsiDisabled" />
-        <item itemvalue="JUnit.BoxTest" />
-        <item itemvalue="JUnit.TableTest" />
-        <item itemvalue="JUnit.AnsiStringParserImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -203,7 +221,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1768499231364</updated>
-      <workItem from="1768499235843" duration="802000" />
+      <workItem from="1768499235843" duration="2734000" />
+      <workItem from="1768546223107" duration="1069000" />
     </task>
     <servers />
   </component>

@@ -1,1 +1,6 @@
+com\github\kusoroadeolu\clique\core\utils\AnsiDetectorTest.class
+com\github\kusoroadeolu\clique\parser\CompositeStyle.class
+com\github\kusoroadeolu\clique\boxes\BoxTest.class
+com\github\kusoroadeolu\clique\parser\AnsiStringParserImplTest.class
+com\github\kusoroadeolu\clique\tables\TableTest.class
 com\github\kusoroadeolu\clique\parser\TokenExtractorTest.class

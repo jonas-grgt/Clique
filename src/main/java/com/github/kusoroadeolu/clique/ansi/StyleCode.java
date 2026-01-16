@@ -28,14 +28,6 @@ public enum StyleCode implements AnsiCode {
         this.code = code;
     }
 
-    /**
-     * Gets the ANSI escape code string for the font style.
-     *
-     * @return The ANSI escape code string.
-     */
-    public String getCode() {
-        return code;
-    }
 
     /**
      * Returns the ANSI code itself, making it easy to use in print statements.

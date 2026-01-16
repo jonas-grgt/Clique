@@ -31,14 +31,6 @@ public enum BackgroundCode implements AnsiCode {
             this.code = code;
         }
 
-        /**
-         * Gets the ANSI escape code string for the background color.
-         *
-         * @return The ANSI escape code string.
-         */
-        public String getCode() {
-            return code;
-        }
 
         /**
          * Overrides the toString method to return the ANSI code itself,

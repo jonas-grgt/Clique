@@ -35,15 +35,6 @@ public enum ColorCode implements AnsiCode {
     }
 
     /**
-     * Gets the ANSI escape code string for the color.
-     *
-     * @return The ANSI escape code string.
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
      * Overrides the toString method to return the ANSI code itself,
      * which makes using the enum simpler when printing color.
      *

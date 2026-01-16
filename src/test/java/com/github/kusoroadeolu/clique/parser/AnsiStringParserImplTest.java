@@ -21,8 +21,8 @@ class AnsiStringParserImplTest {
                 .build();
         AnsiStringParser parser = new AnsiStringParserImpl(config);
         String output = parser.parse("[red bold]Text[/]");
-        assertTrue(output.contains(ColorCode.RED.getCode()));
-        assertTrue(output.contains(StyleCode.BOLD.getCode()));
+        assertTrue(output.contains(ColorCode.RED.toString()));
+        assertTrue(output.contains(StyleCode.BOLD.toString()));
     }
 
     @Test
@@ -44,7 +44,7 @@ class AnsiStringParserImplTest {
                 .build();
         AnsiStringParser parser = new AnsiStringParserImpl(config);
         String output = parser.parse("[red]Text");
-        assertTrue(output.endsWith(StyleCode.RESET.getCode()));
+        assertTrue(output.endsWith(StyleCode.RESET.toString()));
     }
 
     @Test
@@ -72,7 +72,7 @@ class AnsiStringParserImplTest {
     void testCustomStyleRegistration() {
         Clique.registerStyle("custom", ColorCode.BLUE);
         String output = Clique.parser().parse("[custom]Text[/]");
-        assertTrue(output.contains(ColorCode.BLUE.getCode()));
+        assertTrue(output.contains(ColorCode.BLUE.toString()));
     }
 
     @Test
@@ -83,8 +83,8 @@ class AnsiStringParserImplTest {
         );
         Clique.registerStyle("error", composite);
         String output = Clique.parser().parse("[error]Text[/]");
-        assertTrue(output.contains(ColorCode.RED.getCode()));
-        assertTrue(output.contains(StyleCode.BOLD.getCode()));
+        assertTrue(output.contains(ColorCode.RED.toString()));
+        assertTrue(output.contains(StyleCode.BOLD.toString()));
     }
 
 }
@@ -97,15 +97,11 @@ class CompositeStyle implements AnsiCode {
         // Pre-compute the composite code
         StringBuilder sb = new StringBuilder();
         for (AnsiCode code : codes) {
-            sb.append(code.getCode());
+            sb.append(code.toString());
         }
         this.compositeCode = sb.toString();
     }
 
-    @Override
-    public String getCode() {
-        return compositeCode;
-    }
 
     @Override
     public String toString() {

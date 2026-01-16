@@ -19,7 +19,7 @@ class TokenExtractorTest {
 
     @Test
     void testColorCodeOutput() {
-        assertEquals("\u001B[31m", ColorCode.RED.getCode());
+        assertEquals("\u001B[31m", ColorCode.RED.toString());
     }
 
     // Original string extraction
