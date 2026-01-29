@@ -1,0 +1,58 @@
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'21'
+-sourcepath
+'C:/Users/eastw/Git Projects/Personal/Clique/src/main/java;C:/Users/eastw/Git Projects/Personal/Clique/target/generated-sources/annotations'
+-author
+-bottom
+'Copyright &#169; 2026. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/eastw/Git Projects/Personal/Clique/target/apidocs'
+-docencoding
+'UTF-8'
+-Xdoclint:none
+-doctitle
+'Clique 2.0.0 API'
+-use
+-version
+-windowtitle
+'Clique 2.0.0 API'
+com.github.kusoroadeolu.clique.ansi
+com.github.kusoroadeolu.clique.boxes
+com.github.kusoroadeolu.clique
+com.github.kusoroadeolu.clique.config
+com.github.kusoroadeolu.clique.core.display
+com.github.kusoroadeolu.clique.core.exceptions
+com.github.kusoroadeolu.clique.core.utils
+com.github.kusoroadeolu.clique.indent
+com.github.kusoroadeolu.clique.parser
+com.github.kusoroadeolu.clique.style
+com.github.kusoroadeolu.clique.tables
+com.github.kusoroadeolu.clique.tables.structures
+com.github.kusoroadeolu.clique.themes
+com.github.kusoroadeolu
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java = 1762442515339
+C:\Users\eastw\Git Projects\Personal\Clique\target\generated-sources\annotations = 1769719908859
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\allclasses-index.html = 1769719926216
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\allpackages-index.html = 1769719926223
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\constant-values.html = 1769719925588
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\deprecated-list.html = 1769719926127
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\element-list = 1769719925364
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\help-doc.html = 1769719926371
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\index-all.html = 1769719926352
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\index.html = 1769719926134
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\member-search-index.js = 1769719926243
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\module-search-index.js = 1769719926227
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\overview-summary.html = 1769719926363
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\overview-tree.html = 1769719926113
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\package-search-index.js = 1769719926231
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\search.html = 1769719926358
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\serialized-form.html = 1769719925608
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\tag-search-index.js = 1769719926249
+C:\Users\eastw\Git Projects\Personal\Clique\target\apidocs\type-search-index.js = 1769719926236

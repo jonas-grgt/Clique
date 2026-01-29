@@ -7,6 +7,7 @@ import com.github.kusoroadeolu.clique.core.utils.Constants;
 import com.github.kusoroadeolu.clique.core.utils.Constants.*;
 import com.github.kusoroadeolu.clique.tables.structures.Cell;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import static com.github.kusoroadeolu.clique.core.utils.StringUtils.*;
 import static java.lang.Math.max;
 
 
-public abstract class AbstractBox implements Box, Renderable {
+public abstract class AbstractBox implements Box {
     protected int width;
     protected int length;
     protected Cell boxContent;
@@ -145,17 +146,13 @@ public abstract class AbstractBox implements Box, Renderable {
     protected void adjust(){
         final String originalContent = this.boxContent.text();
         final int longest = getDynamicCharsPerLine(originalContent);
-        if(this.boxConfiguration.getAutoSize()){
-            this.width = max(this.width, longest) + (this.boxConfiguration.getCenterPadding() * 2);
-        }
+        if(this.boxConfiguration.getAutoSize()) this.width = max(this.width, longest) + (this.boxConfiguration.getCenterPadding() * 2);
         else validateDimensions(this.width, this.length);
 
 
     }
 
-    public void render(){
-        System.out.println(this.buildBox());
+    public void render(PrintStream stream) {
+        stream.println(this.buildBox());
     }
-
-
 }

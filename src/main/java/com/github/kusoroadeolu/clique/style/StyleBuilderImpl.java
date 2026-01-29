@@ -3,6 +3,8 @@ package com.github.kusoroadeolu.clique.style;
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.ansi.StyleCode;
 
+import java.io.PrintStream;
+
 import static com.github.kusoroadeolu.clique.core.utils.AnsiDetector.ansiEnabled;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
@@ -77,9 +79,9 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * Flushes the content of the string builder to the terminal and clears the string builder
      * */
     @Override
-    public void print() {
+    public void print(PrintStream stream) {
         this.styledTextBuilder.append(RESET); //Reset all styles
-        System.out.println(this.styledTextBuilder);
+        stream.println(this.styledTextBuilder);
     }
 
     //A helper method to style text with the given codes

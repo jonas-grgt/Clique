@@ -84,5 +84,5 @@ final class StyleMaps {
             Map.entry("strike", StyleCode.STRIKETHROUGH)
     );
 
-     static final Map<String, AnsiCode> GLOBAL_CUSTOM_CODES = new HashMap<>();
+     static final Map<String, AnsiCode> GLOBAL_CUSTOM_CODES = new ConcurrentHashMap<>();
 }

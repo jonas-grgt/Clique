@@ -1,8 +1,11 @@
 package com.github.kusoroadeolu.clique.tables;
 
+import com.github.kusoroadeolu.clique.core.display.Renderable;
+
+import java.io.PrintStream;
 import java.util.Collection;
 
-public interface Table {
+public interface Table extends Renderable {
     Table addHeaders(String... headers);
     Table addHeaders(Collection<String> headers);
 
@@ -14,5 +17,5 @@ public interface Table {
     Table updateCell(int row, int col, String text);
 
     String buildTable();
-    void render();
+    void render(PrintStream stream);
 }

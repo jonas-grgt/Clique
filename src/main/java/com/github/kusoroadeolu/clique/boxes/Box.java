@@ -1,8 +1,11 @@
 package com.github.kusoroadeolu.clique.boxes;
 
 import com.github.kusoroadeolu.clique.config.BoxConfiguration;
+import com.github.kusoroadeolu.clique.core.display.Renderable;
 
-public interface Box {
+import java.io.PrintStream;
+
+public interface Box extends Renderable {
     @Deprecated(since = "1.2.1")
     Box configuration(BoxConfiguration boxConfiguration);
 
@@ -14,5 +17,5 @@ public interface Box {
 
     String buildBox();
 
-    void render();
+    void render(PrintStream stream);
 }

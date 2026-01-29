@@ -4,6 +4,7 @@ import com.github.kusoroadeolu.clique.config.IndenterConfiguration;
 import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
 import com.github.kusoroadeolu.clique.core.utils.Constants;
 
+import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
@@ -12,7 +13,6 @@ import static com.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
 public class IndenterImpl implements Indenter{
-
     private final Deque<Indent> indents;
     private String currentFlag;
     private int currentLevel; //The current indent level
@@ -37,9 +37,7 @@ public class IndenterImpl implements Indenter{
 
     public Indenter indent(int level, String flag){
 
-        if(level < 0){
-            throw new IllegalArgumentException("Level cannot be less than 0");
-        }
+        if(level < 0) throw new IllegalArgumentException("Level cannot be less than 0");
 
         this.currentLevel += level;
         flag = parseString(flag);
@@ -120,8 +118,8 @@ public class IndenterImpl implements Indenter{
         return this;
     }
 
-    public void print(){
-        System.out.println(this.sb);
+    public void print(PrintStream stream){
+        stream.println(this.sb);
     }
 
     public String get(){

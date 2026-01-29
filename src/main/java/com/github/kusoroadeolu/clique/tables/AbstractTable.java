@@ -5,6 +5,7 @@ import com.github.kusoroadeolu.clique.core.display.Renderable;
 import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
 import static com.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 
-public abstract class AbstractTable implements Table, Renderable {
+public abstract class AbstractTable implements Table {
     protected final List<WidthAwareList> columns; //This is used to track the max length in that column
     protected final List<WidthAwareList> rows;
     private boolean headersAdded;
@@ -125,14 +126,11 @@ public abstract class AbstractTable implements Table, Renderable {
         return this;
     }
 
-
-    public void render() {
-        System.out.println(this.buildTable());
+    public void render(PrintStream stream) {
+        stream.println(this.buildTable());
     }
 
     protected abstract void styleTableBorders();
 
     public abstract String buildTable();
-
-
 }

@@ -1,7 +1,12 @@
 package com.github.kusoroadeolu.clique.core.display;
 
+import java.io.PrintStream;
+
 public interface Printable {
-    void print();
+    default void print(){
+        this.print(System.out);
+    }
+    void print(PrintStream stream);
     String get();
     void flush();
 }
