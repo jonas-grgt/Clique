@@ -1,6 +1,6 @@
 # Parser
 
-Clique's parser allows you to use a simple markup format for styling text instead of verbose progressBarBuilder calls or raw ANSI codes.
+Clique's parser allows you to use a simple markup format for styling text instead of verbose progressBarConfigurationBuilder calls or raw ANSI codes.
 
 ## Basic Usage
 ### Parse and Print

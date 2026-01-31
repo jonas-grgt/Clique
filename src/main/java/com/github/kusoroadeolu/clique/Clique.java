@@ -5,16 +5,14 @@ import com.github.kusoroadeolu.clique.boxes.Box;
 import com.github.kusoroadeolu.clique.boxes.BoxFactory;
 import com.github.kusoroadeolu.clique.boxes.BoxType;
 import com.github.kusoroadeolu.clique.boxes.CustomizableBox;
-import com.github.kusoroadeolu.clique.config.BoxConfiguration;
-import com.github.kusoroadeolu.clique.config.IndenterConfiguration;
-import com.github.kusoroadeolu.clique.config.ParserConfiguration;
-import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.config.*;
 import com.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import com.github.kusoroadeolu.clique.indent.Indenter;
 import com.github.kusoroadeolu.clique.indent.IndenterImpl;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
 import com.github.kusoroadeolu.clique.parser.GlobalParserRegistry;
+import com.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.style.StyleBuilderImpl;
 import com.github.kusoroadeolu.clique.tables.CustomizableTable;
@@ -83,6 +81,14 @@ public final class Clique {
 
     public static Indenter indenter(IndenterConfiguration indenterConfiguration){
         return new IndenterImpl(indenterConfiguration);
+    }
+
+    public static ProgressBar progressBar(int total){
+        return new ProgressBar(total);
+    }
+
+    public static ProgressBar progressBar(int total, ProgressBarConfiguration configuration){
+        return new ProgressBar(total, configuration);
     }
 
     public static void enableCliqueColors(boolean enable){

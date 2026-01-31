@@ -148,4 +148,4 @@ Clique.enableCliqueColors(false); // Force disable colors
 ## See Also
 
 - [Parser Documentation](parser.md) - Learn how to use the parser
-- [StyleBuilder Documentation](style-progressBarBuilder.md) - Alternative
+- [StyleBuilder Documentation](style-progressBarConfigurationBuilder.md) - Alternative

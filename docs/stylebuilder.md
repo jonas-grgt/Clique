@@ -1,6 +1,6 @@
 # StyleBuilder
 
-StyleBuilder provides a fluent API for chaining styled strings together. It's perfect when you prefer a progressBarBuilder pattern over markup syntax.
+StyleBuilder provides a fluent API for chaining styled strings together. It's perfect when you prefer a progressBarConfigurationBuilder pattern over markup syntax.
 
 ## Basic Usage
 

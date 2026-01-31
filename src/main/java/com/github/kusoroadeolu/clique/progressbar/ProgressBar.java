@@ -20,18 +20,22 @@ public final class ProgressBar implements Renderable {
             int currentTick,
             int total,
             boolean isDone,
-            long creationTime
+            long creationTime,
+            ProgressBarConfiguration configuration
     ) {
         this.currentTick = currentTick;
         this.total = total;
         this.isDone = isDone;
         this.creationTime = creationTime;
-        this.progressBarConfiguration = ProgressBarConfiguration.DEFAULT;
+        this.progressBarConfiguration = configuration;
     }
 
+    public ProgressBar(int total, ProgressBarConfiguration configuration) {
+        this(ZERO, total, false, System.currentTimeMillis(), configuration);
+    }
 
     public ProgressBar(int total) {
-        this(ZERO, total, false, System.currentTimeMillis());
+        this(ZERO, total, false, System.currentTimeMillis(), ProgressBarConfiguration.DEFAULT);
     }
 
     public ProgressBar tick() {
@@ -41,12 +45,12 @@ public final class ProgressBar implements Renderable {
 
     public ProgressBar tick(int amount) {
         this.currentTick = Math.max(Math.min(currentTick + amount, total), ZERO);
+        if (currentTick >= total) isDone = true;
         return this;
     }
 
 
     public ProgressBar complete() {
-        this.isDone = true;
         return this.tick(total - currentTick);
     }
 
@@ -68,12 +72,12 @@ public final class ProgressBar implements Renderable {
         }
     }
 
-    private String barText(ProgressBarConfiguration configuration) {
+    private String barText() {
         var progress = this.currentTick;
         var total = this.total;
-        var length = configuration.length();
-        var complete = configuration.complete();
-        var incomplete = configuration.incomplete();
+        var length = progressBarConfiguration.getLength();
+        var complete = progressBarConfiguration.getComplete();
+        var incomplete = progressBarConfiguration.getIncomplete();
 
         var completedRatio = total > ZERO ? (progress / (double) total) : ZERO;
         var completedLength = (int) (completedRatio * length);
@@ -81,8 +85,6 @@ public final class ProgressBar implements Renderable {
         return String.valueOf(complete).repeat(completedLength)
                 + String.valueOf(incomplete).repeat(Math.max(length - completedLength, ZERO));
     }
-
-
 
     private String alignRight(String text, int size) {
         return BLANK.repeat(size - text.length()) + text;
@@ -96,8 +98,9 @@ public final class ProgressBar implements Renderable {
 
 
     public String get() {
-        var format = progressBarConfiguration.format();
-        var bar = barText(progressBarConfiguration);
+        var currentPercent = this.percent();
+        var format = progressBarConfiguration.getFormatForPercent(currentPercent);
+        var bar = barText();
         format = format.replace(":bar", bar);
 
         var progress = alignRight(
@@ -110,21 +113,21 @@ public final class ProgressBar implements Renderable {
         var total = String.valueOf(this.total);
         format = format.replace(":total", total);
 
-        var percent = alignRight(String.valueOf(percent()), 3);
+        var percent = alignRight(String.valueOf(this.percent()), 3);
         format = format.replace(":percent", percent);
 
-        var elapsed = interval(elapsedTime());
+        var elapsed = interval(this.elapsedTime());
         format = format.replace(":elapsed", elapsed);
 
         var remaining = interval(remainingTime());
         format = format.replace(":remaining", remaining);
 
-        return format;
+        return this.progressBarConfiguration.parser().parse(format);
     }
 
 
     public void render(PrintStream printStream) {
-        printStream.print("\r" + get());
+        printStream.print("\r" + this.get());
         if (isDone) printStream.println();
         printStream.flush();
     }

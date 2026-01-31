@@ -5,12 +5,10 @@ import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import java.util.Map;
 
 public class TestTheme implements CliqueTheme {
-    @Override
     public String themeName() {
         return "test";
     }
 
-    @Override
     public Map<String, AnsiCode> styles() {
         return Map.of(
                 "test-red", new TestAnsiCode("\u001B[31m"),

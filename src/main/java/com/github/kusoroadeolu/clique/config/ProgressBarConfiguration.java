@@ -3,76 +3,59 @@ package com.github.kusoroadeolu.clique.config;
 import com.github.kusoroadeolu.clique.Clique;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Predicate;
 
-public final class ProgressBarConfiguration {
-    public static final ProgressBarConfiguration DEFAULT = new ProgressBarConfiguration();
-    final int length;
-    final String format;
-    final char complete;
-    final char incomplete;
-    final AnsiStringParser parser;
+public class ProgressBarConfiguration {
+    private final int length;
+    private final char complete;
+    private final char incomplete;
+    private final String format;
+    private final AnsiStringParser parser;
+    private final List<ProgressBarStyle> styles;
 
-    private ProgressBarConfiguration(){
-        this(50, ":progress/:total   :percent% [:bar]  ETA: :remaining", '=', ' ', Clique.parser(ParserConfiguration.immutableBuilder().enableAutoCloseTags().build()));
+    public static final ProgressBarConfiguration DEFAULT =
+            ProgressBarConfiguration.immutableBuilder().build();
+
+    private ProgressBarConfiguration() {
+        this.length = 40;
+        this.complete = '█';
+        this.incomplete = '░';
+        this.format = ":bar :percent% [:elapsed/:remaining]";
+        this.parser = Clique.parser();
+        this.styles = new ArrayList<>();
     }
 
-    private ProgressBarConfiguration(
-            int length,
-            String format,
-            char complete,
-            char incomplete,
-            AnsiStringParser parser
-    ) {
-        this.length = length;
-        this.format = format;
-        this.complete = complete;
-        this.incomplete = incomplete;
-        this.parser = parser;
+    private ProgressBarConfiguration(ProgressBarConfigurationBuilder builder) {
+        this.length = builder.length;
+        this.complete = builder.complete;
+        this.incomplete = builder.incomplete;
+        this.format = builder.format;
+        this.parser = builder.parser;
+        this.styles = new ArrayList<>(builder.styles);
     }
 
-    private ProgressBarConfiguration(
-            ProgressBarBuilder progressBarBuilder
-    ) {
-        this.length = Objects.requireNonNullElse(progressBarBuilder.length, DEFAULT.length);
-        this.format = Objects.requireNonNullElse(progressBarBuilder.format, DEFAULT.format);
-        this.complete = Objects.requireNonNullElse(progressBarBuilder.complete, DEFAULT.complete);
-        this.incomplete = Objects.requireNonNullElse(progressBarBuilder.incomplete, DEFAULT.incomplete);
-        this.parser = progressBarBuilder.parser;
+    public static ProgressBarConfigurationBuilder immutableBuilder() {
+        return new ProgressBarConfigurationBuilder();
     }
 
-    public static ProgressBarBuilder immutableBuilder() {
-        return new ProgressBarBuilder();
+    // Get the format based on current percent
+    public String getFormatForPercent(int percent) {
+        return styles.stream()
+                .filter(style -> style.matches(percent))
+                .findFirst()
+                .map(ProgressBarStyle::format)
+                .orElse(format);  // Fall back to default format
     }
 
-
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-
-        ProgressBarConfiguration that = (ProgressBarConfiguration) object;
-        return length == that.length && complete == that.complete && incomplete == that.incomplete && Objects.equals(format, that.format);
-    }
-
-    public int hashCode() {
-        return Objects.hash(length, format, complete, incomplete);
-    }
-
-    public String toString() {
-        return "ProgressBarConfiguration[" +
-                "length=" + length +
-                ", format='" + format + '\'' +
-                ", complete=" + complete +
-                ", incomplete=" + incomplete +
-                ']';
+    public AnsiStringParser parser() {
+        return parser;
     }
 
     public int getLength() {
         return length;
-    }
-
-    public String getFormat() {
-        return format;
     }
 
     public char getComplete() {
@@ -83,49 +66,58 @@ public final class ProgressBarConfiguration {
         return incomplete;
     }
 
-    public static final class ProgressBarBuilder {
-        Integer length = null;
-        String format = null;
-        Character complete = null;
-        Character incomplete = null;
-        AnsiStringParser parser = null;
+    public String getFormat() {
+        return format;
+    }
 
-        private ProgressBarBuilder() {}
+    public static class ProgressBarConfigurationBuilder {
+        private int length = 40;
+        private char complete = '█';
+        private char incomplete = '░';
+        private String format = ":bar :percent% [:elapsed/:remaining]";
+        private AnsiStringParser parser = Clique.parser();
+        private List<ProgressBarStyle> styles = new ArrayList<>();
 
-        private ProgressBarBuilder(ProgressBarConfiguration progressBarConfiguration) {
-            length = progressBarConfiguration.length;
-            format = progressBarConfiguration.format;
-            complete = progressBarConfiguration.complete;
-            incomplete = progressBarConfiguration.incomplete;
-            parser = progressBarConfiguration.parser;
-        }
-
-        public ProgressBarBuilder length(int length) {
+        public ProgressBarConfigurationBuilder length(int length) {
             this.length = length;
             return this;
         }
 
-        public ProgressBarBuilder parser(AnsiStringParser parser) {
-            this.parser = parser;
-            return this;
-        }
-
-        public ProgressBarBuilder format(String format) {
-            this.format = format;
-            return this;
-        }
-
-
-        public ProgressBarBuilder complete(char complete) {
+        public ProgressBarConfigurationBuilder complete(char complete) {
             this.complete = complete;
             return this;
         }
 
-
-        public ProgressBarBuilder incomplete(char incomplete) {
+        public ProgressBarConfigurationBuilder incomplete(char incomplete) {
             this.incomplete = incomplete;
             return this;
         }
+
+        public ProgressBarConfigurationBuilder format(String format) {
+            this.format = format;
+            return this;
+        }
+
+        public ProgressBarConfigurationBuilder parser(AnsiStringParser parser) {
+            this.parser = parser;
+            return this;
+        }
+
+        public ProgressBarConfigurationBuilder styleWhen(Predicate<Integer> condition, String format) {
+            this.styles.add(new ProgressBarStyle(condition, format));
+            return this;
+        }
+
+        public ProgressBarConfigurationBuilder styleRange(int min, int max, String format) {
+            return this.styleWhen(p -> p >= min && p < max, format);
+        }
+
+        public ProgressBarConfigurationBuilder styles(Collection<ProgressBarStyle> styles) {
+            this.styles = new ArrayList<>(styles);
+            return this;
+        }
+
+
 
         public ProgressBarConfiguration build() {
             return new ProgressBarConfiguration(this);
