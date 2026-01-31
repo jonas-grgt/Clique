@@ -12,6 +12,7 @@
       <change beforePath="$PROJECT_DIR$/docs/parser.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/stylebuilder.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/stylebuilder.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/Clique.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/progressbar/ProgressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/progressbar/ProgressBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/themes/TestTheme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/themes/TestTheme.java" afterDir="false" />
@@ -335,7 +336,7 @@
       <workItem from="1768599676149" duration="432000" />
       <workItem from="1768637420860" duration="7000" />
       <workItem from="1769718966138" duration="1159000" />
-      <workItem from="1769872976043" duration="14775000" />
+      <workItem from="1769872976043" duration="15174000" />
     </task>
     <servers />
   </component>
@@ -347,7 +348,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java</url>
-          <line>9</line>
+          <line>10</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
