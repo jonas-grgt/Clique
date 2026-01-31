@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
 import static com.github.kusoroadeolu.clique.core.utils.TableUtils.*;
@@ -29,7 +30,7 @@ public abstract class AbstractTable implements Table {
     public AbstractTable(){
         this.columns = new ArrayList<>();
         this.rows = new ArrayList<>();
-        this.tableConfiguration = TableConfiguration.immutableBuilder().build();
+        this.tableConfiguration = TableConfiguration.DEFAULT;
         this.headersAdded = false;
     }
 
@@ -61,7 +62,6 @@ public abstract class AbstractTable implements Table {
         return this.addHeaders(headers.toArray(String[]::new));
     }
 
-    @Override
     public Table addRows(Collection<String> rows) {
         return this.addRows(rows.toArray(String[]::new));
     }
@@ -133,4 +133,24 @@ public abstract class AbstractTable implements Table {
     protected abstract void styleTableBorders();
 
     public abstract String buildTable();
+
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        AbstractTable that = (AbstractTable) object;
+        return headersAdded == that.headersAdded && columns.equals(that.columns) && rows.equals(that.rows) && Objects.equals(tableConfiguration, that.tableConfiguration);
+    }
+
+    public int hashCode() {
+       return Objects.hash(headersAdded, columns, rows, tableConfiguration);
+    }
+
+    public String toString() {
+        return "Table[" +
+                "columns=" + columns +
+                ", rows=" + rows +
+                ", headersAdded=" + headersAdded +
+                ", tableConfiguration=" + tableConfiguration +
+                ']';
+    }
 }

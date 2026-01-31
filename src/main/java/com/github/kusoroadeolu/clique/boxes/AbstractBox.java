@@ -10,6 +10,7 @@ import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.github.kusoroadeolu.clique.core.utils.BoxUtils.splitPreservingAnsi;
 import static com.github.kusoroadeolu.clique.core.utils.BoxUtils.validateDimensions;
@@ -50,7 +51,7 @@ public abstract class AbstractBox implements Box {
         this.hLine = "-";
         this.edge = "+";
         this.contentWrap = new ArrayList<>();
-        this.boxConfiguration = BoxConfiguration.immutableBuilder().build();
+        this.boxConfiguration = BoxConfiguration.DEFAULT;
         this.boxContent = parseCell(content, this.boxConfiguration.getParser());
     }
 
@@ -71,7 +72,7 @@ public abstract class AbstractBox implements Box {
     }
 
     protected void wrapWord(){
-        if(this.boxContent == null || this.boxContent.text().isBlank() && !this.boxConfiguration.getAutoSize()){
+        if((this.boxContent == null || this.boxContent.text().isBlank()) && !this.boxConfiguration.getAutoSize()){
             return;
         }
 
@@ -149,10 +150,34 @@ public abstract class AbstractBox implements Box {
         if(this.boxConfiguration.getAutoSize()) this.width = max(this.width, longest) + (this.boxConfiguration.getCenterPadding() * 2);
         else validateDimensions(this.width, this.length);
 
-
     }
 
     public void render(PrintStream stream) {
         stream.println(this.buildBox());
+    }
+
+
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        AbstractBox that = (AbstractBox) object;
+        return width == that.width && length == that.length && Objects.equals(boxContent, that.boxContent) && vLine.equals(that.vLine) && hLine.equals(that.hLine) && edge.equals(that.edge) && Objects.equals(boxConfiguration, that.boxConfiguration);
+    }
+
+    public int hashCode() {
+        return Objects.hash(width, length, boxContent, vLine, edge, boxConfiguration);
+    }
+
+    @Override
+    public String toString() {
+        return "Box[" +
+                "width=" + width +
+                ", length=" + length +
+                ", content=" + boxContent +
+                ", vLine='" + vLine + '\'' +
+                ", hLine='" + hLine + '\'' +
+                ", edge='" + edge + '\'' +
+                ", boxConfiguration=" + boxConfiguration +
+                ']';
     }
 }

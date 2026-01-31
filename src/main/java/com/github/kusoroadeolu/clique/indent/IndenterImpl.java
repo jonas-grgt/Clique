@@ -8,6 +8,7 @@ import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.Objects;
 
 import static com.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
@@ -20,7 +21,7 @@ public class IndenterImpl implements Indenter{
     private final IndenterConfiguration configuration;
 
     public IndenterImpl(){
-        this(IndenterConfiguration.immutableBuilder().build());
+        this(IndenterConfiguration.DEFAULT);
     }
 
     public IndenterImpl(IndenterConfiguration indenterConfiguration){
@@ -146,5 +147,28 @@ public class IndenterImpl implements Indenter{
     public Indenter resetLevel(){
         this.currentLevel = 0;
         return this;
+    }
+
+
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        IndenterImpl indenter = (IndenterImpl) object;
+        return currentLevel == indenter.currentLevel && indents.equals(indenter.indents) && currentFlag.equals(indenter.currentFlag) && sb.equals(indenter.sb) && configuration.equals(indenter.configuration);
+    }
+
+    public int hashCode() {
+        return Objects.hash(indents, currentFlag, currentLevel, sb, configuration);
+    }
+
+    @Override
+    public String toString() {
+        return "Indenter[" +
+                "indents=" + indents +
+                ", currentFlag='" + currentFlag + '\'' +
+                ", currentLevel=" + currentLevel +
+                ", sb=" + sb +
+                ", configuration=" + configuration +
+                ']';
     }
 }

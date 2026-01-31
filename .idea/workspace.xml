@@ -5,46 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/target/clique-2.0.0-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/clique-2.0.0-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/clique-2.0.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/javadoc-bundle-options/javadoc-options-javadoc-resources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/progressbar/ProgressBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/markup-reference.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/markup-reference.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/parser.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/stylebuilder.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/stylebuilder.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/AbstractBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/AbstractBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/Box.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/display/Printable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/display/Printable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/display/Renderable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/display/Renderable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/indent/Indenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/indent/Indenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/BorderStyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/BorderStyle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/BoxConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/BoxConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/IndenterConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/IndenterConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ParserConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ParserConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/TableConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/TableConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/BoxUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/BoxUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/indent/IndenterImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/indent/IndenterImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/StyleMaps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/StyleMaps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/style/StyleBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/style/StyleBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/AnsiStringParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/AnsiStringParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/StyleApplicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/StyleApplicator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/AbstractTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/Table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/AbstractBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/AbstractBox.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/display/Printable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/display/Printable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/display/Renderable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/display/Renderable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/Indenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/Indenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle$BorderStyleBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle$BorderStyleBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration$BoxConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration$BoxConfigurationBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration$IndenterConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration$IndenterConfigurationBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration$ParserConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration$ParserConfigurationBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration$TableConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration$TableConfigurationBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/BoxUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/BoxUtils.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/IndenterImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/IndenterImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/StyleMaps.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/StyleMaps.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/style/StyleBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/style/StyleBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/StyleApplicator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/StyleApplicator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/AbstractTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/AbstractTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.github.kusoroadeolu.clique.boxes.BoxTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.github.kusoroadeolu.clique.core.utils.AnsiDetectorTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.github.kusoroadeolu.clique.parser.AnsiStringParserImplTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.github.kusoroadeolu.clique.parser.TokenExtractorTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.github.kusoroadeolu.clique.tables.TableTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.github.kusoroadeolu.clique.themes.CliqueThemesTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.github.kusoroadeolu.clique.boxes.BoxTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.github.kusoroadeolu.clique.core.utils.AnsiDetectorTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.github.kusoroadeolu.clique.parser.AnsiStringParserImplTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.github.kusoroadeolu.clique.parser.TokenExtractorTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.github.kusoroadeolu.clique.tables.TableTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.github.kusoroadeolu.clique.themes.CliqueThemesTest.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,41 +82,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.CatppuccinDemo.executor": "Run",
-    "Application.CliqueDemo.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.MiniScoreboard.executor": "Run",
-    "Application.TokyoNightTheme.executor": "Run",
-    "JUnit.AnsiDetectorTest.testAnsiDisabled.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.testCustomDelimiter.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.testCustomStyleRegistration.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor": "Run",
-    "JUnit.BoxTest.executor": "Run",
-    "JUnit.CliqueThemesTest.executor": "Run",
-    "JUnit.CliqueThemesTest.testServiceFileExists.executor": "Run",
-    "JUnit.TableTest.executor": "Run",
-    "JUnit.TokenExtractorTest.executor": "Run",
-    "JUnit.TokenExtractorTest.testTokenExtraction.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CatppuccinDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CliqueDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MiniScoreboard.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TokyoNightTheme.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiDetectorTest.testAnsiDisabled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.testCustomDelimiter.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.testCustomStyleRegistration.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoxTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CliqueThemesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CliqueThemesTest.testServiceFileExists.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TableTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TokenExtractorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TokenExtractorTest.testTokenExtraction.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -355,7 +354,8 @@
       <workItem from="1768597969321" duration="368000" />
       <workItem from="1768599676149" duration="432000" />
       <workItem from="1768637420860" duration="7000" />
-      <workItem from="1769718966138" duration="885000" />
+      <workItem from="1769718966138" duration="1159000" />
+      <workItem from="1769872976043" duration="8123000" />
     </task>
     <servers />
   </component>

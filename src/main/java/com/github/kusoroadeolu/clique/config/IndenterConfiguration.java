@@ -5,11 +5,14 @@ import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
 import com.github.kusoroadeolu.clique.indent.Flag;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
+import java.util.Objects;
+
 public class IndenterConfiguration {
 
     private final AnsiStringParser parser;
     private final int indentLevel;
     private final String defaultFlag;
+    public final static IndenterConfiguration DEFAULT = new IndenterConfiguration();
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public static IndenterConfiguration builder() {
@@ -33,17 +36,42 @@ public class IndenterConfiguration {
         return new IndenterConfigurationBuilder();
     }
 
+    public String toString() {
+        return "IndenterConfiguration[" +
+                "parser=" + parser +
+                ", indentLevel=" + indentLevel +
+                ", defaultFlag='" + defaultFlag + '\'' +
+                ']';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        IndenterConfiguration that = (IndenterConfiguration) object;
+        return indentLevel == that.indentLevel && parser.equals(that.parser) && defaultFlag.equals(that.defaultFlag);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parser, indentLevel, defaultFlag);
+    }
+
     public AnsiStringParser getParser() {
         return parser;
+    }
+
+    public String getDefaultFlag() {
+        return defaultFlag;
+    }
+
+    public int getIndentLevel() {
+        return indentLevel;
     }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public IndenterConfiguration parser(AnsiStringParser parser) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-    public String getDefaultFlag() {
-        return defaultFlag;
     }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
@@ -56,9 +84,6 @@ public class IndenterConfiguration {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public int getIndentLevel() {
-        return indentLevel;
-    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public IndenterConfiguration indentLevel(int indentLevel) {

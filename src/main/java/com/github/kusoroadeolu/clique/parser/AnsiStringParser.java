@@ -3,6 +3,7 @@ package com.github.kusoroadeolu.clique.parser;
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.config.ParserConfiguration;
 
+import java.io.PrintStream;
 import java.util.Map;
 
 public interface AnsiStringParser {

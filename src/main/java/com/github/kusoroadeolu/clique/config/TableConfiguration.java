@@ -6,6 +6,9 @@ import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import static com.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 
 public class TableConfiguration {
     private final int padding;
@@ -14,6 +17,7 @@ public class TableConfiguration {
     private final String nullReplacement;
     private final Map<Integer, CellAlign> columnAlignment;
     private final BorderStyle borderStyle;
+    public static final TableConfiguration DEFAULT = new TableConfiguration();
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public static TableConfiguration builder(){
@@ -26,7 +30,7 @@ public class TableConfiguration {
         this.alignment = CellAlign.LEFT;
         this.columnAlignment = new HashMap<>();
         this.parser = Clique.parser();
-        this.nullReplacement = "";
+        this.nullReplacement = EMPTY;
         this.borderStyle = null;
     }
 
@@ -46,51 +50,76 @@ public class TableConfiguration {
     public int getPadding() {
         return this.padding;
     }
+    public CellAlign getAlignment() {
+        return this.alignment;
+    }
+    public AnsiStringParser getParser() {
+        return this.parser;
+    }
+    public String getNullReplacement() {
+        return this.nullReplacement;
+    }
+    public BorderStyle getBorderStyle() {
+        return this.borderStyle;
+    }
+    public Map<Integer, CellAlign> getColumnAlignment() {
+        return new HashMap<>(this.columnAlignment);
+    }
+
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        TableConfiguration that = (TableConfiguration) object;
+        return padding == that.padding && alignment == that.alignment && parser.equals(that.parser) && nullReplacement.equals(that.nullReplacement) && columnAlignment.equals(that.columnAlignment) && Objects.equals(borderStyle, that.borderStyle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(padding, alignment, parser, nullReplacement, columnAlignment, borderStyle);
+    }
+
+    @Override
+    public String toString() {
+        return "TableConfiguration[" +
+                "padding=" + padding +
+                ", alignment=" + alignment +
+                ", parser=" + parser +
+                ", nullReplacement='" + nullReplacement + '\'' +
+                ", columnAlignment=" + columnAlignment +
+                ", borderStyle=" + borderStyle +
+                ']';
+    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public TableConfiguration padding(int padding) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public CellAlign getAlignment() {
-        return this.alignment;
-    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public TableConfiguration alignment(CellAlign alignment) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public AnsiStringParser getParser() {
-        return this.parser;
-    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public TableConfiguration parser(AnsiStringParser parser) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public String getNullReplacement() {
-        return this.nullReplacement;
-    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public TableConfiguration nullReplacement(String nullReplacement) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public BorderStyle getBorderStyle() {
-        return this.borderStyle;
-    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public TableConfiguration borderStyle(BorderStyle borderStyle) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public Map<Integer, CellAlign> getColumnAlignment() {
-        return this.columnAlignment;
-    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public TableConfiguration columnAlignment(Map<Integer, CellAlign> columnAlignment) {

@@ -95,7 +95,6 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
 
         for (AnsiCode code : ansiCodes){
             if (code == null) continue;
-
             sb.append(code);
         }
 
@@ -104,5 +103,25 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
 
     public void flush() {
         clearStringBuilder(styledTextBuilder);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        StyleBuilderImpl that = (StyleBuilderImpl) object;
+        return styledTextBuilder.compareTo(that.styledTextBuilder) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return styledTextBuilder.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "StyleBuilderImpl[" +
+                "styledText" + styledTextBuilder +
+                ']';
     }
 }

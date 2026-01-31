@@ -1,6 +1,6 @@
 # Parser
 
-Clique's parser allows you to use a simple markup format for styling text instead of verbose builder calls or raw ANSI codes.
+Clique's parser allows you to use a simple markup format for styling text instead of verbose progressBarBuilder calls or raw ANSI codes.
 
 ## Basic Usage
 ### Parse and Print
@@ -34,8 +34,7 @@ ParserConfiguration configuration = ParserConfiguration
         .delimiter(' ')          // Use space instead of comma as delimiter
         .build();
 
-AnsiStringParser configuredParser = Clique.parser()
-        .configuration(configuration);
+AnsiStringParser configuredParser = Clique.parser(configuration);
 
 // Now you can use space-separated styles
 configuredParser.print("[red bold]Hello[blue] World");
@@ -58,7 +57,7 @@ ParserConfiguration config = ParserConfiguration.immutableBuilder()
     .enableStrictParsing()
     .build();
     
-AnsiStringParser parser = Clique.parser().configuration(config);
+AnsiStringParser parser = Clique.parser(config);
 
 // This throws UnidentifiedStyleException because "bol" doesn't exist
 parser.parse("[red, bol]Text[/]");

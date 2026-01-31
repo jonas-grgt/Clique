@@ -138,7 +138,7 @@ logger.info(tableString);
 When you enable `autoSize`, you don't need to specify width or length:
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .autoSize(true)
+    .autoSize()
     .build();
 
 // No width/length needed
@@ -174,7 +174,7 @@ ParserConfiguration config = ParserConfiguration
     .delimiter(' ')  // Use spaces instead of commas
     .build();
 
-AnsiStringParser parser = Clique.parser().configuration(config);
+AnsiStringParser parser = Clique.parser(config);
 parser.print("[red bold]Hello[/] [blue italic]World[/]");
 ```
 
@@ -189,9 +189,7 @@ ParserConfiguration strict = ParserConfiguration
     .build();
 
 // Lenient mode (default) - ignores invalid styles
-ParserConfiguration lenient = ParserConfiguration
-    .immutableBuilder()
-    .build();
+ParserConfiguration lenient = ParserConfiguration.DEFAULT;
 ```
 
 Use strict mode during development to catch typos, and lenient mode in production to handle gracefully.
@@ -205,7 +203,7 @@ ParserConfiguration config = ParserConfiguration
     .enableAutoCloseTags()
     .build();
 
-AnsiStringParser parser = Clique.parser().configuration(config);
+AnsiStringParser parser = Clique.parser(config);
 
 // No need to manually close with [/]
 parser.print("[red, bold]This tag auto-closes");
@@ -286,7 +284,7 @@ ParserConfiguration config = ParserConfiguration
     .enableAutoCloseTags()
     .build();
 
-AnsiStringParser parser = Clique.parser().configuration(config);
+AnsiStringParser parser = Clique.parser(config);
 
 // Reuse throughout your app
 parser.print("[red bold]Error message[/]");

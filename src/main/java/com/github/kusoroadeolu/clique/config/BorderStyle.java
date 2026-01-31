@@ -5,6 +5,9 @@ import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * A class for styling table borders
  * */
@@ -13,6 +16,7 @@ public class BorderStyle {
     private final AnsiCode[] horizontalStyle;
     private final AnsiCode[] edgeStyle;
     private final StyleBuilder styleBuilder;
+    public final static BorderStyle DEFAULT = new BorderStyle();
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public static BorderStyle builder(){
@@ -40,6 +44,30 @@ public class BorderStyle {
 
     public AnsiCode[] getHorizontalBorderStyles() {
         return this.horizontalStyle.clone();
+    }
+
+
+    @Override
+    public String toString() {
+        return "BorderStyle[" +
+                "verticalStyle=" + Arrays.toString(verticalStyle) +
+                ", horizontalStyle=" + Arrays.toString(horizontalStyle) +
+                ", edgeStyle=" + Arrays.toString(edgeStyle) +
+                ", styleBuilder=" + styleBuilder +
+                ']';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        BorderStyle that = (BorderStyle) object;
+        return Arrays.equals(verticalStyle, that.verticalStyle) && Arrays.equals(horizontalStyle, that.horizontalStyle) && Arrays.equals(edgeStyle, that.edgeStyle) && styleBuilder.equals(that.styleBuilder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Arrays.hashCode(verticalStyle), Arrays.hashCode(horizontalStyle), Arrays.hashCode(edgeStyle), styleBuilder);
     }
 
     @Deprecated(since = "1.2.1", forRemoval = true)

@@ -2,11 +2,14 @@ package com.github.kusoroadeolu.clique.config;
 
 import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
 
+import java.util.Objects;
+
 public class ParserConfiguration {
 
     private final String delimiter;
     private final boolean enableStrictParsing;
     private final boolean enableAutoCloseTags;
+    public final static ParserConfiguration DEFAULT = new ParserConfiguration();
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public static ParserConfiguration builder(){
@@ -30,6 +33,31 @@ public class ParserConfiguration {
         return new ParserConfigurationBuilder();
     }
 
+    public boolean getEnableStrictParsing() {
+        return enableStrictParsing;
+    }
+
+    public boolean getEnableAutoCloseTags() {
+        return enableAutoCloseTags;
+    }
+
+    public String getDelimiter() {
+        return delimiter;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        ParserConfiguration that = (ParserConfiguration) object;
+        return enableStrictParsing == that.enableStrictParsing && enableAutoCloseTags == that.enableAutoCloseTags && delimiter.equals(that.delimiter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(enableAutoCloseTags, enableStrictParsing, delimiter);
+    }
+
     @Deprecated(since = "1.2.1", forRemoval = true)
     public ParserConfiguration enableAutoCloseTags() {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
@@ -43,18 +71,6 @@ public class ParserConfiguration {
     @Deprecated(since = "1.2.1", forRemoval = true)
     public ParserConfiguration delimiter(char delimiter) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-    public boolean getEnableStrictParsing() {
-        return enableStrictParsing;
-    }
-
-    public boolean getEnableAutoCloseTags() {
-        return enableAutoCloseTags;
-    }
-
-    public String getDelimiter() {
-        return delimiter;
     }
 
     public static class ParserConfigurationBuilder {

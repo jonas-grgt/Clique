@@ -4,12 +4,15 @@ import com.github.kusoroadeolu.clique.Clique;
 import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
+import java.util.Objects;
+
 public class BoxConfiguration {
     private final int centerPadding;
     private final TextAlign textAlign;
     private final AnsiStringParser parser;
     private final BorderStyle borderStyle;
     private final boolean autoSize;
+    public final static BoxConfiguration DEFAULT = new BoxConfiguration();
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public static BoxConfiguration builder(){
@@ -39,42 +42,68 @@ public class BoxConfiguration {
     public int getCenterPadding() {
         return this.centerPadding;
     }
+    public boolean getAutoSize() {
+        return this.autoSize;
+    }
+    public BorderStyle getBorderStyle() {
+        return this.borderStyle;
+    }
+    public TextAlign getTextAlign() {
+        return this.textAlign;
+    }
+    public AnsiStringParser getParser() {
+        return this.parser;
+    }
+
+    public String toString() {
+        return "BoxConfiguration[" +
+                "centerPadding=" + centerPadding +
+                ", textAlign=" + textAlign +
+                ", parser=" + parser +
+                ", borderStyle=" + borderStyle +
+                ", autoSize=" + autoSize +
+                ']';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        BoxConfiguration that = (BoxConfiguration) object;
+        return centerPadding == that.centerPadding && autoSize == that.autoSize && textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(centerPadding, autoSize, textAlign, parser, borderStyle);
+    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public BoxConfiguration centerPadding(int centerPadding) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public boolean getAutoSize() {
-        return this.autoSize;
-    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public BoxConfiguration autoSize(boolean autoSize) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public BorderStyle getBorderStyle() {
-        return this.borderStyle;
-    }
+
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public BoxConfiguration borderStyle(BorderStyle borderStyle) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public TextAlign getTextAlign() {
-        return this.textAlign;
-    }
+
+
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public BoxConfiguration textAlign(TextAlign textAlign) {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
-    public AnsiStringParser getParser() {
-        return this.parser;
-    }
 
     @Deprecated(since = "1.2.1", forRemoval = true)
     public BoxConfiguration parser(AnsiStringParser parser) {

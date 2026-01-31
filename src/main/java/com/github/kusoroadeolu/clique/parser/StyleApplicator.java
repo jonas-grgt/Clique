@@ -10,14 +10,8 @@ import java.util.List;
 
 public final class StyleApplicator {
 
-    private boolean enableAutoCloseTags;
-
-    public StyleApplicator(){
-        this.enableAutoCloseTags = false;
-    }
-
     //Restyle the extracted string with the given colors
-    public String restyleString(List<ParserToken> tokens, String extractedString) {
+    public String restyleString(List<ParserToken> tokens, String extractedString, boolean enableAutoCloseTags) {
         final StringBuilder sb = new StringBuilder();
         final StyleBuilder stb = Clique.styleBuilder();
         String val;
@@ -43,7 +37,7 @@ public final class StyleApplicator {
                 final int end = next.start();
                 val = extractedString.substring(start , end);
 
-                if(this.enableAutoCloseTags){
+                if(enableAutoCloseTags){
                     sb.append(stb.formatReset(val, codes));
                     continue;
                 }
@@ -55,10 +49,5 @@ public final class StyleApplicator {
         }
 
         return sb.toString();
-    }
-
-     StyleApplicator setEnableAutoCloseTags(boolean enableAutoCloseTags) {
-        this.enableAutoCloseTags = enableAutoCloseTags;
-        return this;
     }
 }

@@ -3,6 +3,8 @@ package com.github.kusoroadeolu.clique.parser;
 import com.github.kusoroadeolu.clique.config.ParserConfiguration;
 import com.github.kusoroadeolu.clique.core.exceptions.DeprecatedMethodException;
 
+import java.util.Objects;
+
 public class AnsiStringParserImpl implements AnsiStringParser {
 
      private final StyleApplicator applicator;
@@ -12,7 +14,7 @@ public class AnsiStringParserImpl implements AnsiStringParser {
      private ParseResult parseResult;
 
      public AnsiStringParserImpl(){
-        this(ParserConfiguration.immutableBuilder().build());
+        this(ParserConfiguration.DEFAULT);
     }
 
     public AnsiStringParserImpl(ParserConfiguration parserConfiguration){
@@ -25,7 +27,6 @@ public class AnsiStringParserImpl implements AnsiStringParser {
     @Deprecated
     public AnsiStringParser configuration(ParserConfiguration configuration) {
         throw new DeprecatedMethodException("Deprecated method. Use constructor configurations instead");
-
     }
 
     public String parse(String string){
@@ -34,7 +35,7 @@ public class AnsiStringParserImpl implements AnsiStringParser {
 
         this.stringToParse = string;
         this.parseResult = result;
-        return this.applicator.restyleString(result.tokens(), string);
+        return this.applicator.restyleString(result.tokens(), string, this.parserConfiguration.getEnableAutoCloseTags());
     }
 
     public String parse(Object object){
@@ -60,9 +61,28 @@ public class AnsiStringParserImpl implements AnsiStringParser {
         this.tokenExtractor
                 .setDelimiter(this.parserConfiguration.getDelimiter())
                 .setEnableStrictParsing(this.parserConfiguration.getEnableStrictParsing());
-        this.applicator
-                .setEnableAutoCloseTags(this.parserConfiguration.getEnableAutoCloseTags());
     }
 
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        AnsiStringParserImpl that = (AnsiStringParserImpl) object;
+        return Objects.equals(parserConfiguration, that.parserConfiguration) && Objects.equals(stringToParse, that.stringToParse) && Objects.equals(parseResult, that.parseResult);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parserConfiguration, parseResult, stringToParse);
+    }
+
+    @Override
+    public String toString() {
+        return "AnsiStringParserImpl[" +
+                "parseResult=" + parseResult +
+                ", stringToParse='" + stringToParse + '\'' +
+                ", parserConfiguration=" + parserConfiguration +
+                ']';
+    }
 }

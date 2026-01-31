@@ -167,7 +167,7 @@ public class BoxUtils {
     public static <T> T handleDimensionsEx(ExceptionSupplier<T> e){
         try {
              return e.supply();
-        }catch (IllegalArgumentException ex){
+        }catch (IllegalArgumentException | StringIndexOutOfBoundsException ex){
             throw new InvalidDimensionException("The dimensions of this box are too small to wrap around the given content. You can prevent this by using the `autoSize` box configuration", ex);
         }
     }
