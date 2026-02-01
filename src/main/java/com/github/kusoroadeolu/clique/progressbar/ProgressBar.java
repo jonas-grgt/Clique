@@ -49,6 +49,9 @@ public final class ProgressBar implements Renderable {
         return this;
     }
 
+    public boolean isDone(){
+        return isDone;
+    }
 
     public ProgressBar complete() {
         return this.tick(total - currentTick);

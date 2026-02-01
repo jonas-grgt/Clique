@@ -319,6 +319,7 @@ ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
 Shows time since the progress bar was created:
 ```java
 .format(":bar :elapsed")
+    
 // Output: "████░░░░░░ 00:15"
 ```
 
@@ -327,6 +328,7 @@ Shows time since the progress bar was created:
 Estimates time remaining based on current progress:
 ```java
 .format(":bar :remaining")
+    
 // Output: "████░░░░░░ 00:45"
 ```
 
@@ -335,6 +337,7 @@ Estimates time remaining based on current progress:
 ### Combined Time Display
 ```java
 .format(":bar [:elapsed/:remaining]")
+    
 // Output: "████░░░░░░ [00:15/00:45]"
 ```
 

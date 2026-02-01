@@ -5,38 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ProgressBarStyle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/progressbar/ProgressBarTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/markup-reference.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/markup-reference.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/parser.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/parser.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/stylebuilder.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/stylebuilder.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/progressbars.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/progressbars.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/Clique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/progressbar/ProgressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/progressbar/ProgressBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/themes/TestTheme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/themes/TestTheme.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/AbstractBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/boxes/AbstractBox.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle$BorderStyleBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle$BorderStyleBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BorderStyle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration$BoxConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration$BoxConfigurationBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/BoxConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration$IndenterConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration$IndenterConfigurationBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/IndenterConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration$ParserConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration$ParserConfigurationBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ParserConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration$TableConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration$TableConfigurationBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/TableConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/BoxUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/core/utils/BoxUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/IndenterImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/indent/IndenterImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/StyleApplicator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/StyleApplicator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/style/StyleBuilderImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/AbstractTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/tables/AbstractTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/themes/TestTheme$TestAnsiCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/themes/TestTheme$TestAnsiCode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/themes/TestTheme.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/themes/TestTheme.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/Clique.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/Clique.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration$ProgressBarConfigurationBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration$ProgressBarConfigurationBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,44 +51,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.CatppuccinDemo.executor": "Run",
-    "Application.CliqueDemo.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.MiniScoreboard.executor": "Run",
-    "Application.TokyoNightTheme.executor": "Run",
-    "JUnit.AnsiDetectorTest.testAnsiDisabled.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.testCustomDelimiter.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.testCustomStyleRegistration.executor": "Run",
-    "JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor": "Run",
-    "JUnit.BoxTest.executor": "Run",
-    "JUnit.CliqueThemesTest.executor": "Run",
-    "JUnit.CliqueThemesTest.testServiceFileExists.executor": "Run",
-    "JUnit.ProgressBarTest.executor": "Run",
-    "JUnit.ProgressBarTest.testAlignmentWithDifferentTotalSizes.executor": "Run",
-    "JUnit.ProgressBarTest.testElapsedTimeExists.executor": "Run",
-    "JUnit.TableTest.executor": "Run",
-    "JUnit.TokenExtractorTest.executor": "Run",
-    "JUnit.TokenExtractorTest.testTokenExtraction.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CatppuccinDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CliqueDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MiniScoreboard.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TokyoNightTheme.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiDetectorTest.testAnsiDisabled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.testCustomDelimiter.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.testCustomStyleRegistration.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AnsiStringParserImplTest.testInvalidStyleIgnored.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoxTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CliqueThemesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CliqueThemesTest.testServiceFileExists.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProgressBarTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProgressBarTest.testAlignmentWithDifferentTotalSizes.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProgressBarTest.testElapsedTimeExists.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TableTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TokenExtractorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TokenExtractorTest.testTokenExtraction.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -336,22 +312,12 @@
       <workItem from="1768599676149" duration="432000" />
       <workItem from="1768637420860" duration="7000" />
       <workItem from="1769718966138" duration="1159000" />
-      <workItem from="1769872976043" duration="15174000" />
+      <workItem from="1769872976043" duration="16176000" />
+      <workItem from="1769909982412" duration="868000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java</url>
-          <line>10</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

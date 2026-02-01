@@ -9,9 +9,10 @@ import static java.lang.Thread.sleep;
 class Main {
     public static void main(String[] args) throws InterruptedException {
         ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-                .styleRange(0, 30, "[red]:bar[/] [red, bold]:percent%[/] :elapsed/:remaining")
-                .styleRange(30, 70, "[yellow]:bar[/] [yellow, bold]:percent%[/] :elapsed/:remaining")
-                .styleRange(70, 100, "[green]:bar[/] [green, bold]:percent% :elapsed/:remaining")
+                .complete('>')
+                .incomplete('.')
+                .format("[:bar] :percent%")
+                .length(50)
                 .build();
 
         ProgressBar bar = Clique.progressBar(100, config);
