@@ -5,6 +5,7 @@ import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -16,8 +17,7 @@ public class ProgressBarConfiguration {
     private final AnsiStringParser parser;
     private final List<ProgressBarStyle> styles;
 
-    public static final ProgressBarConfiguration DEFAULT =
-            ProgressBarConfiguration.immutableBuilder().build();
+    public static final ProgressBarConfiguration DEFAULT = new ProgressBarConfiguration();
 
     private ProgressBarConfiguration() {
         this.length = 40;
@@ -25,7 +25,7 @@ public class ProgressBarConfiguration {
         this.incomplete = '░';
         this.format = ":bar :percent% [:elapsed/:remaining]";
         this.parser = Clique.parser();
-        this.styles = new ArrayList<>();
+        this.styles = List.of();
     }
 
     private ProgressBarConfiguration(ProgressBarConfigurationBuilder builder) {
@@ -34,7 +34,7 @@ public class ProgressBarConfiguration {
         this.incomplete = builder.incomplete;
         this.format = builder.format;
         this.parser = builder.parser;
-        this.styles = new ArrayList<>(builder.styles);
+        this.styles = Collections.unmodifiableList(builder.styles);
     }
 
     public static ProgressBarConfigurationBuilder immutableBuilder() {
@@ -116,7 +116,6 @@ public class ProgressBarConfiguration {
             this.styles = new ArrayList<>(styles);
             return this;
         }
-
 
 
         public ProgressBarConfiguration build() {

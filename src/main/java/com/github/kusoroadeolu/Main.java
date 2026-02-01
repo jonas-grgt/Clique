@@ -8,19 +8,8 @@ import static java.lang.Thread.sleep;
 
 class Main {
     public static void main(String[] args) throws InterruptedException {
-        ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-                .complete('>')
-                .incomplete('.')
-                .format("[:bar] :percent%")
-                .length(50)
-                .build();
 
-        ProgressBar bar = Clique.progressBar(100, config);
-        for (int i = 0; i < 100; i++){
-            bar.tick();
-            bar.render();
-            Thread.sleep(100);
-        }
+
 
 // Custom predicates
         ProgressBarConfiguration advanced = ProgressBarConfiguration.immutableBuilder()
@@ -30,7 +19,15 @@ class Main {
                 .styleWhen(p -> p == 100, "[green, bold]:bar[/] [green]COMPLETE![/]")
                 .build();
 
+        ProgressBar bar = Clique.progressBar(100, advanced);
+        while (!bar.isDone()){
+            bar.tick();
+            bar.render();
+            Thread.sleep(100);
+        }
+
     }
+
 }
 
 
