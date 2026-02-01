@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ProgressBarConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/AnsiDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/AnsiDetector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/progressbar/ProgressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/progressbar/ProgressBar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +309,7 @@
       <workItem from="1769718966138" duration="1159000" />
       <workItem from="1769872976043" duration="16176000" />
       <workItem from="1769909982412" duration="868000" />
-      <workItem from="1769947182588" duration="342000" />
+      <workItem from="1769947182588" duration="1593000" />
     </task>
     <servers />
   </component>

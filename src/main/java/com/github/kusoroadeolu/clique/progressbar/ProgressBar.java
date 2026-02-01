@@ -76,13 +76,11 @@ public final class ProgressBar implements Renderable {
     }
 
     private String barText() {
-        var progress = this.currentTick;
-        var total = this.total;
         var length = progressBarConfiguration.getLength();
         var complete = progressBarConfiguration.getComplete();
         var incomplete = progressBarConfiguration.getIncomplete();
 
-        var completedRatio = total > ZERO ? (progress / (double) total) : ZERO;
+        var completedRatio = total > ZERO ? (this.currentTick / (double) this.total) : ZERO;
         var completedLength = (int) (completedRatio * length);
 
         return String.valueOf(complete).repeat(completedLength)
@@ -95,7 +93,8 @@ public final class ProgressBar implements Renderable {
 
     private Long remainingTime() {
         var elapsed = elapsedTime();
-        if (currentTick > 0 && total > 0) return (long) ((elapsed / (currentTick / (double) total)) - elapsed);
+        var totalTime = (elapsed / (currentTick / (double) this.total)); // elapsed / (current tick / total ticks)
+        if (currentTick > 0 && total > 0) return (long) (totalTime - elapsed);
         else return null;
     }
 

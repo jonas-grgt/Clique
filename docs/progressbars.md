@@ -1,6 +1,6 @@
 # Progress Bars
 
-Progress bars provide visual feedback for long-running operations. They display completion percentage, elapsed time, estimated remaining time, and support dynamic styling based on progress.
+Progress bars provide visual feedback for long-running operations. They're perfect for file processing, downloads, builds, or any task where you want to show completion status with elapsed and remaining time estimates.
 
 ## Basic Usage
 
@@ -11,73 +11,87 @@ ProgressBar bar = Clique.progressBar(100);
 for (int i = 0; i < 100; i++) {
     bar.tick();
     bar.render();
+    Thread.sleep(50);
+}
+```
+
+### With Configuration
+```java
+ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+    .length(50)
+    .complete('=')
+    .incomplete('-')
+    .build();
+
+ProgressBar bar = Clique.progressBar(100, config);
+
+while (!bar.isDone()) {
+    bar.tick();
+    bar.render();
     Thread.sleep(100);
 }
 ```
 
-This creates a default progress bar that counts from 0 to 100.
-
-### With Custom Increments
-```java
-ProgressBar bar = Clique.progressBar(1000);
-
-// Tick by larger amounts
-bar.tick(50);
-bar.render();
-
-bar.tick(100);
-bar.render();
-```
-
 ## Progress Bar Methods
 
-### Tick
+### Increment Progress
 
-Increment the progress bar:
+Move the progress bar forward:
 ```java
-bar.tick();      // Increment by 1
-bar.tick(10);    // Increment by 10
+bar.tick();        // Increment by 1
+bar.tick(5);       // Increment by 5
 ```
 
-The progress bar automatically caps at the total value and won't go negative.
-
-### Complete
-
-Jump directly to 100% completion:
+### Complete Instantly
 ```java
-bar.complete();
-bar.render();
+bar.complete();    // Jump to 100%
 ```
 
-### Get Output
-
-Get the formatted progress bar string without rendering:
+### Check Status
 ```java
-String output = bar.get();
-System.out.println(output);
+if (bar.isDone()) {
+    System.out.println("Finished!");
+}
 ```
 
-### Render
-
-Display the progress bar in the terminal:
+### Get Without Rendering
 ```java
-bar.render();  // Prints to System.out with carriage return
+String barString = bar.get();
+System.out.println(barString);
 ```
 
-The progress bar uses `\r` to update in place. When complete, it prints a newline.
+## Format Tokens
+
+Progress bars support several tokens that get replaced with actual values:
+
+- **`:bar`** - The progress bar itself
+- **`:percent`** - Current percentage (0-100)
+- **`:progress`** - Current tick count
+- **`:total`** - Total tick count
+- **`:elapsed`** - Time elapsed (mm:ss)
+- **`:remaining`** - Estimated time remaining (mm:ss)
+
+### Using Format Tokens
+```java
+ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+    .format(":bar :percent% [:progress/:total] [:elapsed/:remaining]")
+    .build();
+
+ProgressBar bar = Clique.progressBar(100, config);
+```
 
 ## Progress Bar Configuration
 
-Customize appearance and behavior using `ProgressBarConfiguration`.
+Use `ProgressBarConfiguration` to customize appearance and behavior.
 
 **Note:** Markup parsing is enabled by default.
 
 ### Basic Configuration
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .length(50)
-    .complete('=')
-    .incomplete('-')
+    .length(40)
+    .complete('█')
+    .incomplete('░')
     .format(":bar :percent%")
     .build();
 
@@ -91,62 +105,34 @@ ProgressBar bar = Clique.progressBar(100, config);
 Set the width of the progress bar in characters:
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .length(60)  // 60 character wide bar (default is 40)
+    .length(60)  // 60 characters wide
     .build();
 ```
 
-#### Complete and Incomplete Characters
+#### Complete/Incomplete Characters
 
-Customize the characters used for filled and unfilled portions:
+Customize the characters used for completed and incomplete portions:
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .complete('█')  // Default
-    .incomplete('░')  // Default
+    .complete('█')    // Filled portion
+    .incomplete('░')  // Empty portion
     .build();
 ```
 
-**Examples:**
-```java
-// ASCII style
-.complete('=')
-.incomplete('-')
+**Common character sets:**
+- Block: `█` and `░`
+- Equals: `=` and `-`
+- Hash: `#` and `.`
+- Arrow: `>` and `-`
+Though only the blocks are provided by default
 
-// Block style
-.complete('▓')
-.incomplete('▒')
+#### Custom Format
 
-// Arrow style
-.complete('>')
-.incomplete('.')
-```
-
-#### Format String
-
-Define what information to display and how:
+Define your own format string using tokens:
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .format(":bar :percent% [:elapsed/:remaining]")
+    .format("[cyan]:bar[/] :percent% | :progress/:total | ETA: :remaining")
     .build();
-```
-
-**Available tokens:**
-- `:bar` - The progress bar itself
-- `:percent` - Current percentage (0-100)
-- `:progress` - Current tick count
-- `:total` - Total tick count
-- `:elapsed` - Time elapsed (mm:ss format)
-- `:remaining` - Estimated time remaining (mm:ss format)
-
-**Format examples:**
-```java
-// Minimal
-.format(":bar :percent%")
-
-// Detailed
-.format(":bar :progress/:total (:percent%) :elapsed/:remaining")
-
-// Custom
-.format("Progress: :bar | :percent% complete")
 ```
 
 #### Custom Parser
@@ -163,33 +149,13 @@ ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
     .build();
 ```
 
-## Dynamic Styling
+## Conditional Styling
 
-Progress bars can change their appearance based on completion percentage.
+Progress bars support dynamic styling based on completion percentage. This is perfect for showing different states as progress advances.
 
-### Style Ranges
+### Style Predicates
 
-Apply different styles to different percentage ranges:
-```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .styleRange(0, 30, "[red]:bar[/] [red, bold]:percent%[/] :elapsed/:remaining")
-    .styleRange(30, 70, "[yellow]:bar[/] [yellow, bold]:percent%[/] :elapsed/:remaining")
-    .styleRange(70, 100, "[green]:bar[/] [green, bold]:percent%[/] :elapsed/:remaining")
-    .build();
-
-ProgressBar bar = Clique.progressBar(100, config);
-```
-
-The bar will be:
-- **Red** from 0-29%
-- **Yellow** from 30-69%
-- **Green** from 70-99%
-
-Ranges are inclusive of the minimum and exclusive of the maximum (`min <= percent < max`).
-
-### Custom Predicates
-
-Use predicates for more complex conditional styling:
+Use `styleWhen()` to apply formats based on custom conditions:
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
     .styleWhen(p -> p < 25, "[red, bold]:bar[/] [red]:percent% - SLOW![/]")
@@ -197,23 +163,38 @@ ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
     .styleWhen(p -> p >= 75 && p < 100, "[green]:bar[/] :percent%")
     .styleWhen(p -> p == 100, "[green, bold]:bar[/] [green]COMPLETE![/]")
     .build();
+
+ProgressBar bar = Clique.progressBar(100, config);
 ```
 
-**Important:** The first matching predicate wins. Order matters!
+**How it works:**
+- The first matching predicate wins
+- If no predicates match, falls back to the default format
+- Predicates are checked in the order they're added
 
-```java
-// This example shows priority
-.styleWhen(p -> p >= 50, "FIRST")   // Matches at 50%
-.styleWhen(p -> p >= 50, "SECOND")  // Never matches (FIRST already won)
-```
+### Style Ranges
 
-### Fallback Behavior
-
-If no style matches, the bar uses the default format:
+Use `styleRange()` as a shorthand for range based conditions:
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .format("Default: :bar :percent%")  // Used when no styles match
-    .styleWhen(p -> p == 100, "[green, bold]DONE![/]")
+    .styleRange(0, 30, "[yellow]:bar[/] [yellow]Starting...[/]")
+    .styleRange(30, 70, "[cyan]:bar[/] [cyan]Processing...[/]")
+    .styleRange(70, 100, "[green]:bar[/] [green]Almost done![/]")
+    .build();
+```
+
+**Note:** `styleRange(min, max, format)` is equivalent to `styleWhen(p -> p >= min && p < max, format)`
+
+### Multiple Conditions Example
+```java
+ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+    .length(40)
+    // Special state for completion
+    .styleWhen(p -> p == 100, "[green, bold]:bar[/] ✓ Done! [:elapsed][/]")
+    // Warning for slow progress
+    .styleWhen(p -> p < 10, "[red]:bar[/] [red]:percent% - Initializing...[/]")
+    // Normal operation
+    .styleWhen(p -> p >= 10, "[cyan]:bar[/] :percent% [:elapsed/:remaining]")
     .build();
 ```
 
@@ -222,134 +203,156 @@ ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
 Progress bars automatically parse markup tags in format strings:
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .format("[cyan]:bar[/] [yellow, bold]:percent%[/] [:elapsed/:remaining]")
+    .format("[bold, cyan]:bar[/] [yellow]:percent%[/] [:elapsed/:remaining]")
     .build();
 
 ProgressBar bar = Clique.progressBar(100, config);
-```
-
-You can style individual tokens differently:
-```java
-.format("[blue, bold]:bar[/] [green]:percent%[/] [dim]:elapsed/:remaining[/]")
 ```
 
 ## Examples
 
-### Download Progress
+### File Processing
 ```java
+List<String> files = List.of(
+    "report.pdf", "invoice.xlsx", "backup.zip",
+    "presentation.pptx", "database.sql"
+);
+
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .format("Downloading: :bar :percent% [:elapsed/:remaining]")
-    .complete('█')
-    .incomplete('░')
-    .length(40)
+    .length(50)
+    .styleWhen(p -> p < 30, "[yellow]:bar[/] [yellow]:percent%[/] - Starting...")
+    .styleWhen(p -> p >= 30 && p < 70, "[cyan]:bar[/] [cyan]:percent%[/] [:elapsed]")
+    .styleWhen(p -> p >= 70 && p < 100, "[green]:bar[/] [green]:percent%[/] - Almost done!")
+    .styleWhen(p -> p == 100, "[green, bold]:bar[/] [green]✓ Complete![/] [:elapsed]")
     .build();
 
-ProgressBar bar = Clique.progressBar(totalBytes, config);
+ProgressBar bar = Clique.progressBar(files.size(), config);
 
-while (downloading) {
-    int bytesRead = readChunk();
-    bar.tick(bytesRead);
+for (String file : files) {
+    // Process file...
+    Thread.sleep(500);
+    
+    bar.tick();
     bar.render();
 }
 ```
 
-### Build Progress with Status Colors
+### Download Progress
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .styleRange(0, 30, "[red]:bar[/] [red]:percent%[/] Building...")
-    .styleRange(30, 60, "[yellow]:bar[/] [yellow]:percent%[/] Testing...")
-    .styleRange(60, 90, "[blue]:bar[/] [blue]:percent%[/] Packaging...")
-    .styleRange(90, 100, "[green]:bar[/] [green]:percent%[/] Almost done!")
+    .length(40)
+    .complete('█')
+    .incomplete('░')
+    .format("[cyan]:bar[/] :percent% | :progress/:total MB | ETA: :remaining")
     .build();
 
-ProgressBar bar = Clique.progressBar(100, config);
+int totalMB = 2800;
+ProgressBar bar = Clique.progressBar(totalMB, config);
+
+while (!bar.isDone()) {
+    // Simulate download chunks (5-15 MB)
+    int chunk = 5 + (int)(Math.random() * 10);
+    bar.tick(chunk);
+    bar.render();
+    Thread.sleep(100);
+}
+
+System.out.println("\nDownload complete!");
 ```
 
-### Loading with Custom Characters
+### Build System Stages
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .complete('▓')
-    .incomplete('▒')
-    .format("[cyan]▕:bar▏[/] :percent%")
-    .length(30)
-    .build();
+public static void runStage(String name, int steps, String color) throws InterruptedException {
+    Clique.parser().print(color + "► " + name + "[/]");
+    
+    ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+        .length(30)
+        .format("  " + color + ":bar[/] :percent%")
+        .build();
+    
+    ProgressBar bar = Clique.progressBar(steps, config);
+    
+    while (!bar.isDone()) {
+        Thread.sleep(50);
+        bar.tick();
+        bar.render();
+    }
+    
+}
 
-ProgressBar bar = Clique.progressBar(100, config);
+// Usage
+runStage("Compiling sources", 45, "[blue]");
+runStage("Running tests", 30, "[yellow]");
+runStage("Packaging", 15, "[magenta]");
+runStage("Deploying", 10, "[green]");
 ```
 
-### Minimal Progress Indicator
+### Multi-State Progress
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .format(":progress/:total")
-    .build();
-
-ProgressBar bar = Clique.progressBar(1000, config);
-// Output: "  45/1000"
-```
-
-### Processing with State Messages
-```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .styleWhen(p -> p < 25, "[yellow]:bar[/] Initializing...")
-    .styleWhen(p -> p >= 25 && p < 50, "[blue]:bar[/] Processing data...")
-    .styleWhen(p -> p >= 50 && p < 75, "[blue]:bar[/] Analyzing results...")
-    .styleWhen(p -> p >= 75 && p < 100, "[cyan]:bar[/] Finalizing...")
-    .styleWhen(p -> p == 100, "[green, bold]:bar[/] Complete! ✓[/]")
-    .build();
-
-ProgressBar bar = Clique.progressBar(100, config);
-```
-
-### ASCII Art Style
-```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
-    .complete('>')
-    .incomplete('.')
-    .format("[:bar] :percent%")
     .length(50)
+    // Critical state
+    .styleWhen(p -> p < 20, "[red, bold]:bar[/] [red]:percent% - CRITICAL[/]")
+    // Warning state
+    .styleRange(20, 50, "[yellow]:bar[/] [yellow]:percent% - Warning[/]")
+    // Normal state
+    .styleRange(50, 80, "[blue]:bar[/] :percent%")
+    // Success state
+    .styleRange(80, 100, "[green]:bar[/] [green]:percent% - Good![/]")
+    // Complete
+    .styleWhen(p -> p == 100, "[green, bold]:bar[/] [green]✓ COMPLETE![/]")
     .build();
 
-// Output: [>>>>>>>>>>>>>........................] 25%
+ProgressBar bar = Clique.progressBar(100, config);
 ```
 
-## Time Display
-
-### Elapsed Time
-
-Shows time since the progress bar was created:
+### Simple Loading Bar
 ```java
-.format(":bar :elapsed")
-    
-// Output: "████░░░░░░ 00:15"
+ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+    .length(30)
+    .format("Loading :bar :percent%")
+    .build();
+
+ProgressBar bar = Clique.progressBar(100, config);
+
+while(!bar.isDone()) {
+    bar.tick();
+    bar.render();
+    Thread.sleep(50);
+}
 ```
 
-### Remaining Time
+## Rendering Behavior
 
-Estimates time remaining based on current progress:
+### Default Rendering
+
+The `render()` method prints to `System.out`:
 ```java
-.format(":bar :remaining")
-    
-// Output: "████░░░░░░ 00:45"
+bar.render();  // Prints to stdout
 ```
 
-**Note:** Remaining time shows `--:--` when no progress has been made yet (can't estimate).
+### Custom Output Stream
 
-### Combined Time Display
+You can render to a different stream:
 ```java
-.format(":bar [:elapsed/:remaining]")
-    
-// Output: "████░░░░░░ [00:15/00:45]"
+bar.render(System.err);  // Prints to stderr
 ```
+
+### Carriage Return Behavior
+
+Progress bars use carriage return (`\r`) to update in place:
+- While incomplete: Updates on the same line
+- When complete: Adds a newline automatically
 
 ## Things to Watch Out For
 
-- Progress bars use `\r` (carriage return) to update in place. Make sure not to print other content while a progress bar is active.
-- When the bar reaches 100%, it automatically prints a newline to prevent overlap with future output.
-- The `tick()` method automatically prevents going over the total or below zero.
-- Style predicates are evaluated in order - the first match wins.
-- Time estimates are only accurate after some progress has been made.
+- **Fast Updates**: If you're ticking thousands of times per second, consider throttling renders to avoid terminal flickering
+- **Total of Zero**: If total is 0, the bar shows 0% and handles gracefully
+- **Negative Ticks**: Negative tick amounts are clamped to 0
+- **Over-ticking**: Ticking past total is capped at 100%
+- **Time Estimates**: Remaining time shows `--:--` until at least one tick has occurred
 
 ## See Also
 
-- [Markup Reference](markup-reference.md) - Styling options for progress bar content
+- [Markup Reference](markup-reference.md) - Styling options for progress bar formats
 - [Parser Documentation](parser.md) - How markup parsing works

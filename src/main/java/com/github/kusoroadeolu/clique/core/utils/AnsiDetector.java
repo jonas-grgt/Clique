@@ -11,9 +11,9 @@ public final class AnsiDetector {
     private static boolean detectAnsi(){
         final String colors = System.getProperty(CLIQUE_COLOR);
         if (colors == null) return ANSI_ENABLED;
-        if(colors.equalsIgnoreCase(ALWAYS)) return true;
-        if(colors.equalsIgnoreCase(NEVER)) return false;
-        return ANSI_ENABLED;
+        else if(colors.equalsIgnoreCase(ALWAYS)) return true;
+        else if(colors.equalsIgnoreCase(NEVER)) return false;
+        else return ANSI_ENABLED;
     }
 
     private static final boolean ANSI_ENABLED = autoDetect();
