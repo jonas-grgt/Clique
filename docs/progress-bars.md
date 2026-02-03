@@ -298,5 +298,5 @@ bar.complete();
 
 ## See Also
 
-- [Progress Bar Easing](progress-bar-easing.md) - Smooth animations for progress updates
+- [Progress Bar Easing](progress-bars-easing.md) - Smooth animations for progress updates
 - [Markup Reference](markup-reference.md) - Styling options for progress bars
