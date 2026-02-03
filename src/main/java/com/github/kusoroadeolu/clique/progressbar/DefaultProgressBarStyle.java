@@ -3,7 +3,7 @@ package com.github.kusoroadeolu.clique.progressbar;
 import com.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
 
 /**
- * Predefined progress bar styles with sensible defaults.
+ * Predefined progress bar configs with sensible defaults.
  */
 public enum DefaultProgressBarStyle implements ProgressBarStyle {
 
@@ -33,7 +33,7 @@ public enum DefaultProgressBarStyle implements ProgressBarStyle {
     },
     
 
-    SLANTED {
+    BOLD {
         @Override
         public ProgressBarConfiguration getConfiguration() {
             return ProgressBarConfiguration.immutableBuilder()

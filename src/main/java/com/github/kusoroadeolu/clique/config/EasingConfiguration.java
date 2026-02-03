@@ -46,6 +46,7 @@ public class EasingConfiguration {
      * @return true if easing should be applied
      */
     public boolean shouldEase(int tickAmount) {
+        if (threshold < 0) return false;
         return tickAmount >= threshold;
     }
     
@@ -57,7 +58,7 @@ public class EasingConfiguration {
         private EasingFunction function = EasingFunction.LINEAR;
         private int durationMs = 0;
         private int frames = 1;
-        private int threshold = 1;
+        private int threshold = -1;
         
 
         public EasingConfigurationBuilder function(EasingFunction function) {

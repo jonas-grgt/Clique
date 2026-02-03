@@ -44,16 +44,21 @@ public final class ProgressBar implements Renderable {
         return this.tick(1);
     }
 
-
-    public ProgressBar tick(int amount) {
-        var config = this.progressBarConfiguration;
-        if (config != null && config.getEasing().shouldEase(this.currentTick)){
-            this.easeTick(amount, config.getEasing());
-        }else {
-            this.currentTick = Math.max(Math.min(currentTick + amount, total), ZERO);
-            if (currentTick >= total) isDone = true;
-        }
+    public ProgressBar tick(int amount){
+        this.currentTick = Math.max(Math.min(currentTick + amount, total), ZERO);
+        if (currentTick >= total) isDone = true;
         return this;
+    }
+
+
+    public ProgressBar tickAnimated(int amount) {
+        var config = this.progressBarConfiguration;
+        if (config != null && config.getEasing().shouldEase(amount)){
+            this.easeTick(amount, config.getEasing());
+            return this;
+        }else {
+            return this.tick(amount);
+        }
     }
 
 
