@@ -38,7 +38,28 @@ public class EasingConfiguration {
     public long getFrameDelayMs() {
         return durationMs / frames;
     }
-    
+
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        EasingConfiguration that = (EasingConfiguration) object;
+        return durationMs == that.durationMs && frames == that.frames && threshold == that.threshold && function == that.function;
+    }
+
+    public int hashCode() {
+        return Objects.hash(durationMs, frames, threshold, function);
+    }
+
+    @Override
+    public String toString() {
+        return "EasingConfiguration[" +
+                "function=" + function +
+                ", durationMs=" + durationMs +
+                ", frames=" + frames +
+                ", threshold=" + threshold +
+                ']';
+    }
+
     /**
      * Check if easing should be applied based on the tick amount
      * 

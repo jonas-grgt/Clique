@@ -28,8 +28,8 @@ table.render(); // Print the table to terminal
 
 ### Compact Table
 ```java
-Table table = Clique.table(TableType.COMPACT);
-table.addHeaders("Name", "Age", "Status")
+TableHeaderBuilder builder = Clique.table(TableType.COMPACT);
+builder.addHeaders("Name", "Age", "Status")
     .addRows("Alice", "25", "Active")
     .addRows("Bob", "30", "Inactive")
     .render();
@@ -83,7 +83,7 @@ TableConfiguration config = TableConfiguration
     .padding(2)                    // Add 2 spaces padding
     .build();
 
-Table table = Clique.table(TableType.DEFAULT, config)
+Clique.table(TableType.DEFAULT, config)
     .addHeaders("Name", "Age", "Class")
     .addRows("John", "25", "Class A")
     .render();
@@ -186,8 +186,8 @@ TableConfiguration config = TableConfiguration.immutableBuilder()
     .nullReplacement("N/A")  // Default is empty string
     .build();
 
-Table table = Clique.table(TableType.DEFAULT, config);
-table.addHeaders("Name", "Age", "City")
+TableHeaderBuilder builder = Clique.table(TableType.DEFAULT, config);
+builder.addHeaders("Name", "Age", "City")
     .addRows("Alice", null, "NYC");  // null becomes "N/A"
 
 table.render();
@@ -203,10 +203,10 @@ Customizable tables let you modify edges, vertical lines, and horizontal lines. 
 ```java
 // Without configuration
 Clique.customizableTable(TableType.DEFAULT)
+    .addHeaders("Col1", "Col2")
     .customizeEdge('+')
     .customizeHorizontalLine('=')
     .customizeVerticalLine('|')
-    .addHeaders("Col1", "Col2")
     .addRows("A", "B")
     .render();
 ```
@@ -219,10 +219,10 @@ TableConfiguration config = TableConfiguration
     .build();
 
 Clique.customizableTable(TableType.DEFAULT, config)
+    .addHeaders("Name", "Age")
     .customizeEdge('*')
     .customizeHorizontalLine('-')
     .customizeVerticalLine('|')
-    .addHeaders("Name", "Age")
     .addRows("Alice", "25")
     .render();
 ```
@@ -258,11 +258,9 @@ table.render();
 ```
 
 ## Things to Watch Out For
-
 - **Emojis** will mess with width calculations. Try to avoid using them in tables.
 - **Column alignment** always overrides table-wide alignment settings.
 
 ## See Also
-
 - [Markup Reference](markup-reference.md) - Styling options for table content
 - [Parser Documentation](parser.md) - How markup parsing works

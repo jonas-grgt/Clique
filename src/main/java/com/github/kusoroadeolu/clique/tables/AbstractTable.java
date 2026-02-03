@@ -1,7 +1,6 @@
 package com.github.kusoroadeolu.clique.tables;
 
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
-import com.github.kusoroadeolu.clique.core.display.Renderable;
 import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
@@ -17,61 +16,53 @@ import static com.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 public abstract class AbstractTable implements Table {
     protected final List<WidthAwareList> columns; //This is used to track the max length in that column
     protected final List<WidthAwareList> rows;
-    private boolean headersAdded;
     protected TableConfiguration tableConfiguration;
 
     public AbstractTable(TableConfiguration configuration){
         this.columns = new ArrayList<>();
         this.rows = new ArrayList<>();
         this.tableConfiguration = configuration;
-        this.headersAdded = false;
     }
 
     public AbstractTable(){
         this.columns = new ArrayList<>();
         this.rows = new ArrayList<>();
         this.tableConfiguration = TableConfiguration.DEFAULT;
-        this.headersAdded = false;
     }
 
     //Add the headers to the table
-    public AbstractTable addHeaders(String... headers){
-
-        if (this.headersAdded) {
-            throw new IllegalStateException("Headers have already been added to this table");
-        }
-
-        final WidthAwareList rl = new WidthAwareList();
-        this.rows.add(rl);
-
-        for (int i = 0; i < headers.length; i++) {
-            String header = headers[i];
-            header = handleNulls(header, this.tableConfiguration.getNullReplacement());
-            final Cell c = parseCell(header, this.tableConfiguration.getParser());
-            rl.add(c);
-            final WidthAwareList cl = new WidthAwareList(); //To keep track of all values in this column
-            cl.add(c);
-            this.columns.add(i, cl);
-        }
-
-        this.headersAdded = true;
-        return this;
-    }
-
-    public Table addHeaders(Collection<String> headers) {
-        return this.addHeaders(headers.toArray(String[]::new));
-    }
+//    public AbstractTable addHeaders(String... headers){
+//
+//        if (this.headersAdded) {
+//            throw new IllegalStateException("Headers have already been added to this table");
+//        }
+//
+//        final WidthAwareList rl = new WidthAwareList();
+//        this.rows.add(rl);
+//
+//        for (int i = 0; i < headers.length; i++) {
+//            String header = headers[i];
+//            header = handleNulls(header, this.tableConfiguration.getNullReplacement());
+//            final Cell c = parseCell(header, this.tableConfiguration.getParser());
+//            rl.add(c);
+//            final WidthAwareList cl = new WidthAwareList(); //To keep track of all values in this column
+//            cl.add(c);
+//            this.columns.add(i, cl);
+//        }
+//
+//        this.headersAdded = true;
+//        return this;
+//    }
+//
+//    public Table addHeaders(Collection<String> headers) {
+//        return this.addHeaders(headers.toArray(String[]::new));
+//    }
 
     public Table addRows(Collection<String> rows) {
         return this.addRows(rows.toArray(String[]::new));
     }
 
     public AbstractTable addRows(String... rows){
-
-        if (!this.headersAdded) {
-            throw new IllegalStateException("Headers must be added before adding rows. Call addHeaders() first.");
-        }
-
         //Get the header's size
         final int headerSize = this.rows.getFirst().size();
         final WidthAwareList rl = new WidthAwareList();
@@ -138,19 +129,69 @@ public abstract class AbstractTable implements Table {
         if (object == null || getClass() != object.getClass()) return false;
 
         AbstractTable that = (AbstractTable) object;
-        return headersAdded == that.headersAdded && columns.equals(that.columns) && rows.equals(that.rows) && Objects.equals(tableConfiguration, that.tableConfiguration);
+        return columns.equals(that.columns) && rows.equals(that.rows) && Objects.equals(tableConfiguration, that.tableConfiguration);
     }
 
     public int hashCode() {
-       return Objects.hash(headersAdded, columns, rows, tableConfiguration);
+       return Objects.hash(columns, rows, tableConfiguration);
     }
 
     public String toString() {
         return "Table[" +
                 "columns=" + columns +
                 ", rows=" + rows +
-                ", headersAdded=" + headersAdded +
                 ", tableConfiguration=" + tableConfiguration +
                 ']';
     }
+
+
+    public static class TableHeaderBuilder {
+        private final AbstractTable table;
+
+        public TableHeaderBuilder(Table table) {
+            this.table = (AbstractTable) table;
+        }
+
+        public Table addHeaders(String... headers){
+            if (headers == null || headers.length == 0) throw new IllegalArgumentException("Headers cannot be null or empty");
+
+            final WidthAwareList rl = new WidthAwareList();
+            table.rows.add(rl);
+
+            for (int i = 0; i < headers.length; i++) {
+                String header = headers[i];
+                header = handleNulls(header, table.tableConfiguration.getNullReplacement());
+                final Cell c = parseCell(header, table.tableConfiguration.getParser());
+                rl.add(c);
+                final WidthAwareList cl = new WidthAwareList(); //To keep track of all values in this column
+                cl.add(c);
+                table.columns.add(i, cl);
+            }
+
+            return table;
+        }
+
+        public Table addHeaders(Collection<String> headers) {
+            return this.addHeaders(headers.toArray(String[]::new));
+        }
+    }
+
+    public static class CustomizableTableHeaderBuilder {
+        private final AbstractTable table;
+
+        public CustomizableTableHeaderBuilder(Table table) {
+            this.table = (AbstractTable) table;
+        }
+
+        public CustomizableTable addHeaders(String... headers){
+            var builder = new TableHeaderBuilder(table);
+            builder.addHeaders(headers);
+            return (CustomizableTable) table;
+        }
+
+        public CustomizableTable addHeaders(Collection<String> headers) {
+            return this.addHeaders(headers.toArray(String[]::new));
+        }
+    }
+
 }

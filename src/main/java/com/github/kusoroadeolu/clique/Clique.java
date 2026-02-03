@@ -16,10 +16,9 @@ import com.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import com.github.kusoroadeolu.clique.progressbar.ProgressBarStyle;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.style.StyleBuilderImpl;
-import com.github.kusoroadeolu.clique.tables.CustomizableTable;
-import com.github.kusoroadeolu.clique.tables.Table;
-import com.github.kusoroadeolu.clique.tables.TableFactory;
-import com.github.kusoroadeolu.clique.tables.TableType;
+import com.github.kusoroadeolu.clique.tables.*;
+import com.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
+import com.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 import com.github.kusoroadeolu.clique.themes.CliqueTheme;
 import com.github.kusoroadeolu.clique.themes.CliqueThemes;
 
@@ -44,19 +43,19 @@ public final class Clique {
         return new AnsiStringParserImpl(configuration);
     }
 
-    public static Table table(TableType type){
+    public static TableHeaderBuilder table(TableType type){
         return TableFactory.getTable(type);
     }
 
-    public static Table table(TableType type, TableConfiguration configuration){
+    public static TableHeaderBuilder table(TableType type, TableConfiguration configuration){
         return TableFactory.getTable(type, configuration);
     }
 
-    public static CustomizableTable customizableTable(TableType type){
+    public static CustomizableTableHeaderBuilder customizableTable(TableType type){
         return TableFactory.getCustomizableTable(type);
     }
 
-    public static CustomizableTable customizableTable(TableType type, TableConfiguration configuration){
+    public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration){
         return TableFactory.getCustomizableTable(type, configuration);
     }
 

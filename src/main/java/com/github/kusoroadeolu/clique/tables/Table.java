@@ -6,8 +6,8 @@ import java.io.PrintStream;
 import java.util.Collection;
 
 public interface Table extends Renderable {
-    Table addHeaders(String... headers);
-    Table addHeaders(Collection<String> headers);
+//    Table addHeaders(String... headers);
+//    Table addHeaders(Collection<String> headers);
 
     Table addRows(String... rows);
     Table addRows(Collection<String> rows);
@@ -18,4 +18,5 @@ public interface Table extends Renderable {
 
     String buildTable();
     void render(PrintStream stream);
+
 }

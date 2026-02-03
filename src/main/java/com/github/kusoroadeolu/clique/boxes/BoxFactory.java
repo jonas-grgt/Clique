@@ -4,7 +4,7 @@ import com.github.kusoroadeolu.clique.config.BoxConfiguration;
 
 public class BoxFactory {
     private BoxFactory(){
-
+        throw new AssertionError();
     }
 
     public static Box getBox(BoxType type, BoxConfiguration config){
@@ -13,22 +13,21 @@ public class BoxFactory {
             case CLASSIC -> new ClassicBox(config);
             case ROUNDED -> new RoundedBox(config);
             case DOUBLE_LINE -> new DoubleLineBox(config);
-            case null -> throw new IllegalArgumentException("BoxType cannot be null");
         };
     }
 
     public static Box getBox(BoxType type){
-        return getBox(type, BoxConfiguration.immutableBuilder().build());
+        return getBox(type, BoxConfiguration.DEFAULT);
     }
 
     public static CustomizableBox getCustomizableBox(BoxType type){
-        return getCustomizableBox(type, BoxConfiguration.immutableBuilder().build());
+        return getCustomizableBox(type, BoxConfiguration.DEFAULT);
     }
 
     public static CustomizableBox getCustomizableBox(BoxType type, BoxConfiguration config){
         return switch (type){
             case DEFAULT -> (CustomizableBox) getBox(type, config);
-            default -> throw new UnsupportedOperationException(type + " is not customizable");
+            default -> throw new UnsupportedOperationException("Box type: %s is not customizable".formatted(type));
         };
     }
 

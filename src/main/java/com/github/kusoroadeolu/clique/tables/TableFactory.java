@@ -1,20 +1,22 @@
 package com.github.kusoroadeolu.clique.tables;
 
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
+import com.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
+import com.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 
 public class TableFactory {
 
     private TableFactory(){
-
+        throw new AssertionError();
     }
 
-    public static Table getTable(TableType type, TableConfiguration config) {
-        return table(type, config);
+    public static TableHeaderBuilder getTable(TableType type, TableConfiguration config) {
+        var table = table(type, config);
+        return new TableHeaderBuilder(table);
     }
 
-    public static Table getTable(TableType type) {
-        TableConfiguration configuration = TableConfiguration.immutableBuilder().build();
-        return table(type, configuration);
+    public static TableHeaderBuilder getTable(TableType type) {
+        return getTable(type, TableConfiguration.DEFAULT);
     }
 
     private static Table table(TableType type, TableConfiguration configuration) {
@@ -27,19 +29,18 @@ public class TableFactory {
         };
     }
 
-    public static CustomizableTable getCustomizableTable(TableType type, TableConfiguration config) {
+    public static CustomizableTableHeaderBuilder getCustomizableTable(TableType type, TableConfiguration config) {
         return switch (type) {
-            case DEFAULT -> (CustomizableTable) table(type, config);
-            default -> throw new UnsupportedOperationException(type + " is not customizable");
+            case DEFAULT -> {
+                var table = table(type, config);
+                yield new CustomizableTableHeaderBuilder( table);
+            }
+            default -> throw new UnsupportedOperationException("Table type: %s is not customizable".formatted(type));
         };
     }
 
-    public static CustomizableTable getCustomizableTable(TableType type) {
-        return getCustomizableTable(type, TableConfiguration.immutableBuilder().build());
+    public static CustomizableTableHeaderBuilder getCustomizableTable(TableType type) {
+        return getCustomizableTable(type, TableConfiguration.DEFAULT);
     }
-
-
-
-
 
 }
