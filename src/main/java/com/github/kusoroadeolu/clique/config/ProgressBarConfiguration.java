@@ -2,12 +2,13 @@ package com.github.kusoroadeolu.clique.config;
 
 import com.github.kusoroadeolu.clique.Clique;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import com.github.kusoroadeolu.clique.progressbar.DefaultProgressBarStyle;
+import com.github.kusoroadeolu.clique.progressbar.ProgressBarPredicate;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
+
+import static java.util.Objects.requireNonNull;
 
 public class ProgressBarConfiguration {
     private final int length;
@@ -15,18 +16,11 @@ public class ProgressBarConfiguration {
     private final char incomplete;
     private final String format;
     private final AnsiStringParser parser;
-    private final List<ProgressBarStyle> styles;
+    private final List<ProgressBarPredicate> styles;
+    private final EasingConfiguration easingConfiguration;
 
-    public static final ProgressBarConfiguration DEFAULT = new ProgressBarConfiguration();
+    public static final ProgressBarConfiguration DEFAULT = DefaultProgressBarStyle.BLOCKS.getConfiguration();
 
-    private ProgressBarConfiguration() {
-        this.length = 40;
-        this.complete = '█';
-        this.incomplete = '░';
-        this.format = ":bar :percent% [:elapsed/:remaining]";
-        this.parser = Clique.parser();
-        this.styles = List.of();
-    }
 
     private ProgressBarConfiguration(ProgressBarConfigurationBuilder builder) {
         this.length = builder.length;
@@ -35,6 +29,7 @@ public class ProgressBarConfiguration {
         this.format = builder.format;
         this.parser = builder.parser;
         this.styles = Collections.unmodifiableList(builder.styles);
+        this.easingConfiguration = builder.easing;
     }
 
     public static ProgressBarConfigurationBuilder immutableBuilder() {
@@ -46,7 +41,7 @@ public class ProgressBarConfiguration {
         return styles.stream()
                 .filter(style -> style.matches(percent))
                 .findFirst()
-                .map(ProgressBarStyle::format)
+                .map(ProgressBarPredicate::format)
                 .orElse(format);  // Fall back to default format
     }
 
@@ -70,15 +65,21 @@ public class ProgressBarConfiguration {
         return format;
     }
 
+    public EasingConfiguration getEasing(){
+        return easingConfiguration;
+    }
+
     public static class ProgressBarConfigurationBuilder {
         private int length = 40;
         private char complete = '█';
         private char incomplete = '░';
         private String format = ":bar :percent% [:elapsed/:remaining]";
         private AnsiStringParser parser = Clique.parser();
-        private List<ProgressBarStyle> styles = new ArrayList<>();
+        private List<ProgressBarPredicate> styles = new ArrayList<>();
+        private EasingConfiguration easing = EasingConfiguration.DEFAULT;
 
         public ProgressBarConfigurationBuilder length(int length) {
+            if (length < 0) throw new IllegalArgumentException("Length must be positive");
             this.length = length;
             return this;
         }
@@ -104,19 +105,27 @@ public class ProgressBarConfiguration {
         }
 
         public ProgressBarConfigurationBuilder styleWhen(Predicate<Integer> condition, String format) {
-            this.styles.add(new ProgressBarStyle(condition, format));
+            requireNonNull(condition, "Condition cannot be null");
+            this.styles.add(new ProgressBarPredicate(condition, format));
             return this;
         }
 
         public ProgressBarConfigurationBuilder styleRange(int min, int max, String format) {
+            if (min < 0) throw new IllegalArgumentException("Min must be positive");
             return this.styleWhen(p -> p >= min && p < max, format);
         }
 
-        public ProgressBarConfigurationBuilder styles(Collection<ProgressBarStyle> styles) {
+        public ProgressBarConfigurationBuilder styles(Collection<ProgressBarPredicate> styles) {
+            requireNonNull(styles, "Styles cannot be null");
             this.styles = new ArrayList<>(styles);
             return this;
         }
 
+        public ProgressBarConfigurationBuilder easing(EasingConfiguration easing){
+            requireNonNull(easing, "Easing config cannot be null");
+            this.easing = easing;
+            return this;
+        }
 
         public ProgressBarConfiguration build() {
             return new ProgressBarConfiguration(this);

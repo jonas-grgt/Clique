@@ -70,9 +70,9 @@ Clique.registerTheme("catppuccin-mocha");
 Clique.parser().print("[ctp_mauve]Styled with Catppuccin![/]");
 ```
 **Built-in themes:** Catppuccin, Dracula, Gruvbox, Nord, Tokyo Night. 
-[Clique Themes Repository](https://github.com/kusoroadeolu/clique-themes)
-[Themes docs](docs/themes.md)
-[Create your own themes](docs/build-your-own-theme.md)
+- [Clique Themes Repository](https://github.com/kusoroadeolu/clique-themes)
+- [Themes docs](docs/themes.md)
+- [Create your own themes](docs/build-your-own-theme.md)
 
 ### Tables
 Build beautiful tables with multiple styles:
@@ -113,6 +113,17 @@ Clique.styleBuilder()
     .print();
 ```
 
+### Progress Bars
+Visual feedback for long-running operations:
+```java
+ProgressBar bar = Clique.progressBar(100);
+while (!bar.isDone()) {
+    bar.tick();
+    bar.render();
+    Thread.sleep(50);
+}
+```
+
 ## Documentation
 
 - **[Full Documentation](docs/)** - Complete guides for all features
@@ -122,8 +133,8 @@ Clique.styleBuilder()
 ## Try the Demos
 
 ```bash
-git clone https://github.com/kusoroadeolu/Clique.git
-cd Clique
+git clone https://github.com/kusoroadeolu/clique-demos.git
+cd clique-demos
 javac src/demo/QuizGame.java
 java -cp src demo.QuizGame
 ```

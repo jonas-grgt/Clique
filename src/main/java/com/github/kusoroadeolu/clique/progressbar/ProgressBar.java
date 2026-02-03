@@ -1,10 +1,12 @@
 package com.github.kusoroadeolu.clique.progressbar;
 
+import com.github.kusoroadeolu.clique.config.EasingConfiguration;
 import com.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
 import com.github.kusoroadeolu.clique.core.display.Renderable;
 
 import java.io.PrintStream;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import static com.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static com.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
@@ -44,9 +46,44 @@ public final class ProgressBar implements Renderable {
 
 
     public ProgressBar tick(int amount) {
-        this.currentTick = Math.max(Math.min(currentTick + amount, total), ZERO);
-        if (currentTick >= total) isDone = true;
+        var config = this.progressBarConfiguration;
+        if (config != null && config.getEasing().shouldEase(this.currentTick)){
+            this.easeTick(amount, config.getEasing());
+        }else {
+            this.currentTick = Math.max(Math.min(currentTick + amount, total), ZERO);
+            if (currentTick >= total) isDone = true;
+        }
         return this;
+    }
+
+
+    private void easeTick(int amount, EasingConfiguration easingConfig) {
+        int startValue = this.currentTick;
+        int targetValue = Math.max(Math.min(currentTick + amount, total), ZERO);
+        int diff = targetValue - startValue;
+
+        int frames = easingConfig.getFrames();
+        long frameDelay = easingConfig.getFrameDelayMs();
+
+        for (int i = 1; i <= frames; i++) {
+            double t = i / (double) frames;
+            double eased = easingConfig.getFunction().apply(t);  // Apply easing
+
+            this.currentTick = startValue + (int) (diff * eased);
+
+            this.render();
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(frameDelay);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            }
+        }
+
+        // Ensure we end exactly at target
+        this.currentTick = targetValue;
+        if (currentTick >= total) isDone = true;
     }
 
     public boolean isDone(){

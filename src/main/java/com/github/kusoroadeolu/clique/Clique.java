@@ -13,6 +13,7 @@ import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
 import com.github.kusoroadeolu.clique.parser.GlobalParserRegistry;
 import com.github.kusoroadeolu.clique.progressbar.ProgressBar;
+import com.github.kusoroadeolu.clique.progressbar.ProgressBarStyle;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.style.StyleBuilderImpl;
 import com.github.kusoroadeolu.clique.tables.CustomizableTable;
@@ -91,6 +92,10 @@ public final class Clique {
         return new ProgressBar(total, configuration);
     }
 
+    public static ProgressBar progressBar(int total, ProgressBarStyle style){
+       return progressBar(total, style.getConfiguration());
+    }
+
     public static void enableCliqueColors(boolean enable){
         if (enable) AnsiDetector.enableCliqueColors();
         else AnsiDetector.disableCliqueColors();
@@ -127,7 +132,5 @@ public final class Clique {
     public static Optional<CliqueTheme> findTheme(String name){
         return CliqueThemes.find(name);
     }
-
-
 
 }
