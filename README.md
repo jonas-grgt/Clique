@@ -1,6 +1,6 @@
 # CLIQUE
 
-A dependency-free mini CLI library for beautifying Java terminal applications.
+A dependency free mini, customizable and extensible CLI library for beautifying Java terminal applications.
 
 ![Clique Hero](images/clique-hero.png)
 

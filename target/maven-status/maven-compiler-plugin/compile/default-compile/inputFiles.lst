@@ -6,12 +6,16 @@ C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeol
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\ansi\AnsiCode.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\CompactTable.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\ansi\ColorCode.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\progressbar\ProgressBar.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\DefaultBox.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\ParseResult.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\ansi\BackgroundCode.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\EasingFunction.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\utils\AnsiDetector.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\progressbar\ProgressBarStyle.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\structures\WidthAwareList.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\TableFactory.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\ProgressBarConfiguration.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\CustomizableBox.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\BoxFactory.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\IndenterConfiguration.java
@@ -27,6 +31,7 @@ C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeol
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\structures\Cell.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\BoxConfiguration.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\exceptions\DeprecatedMethodException.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\EasingConfiguration.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\display\Renderable.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\utils\BoxUtils.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\tables\Table.java
@@ -45,9 +50,11 @@ C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeol
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\Main.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\indent\Flag.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\BoxWrapper.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\progressbar\ProgressBarPredicate.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\exceptions\ParseProblemException.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\boxes\ClassicBox.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\parser\AnsiStringParser.java
+C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\progressbar\DefaultProgressBarStyle.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\config\CellAlign.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\core\display\Customizable.java
 C:\Users\eastw\Git Projects\Personal\Clique\src\main\java\com\github\kusoroadeolu\clique\ansi\StyleCode.java
