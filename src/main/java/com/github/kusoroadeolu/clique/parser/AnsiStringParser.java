@@ -23,7 +23,7 @@ public interface AnsiStringParser {
 
     String parse(Object object);
 
-    String getOriginalString();
+    String getOriginalString(String string);
 
 
 }

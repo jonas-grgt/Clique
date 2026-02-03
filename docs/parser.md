@@ -15,12 +15,11 @@ System.out.println(styled);
 ![Ansi Output](../images/ansi.png)
 
 ### Getting the Original String
-
 After parsing, you can retrieve the original text without markup tags:
 ```java
 AnsiStringParser parser = Clique.parser();
 parser.parse("[red, bold]Hello[/] World");
-String original = parser.getOriginalString(); // Returns "Hello World"
+String original = parser.getOriginalString("[red, bold]Hello[/] World"); // Returns "Hello World"
 ```
 
 

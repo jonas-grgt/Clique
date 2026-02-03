@@ -18,7 +18,7 @@ public final class StringUtils {
     public static Cell parseCell(String text, AnsiStringParser parser){
         if(parser != null){
             final String styled = parser.parse(text);
-            return new Cell(parser.getOriginalString(), styled);
+            return new Cell(parser.getOriginalString(text), styled);
         }else{
             return new Cell(text, text);
         }
