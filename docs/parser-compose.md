@@ -452,10 +452,10 @@ public class MyColor implements AnsiCode {
 // Create the style
 AnsiCode myColor = new RGBColor(255, 0, 0, false);
 
-// ✗ This won't work - style not registered yet
+// This won't work - style not registered yet
 Clique.parser().print("[mycolor]Text[/]");
 
-// ✓ Register first, then use
+// Register first, then use
 Clique.registerStyle("mycolor", myColor);
 Clique.parser().print("[mycolor]Text[/]");
 ```

@@ -8,9 +8,6 @@ import java.util.Map;
 
 public interface AnsiStringParser {
 
-    @Deprecated(since = "1.2.1")
-    AnsiStringParser configuration(ParserConfiguration configuration);
-
     String parse(String stringToParse);
 
     default void print(String string){

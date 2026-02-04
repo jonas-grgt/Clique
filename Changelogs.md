@@ -44,7 +44,7 @@ Table table = Clique.table(TableType.DEFAULT);
 table.addHeaders("Name", "Age", "Class")
     .addRows("John", "25", "Class A");
 ```
-**After (v2.1.0-beta / v3.0.0):**
+**After (v3.0.0):**
 ```java
 TableHeaderBuilder builder = Clique.table(TableType.DEFAULT);
      builder.addHeaders("Name", "Age", "Class")  // Must be called first
@@ -68,7 +68,18 @@ box1.withNoDimensions().content("Class A")
 
 - Boxes and Tables no longer use `buildBox()` and `buildTable()` to get their strings, they now use `get()` along with other components unifying and simplifying the API
 
-- `Clique.parser()` is now fully immutable after construction. `getOriginalString()` now requires for the string to be passed as a parameter to support this change fully i.e. `getOriginalString(someString)` 
+- `Clique.parser()` is now fully immutable after construction. `getOriginalStri[config](src/main/java/com/github/kusoroadeolu/clique/config)ng()` now requires for the string to be passed as a parameter to support this change fully i.e. `getOriginalString(someString)` 
+
+- **Removed Mutators:** All deprecated setter methods on `BoxConfiguration`, `BorderStyle`, `IndenterConfiguration`, `ParserConfiguration`, and `TableConfiguration` have been removed.
+
+- **Builder Pattern Enforcement:** You can no longer modify a configuration object once it is created.
+
+- **Static Factory Removal:** Removed the legacy `.builder()` static methods from configuration classes to favor a unified building experience.
+
+#### Refactored API
+- **Interface Slimming:** `Box` and `AnsiStringParser` interfaces no longer contain .configuration() methods. Configuration is now strictly handled at the instantiation/builder phase.
+
+- **Explicit Exceptions:** The `DeprecatedMethodException` has been phased out as those methods no longer exist in the bytecode.
 
 **Migration:** Remove any intermediate variable assignments and chain `addHeaders()` directly after `Clique.table()` and  `width(), length()` after `Clique.boxes()`
 ### Documentation Updates

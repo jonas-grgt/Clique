@@ -5,12 +5,16 @@ import java.util.Objects;
 
 //Added docs here so I won't forget what each val does
 public class EasingConfiguration {
-    public final static EasingConfiguration DEFAULT = EasingConfiguration.immutableBuilder().build();
+    public final static EasingConfiguration DEFAULT = new EasingConfiguration();
     private final EasingFunction function;
     private final int durationMs;
     private final int frames;
     private final int threshold;
-    
+
+
+    private EasingConfiguration(){
+        this(new EasingConfigurationBuilder());
+    }
     private EasingConfiguration(EasingConfigurationBuilder easingConfigurationBuilder) {
         this.function = easingConfigurationBuilder.function;
         this.durationMs = easingConfigurationBuilder.durationMs;

@@ -19,11 +19,6 @@ public class TableConfiguration {
     private final BorderStyle borderStyle;
     public static final TableConfiguration DEFAULT = new TableConfiguration();
 
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public static TableConfiguration builder(){
-        return new TableConfiguration();
-    }
-
     private TableConfiguration() {
         // Default config
         this.padding = 1;
@@ -89,46 +84,6 @@ public class TableConfiguration {
                 ", columnAlignment=" + columnAlignment +
                 ", borderStyle=" + borderStyle +
                 ']';
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public TableConfiguration padding(int padding) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public TableConfiguration alignment(CellAlign alignment) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public TableConfiguration parser(AnsiStringParser parser) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public TableConfiguration nullReplacement(String nullReplacement) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public TableConfiguration borderStyle(BorderStyle borderStyle) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public TableConfiguration columnAlignment(Map<Integer, CellAlign> columnAlignment) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public TableConfiguration columnAlignment(int column, CellAlign alignment){
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
     public static class TableConfigurationBuilder {

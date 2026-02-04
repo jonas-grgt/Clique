@@ -18,11 +18,6 @@ public class BorderStyle {
     private final StyleBuilder styleBuilder;
     public final static BorderStyle DEFAULT = new BorderStyle();
 
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public static BorderStyle builder(){
-        return new BorderStyle();
-    }
-
     private BorderStyle(){
         this(new BorderStyleBuilder());
     }
@@ -47,7 +42,6 @@ public class BorderStyle {
     }
 
 
-    @Override
     public String toString() {
         return "BorderStyle[" +
                 "verticalStyle=" + Arrays.toString(verticalStyle) +
@@ -57,7 +51,6 @@ public class BorderStyle {
                 ']';
     }
 
-    @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
 
@@ -65,34 +58,19 @@ public class BorderStyle {
         return Arrays.equals(verticalStyle, that.verticalStyle) && Arrays.equals(horizontalStyle, that.horizontalStyle) && Arrays.equals(edgeStyle, that.edgeStyle) && styleBuilder.equals(that.styleBuilder);
     }
 
-    @Override
     public int hashCode() {
         return Objects.hash(Arrays.hashCode(verticalStyle), Arrays.hashCode(horizontalStyle), Arrays.hashCode(edgeStyle), styleBuilder);
     }
 
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public BorderStyle horizontalBorderStyles(AnsiCode... horizontalStyles) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
 
     public AnsiCode[] getEdgeBorderStyles() {
         return this.edgeStyle.clone();
     }
 
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public BorderStyle edgeBorderStyles(AnsiCode... edgeStyles) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
 
     public AnsiCode[] getVerticalBorderStyles() {
         return this.verticalStyle.clone();
     }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public BorderStyle verticalBorderStyles(AnsiCode... verticalStyles) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
 
     public static class BorderStyleBuilder{
         private AnsiCode[] verticalStyle;

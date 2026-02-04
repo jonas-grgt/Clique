@@ -42,6 +42,14 @@ public final class Clique {
         return new AnsiStringParserImpl(configuration);
     }
 
+    public static TableHeaderBuilder table(){
+        return table(TableType.DEFAULT);
+    }
+
+    public static TableHeaderBuilder table(TableConfiguration configuration){
+        return table(TableType.DEFAULT, configuration);
+    }
+
     public static TableHeaderBuilder table(TableType type){
         return TableFactory.getTableBuilder(type);
     }
@@ -66,6 +74,14 @@ public final class Clique {
         return customizableTable(TableType.DEFAULT, configuration);
     }
 
+    public static BoxDimensionBuilder box(){
+        return box(BoxType.DEFAULT);
+    }
+
+    public static BoxDimensionBuilder box(BoxConfiguration configuration){
+        return box(BoxType.DEFAULT, configuration);
+    }
+
     public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration){
         return BoxFactory.getBoxDimensionBuilder(type, configuration);
     }
@@ -80,6 +96,14 @@ public final class Clique {
 
     public static CustomizableBoxDimensionBuilder customizableBox(BoxType type){
         return BoxFactory.getCustomizableBoxDimensionBuilder(type);
+    }
+
+    public static CustomizableBoxDimensionBuilder customizableBox(){
+        return customizableBox(BoxType.DEFAULT);
+    }
+
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration){
+        return customizableBox(BoxType.DEFAULT, configuration);
     }
 
     public static Indenter indenter(){

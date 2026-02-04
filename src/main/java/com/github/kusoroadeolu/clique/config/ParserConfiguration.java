@@ -11,11 +11,6 @@ public class ParserConfiguration {
     private final boolean enableAutoCloseTags;
     public final static ParserConfiguration DEFAULT = new ParserConfiguration();
 
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public static ParserConfiguration builder(){
-        return new ParserConfiguration();
-    }
-
     //Default Configuration
     private ParserConfiguration(){
         this.delimiter = String.valueOf(',');
@@ -65,21 +60,6 @@ public class ParserConfiguration {
                 ", enableStrictParsing=" + enableStrictParsing +
                 ", enableAutoCloseTags=" + enableAutoCloseTags +
                 ']';
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public ParserConfiguration enableAutoCloseTags() {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public ParserConfiguration enableStrictParsing() {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public ParserConfiguration delimiter(char delimiter) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
     public static class ParserConfigurationBuilder {

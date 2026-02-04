@@ -14,10 +14,6 @@ public class IndenterConfiguration {
     private final String defaultFlag;
     public final static IndenterConfiguration DEFAULT = new IndenterConfiguration();
 
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public static IndenterConfiguration builder() {
-        return new IndenterConfiguration();
-    }
 
     private IndenterConfiguration() {
         this.indentLevel = 1;
@@ -67,27 +63,6 @@ public class IndenterConfiguration {
 
     public int getIndentLevel() {
         return indentLevel;
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public IndenterConfiguration parser(AnsiStringParser parser) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public IndenterConfiguration defaultFlag(String defaultFlag) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public IndenterConfiguration defaultFlag(Flag defaultFlag) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public IndenterConfiguration indentLevel(int indentLevel) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
     public static class IndenterConfigurationBuilder {

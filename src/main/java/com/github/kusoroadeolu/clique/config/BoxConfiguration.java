@@ -14,11 +14,6 @@ public class BoxConfiguration {
     private final boolean autoSize;
     public final static BoxConfiguration DEFAULT = new BoxConfiguration();
 
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public static BoxConfiguration builder(){
-        return new BoxConfiguration();
-    }
-
     private BoxConfiguration(){
         this.centerPadding = 2;
         this.textAlign = TextAlign.CENTER;
@@ -76,38 +71,6 @@ public class BoxConfiguration {
     @Override
     public int hashCode() {
         return Objects.hash(centerPadding, autoSize, textAlign, parser, borderStyle);
-    }
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public BoxConfiguration centerPadding(int centerPadding) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public BoxConfiguration autoSize(boolean autoSize) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public BoxConfiguration borderStyle(BorderStyle borderStyle) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public BoxConfiguration textAlign(TextAlign textAlign) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
-    }
-
-
-    @Deprecated(since = "1.2.1", forRemoval = true)
-    public BoxConfiguration parser(AnsiStringParser parser) {
-        throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");
     }
 
     public static class BoxConfigurationBuilder {
