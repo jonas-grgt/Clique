@@ -19,9 +19,8 @@ public final class StringUtils {
         if(parser != null){
             final String styled = parser.parse(text);
             return new Cell(parser.getOriginalString(text), styled);
-        }else{
-            return new Cell(text, text);
-        }
+        }else return new Cell(text, text);
+
     }
 
 
@@ -33,7 +32,6 @@ public final class StringUtils {
         for (String s : arr){
             if (s.length() > longest) longest = s.length();
         }
-
         return longest;
     }
 
@@ -47,7 +45,7 @@ public final class StringUtils {
                 .toArray(String[]::new);
     }
 
-    public static void wrapLongString(StringBuilder currentOriginal, StringBuilder currentStyled, List<Cell> wordWrap, int maxCharsPerLine){
+    public static void wrapLongString(StringBuilder currentOriginal, StringBuilder currentStyled, List<Cell> cells, int maxCharsPerLine){
         if(currentOriginal.length() > maxCharsPerLine){
             String activeAnsi = ""; // Track ANSI codes to carry forward
 
@@ -59,7 +57,7 @@ public final class StringUtils {
                 int styledEnd = getStyledEndIndex(currentStyled.toString(), maxCharsPerLine);
                 String styledChunk = activeAnsi + currentStyled.substring(ZERO, styledEnd);
 
-                wordWrap.add(new Cell(originalChunk, styledChunk));
+                cells.add(new Cell(originalChunk, styledChunk));
 
                 // Update active ANSI codes by looking at the full chunk
                 activeAnsi = getActiveAnsiCodes(styledChunk);
@@ -71,9 +69,9 @@ public final class StringUtils {
 
             if (!currentOriginal.isEmpty()) {
                 String lastStyled = activeAnsi + currentStyled;
-                wordWrap.add(new Cell(currentOriginal.toString(), lastStyled));
-                currentOriginal.setLength(0);
-                currentStyled.setLength(0);
+                cells.add(new Cell(currentOriginal.toString(), lastStyled));
+                clearStringBuilder(currentOriginal);
+                clearStringBuilder(currentStyled);
             }
         }
     }

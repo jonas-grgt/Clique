@@ -7,21 +7,13 @@ import java.util.Objects;
 
 import static com.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 
-public class AnsiStringParserImpl implements AnsiStringParser {
 
-     private final StyleApplicator applicator;
-     private final TokenExtractor tokenExtractor;
-     private final ParserConfiguration parserConfiguration;
+public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) implements AnsiStringParser {
+    private static final StyleApplicator STYLE_APPLICATOR = new StyleApplicator();
+    private static final TokenExtractor TOKEN_EXTRACTOR = new TokenExtractor();
 
-     public AnsiStringParserImpl(){
+    public AnsiStringParserImpl() {
         this(ParserConfiguration.DEFAULT);
-    }
-
-    public AnsiStringParserImpl(ParserConfiguration parserConfiguration){
-        this.parserConfiguration = parserConfiguration;
-        this.applicator = new StyleApplicator();
-        this.tokenExtractor = new TokenExtractor();
-        this.updateConfiguration();
     }
 
     @Deprecated
@@ -29,51 +21,33 @@ public class AnsiStringParserImpl implements AnsiStringParser {
         throw new DeprecatedMethodException("Deprecated method. Use constructor configurations instead");
     }
 
-    public String parse(String tokenedString){
-        final ParseResult result = this.tokenExtractor.getParseResult(tokenedString);
-        return this.applicator.restyleString(result.tokens(), tokenedString, this.parserConfiguration.getEnableAutoCloseTags());
+    public String parse(String tokenedString) {
+        final ParseResult result = this.extractTokens(tokenedString);
+        return STYLE_APPLICATOR.restyleString(result.tokens(), tokenedString, this.parserConfiguration.getEnableAutoCloseTags());
     }
 
-    public String parse(Object object){
-         return this.parse(object.toString());
+    public String parse(Object object) {
+        return this.parse(object.toString());
     }
 
-    public String getOriginalString(String tokenedString){
-         if(tokenedString == null || tokenedString.isBlank()){
-             throw new IllegalArgumentException("No string has been parsed by the parser yet");
-         }
-        final ParseResult result = this.tokenExtractor.getParseResult(tokenedString);
-         int size = result.extractedFormTags().size();
-         for (int i = 0; i < size; i++){
-              tokenedString = tokenedString.replace(result.extractedFormTags().get(i), EMPTY);
-         }
-         return tokenedString;
+    public String getOriginalString(String tokenedString) {
+        if (tokenedString == null || tokenedString.isBlank()) return EMPTY;
+
+        String clean = tokenedString;
+        var result = this.extractTokens(clean);
+        for (String tag : result.extractedFormTags()) {
+            clean = clean.replace(tag, EMPTY);
+        }
+
+        return clean;
     }
 
-    private void updateConfiguration(){
-        this.tokenExtractor
-                .setDelimiter(this.parserConfiguration.getDelimiter())
-                .setEnableStrictParsing(this.parserConfiguration.getEnableStrictParsing());
+    private ParseResult extractTokens(String input) {
+        return TOKEN_EXTRACTOR.getParseResult(
+                input,
+                parserConfiguration.getDelimiter(),
+                parserConfiguration.getEnableStrictParsing()
+        );
     }
 
-
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-
-        AnsiStringParserImpl that = (AnsiStringParserImpl) object;
-        return Objects.equals(parserConfiguration, that.parserConfiguration);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(parserConfiguration);
-    }
-
-    @Override
-    public String toString() {
-        return "AnsiStringParserImpl[" +
-                "parserConfiguration=" + parserConfiguration +
-                ']';
-    }
 }

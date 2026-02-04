@@ -58,6 +58,15 @@ public class ParserConfiguration {
         return Objects.hash(enableAutoCloseTags, enableStrictParsing, delimiter);
     }
 
+    @Override
+    public String toString() {
+        return "ParserConfiguration[" +
+                "delimiter='" + delimiter + '\'' +
+                ", enableStrictParsing=" + enableStrictParsing +
+                ", enableAutoCloseTags=" + enableAutoCloseTags +
+                ']';
+    }
+
     @Deprecated(since = "1.2.1", forRemoval = true)
     public ParserConfiguration enableAutoCloseTags() {
         throw new DeprecatedMethodException("Deprecated method. Use the immutable builder");

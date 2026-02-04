@@ -1,7 +1,6 @@
 package com.github.kusoroadeolu.clique.tables;
 
 import com.github.kusoroadeolu.clique.config.BorderStyle;
-import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
 import com.github.kusoroadeolu.clique.core.utils.Constants;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
@@ -12,15 +11,12 @@ import static com.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static com.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
 public class DefaultTable extends AbstractTable implements CustomizableTable {
-
-    private final StringBuilder tableBuilder;
     private String edge;
     private String hLine;
     private String vLine;
 
     public DefaultTable(TableConfiguration tableConfiguration){
         super(tableConfiguration);
-        this.tableBuilder = new StringBuilder();
         this.edge = "+";
         this.hLine = "-";
         this.vLine = "|";
@@ -30,22 +26,21 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
 
     public String buildTable(){
         //Declarations
-        clearStringBuilder(this.tableBuilder);
-        final StringBuilder sb = new StringBuilder();
-        final String headerAndFooter = this.calculateHeader(sb);
+        final var tableBuilder = new StringBuilder();
+        final var sb = new StringBuilder();
+        final var headerAndFooter = this.appendHeader(sb);
         final int padding = this.tableConfiguration.getPadding();
-        CellAlign cellAlign;
         clearStringBuilder(sb);
 
 
         //Build
-        this.tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
+        tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
 
         for (final WidthAwareList list : this.rows) {
-            this.tableBuilder.append(vLine);
+            tableBuilder.append(vLine);
 
             for (int j = 0; j < list.size(); j++) {
-                cellAlign = this.tableConfiguration.getAlignment();
+                var cellAlign = this.tableConfiguration.getAlignment();
                 final String styledCell = list.getStyledText(j);
                 final int displayWidth = list.get(j).text().length();
                 final WidthAwareList cl = this.columns.get(j);
@@ -54,19 +49,19 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
                 final int offset = (longest - displayWidth) + padding;
 
                 cellAlign = chooseColAlignment(j, cellAlign, this.tableConfiguration.getColumnAlignment());
-                this.tableBuilder.append(align(cellAlign, sb, offset, styledCell, vLine));
+                tableBuilder.append(align(cellAlign, sb, offset, styledCell, vLine));
                 clearStringBuilder(sb);
             }
 
-            this.tableBuilder.append(Constants.NEWLINE);
-            this.tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
+            tableBuilder.append(Constants.NEWLINE);
+            tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
         }
 
-        return this.tableBuilder.toString();
+        return tableBuilder.toString();
     }
 
     //Dynamically calculate the header and footer for the table
-    public String calculateHeader(StringBuilder sb){
+    private String appendHeader(StringBuilder sb){
         for (final WidthAwareList l : this.columns) {
             sb.append(edge);
             sb.repeat(hLine, l.longest() + this.tableConfiguration.getPadding());

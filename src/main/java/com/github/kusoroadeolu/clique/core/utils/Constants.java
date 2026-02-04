@@ -18,8 +18,6 @@ public class Constants {
     public final static Pattern WHITESPACE_PATTERN = Pattern.compile("\u001b\\[[;\\d]*m");
 
 
-
-
     //FOR ANSI DETECTOR
     public static final String TERM = "TERM";
     public static final String PLAIN = "plain";

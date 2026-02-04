@@ -2,7 +2,6 @@ package com.github.kusoroadeolu.clique.tables;
 
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
 import com.github.kusoroadeolu.clique.config.BorderStyle;
-import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
 import com.github.kusoroadeolu.clique.core.utils.Constants;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
@@ -13,7 +12,6 @@ import static com.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static com.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
 public class BoxDrawTable extends AbstractTable{
-    private final StringBuilder tableBuilder;
     private String hLine;
     private String vLine;
 
@@ -31,7 +29,6 @@ public class BoxDrawTable extends AbstractTable{
 
     public BoxDrawTable(TableConfiguration tableConfiguration){
         super(tableConfiguration);
-        this.tableBuilder = new StringBuilder();
 
         this.hLine = "─";
         this.vLine = "│";
@@ -50,64 +47,59 @@ public class BoxDrawTable extends AbstractTable{
     @Override
     public String buildTable() {
         //Declarations
+        var tableBuilder = new StringBuilder();
         final StringBuilder sb = new StringBuilder();
-        clearStringBuilder(this.tableBuilder);
-        final String header = this.calculateHeader(sb);
+        final String header = this.appendHeader(sb);
         clearStringBuilder(sb);
-        final String footer = this.calculateFooter(sb);
+        final String footer = this.appendFooter(sb);
         clearStringBuilder(sb);
-        final String headerEnd = this.calculateHeaderEnd(sb);
+        final String headerEnd = this.drawHeaderEnd(sb);
         clearStringBuilder(sb);
         final int padding = this.tableConfiguration.getPadding();
-        CellAlign cellAlign;
 
 
         //Build
-        this.tableBuilder.append(header).append(Constants.NEWLINE);
+        tableBuilder.append(header).append(Constants.NEWLINE);
         for (int i = 0; i < this.rows.size(); i++) {
             final WidthAwareList list = this.rows.get(i);
-            this.tableBuilder.append(vLine);
+            tableBuilder.append(vLine);
 
             for (int j = 0; j < list.size(); j++) {
-                cellAlign = this.tableConfiguration.getAlignment();
+                var cellAlign = this.tableConfiguration.getAlignment();
                 final String styledCell = list.getStyledText(j);
                 final int displayWidth = list.get(j).text().length();
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
-
                 final int offset = (longest - displayWidth) + padding; //Add padding to avoid cramping
-
-
                 cellAlign = chooseColAlignment(j, cellAlign, this.tableConfiguration.getColumnAlignment());
-                this.tableBuilder.append(align(cellAlign, sb, offset, styledCell, vLine));
+                tableBuilder.append(align(cellAlign, sb, offset, styledCell, vLine));
 
                 clearStringBuilder(sb);
             }
 
-            if(i == 0){
-                this.tableBuilder.append(Constants.NEWLINE).append(headerEnd);
-            }
+            if(i == 0) tableBuilder.append(Constants.NEWLINE).append(headerEnd);
 
-            this.tableBuilder.append(Constants.NEWLINE);
+
+            tableBuilder.append(Constants.NEWLINE);
         }
 
-        this.tableBuilder.append(footer);
-        return this.tableBuilder.toString();
+        tableBuilder.append(footer);
+        return tableBuilder.toString();
     }
 
-    public String calculateHeader(StringBuilder sb) {
-        return calculateEdges(sb, topLeft, topJoin, topRight);
+    public String appendHeader(StringBuilder sb) {
+        return drawEdges(sb, topLeft, topJoin, topRight);
     }
 
-    public String calculateFooter(StringBuilder sb) {
-        return calculateEdges(sb, bottomLeft, bottomJoin, bottomRight);
+    public String appendFooter(StringBuilder sb) {
+        return drawEdges(sb, bottomLeft, bottomJoin, bottomRight);
     }
 
-    public String calculateHeaderEnd(StringBuilder sb){
-        return calculateEdges(sb, leftJoin, cross, rightJoin);
+    public String drawHeaderEnd(StringBuilder sb){
+        return drawEdges(sb, leftJoin, cross, rightJoin);
     }
 
-    private String calculateEdges(StringBuilder sb, String left, String join, String right) {
+    private String drawEdges(StringBuilder sb, String left, String join, String right) {
         sb.append(left);
         for (int i = 0; i < this.columns.size(); i++){
             final WidthAwareList l = this.columns.get(i);

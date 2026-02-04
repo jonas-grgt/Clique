@@ -12,7 +12,7 @@ class TokenExtractorTest {
     void testTokenExtraction() {
         String input = "[red, bold]Text[/]";
         var tokenExtractor = new TokenExtractor();
-        ParseResult result = tokenExtractor.getParseResult(input);
+        ParseResult result = tokenExtractor.getParseResult(input, ",", false);
         assertEquals(2, result.tokens().size());
         assertEquals(2, result.tokens().getFirst().validStyles().size());
     }
@@ -26,8 +26,7 @@ class TokenExtractorTest {
     @Test
     void testGetOriginalString() {
         AnsiStringParser parser = Clique.parser();
-        parser.parse("[red]Hello[/] World");
-        assertEquals("Hello World", parser.getOriginalString());
+        assertEquals("Hello World", parser.getOriginalString("[red]Hello[/] World"));
     }
 
 }

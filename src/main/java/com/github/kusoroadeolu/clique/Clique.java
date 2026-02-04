@@ -1,10 +1,9 @@
 package com.github.kusoroadeolu.clique;
 
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
-import com.github.kusoroadeolu.clique.boxes.Box;
-import com.github.kusoroadeolu.clique.boxes.BoxFactory;
-import com.github.kusoroadeolu.clique.boxes.BoxType;
-import com.github.kusoroadeolu.clique.boxes.CustomizableBox;
+import com.github.kusoroadeolu.clique.boxes.*;
+import com.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
+import com.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
 import com.github.kusoroadeolu.clique.config.*;
 import com.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import com.github.kusoroadeolu.clique.indent.Indenter;
@@ -44,35 +43,35 @@ public final class Clique {
     }
 
     public static TableHeaderBuilder table(TableType type){
-        return TableFactory.getTable(type);
+        return TableFactory.getTableBuilder(type);
     }
 
     public static TableHeaderBuilder table(TableType type, TableConfiguration configuration){
-        return TableFactory.getTable(type, configuration);
+        return TableFactory.getTableBuilder(type, configuration);
     }
 
     public static CustomizableTableHeaderBuilder customizableTable(TableType type){
-        return TableFactory.getCustomizableTable(type);
+        return TableFactory.getCustomizableTableBuilder(type);
     }
 
     public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration){
-        return TableFactory.getCustomizableTable(type, configuration);
+        return TableFactory.getCustomizableTableBuilder(type, configuration);
     }
 
-    public static Box box(BoxType type, BoxConfiguration configuration){
-        return BoxFactory.getBox(type, configuration);
+    public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration){
+        return BoxFactory.getBoxDimensionBuilder(type, configuration);
     }
 
-    public static Box box(BoxType type){
-        return BoxFactory.getBox(type);
+    public static BoxDimensionBuilder box(BoxType type){
+        return BoxFactory.getBoxDimensionBuilder(type);
     }
 
-    public static CustomizableBox customizableBox(BoxType type, BoxConfiguration configuration){
-        return BoxFactory.getCustomizableBox(type, configuration);
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration){
+        return BoxFactory.getCustomizableBoxDimensionBuilder(type, configuration);
     }
 
-    public static CustomizableBox customizableBox(BoxType type){
-        return BoxFactory.getCustomizableBox(type);
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type){
+        return BoxFactory.getCustomizableBoxDimensionBuilder(type);
     }
 
     public static Indenter indenter(){

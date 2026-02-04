@@ -1,40 +1,35 @@
 package com.github.kusoroadeolu.clique.tables;
 
-import com.github.kusoroadeolu.clique.config.CellAlign;
 import com.github.kusoroadeolu.clique.config.TableConfiguration;
 import com.github.kusoroadeolu.clique.core.utils.Constants;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
+import static com.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static com.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static com.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
 public class CompactTable extends AbstractTable {
-
-    private final StringBuilder tableBuilder;
     private String hLine;
     private final String vLine;
 
     public CompactTable(TableConfiguration tableConfiguration){
         super(tableConfiguration);
-        this.tableBuilder = new StringBuilder();
         this.vLine = Constants.BLANK.repeat(this.tableConfiguration.getPadding());
         this.hLine = "-";
         this.styleTableBorders();
     }
 
     public String buildTable() {
-        clearStringBuilder(this.tableBuilder);
+        final var tableBuilder = new StringBuilder();
         final StringBuilder sb = new StringBuilder();
-        CellAlign cellAlign;
-
 
         for (int i = 0; i < this.rows.size(); i++) {
             final WidthAwareList list = this.rows.get(i);
 
             for (int j = 0; j < list.size(); j++) {
-                cellAlign = this.tableConfiguration.getAlignment();
+                var cellAlign = this.tableConfiguration.getAlignment();
                 final String styledCell = list.getStyledText(j);
                 final int displayWidth = list.get(j).text().length();
                 final WidthAwareList cl = this.columns.get(j);
@@ -42,27 +37,27 @@ public class CompactTable extends AbstractTable {
 
                 final int offset = longest - displayWidth;
                 cellAlign = chooseColAlignment(j, cellAlign, this.tableConfiguration.getColumnAlignment());
-                this.tableBuilder.append(align(cellAlign, sb, offset, styledCell, ""));
+                tableBuilder.append(align(cellAlign, sb, offset, styledCell, EMPTY));
 
                 if (j < list.size() - 1) {
-                    this.tableBuilder.append(vLine);
+                    tableBuilder.append(vLine);
                 }
                 clearStringBuilder(sb);
             }
 
             if(i == 0){
-                this.tableBuilder.append(Constants.NEWLINE).append(this.calculateHeader(sb));
+                tableBuilder.append(Constants.NEWLINE).append(this.appendHeader(sb));
                 clearStringBuilder(sb);
             }
 
-            this.tableBuilder.append(Constants.NEWLINE);
+            tableBuilder.append(Constants.NEWLINE);
         }
 
-        return this.tableBuilder.toString();
+        return tableBuilder.toString();
     }
 
     //Dynamically calculate the header for the table
-    public String calculateHeader(StringBuilder sb){
+    private String appendHeader(StringBuilder sb){
         for (int i = 0; i < this.columns.size(); i++) {
             final WidthAwareList col = this.columns.get(i);
             sb.repeat(hLine, col.longest());

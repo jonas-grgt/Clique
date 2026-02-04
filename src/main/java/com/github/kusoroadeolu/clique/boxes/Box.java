@@ -8,14 +8,7 @@ import java.io.PrintStream;
 public interface Box extends Renderable {
     @Deprecated(since = "1.2.1")
     Box configuration(BoxConfiguration boxConfiguration);
-
-    Box width(int width);
-
     Box content(String content);
-
-    Box length(int length);
-
     String buildBox();
-
     void render(PrintStream stream);
 }

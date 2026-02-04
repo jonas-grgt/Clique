@@ -25,38 +25,8 @@ public abstract class AbstractTable implements Table {
     }
 
     public AbstractTable(){
-        this.columns = new ArrayList<>();
-        this.rows = new ArrayList<>();
-        this.tableConfiguration = TableConfiguration.DEFAULT;
+        this(TableConfiguration.DEFAULT);
     }
-
-    //Add the headers to the table
-//    public AbstractTable addHeaders(String... headers){
-//
-//        if (this.headersAdded) {
-//            throw new IllegalStateException("Headers have already been added to this table");
-//        }
-//
-//        final WidthAwareList rl = new WidthAwareList();
-//        this.rows.add(rl);
-//
-//        for (int i = 0; i < headers.length; i++) {
-//            String header = headers[i];
-//            header = handleNulls(header, this.tableConfiguration.getNullReplacement());
-//            final Cell c = parseCell(header, this.tableConfiguration.getParser());
-//            rl.add(c);
-//            final WidthAwareList cl = new WidthAwareList(); //To keep track of all values in this column
-//            cl.add(c);
-//            this.columns.add(i, cl);
-//        }
-//
-//        this.headersAdded = true;
-//        return this;
-//    }
-//
-//    public Table addHeaders(Collection<String> headers) {
-//        return this.addHeaders(headers.toArray(String[]::new));
-//    }
 
     public Table addRows(Collection<String> rows) {
         return this.addRows(rows.toArray(String[]::new));
@@ -65,24 +35,22 @@ public abstract class AbstractTable implements Table {
     public AbstractTable addRows(String... rows){
         //Get the header's size
         final int headerSize = this.rows.getFirst().size();
-        final WidthAwareList rl = new WidthAwareList();
-        this.rows.add(rl);
+        final WidthAwareList rowList = new WidthAwareList();
+        this.rows.add(rowList);
 
         for (int i = 0; i < headerSize; i++) {
             String row;
-
             //Pad the cells with null replacements
-            if(i >= rows.length){
-                row = this.tableConfiguration.getNullReplacement();
-            }else {
+            if(i >= rows.length)row = this.tableConfiguration.getNullReplacement();
+            else {
                 row = rows[i];
                 row = handleNulls(row, this.tableConfiguration.getNullReplacement());
             }
 
             final Cell c = parseCell(row, this.tableConfiguration.getParser());
-            rl.add(c);
-            final WidthAwareList cl = this.columns.get(i);
-            cl.add(c);
+            rowList.add(c);
+            final WidthAwareList colList = this.columns.get(i);
+            colList.add(c);
         }
 
         return this;
@@ -155,17 +123,17 @@ public abstract class AbstractTable implements Table {
         public Table addHeaders(String... headers){
             if (headers == null || headers.length == 0) throw new IllegalArgumentException("Headers cannot be null or empty");
 
-            final WidthAwareList rl = new WidthAwareList();
-            table.rows.add(rl);
+            final var rowList = new WidthAwareList();
+            table.rows.add(rowList);
 
             for (int i = 0; i < headers.length; i++) {
                 String header = headers[i];
                 header = handleNulls(header, table.tableConfiguration.getNullReplacement());
-                final Cell c = parseCell(header, table.tableConfiguration.getParser());
-                rl.add(c);
-                final WidthAwareList cl = new WidthAwareList(); //To keep track of all values in this column
-                cl.add(c);
-                table.columns.add(i, cl);
+                final var cell = parseCell(header, table.tableConfiguration.getParser());
+                rowList.add(cell);
+                final var colList = new WidthAwareList(); //To keep track of all values in this column
+                colList.add(cell);
+                table.columns.add(i, colList);
             }
 
             return table;

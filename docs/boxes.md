@@ -18,8 +18,7 @@ Clique provides 4 built-in box styles:
 ### Creating a Simple Box
 ```java
 Box box = Clique.box(BoxType.CLASSIC)
-    .width(40)
-    .length(10)
+    .withDimensions(10, 20)  //Width, length
     .content("This is my first box");
     
 box.render(); // Print the box to terminal
@@ -31,8 +30,7 @@ box.render(); // Print the box to terminal
 - **Length** - The vertical size of the box (in lines)
 ```java
 Box box = Clique.box(BoxType.ROUNDED)
-    .width(50)
-    .length(5)
+    .withDimensions(50, 5)
     .content("A wider, shorter box")
     .render();
 ```
@@ -51,6 +49,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 
 Box box = Clique.box(BoxType.DOUBLE_LINE, config)
+    .noDimensions() //Sets the width and length to zero    
     .content("This box auto-sizes to fit content")
     .render();
 ```
@@ -90,6 +89,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 
 Box box = Clique.box(BoxType.ROUNDED, config)
+    .noDimensions()   
     .content("This box will size itself")
     .render();
 ```
@@ -110,7 +110,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .borderStyle(style)
     .build();
 
-Box box = Clique.box(BoxType.CLASSIC, config);
+BoxDimensionBuilder builder = Clique.box(BoxType.CLASSIC, config);
 ```
 
 #### Custom Parser
@@ -123,7 +123,7 @@ ParserConfiguration parserConfig = ParserConfiguration
     .build();
 
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .parser(Clique.parser().configuration(parserConfig))
+    .parser(Clique.parser(parserConfig))
     .build();
 ```
 
@@ -144,6 +144,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 
 Box box = Clique.box(BoxType.DOUBLE_LINE, config)
+    .noDimensions()    
     .content("[bold, blue]This is a configured box[/]")
     .render();
 ```
@@ -159,6 +160,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 
 Box box = Clique.customizableBox(BoxType.DEFAULT, config)
+    .noDimensions()   
     .customizeEdge('<')
     .customizeVerticalLine('~')
     .customizeHorizontalLine('-')
@@ -177,7 +179,7 @@ Box box = Clique.customizableBox(BoxType.DEFAULT, config)
 Boxes automatically parse markup tags in content:
 ```java
 Box box = Clique.box(BoxType.ROUNDED)
-    .width(50)
+    .withDimensions(40, 5)
     .content("[yellow, bold]Warning:[/] This is an important message that needs attention")
     .render();
 ```
@@ -187,7 +189,7 @@ Box box = Clique.box(BoxType.ROUNDED)
 Boxes handle newlines properly and will wrap text accordingly:
 ```java
 Box box = Clique.box(BoxType.CLASSIC)
-    .width(40)
+    .withDimensions(40, 10)
     .content(
         "[green, bold]Success![/]\n\n" +
         "Your operation completed successfully.\n" +
@@ -206,6 +208,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 
 Clique.box(BoxType.DOUBLE_LINE, config)
+    .noDimensions()
     .content("[red, bold]⚠ ALERT ⚠[/]\n\nSystem maintenance in progress")
     .render();
 ```
@@ -213,7 +216,7 @@ Clique.box(BoxType.DOUBLE_LINE, config)
 ### Info Box
 ```java
 Clique.box(BoxType.ROUNDED)
-    .width(60)
+    .withDimensions(60, 10)
     .content(
         "[blue, bold]ℹ Information[/]\n\n" +
         "This feature is currently in beta. " +
@@ -237,7 +240,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 
 Clique.box(BoxType.ROUNDED, config)
-    .width(50)
+    .withDimensions(50, 10)
     .content("[green, bold]✓ Build Successful[/]\n\nAll tests passed")
     .render();
 ```
@@ -245,7 +248,7 @@ Clique.box(BoxType.ROUNDED, config)
 ## Things to Watch Out For
 
 - **Emojis** will mess with width calculations. Try to avoid using them in boxes.
-- When using `autoSize`, you don't need to specify width or length.
+- When using `autoSize`, you don't need to specify width or length, you can just use `noDimensions()` method
 
 ## See Also
 

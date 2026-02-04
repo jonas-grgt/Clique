@@ -10,13 +10,13 @@ public class TableFactory {
         throw new AssertionError();
     }
 
-    public static TableHeaderBuilder getTable(TableType type, TableConfiguration config) {
+    public static TableHeaderBuilder getTableBuilder(TableType type, TableConfiguration config) {
         var table = table(type, config);
         return new TableHeaderBuilder(table);
     }
 
-    public static TableHeaderBuilder getTable(TableType type) {
-        return getTable(type, TableConfiguration.DEFAULT);
+    public static TableHeaderBuilder getTableBuilder(TableType type) {
+        return getTableBuilder(type, TableConfiguration.DEFAULT);
     }
 
     private static Table table(TableType type, TableConfiguration configuration) {
@@ -29,18 +29,18 @@ public class TableFactory {
         };
     }
 
-    public static CustomizableTableHeaderBuilder getCustomizableTable(TableType type, TableConfiguration config) {
+    public static CustomizableTableHeaderBuilder getCustomizableTableBuilder(TableType type, TableConfiguration config) {
         return switch (type) {
             case DEFAULT -> {
                 var table = table(type, config);
-                yield new CustomizableTableHeaderBuilder( table);
+                yield new CustomizableTableHeaderBuilder(table);
             }
             default -> throw new UnsupportedOperationException("Table type: %s is not customizable".formatted(type));
         };
     }
 
-    public static CustomizableTableHeaderBuilder getCustomizableTable(TableType type) {
-        return getCustomizableTable(type, TableConfiguration.DEFAULT);
+    public static CustomizableTableHeaderBuilder getCustomizableTableBuilder(TableType type) {
+        return getCustomizableTableBuilder(type, TableConfiguration.DEFAULT);
     }
 
 }
