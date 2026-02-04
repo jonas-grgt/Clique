@@ -8,13 +8,13 @@ import java.io.PrintStream;
 import static com.github.kusoroadeolu.clique.core.utils.AnsiDetector.ansiEnabled;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
-public non-sealed class StyleBuilderImpl implements StyleBuilder {
+public non-sealed class DefaultStyleBuilder implements StyleBuilder {
 
-    private final StringBuilder styledTextBuilder;
+    private final StringBuilder textBuilder;
     private final static AnsiCode RESET = StyleCode.RESET;
 
-    public StyleBuilderImpl(){
-        this.styledTextBuilder = new StringBuilder();
+    public DefaultStyleBuilder(){
+        this.textBuilder = new StringBuilder();
     }
 
     /**
@@ -51,7 +51,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * */
     @Override
     public StyleBuilder stack(String text, AnsiCode... ansiCodes) {
-        this.styledTextBuilder.append(this.style(text, ansiCodes));
+        this.textBuilder.append(this.style(text, ansiCodes));
         return this;
     }
 
@@ -64,7 +64,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
     @Override
     public StyleBuilder append(String text, AnsiCode... ansiCodes) {
         this.stack(text, ansiCodes);
-        this.styledTextBuilder.append(RESET);
+        this.textBuilder.append(RESET);
         return this;
     }
 
@@ -72,7 +72,7 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * @return the content of the string builder
      * */
     public String get(){
-        return this.styledTextBuilder.toString();
+        return this.textBuilder.toString();
     }
 
     /**
@@ -80,8 +80,8 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
      * */
     @Override
     public void print(PrintStream stream) {
-        this.styledTextBuilder.append(RESET); //Reset all styles
-        stream.println(this.styledTextBuilder);
+        this.textBuilder.append(RESET); //Reset all styles
+        stream.println(this.textBuilder);
     }
 
     //A helper method to style text with the given codes
@@ -102,26 +102,26 @@ public non-sealed class StyleBuilderImpl implements StyleBuilder {
     }
 
     public void flush() {
-        clearStringBuilder(styledTextBuilder);
+        clearStringBuilder(textBuilder);
     }
 
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
 
-        StyleBuilderImpl that = (StyleBuilderImpl) object;
-        return styledTextBuilder.compareTo(that.styledTextBuilder) == 0;
+        DefaultStyleBuilder that = (DefaultStyleBuilder) object;
+        return textBuilder.compareTo(that.textBuilder) == 0;
     }
 
     @Override
     public int hashCode() {
-        return styledTextBuilder.hashCode();
+        return textBuilder.hashCode();
     }
 
     @Override
     public String toString() {
-        return "StyleBuilderImpl[" +
-                "styledText" + styledTextBuilder +
+        return "DefaultStyleBuilder[" +
+                "text" + textBuilder +
                 ']';
     }
 }

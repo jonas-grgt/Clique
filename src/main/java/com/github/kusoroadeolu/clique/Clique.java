@@ -7,14 +7,14 @@ import com.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimension
 import com.github.kusoroadeolu.clique.config.*;
 import com.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import com.github.kusoroadeolu.clique.indent.Indenter;
-import com.github.kusoroadeolu.clique.indent.IndenterImpl;
+import com.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import com.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
 import com.github.kusoroadeolu.clique.parser.GlobalParserRegistry;
 import com.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import com.github.kusoroadeolu.clique.progressbar.ProgressBarStyle;
+import com.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import com.github.kusoroadeolu.clique.style.StyleBuilder;
-import com.github.kusoroadeolu.clique.style.StyleBuilderImpl;
 import com.github.kusoroadeolu.clique.tables.*;
 import com.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
 import com.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
@@ -31,7 +31,7 @@ import java.util.Optional;
  * */
 public final class Clique {
     public static StyleBuilder styleBuilder(){
-        return new StyleBuilderImpl();
+        return new DefaultStyleBuilder();
     }
 
     public static AnsiStringParser parser(){
@@ -58,6 +58,14 @@ public final class Clique {
         return TableFactory.getCustomizableTableBuilder(type, configuration);
     }
 
+    public static CustomizableTableHeaderBuilder customizableTable(){
+        return customizableTable(TableConfiguration.DEFAULT);
+    }
+
+    public static CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration){
+        return customizableTable(TableType.DEFAULT, configuration);
+    }
+
     public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration){
         return BoxFactory.getBoxDimensionBuilder(type, configuration);
     }
@@ -75,11 +83,11 @@ public final class Clique {
     }
 
     public static Indenter indenter(){
-        return new IndenterImpl();
+        return new DefaultIndenter();
     }
 
     public static Indenter indenter(IndenterConfiguration indenterConfiguration){
-        return new IndenterImpl(indenterConfiguration);
+        return new DefaultIndenter(indenterConfiguration);
     }
 
     public static ProgressBar progressBar(int total){

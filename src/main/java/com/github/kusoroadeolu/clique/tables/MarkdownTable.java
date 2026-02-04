@@ -21,7 +21,7 @@ public class MarkdownTable extends AbstractTable {
 
     }
 
-    public String buildTable() {
+    public String get() {
         final var tableBuilder = new StringBuilder();
         final var sb = new StringBuilder();
 

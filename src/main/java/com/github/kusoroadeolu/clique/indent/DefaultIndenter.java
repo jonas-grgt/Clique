@@ -13,18 +13,18 @@ import java.util.Objects;
 import static com.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static com.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
-public class IndenterImpl implements Indenter{
+public class DefaultIndenter implements Indenter{
     private final Deque<Indent> indents;
     private String currentFlag;
     private int currentLevel; //The current indent level
     private final StringBuilder sb;
     private final IndenterConfiguration configuration;
 
-    public IndenterImpl(){
+    public DefaultIndenter(){
         this(IndenterConfiguration.DEFAULT);
     }
 
-    public IndenterImpl(IndenterConfiguration indenterConfiguration){
+    public DefaultIndenter(IndenterConfiguration indenterConfiguration){
         this.indents = new ArrayDeque<>();
         this.sb = new StringBuilder();
         this.configuration = indenterConfiguration;
@@ -119,17 +119,9 @@ public class IndenterImpl implements Indenter{
         return this;
     }
 
-    public void print(PrintStream stream){
-        stream.println(this.sb);
-    }
 
     public String get(){
         return this.sb.toString();
-    }
-
-
-    public void clear(){
-        clearStringBuilder(this.sb);
     }
 
     public void flush() {
@@ -137,10 +129,11 @@ public class IndenterImpl implements Indenter{
         this.resetLevel();
     }
 
-    public String parseString(String str){
+    private String parseString(String str){
         if (this.configuration.getParser() != null){
             str = this.configuration.getParser().parse(str);
         }
+
         return str;
     }
 
@@ -153,7 +146,7 @@ public class IndenterImpl implements Indenter{
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
 
-        IndenterImpl indenter = (IndenterImpl) object;
+        DefaultIndenter indenter = (DefaultIndenter) object;
         return currentLevel == indenter.currentLevel && indents.equals(indenter.indents) && currentFlag.equals(indenter.currentFlag) && sb.equals(indenter.sb) && configuration.equals(indenter.configuration);
     }
 

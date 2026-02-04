@@ -190,12 +190,6 @@ String result = indenter.get();
 System.out.println(result);
 ```
 
-### Clear Content
-```java
-// Clear content but keep indent levels
-indenter.clear();
-```
-
 ### Flush Everything
 ```java
 // Clear content AND reset indent levels

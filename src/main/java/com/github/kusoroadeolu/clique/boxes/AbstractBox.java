@@ -137,7 +137,7 @@ public abstract class AbstractBox implements Box {
     }
 
     public void render(PrintStream stream) {
-        stream.println(this.buildBox());
+        stream.println(this.get());
     }
 
 

@@ -21,7 +21,7 @@ public class CompactTable extends AbstractTable {
         this.styleTableBorders();
     }
 
-    public String buildTable() {
+    public String get() {
         final var tableBuilder = new StringBuilder();
         final StringBuilder sb = new StringBuilder();
 

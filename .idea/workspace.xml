@@ -5,35 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e16c54f-3088-4e4f-a657-0dfc1622ddde" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/boxes.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/boxes.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/Clique.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/Clique.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/AbstractBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/AbstractBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/Box.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/BoxFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/boxes/BoxFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ParserConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/config/ParserConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/core/utils/StringUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/TokenExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/parser/TokenExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/AbstractTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/AbstractTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/BoxDrawTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/BoxDrawTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/CompactTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/CompactTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/DefaultTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/DefaultTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/MarkdownTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/MarkdownTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/Table.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/TableFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/kusoroadeolu/clique/tables/TableFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/AnsiStringParserImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/TokenExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/kusoroadeolu/clique/parser/TokenExtractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-2.0.0-javadoc.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-2.0.0-sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/clique-2.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-javadoc-plugin-stale-data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/github/kusoroadeolu/clique/parser/TokenExtractorTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +267,7 @@
       <workItem from="1770129600151" duration="13775000" />
       <workItem from="1770154166553" duration="4495000" />
       <workItem from="1770166427611" duration="35000" />
-      <workItem from="1770221181247" duration="4220000" />
+      <workItem from="1770221181247" duration="4520000" />
     </task>
     <servers />
   </component>

@@ -2,9 +2,11 @@ package com.github.kusoroadeolu.clique.core.display;
 
 import java.io.PrintStream;
 
-public interface Renderable {
+public interface Generated extends Component{
     default void render(){
         this.render(System.out);
     }
-    void render(PrintStream stream);
+    default void render(PrintStream stream){
+        stream.println(get());
+    }
 }

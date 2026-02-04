@@ -2,11 +2,12 @@ package com.github.kusoroadeolu.clique.core.display;
 
 import java.io.PrintStream;
 
-public interface Printable {
+public interface Accumulated extends Component{
     default void print(){
         this.print(System.out);
     }
-    void print(PrintStream stream);
-    String get();
+    default void print(PrintStream stream){
+        stream.println(get());
+    }
     void flush();
 }

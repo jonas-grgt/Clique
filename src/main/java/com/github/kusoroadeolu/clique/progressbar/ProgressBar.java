@@ -2,7 +2,7 @@ package com.github.kusoroadeolu.clique.progressbar;
 
 import com.github.kusoroadeolu.clique.config.EasingConfiguration;
 import com.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
-import com.github.kusoroadeolu.clique.core.display.Renderable;
+import com.github.kusoroadeolu.clique.core.display.Generated;
 
 import java.io.PrintStream;
 import java.util.Objects;
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import static com.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static com.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 
-public final class ProgressBar implements Renderable {
+public final class ProgressBar implements Generated {
     int currentTick;
     final int total;
     boolean isDone;

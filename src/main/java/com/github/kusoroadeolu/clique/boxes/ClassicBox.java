@@ -33,7 +33,7 @@ public class ClassicBox extends AbstractBox {
         this.initBorders();
     }
 
-    public String buildBox() {
+    public String get() {
         return handleDimensionsEx(() -> {
             this.wrapWord();
             final StringBuilder sb = new StringBuilder();

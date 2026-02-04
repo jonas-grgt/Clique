@@ -31,7 +31,7 @@ public class DefaultBox extends AbstractBox implements CustomizableBox {
         throw new DeprecatedMethodException("Deprecated method. Use constructor configurations instead");
     }
 
-    public String buildBox() {
+    public String get() {
         return handleDimensionsEx(() -> {
             this.wrapWord();
             final StringBuilder sb = new StringBuilder();

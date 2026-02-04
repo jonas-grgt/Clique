@@ -44,8 +44,7 @@ public class BoxDrawTable extends AbstractTable{
         this.styleTableBorders();
     }
 
-    @Override
-    public String buildTable() {
+    public String get() {
         //Declarations
         var tableBuilder = new StringBuilder();
         final StringBuilder sb = new StringBuilder();

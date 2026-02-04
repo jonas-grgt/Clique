@@ -1,11 +1,11 @@
 package com.github.kusoroadeolu.clique.style;
 
 import com.github.kusoroadeolu.clique.ansi.AnsiCode;
-import com.github.kusoroadeolu.clique.core.display.Printable;
+import com.github.kusoroadeolu.clique.core.display.Accumulated;
 
 import java.io.PrintStream;
 
-public sealed interface StyleBuilder extends Printable permits StyleBuilderImpl {
+public sealed interface StyleBuilder extends Accumulated permits DefaultStyleBuilder {
     String format(String text, AnsiCode... ansiCodes);
     String formatReset(String text, AnsiCode... ansiCodes);
     StyleBuilder stack(String text, AnsiCode... ansiCodes);

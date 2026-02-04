@@ -1,12 +1,12 @@
 package com.github.kusoroadeolu.clique.indent;
 
 import com.github.kusoroadeolu.clique.config.IndenterConfiguration;
-import com.github.kusoroadeolu.clique.core.display.Printable;
+import com.github.kusoroadeolu.clique.core.display.Accumulated;
 
 import java.io.PrintStream;
 import java.util.Collection;
 
-public interface Indenter extends Printable {
+public interface Indenter extends Accumulated {
     @Deprecated(since = "1.2.1")
     Indenter configuration(IndenterConfiguration configuration);
 
@@ -32,15 +32,9 @@ public interface Indenter extends Printable {
 
     Indenter unindent();
 
-    void print(PrintStream stream);
-
     String get();
 
-    void clear();
-
     void flush();
-
-    String parseString(String str);
 
     Indenter resetLevel();
 }

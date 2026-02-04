@@ -4,7 +4,6 @@ import com.github.kusoroadeolu.clique.config.TableConfiguration;
 import com.github.kusoroadeolu.clique.tables.structures.Cell;
 import com.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -85,13 +84,7 @@ public abstract class AbstractTable implements Table {
         return this;
     }
 
-    public void render(PrintStream stream) {
-        stream.println(this.buildTable());
-    }
-
     protected abstract void styleTableBorders();
-
-    public abstract String buildTable();
 
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;

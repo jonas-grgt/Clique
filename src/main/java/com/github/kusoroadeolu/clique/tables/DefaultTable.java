@@ -24,7 +24,7 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
 
     }
 
-    public String buildTable(){
+    public String get(){
         //Declarations
         final var tableBuilder = new StringBuilder();
         final var sb = new StringBuilder();
