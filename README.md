@@ -5,19 +5,10 @@ A dependency free mini, customizable and extensible CLI library for beautifying 
 ![Clique Hero](images/clique-hero.png)
 
 ## Why Clique?
+![Ansi Comparison](images/ansi-comparison.png)
 
-Raw ANSI codes are ugly and hard to read:
-```java
-System.out.println("\u001B[31m\u001B[1mError:\u001B[0m File not found");
-```
-
-Clique makes it clean:
-```java
-Clique.parser().print("[blue, bold]Clique is awesome![/]");
-```
 
 ## Quick Start
-
 [![](https://jitpack.io/v/kusoroadeolu/Clique.svg)](https://jitpack.io/#kusoroadeolu/Clique)
 
 ### Maven
@@ -83,6 +74,8 @@ Clique.table(TableType.DEFAULT)
     .addRows("Bob", "30", "Inactive")
     .render();
 ```
+![Sample Table](images/sample-table.png)
+
 
 ### Boxes
 Single-cell boxes with text wrapping:
@@ -92,6 +85,7 @@ Clique.box(BoxType.ROUNDED)
     .content("Your message here")
     .render();
 ```
+![Sample box](images/sample-box.png)
 
 ### Indenter
 Create hierarchical text structures:
@@ -103,6 +97,8 @@ Clique.indenter()
     .add("Nested item")
     .print();
 ```
+![Sample Indenter](images/sample-indenter.png)
+
 
 ### StyleBuilder
 Fluent API for building styled strings:
@@ -123,6 +119,7 @@ while (!bar.isDone()) {
     Thread.sleep(50);
 }
 ```
+![Sample progress bar](images/sample-pg-bar.png)
 
 ## Documentation
 
