@@ -88,7 +88,7 @@ Clique.table(TableType.DEFAULT)
 Single-cell boxes with text wrapping:
 ```java
 Clique.box(BoxType.ROUNDED)
-    .width(40)
+    .withDimensions(40, 10) //Width, length
     .content("Your message here")
     .render();
 ```

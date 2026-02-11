@@ -89,12 +89,9 @@ class AnsiStringParserImplTest {
 
 }
 class CompositeStyle implements AnsiCode {
-    private final AnsiCode[] codes;
     private final String compositeCode;
 
     public CompositeStyle(AnsiCode... codes) {
-        this.codes = codes;
-        // Pre-compute the composite code
         StringBuilder sb = new StringBuilder();
         for (AnsiCode code : codes) {
             sb.append(code.toString());

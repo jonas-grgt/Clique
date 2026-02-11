@@ -15,7 +15,7 @@ class TableTest {
         Table table = Clique.table(TableType.DEFAULT)
                 .addHeaders("A", "B")
                 .addRows("1", "2");
-        String output = table.buildTable();
+        String output = table.get();
 
         assertNotNull(output);
         assertTrue(output.contains("A"));
@@ -30,7 +30,7 @@ class TableTest {
                 .addHeaders("A", "B")
                 .addRows("1", "2");
         table.updateCell(1, 0, "99");
-        String output = table.buildTable();
+        String output = table.get();
         assertTrue(output.contains("99"));
     }
 

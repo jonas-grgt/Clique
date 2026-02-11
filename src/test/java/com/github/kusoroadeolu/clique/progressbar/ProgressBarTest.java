@@ -1,9 +1,8 @@
 package com.github.kusoroadeolu.clique.progressbar;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProgressBarTest {
@@ -29,14 +28,14 @@ class ProgressBarTest {
     @Test
     void testTickCannotExceedTotal() {
         ProgressBar bar = new ProgressBar(10);
-        bar.tick(15);  // Try to go over
+        bar.tick(15);
         assertEquals(10, bar.currentTick);  // Should cap at total
     }
 
     @Test
     void testTickCannotGoNegative() {
         ProgressBar bar = new ProgressBar(100);
-        bar.tick(-50);  // Try negative tick
+        bar.tick(-50);
         assertEquals(0, bar.currentTick);  // Should stay at 0
     }
 

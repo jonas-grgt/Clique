@@ -9,11 +9,9 @@ class BoxTest {
     @Test
     void testBoxWidth() {
         Box box = Clique.box(BoxType.ROUNDED)
-                .width(50)
-                .length(10)
+                .withDimensions(50, 10)
                 .content("Test");
-        String output = box.buildBox();
-        // Verify box respects width constraint
+        String output = box.get();
         String[] lines = output.split("\n");
         assertTrue(lines[0].length() <= 52); // Width + borders
     }
