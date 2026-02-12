@@ -66,8 +66,8 @@ All themes implement the `CliqueTheme` interface from the `Clique` library:
 ```java
 package com.example.mytheme;
 
-import com.github.kusoroadeolu.clique.ansi.AnsiCode;
-import com.github.kusoroadeolu.clique.themes.CliqueTheme;
+import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadelu.clique.spi.CliqueTheme;
 
 import java.util.Map;
 
@@ -105,8 +105,8 @@ Start by implementing the `CliqueTheme` interface:
 ```java
 package com.example.themes;
 
-import com.github.kusoroadeolu.clique.ansi.AnsiCode;
-import com.github.kusoroadeolu.clique.themes.CliqueTheme;
+import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadelu.clique.spi.CliqueTheme;
 
 import java.util.Map;
 
@@ -173,7 +173,7 @@ public class SolarizedDarkTheme implements CliqueTheme {
 
 Create a service provider configuration file so Java's ServiceLoader can find your theme.
 
-**File location:** `src/main/resources/META-INF/services/com.github.kusoroadeolu.clique.themes.CliqueTheme`
+**File location:** `src/main/resources/META-INF/services/io.github.kusoroadelu.clique.spi.CliqueTheme`
 
 **File content:**
 ```
@@ -309,7 +309,7 @@ my-clique-themes/
 │       └── resources/
 │           └── META-INF/
 │               └── services/
-│                   └── com.github.kusoroadeolu.clique.themes.CliqueTheme
+│                   └── io.github.kusoroadelu.clique.spi.CliqueTheme
 └── pom.xml (or build.gradle)
 ```
 
@@ -390,7 +390,7 @@ private static class CustomAnsiCode implements AnsiCode {
 
 **Solution:** Ensure you have the service provider file at:
 ```
-src/main/resources/META-INF/services/com.github.kusoroadeolu.clique.themes.CliqueTheme
+src/main/resources/META-INF/services/io.github.kusoroadelu.clique.spi.CliqueTheme
 ```
 
 ### Forgetting toString() Implementation
@@ -428,8 +428,8 @@ Here's a complete, production-ready theme implementation:
 ```java
 package com.example.themes;
 
-import com.github.kusoroadeolu.clique.ansi.AnsiCode;
-import com.github.kusoroadeolu.clique.themes.CliqueTheme;
+import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadelu.clique.spi.CliqueTheme;
 
 import java.util.HashMap;
 import java.util.Map;

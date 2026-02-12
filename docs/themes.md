@@ -66,7 +66,7 @@ dependencies {
 Register and use a theme in your application:
 
 ```java
-import com.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.Clique;
 
 public class App {
     public static void main(String[] args) {

@@ -6,7 +6,7 @@
 
 ### New Features
 #### Progress Bars
-- Brand new progress bar component with extensive customization options:
+- Brand-new progress bar component with extensive customization options:
 - Multiple predefined styles (Blocks, Lines, Bold, Classic, Dots)
 - Custom format strings with placeholders (:bar, :percent, :elapsed, :remaining)
 - Dynamic styling based on progress ranges
@@ -66,15 +66,37 @@ box.withDimensions(5, 5) //Width, Length
 box1.withNoDimensions().content("Class A")
 ```
 
+**Before (v2.0.0):**
+```java
+StyleBuilder builder = new DefaultStyleBuilder();
+builder.formatReset("sometext", StyleCode.DIM);
+```
+**After (v3.0.0):**
+```java
+StyleBuilder builder = new DefaultStyleBuilder();
+builder.formatAndReset("sometext", StyleCode.DIM);
+```
+
 - Boxes and Tables no longer use `buildBox()` and `buildTable()` to get their strings, they now use `get()` along with other components unifying and simplifying the API
 
-- `Clique.parser()` is now fully immutable after construction. `getOriginalStri[config](src/main/java/com/github/kusoroadeolu/clique/config)ng()` now requires for the string to be passed as a parameter to support this change fully i.e. `getOriginalString(someString)` 
+- `Clique.parser()` is now fully immutable after construction. `getOriginalString()` now requires for the string to be passed as a parameter to support this change fully i.e. `getOriginalString(someString)` 
 
 - **Removed Mutators:** All deprecated setter methods on `BoxConfiguration`, `BorderStyle`, `IndenterConfiguration`, `ParserConfiguration`, and `TableConfiguration` have been removed.
 
 - **Builder Pattern Enforcement:** You can no longer modify a configuration object once it is created.
 
 - **Static Factory Removal:** Removed the legacy `.builder()` static methods from configuration classes to favor a unified building experience.
+
+- **Namespace Migration (com to io)**: To align with modern publishing standards, the base package has been renamed.
+</br> Old: com.github.kusoroadeolu.clique
+</br> New: io.github.kusoroadeolu.clique
+Action Required: Global search and replace `com.github.kusoroadeolu` with `io.github.kusoroadeolu` in your imports.
+
+- **Multi-Module Project Structure:** The project has been split into three modules to reduce footprint and improve extensibility.
+</br> clique-spi: Theme interface definitions 
+</br> clique-core: The main library
+</br> clique-themes: The optional theme pack (Dracula, Nord, etc.).
+
 
 #### Refactored API
 - **Interface Slimming:** `Box` and `AnsiStringParser` interfaces no longer contain .configuration() methods. Configuration is now strictly handled at the instantiation/builder phase.
