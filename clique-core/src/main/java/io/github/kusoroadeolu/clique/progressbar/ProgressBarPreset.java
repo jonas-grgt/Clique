@@ -6,7 +6,7 @@ import io.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
 /**
  * Predefined progress bar configs with sensible defaults.
  */
-public enum DefaultProgressBarStyle implements ProgressBarStyle {
+public enum ProgressBarPreset {
 
     BLOCKS {
         @Override
@@ -69,7 +69,8 @@ public enum DefaultProgressBarStyle implements ProgressBarStyle {
                 .format(":bar :percent%")
                 .build();
         }
-    }
+    };
 
 
+    public abstract ProgressBarConfiguration getConfiguration();
 }

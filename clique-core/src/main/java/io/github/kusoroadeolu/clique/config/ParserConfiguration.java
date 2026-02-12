@@ -11,9 +11,7 @@ public class ParserConfiguration {
 
     //Default Configuration
     private ParserConfiguration(){
-        this.delimiter = String.valueOf(',');
-        this.enableStrictParsing = false;
-        this.enableAutoCloseTags = false;
+        this(new ParserConfigurationBuilder());
     }
 
     private ParserConfiguration(ParserConfigurationBuilder builder) {

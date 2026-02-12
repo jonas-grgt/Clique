@@ -19,24 +19,15 @@ For themes to display correctly with their full color palette, your terminal mus
   Without truecolor support, themes may appear with reduced color accuracy or fall back to the nearest 256-color approximation.
 
 ## Setup
-To create custom themes, you only need the core Clique library:
+To create custom themes, you only need the clique-spi library:
 
 ### Maven
 ```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-
-<dependencies>
 <dependency>
-    <groupId>com.github.kusoroadeolu</groupId>
-    <artifactId>Clique</artifactId>
-    <version>v2.0.0</version>
+    <groupId>io.github.kusoroadeolu</groupId>
+    <artifactId>clique-spi</artifactId>
+    <version>1.0.1</version>
 </dependency>
-</dependencies>
 ```
 
 ### Gradle
@@ -64,13 +55,6 @@ dependencies {
 All themes implement the `CliqueTheme` interface from the `Clique` library:
 
 ```java
-package com.example.mytheme;
-
-import io.github.kusoroadelu.clique.spi.AnsiCode;
-import io.github.kusoroadelu.clique.spi.CliqueTheme;
-
-import java.util.Map;
-
 public class MyCustomTheme implements CliqueTheme {
 
     @Override
@@ -103,13 +87,6 @@ public class MyCustomTheme implements CliqueTheme {
 Start by implementing the `CliqueTheme` interface:
 
 ```java
-package com.example.themes;
-
-import io.github.kusoroadelu.clique.spi.AnsiCode;
-import io.github.kusoroadelu.clique.spi.CliqueTheme;
-
-import java.util.Map;
-
 public class SolarizedDarkTheme implements CliqueTheme {
     
     @Override
@@ -149,6 +126,14 @@ public class SolarizedDarkTheme implements CliqueTheme {
         );
     }
     
+    public String author(){
+        return "someone";
+    }
+    
+    public String url(){
+        return "url";
+    }
+    
     // Helper method to create RGB colors
     private static AnsiCode rgb(int r, int g, int b) {
         return rgb(r, g, b, false);
@@ -173,7 +158,7 @@ public class SolarizedDarkTheme implements CliqueTheme {
 
 Create a service provider configuration file so Java's ServiceLoader can find your theme.
 
-**File location:** `src/main/resources/META-INF/services/io.github.kusoroadelu.clique.spi.CliqueTheme`
+**File location:** `src/main/resources/META-INF/services/io.github.kusoroadeolu.clique.spi.CliqueTheme`
 
 **File content:**
 ```
@@ -259,10 +244,10 @@ Use lowercase with hyphens for the theme name:
 @Override
 public String themeName() {
     return "my-awesome-theme";  // ✓ Good
-    // return "MyAwesomeTheme"  // ✗ Avoid
-    // return "my_awesome_theme" // ✗ Use hyphens
 }
 ```
+
+Try avoiding using hyphens or camelcase for theme names
 
 ## Testing Your Theme
 
@@ -309,7 +294,7 @@ my-clique-themes/
 │       └── resources/
 │           └── META-INF/
 │               └── services/
-│                   └── io.github.kusoroadelu.clique.spi.CliqueTheme
+│                   └── io.github.kusoroadeolu.clique.spi.CliqueTheme
 └── pom.xml (or build.gradle)
 ```
 
@@ -386,18 +371,14 @@ private static class CustomAnsiCode implements AnsiCode {
 
 ### Missing Service Provider Configuration
 
-**Problem:** Theme isn't discovered by `CliqueThemes.discover()`
-
-**Solution:** Ensure you have the service provider file at:
+Theme isn't discovered by `CliqueThemeLoader.discover()`, so always ensure you have the service provider file at:
 ```
-src/main/resources/META-INF/services/io.github.kusoroadelu.clique.spi.CliqueTheme
+src/main/resources/META-INF/services/io.github.kusoroadeolu.clique.spi.CliqueTheme
 ```
 
 ### Forgetting toString() Implementation
 
-**Problem:** Colors don't appear, or you see object addresses like `CustomAnsiCode@1a2b3c4d`
-
-**Solution:** Always implement `toString()` in your `AnsiCode` implementation to return the actual ANSI escape code string:
+Colors don't appear, or you see object addresses like `CustomAnsiCode@1a2b3c4d`. Therefore, always implement `toString()` in your `AnsiCode` implementation to return the actual ANSI escape code string:
 ```java
 private record CustomAnsiCode(String code) implements AnsiCode {
     @Override
@@ -408,9 +389,7 @@ private record CustomAnsiCode(String code) implements AnsiCode {
 ```
 
 ### Conflicting Color Names
-**Problem:** Colors from different themes could override each other
-
-**Solution:** Always prefix your color names with your theme identifier:
+ Colors from different themes could override each other, hence always prefix your color names with your theme identifier:
 ```java
 // Good
 "mytheme_red"
@@ -428,8 +407,8 @@ Here's a complete, production-ready theme implementation:
 ```java
 package com.example.themes;
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
-import io.github.kusoroadelu.clique.spi.CliqueTheme;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 
 import java.util.HashMap;
 import java.util.Map;

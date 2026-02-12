@@ -21,7 +21,7 @@ This simple interface returns the ANSI escape sequence as a string. When you cre
 Add full 24-bit RGB colors to your terminal output:
 
 ```java
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 public class RGBColor implements AnsiCode {
     private final String code;
@@ -150,7 +150,7 @@ Here's a complete example integrating the Catppuccin Mocha color palette:
 
 ```java
 import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import ansi.io.github.kusoroadeolu.clique.StyleCode;
 
 import java.util.HashMap;

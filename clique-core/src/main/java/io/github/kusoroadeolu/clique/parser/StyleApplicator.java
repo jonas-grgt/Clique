@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.parser;
 
 
 import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.core.exceptions.ParseProblemException;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 

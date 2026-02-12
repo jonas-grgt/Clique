@@ -1,6 +1,6 @@
 package io.github.kusoroadeolu.clique.parser;
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.ansi.BackgroundCode;
 import io.github.kusoroadeolu.clique.ansi.ColorCode;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
@@ -83,5 +83,5 @@ final class StyleMaps {
             Map.entry("strike", StyleCode.STRIKETHROUGH)
     );
 
-     static final Map<String, AnsiCode> GLOBAL_CUSTOM_CODES = new ConcurrentHashMap<>();
+     static final Map<String, AnsiCode> CUSTOM_STYLE_CODES = new ConcurrentHashMap<>();
 }

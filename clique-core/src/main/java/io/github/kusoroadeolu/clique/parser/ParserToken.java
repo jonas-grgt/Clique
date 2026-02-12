@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.parser;
 
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.List;
 

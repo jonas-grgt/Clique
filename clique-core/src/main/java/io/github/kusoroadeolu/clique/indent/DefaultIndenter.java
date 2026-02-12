@@ -3,13 +3,10 @@ package io.github.kusoroadeolu.clique.indent;
 import io.github.kusoroadeolu.clique.config.IndenterConfiguration;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 
-import java.util.ArrayDeque;
-import java.util.Collection;
-import java.util.Deque;
-import java.util.Objects;
+import java.util.*;
 
-import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
+import static java.util.Objects.requireNonNull;
 
 public class DefaultIndenter implements Indenter{
     private final Deque<Indent> indents;
@@ -30,11 +27,10 @@ public class DefaultIndenter implements Indenter{
     }
 
     public Indenter indent(int level, String flag){
-
+        requireNonNull(flag, "Flag cannot be null");
         if(level < 0) throw new IllegalArgumentException("Level cannot be less than 0");
-
-        this.currentLevel += level;
         flag = parseString(flag);
+        this.currentLevel += level;
 
         this.currentFlag = flag;
         this.indents.push(new Indent(this.currentFlag, this.currentLevel));
@@ -46,11 +42,11 @@ public class DefaultIndenter implements Indenter{
     }
 
     public Indenter indent(int level, Flag flag){
+        requireNonNull(flag, "Flag cannot be null");
         return this.indent(level, flag.flag()) ;
     }
 
     public Indenter indent(String flag){
-        if(this.indents.isEmpty()) return this.indent(this.configuration.getIndentLevel(), EMPTY);
         return this.indent(this.configuration.getIndentLevel(), flag);
     }
 
@@ -62,27 +58,22 @@ public class DefaultIndenter implements Indenter{
         return this.indent(Constants.BLANK);
     }
 
-    public Indenter add(String... arr){
-        for (String s : arr){
-            this.add(s);
-        }
-
+    public Indenter add(String... args){
+        requireNonNull(args, "Args cannot be null");
+        Arrays.stream(args).forEach(this::add);
         return this;
     }
 
-    public Indenter add(Collection<String> list){
-        list.forEach(this::add);
+    public Indenter add(Collection<String> coll){
+        requireNonNull(coll, "Collection cannot be null");
+        coll.forEach(this::add);
         return this;
     }
 
     public Indenter add(String str){
-        if (this.currentLevel == 0){ //If the current level hasn't been set, indent the str
-            this.indent();
-        }
+        if (this.currentLevel == 0) this.indent(); //If the current level hasn't been set, indent the str
 
-        if(!this.indents.isEmpty()){
-            this.sb.append(Constants.BLANK.repeat(this.currentLevel - 1));
-        }
+        if(!this.indents.isEmpty()) this.sb.append(Constants.BLANK.repeat(this.currentLevel - 1));
 
         this.sb.append(this.currentFlag)
                 .append(parseString(str))
@@ -91,13 +82,12 @@ public class DefaultIndenter implements Indenter{
     }
 
     public Indenter add(Object object){
+        requireNonNull(object, "Object cannot be null");
         return this.add(object.toString());
     }
 
     public Indenter unindent(){
-        if(this.indents.isEmpty()){
-            return this;
-        }
+        if(this.indents.isEmpty())return this;
 
         this.indents.pop(); //Remove the top flag
 
@@ -118,6 +108,7 @@ public class DefaultIndenter implements Indenter{
     }
 
     public void flush() {
+        this.indents.clear();
         clearStringBuilder(this.sb);
         this.resetLevel();
     }

@@ -1,6 +1,6 @@
 # Parser
 
-Clique's parser allows you to use a simple markup format for styling text instead of verbose progressBarConfigurationBuilder calls or raw ANSI codes.
+Clique's parser allows you to use a simple markup format for styling text instead of verbose `styleBuilder` calls or raw ANSI codes.
 
 ## Basic Usage
 ### Parse and Print
@@ -70,7 +70,7 @@ Thrown when tags are malformed:
 parser.parse("[[[red]]]Text[/]");
 ```
 
-**Note:** Without strict parsing enabled, invalid styles are simply ignored.
+**Note:** Without strict parsing enabled, invalid styles are simply ignored and printed as is
 
 ## Escaping Special Characters
 

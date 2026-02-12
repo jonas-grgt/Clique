@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.style;
 
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.core.display.Accumulated;
 
 import java.io.PrintStream;

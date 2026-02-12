@@ -67,7 +67,7 @@ easingConfigurationBuilder.append("Loading... ", ColorCode.YELLOW).print();
 easingConfigurationBuilder.append("Done!", ColorCode.GREEN).print();
 ```
 
-## Table Tips
+## Some Table Tips
 
 ### Customizable Table Shorthand
 
@@ -80,19 +80,19 @@ TableConfiguration config = TableConfiguration
     .build();
 
 Clique.customizableTable(TableType.DEFAULT, config)
+    .addHeaders("Col1", "Col2")
     .customizeEdge('*')
     .customizeHorizontalLine('=')
     .customizeVerticalLine('|')
-    .addHeaders("Col1", "Col2")
     .addRows("A", "B")
     .render();
 
 // Without configuration (uses defaults)
 Clique.customizableTable(TableType.DEFAULT)
+    .addHeaders("Name", "Age")
     .customizeEdge('+')
     .customizeHorizontalLine('-')
     .customizeVerticalLine('|')
-    .addHeaders("Name", "Age")
     .addRows("Alice", "25")
     .render();
 ```
@@ -119,19 +119,19 @@ table.render();
 
 ### Getting Table Strings
 
-Use `buildTable()` to get the table as a string without printing:
+Use `get()` to get the table as a string without printing:
 ```java
 Table table = Clique.table(TableType.MARKDOWN)
     .addHeaders("Item", "Price")
     .addRows("Widget", "$10");
 
-String tableString = table.buildTable();
+String tableString = table.get();
 
 // Now you can log it, save it, or process it
 logger.info(tableString);
 ```
 
-## Box Tips
+## Some Box Tips
 
 ### Auto-Sizing Boxes
 
@@ -143,13 +143,14 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
 
 // No width/length needed
 Clique.box(BoxType.ROUNDED, config)
+    .noDimensions()
     .content("This box sizes itself automatically")
     .render();
 ```
 
 ### Multi-line Content
 
-Boxes handle newlines properly, so you can use `\n` for line breaks:
+Boxes handle newlines properly, so you can use `\n` for line breaks, though they don't handle preformatted content well
 ```java
 Clique.box(BoxType.CLASSIC)
     .width(50)
@@ -182,13 +183,13 @@ parser.print("[red bold]Hello[/] [blue italic]World[/]");
 
 Enable strict parsing to catch errors during development:
 ```java
-// Strict mode - throws exceptions for invalid styles
+// Strict mode will throw exceptions for invalid styles
 ParserConfiguration strict = ParserConfiguration
     .immutableBuilder()
     .enableStrictParsing()
     .build();
 
-// Lenient mode (default) - ignores invalid styles
+// Lenient mode (default) ignores invalid styles and print them as is
 ParserConfiguration lenient = ParserConfiguration.DEFAULT;
 ```
 
@@ -208,10 +209,6 @@ AnsiStringParser parser = Clique.parser(config);
 // No need to manually close with [/]
 parser.print("[red, bold]This tag auto-closes");
 ```
-
-## Terminal ANSI Support
-
-Clique automatically detects if your terminal supports ANSI colors. You can also manually control this:
 
 ### Force Enable Colors
 ```java
@@ -249,16 +246,9 @@ Clique.parser().print("[red]This will definitely be colored[/]");
 
 Emojis mess with width calculations in tables and boxes. Try to avoid using them:
 ```java
-// Avoid - emojis break alignment
 Clique.table(TableType.DEFAULT)
     .addHeaders("Status", "Message")
-    .addRows("1", "Success")
-    .render();
-
-// Better - use text or ASCII art
-Clique.table(TableType.DEFAULT)
-    .addHeaders("Status", "Message")
-    .addRows("[green]OK[/]", "Success")
+    .addRows("😀", "Success") //Avoid this
     .render();
 ```
 
@@ -297,14 +287,7 @@ parser.print("[green]Success message[/]");
 
 When building large tables or indenters, batch your operations:
 ```java
-// Less efficient
-Table table = Clique.table(TableType.DEFAULT);
-for (Item item : items) {
-    table.addRows(item.getName());
-}
-
-//  More efficient
-Table table = Clique.table(TableType.DEFAULT);
+TableHeaderBuilder table = Clique.table(TableType.DEFAULT);
 table.addHeaders("Name", "Value");
 
 for (Item item : items) {
@@ -324,9 +307,9 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 
 // Reuse multiple times
-Clique.box(BoxType.ROUNDED, config).content("Box 1").render();
-Clique.box(BoxType.ROUNDED, config).content("Box 2").render();
-Clique.box(BoxType.ROUNDED, config).content("Box 3").render();
+Clique.box(BoxType.ROUNDED, config).noDimensions().content("Box 1").render();
+Clique.box(BoxType.ROUNDED, config).noDimensions().content("Box 2").render();
+Clique.box(BoxType.ROUNDED, config).noDimensions().content("Box 3").render();
 ```
 
 ## See Also

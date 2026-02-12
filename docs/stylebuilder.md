@@ -1,10 +1,10 @@
 # StyleBuilder
 
-StyleBuilder provides a fluent API for chaining styled strings together. It's perfect when you prefer a progressBarConfigurationBuilder pattern over markup syntax.
+StyleBuilder provides a fluent API for chaining styled strings together. It's perfect when you prefer a programmatic and type safe pattern over markup syntax.
 
 ## Basic Usage
 
-### Append with Reset
+### Append and Reset
 
 The `append()` method applies styles to text and automatically resets the terminal style after each call:
 ```java
@@ -43,7 +43,7 @@ String styledText = Clique.styleBuilder()
 Apply styles to text and reset the terminal style:
 ```java
 String styledText = Clique.styleBuilder()
-    .formatReset("This text is red", ColorCode.RED, StyleCode.BOLD);
+    .formatAndReset("This text is red", ColorCode.RED, StyleCode.BOLD);
 ```
 
 ## Getting the Result
@@ -68,8 +68,7 @@ Print the styled string to the terminal:
 Clique.styleBuilder()
     .append("Success: ", ColorCode.GREEN, StyleCode.BOLD)
     .append("Operation completed", ColorCode.WHITE)
-    .print();
-```
+ ```
 
 ## Available Codes
 

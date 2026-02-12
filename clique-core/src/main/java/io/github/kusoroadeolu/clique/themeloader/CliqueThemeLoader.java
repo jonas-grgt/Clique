@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.themeloader;
 
 import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadelu.clique.spi.CliqueTheme;
+import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 
 import java.util.*;
 

@@ -13,10 +13,10 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         this(ParserConfiguration.DEFAULT);
     }
 
-    public String parse(String tokenedString) {
-        if (tokenedString == null || tokenedString.isBlank()) return EMPTY;
-        final ParseResult result = this.extractTokens(tokenedString);
-        return STYLE_APPLICATOR.restyleString(result.tokens(), tokenedString, this.parserConfiguration.getEnableAutoCloseTags());
+    public String parse(String stringToParse) {
+        if (stringToParse == null || stringToParse.isBlank()) return EMPTY;
+        final ParseResult result = this.getParseResult(stringToParse);
+        return STYLE_APPLICATOR.restyleString(result.tokens(), stringToParse, this.parserConfiguration.getEnableAutoCloseTags());
     }
 
     public String parse(Object object) {
@@ -26,7 +26,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
     public String getOriginalString(String tokenedString) {
         if (tokenedString == null || tokenedString.isBlank()) return EMPTY;
         String clean = tokenedString;
-        var result = this.extractTokens(clean);
+        var result = this.getParseResult(clean);
         for (String tag : result.extractedFormTags()) {
             clean = clean.replace(tag, EMPTY);
         }
@@ -34,7 +34,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         return clean;
     }
 
-    private ParseResult extractTokens(String input) {
+    private ParseResult getParseResult(String input) {
         return TOKEN_EXTRACTOR.getParseResult(
                 input,
                 parserConfiguration.getDelimiter(),

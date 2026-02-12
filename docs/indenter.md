@@ -65,7 +65,7 @@ indenter.unindent();  // Move back up one indent level
 
 ### Reset to Zero
 ```java
-indenter.resetLevel();  // Reset to no indentation
+indenter.resetLevel();  // Reset to 0 indents, does not reset the flag
 ```
 
 ## Adding Content
@@ -93,7 +93,7 @@ indenter.add(items);
 ### Add Any Object
 ```java
 // Calls toString() on the object
-indenter.add(new Date());
+indenter.add(new SomeObject());
 indenter.add(42);
 ```
 
@@ -110,7 +110,7 @@ Indenter indenter = Clique.indenter()
     .add("Dash item");
 ```
 
-Available flags:
+Provided available flags:
 - `Flag.BULLET` - `•`
 - `Flag.ARROW` - `→`
 - `Flag.DASH` - `-`

@@ -15,11 +15,7 @@ public class BoxConfiguration {
     public final static BoxConfiguration DEFAULT = new BoxConfiguration();
 
     private BoxConfiguration(){
-        this.centerPadding = 2;
-        this.textAlign = TextAlign.CENTER;
-        this.parser = Clique.parser();
-        this.borderStyle = null;
-        this.autoSize = false;
+        this(new BoxConfigurationBuilder());
     }
 
     private BoxConfiguration(BoxConfigurationBuilder builder) {

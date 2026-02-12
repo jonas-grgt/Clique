@@ -1,6 +1,6 @@
 package io.github.kusoroadeolu.clique.parser;
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.core.exceptions.ParseProblemException;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 
@@ -85,7 +85,7 @@ public final class TokenExtractor {
 
     // A helper method that checks if each map contains a key of the given string
     private void addValidStyles(String s, List<AnsiCode> validStyles, boolean enableStrictParsing){
-        AnsiCode code = GLOBAL_CUSTOM_CODES.get(s);
+        AnsiCode code = CUSTOM_STYLE_CODES.get(s);
         if (code != null){
             validStyles.add(code);
             return;

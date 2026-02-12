@@ -1,8 +1,7 @@
 package io.github.kusoroadeolu.clique.themeloader;
 
-
-import io.github.kusoroadelu.clique.spi.AnsiCode;
-import io.github.kusoroadelu.clique.spi.CliqueTheme;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 
 import java.util.Map;
 

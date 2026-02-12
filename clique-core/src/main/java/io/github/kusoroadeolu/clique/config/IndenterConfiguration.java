@@ -7,6 +7,8 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
 
+import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
+
 public class IndenterConfiguration {
 
     private final AnsiStringParser parser;
@@ -16,9 +18,7 @@ public class IndenterConfiguration {
 
 
     private IndenterConfiguration() {
-        this.indentLevel = 1;
-        this.parser = Clique.parser(ParserConfiguration.immutableBuilder().enableAutoCloseTags().build());
-        this.defaultFlag = " "; // default to a space
+        this(new IndenterConfigurationBuilder());
     }
 
     private IndenterConfiguration(IndenterConfigurationBuilder builder) {
@@ -68,7 +68,7 @@ public class IndenterConfiguration {
     public static class IndenterConfigurationBuilder {
         private int indentLevel = 1;
         private AnsiStringParser parser = Clique.parser(ParserConfiguration.immutableBuilder().enableAutoCloseTags().build());
-        private String defaultFlag = " ";
+        private String defaultFlag = BLANK;
 
         public IndenterConfigurationBuilder indentLevel(int indentLevel) {
             if (indentLevel < 1) throw new IllegalArgumentException("Indent level cannot be less than 1");

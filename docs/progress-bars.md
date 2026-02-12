@@ -22,7 +22,7 @@ Clique provides several built-in styles:
 
 ```java
 // Blocks style (default)
-ProgressBar bar = Clique.progressBar(100, DefaultProgressBarStyle.BLOCKS);
+ProgressBar bar = Clique.progressBar(100, BarPreset.BLOCKS);
 
 // Lines style
 ProgressBar bar = Clique.progressBar(100, DefaultProgressBarStyle.LINES);

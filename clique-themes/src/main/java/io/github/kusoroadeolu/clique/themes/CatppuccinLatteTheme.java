@@ -1,8 +1,8 @@
 package io.github.kusoroadeolu.clique.themes;
 
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
-import io.github.kusoroadelu.clique.spi.CliqueTheme;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 
 import java.util.Map;
 
@@ -87,10 +87,5 @@ public class CatppuccinLatteTheme implements CliqueTheme {
         return Constants.URL;
     }
 
-    private record CustomAnsiCode(String code) implements AnsiCode {
-        @Override
-        public String toString() {
-            return code;
-        }
-    }
+
 }

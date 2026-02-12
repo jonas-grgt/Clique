@@ -1,8 +1,10 @@
 package io.github.kusoroadeolu.clique.themeloader;
 
+import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.Clique;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +15,7 @@ class CliqueThemesTest {
     @Test
     void testServiceFileExists() throws Exception {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        var url = cl.getResource("META-INF/services/com.github.kusoroadeolu.themes.CliqueTheme");
-        assertNotNull(url, "ServiceLoader file not found on classpath");
+        var url = cl.getResource("META-INF/services/io.github.kusoroadeolu.clique.spi.CliqueTheme");        assertNotNull(url, "ServiceLoader file not found on classpath");
 
         try (var in = url.openStream()) {
             String content = new String(in.readAllBytes());
@@ -26,9 +27,10 @@ class CliqueThemesTest {
     @Test
     void testDiscoverThemes() {
         List<CliqueTheme> themes = CliqueThemeLoader.discover();
+        System.out.println("Discovered themes count: " + themes.size());
+        themes.forEach(t -> System.out.println("Theme: " + t.themeName()));
         assertNotNull(themes);
-        assertTrue(themes.stream()
-                .anyMatch(t -> t.themeName().equals("test")));
+        assertTrue(themes.stream().anyMatch(t -> t.themeName().equals("test")));
     }
 
     @Test

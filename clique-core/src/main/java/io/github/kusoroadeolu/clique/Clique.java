@@ -1,8 +1,7 @@
 package io.github.kusoroadeolu.clique;
 
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
-import io.github.kusoroadeolu.clique.ansi.StyleCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox;
 import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
@@ -12,16 +11,16 @@ import io.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
-import io.github.kusoroadeolu.clique.parser.GlobalParserRegistry;
+import io.github.kusoroadeolu.clique.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
-import io.github.kusoroadeolu.clique.progressbar.ProgressBarStyle;
+import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable;
 import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.themeloader.CliqueThemeLoader;
-import io.github.kusoroadelu.clique.spi.CliqueTheme;
+import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 
 import java.util.Collection;
 import java.util.List;
@@ -124,8 +123,8 @@ public final class Clique {
         return new ProgressBar(total, configuration);
     }
 
-    public static ProgressBar progressBar(int total, ProgressBarStyle style){
-       return progressBar(total, style.getConfiguration());
+    public static ProgressBar progressBar(int total, ProgressBarPreset preset){
+       return progressBar(total, preset.getConfiguration());
     }
 
     public static void enableCliqueColors(boolean enable){
@@ -134,11 +133,11 @@ public final class Clique {
     }
 
     public static void registerStyle(String style, AnsiCode code){
-        GlobalParserRegistry.registerStyle(style, code);
+        GlobalStyleRegistry.registerStyle(style, code);
     }
 
     public static void registerStyles(Map<String, AnsiCode> codes){
-        GlobalParserRegistry.registerStyles(codes);
+        GlobalStyleRegistry.registerStyles(codes);
     }
 
     public static void registerTheme(String name) {

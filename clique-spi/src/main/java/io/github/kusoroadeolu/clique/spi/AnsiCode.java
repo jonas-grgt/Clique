@@ -1,4 +1,4 @@
-package io.github.kusoroadelu.clique.spi;
+package io.github.kusoroadeolu.clique.spi;
 
 public interface AnsiCode {
     /**

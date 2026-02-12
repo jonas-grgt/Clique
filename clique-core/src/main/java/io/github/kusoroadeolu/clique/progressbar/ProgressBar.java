@@ -46,9 +46,9 @@ public final class ProgressBar implements Generated {
     }
 
     public ProgressBar tick(int amount){
-        if (amount < 0) throw new IllegalArgumentException("Tick amount cannot be negative");
+        if (amount < 1) throw new IllegalArgumentException("Tick amount cannot be less than 1");
         this.currentTick = Math.max(Math.min(currentTick + amount, total), ZERO);
-        if (currentTick >= total) isDone = true;
+        if (currentTick >= total && !isDone) isDone = true;
         return this;
     }
 
@@ -90,7 +90,7 @@ public final class ProgressBar implements Generated {
 
         // Ensure we end exactly at target
         this.currentTick = targetValue;
-        if (currentTick >= total) isDone = true;
+        if (currentTick >= total && !isDone) isDone = true;
     }
 
     public boolean isDone(){
@@ -181,7 +181,7 @@ public final class ProgressBar implements Generated {
 
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
-        ProgressBar that = (ProgressBar) object;
+        var that = (ProgressBar) object;
         return currentTick == that.currentTick && total == that.total && isDone == that.isDone && creationTime == that.creationTime && Objects.equals(progressBarConfiguration, that.progressBarConfiguration);
     }
 

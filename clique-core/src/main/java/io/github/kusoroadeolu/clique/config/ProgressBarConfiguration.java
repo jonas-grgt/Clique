@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
-import io.github.kusoroadeolu.clique.progressbar.DefaultProgressBarStyle;
+import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPredicate;
 
 import java.util.*;
@@ -19,7 +19,7 @@ public class ProgressBarConfiguration {
     private final List<ProgressBarPredicate> styles;
     private final EasingConfiguration easingConfiguration;
 
-    public static final ProgressBarConfiguration DEFAULT = DefaultProgressBarStyle.BLOCKS.getConfiguration();
+    public static final ProgressBarConfiguration DEFAULT = ProgressBarPreset.BLOCKS.getConfiguration();
 
 
     private ProgressBarConfiguration(ProgressBarConfigurationBuilder builder) {

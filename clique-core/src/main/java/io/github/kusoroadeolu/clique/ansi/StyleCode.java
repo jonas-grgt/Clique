@@ -1,6 +1,6 @@
 package io.github.kusoroadeolu.clique.ansi;
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 /**
  * Represents ANSI escape codes for text styling (like italic, underline, etc.).

@@ -23,39 +23,28 @@ To use pre-built themes, you need both the core Clique library and the clique-th
 
 ### Maven
 ```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-
 <dependencies>
 <!-- Core Clique library -->
-<dependency>
-    <groupId>com.github.kusoroadeolu</groupId>
-    <artifactId>Clique</artifactId>
-    <version>v2.0.0</version>
-</dependency>
-
-<!-- Pre-built themes -->
-<dependency>
-    <groupId>com.github.kusoroadeolu</groupId>
-    <artifactId>clique-themes</artifactId>
-    <version>v0.0.1</version>
-</dependency>
+    <dependency>
+        <groupId>io.github.kusoroadeolu</groupId>
+        <artifactId>clique-core</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+    
+    <!-- Pre-built themes -->
+    <dependency>
+        <groupId>io.github.kusoroadeolu</groupId>
+        <artifactId>clique-themes</artifactId>
+        <version>1.0.0</version>
+    </dependency>
 </dependencies>
 ```
 
 ### Gradle
 ```gradle
-repositories {
-    maven { url 'https://jitpack.io' }
-}
-
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v2.0.0'
-    implementation 'com.github.kusoroadeolu:clique-themes:v0.0.1'
+    implementation 'com.github.kusoroadeolu:clique-core:3.0.0'
+    implementation 'com.github.kusoroadeolu:clique-themes:1.0.0'
 }
 ```
 
@@ -140,21 +129,21 @@ Clique.parser().print("[drac_red]✗[/] Failed | [drac_green]✓[/] Success");
 Both variants use the same color names:
 
 **Primary Colors:**
-- `gruvbox_red`, `gruvbox_green`, `gruvbox_yellow`, `gruvbox_blue`
-- `gruvbox_purple`, `gruvbox_aqua`, `gruvbox_gray`, `gruvbox_orange`
+- `gb_red`, `gb_green`, `gb_yellow`, `gb_blue`
+- `gb_purple`, `gb_aqua`, `gb_gray`, `gb_orange`
 
 **Bright Variants (prefixed with `*`):**
-- `*gruvbox_red`, `*gruvbox_green`, `*gruvbox_yellow`, `*gruvbox_blue`
-- `*gruvbox_purple`, `*gruvbox_aqua`, `*gruvbox_gray`, `*gruvbox_orange`
+- `*gb_red`, `*gb_green`, `*gb_yellow`, `*gb_blue`
+- `*gb_purple`, `*gb_aqua`, `*gb_gray`, `*gb_orange`
 
 **Background/Foreground Shades:**
-- Backgrounds: `gruvbox_bg`, `gruvbox_bg0_h`, `gruvbox_bg0_s`, `gruvbox_bg1`, `gruvbox_bg2`, `gruvbox_bg3`, `gruvbox_bg4`
-- Foregrounds: `gruvbox_fg`, `gruvbox_fg0`, `gruvbox_fg1`, `gruvbox_fg2`, `gruvbox_fg3`, `gruvbox_fg4`
+- Backgrounds: `gb_bg`, `gb_bg0_h`, `gb_bg0_s`, `gb_bg1`, `gb_bg2`, `gb_bg3`, `gb_bg4`
+- Foregrounds: `gb_fg`, `gb_fg0`, `gb_fg1`, `gb_fg2`, `gb_fg3`, `gb_fg4`
 
 **Example:**
 ```java
-Clique.parser().print("[gruvbox_orange, bold]Warning:[/] [gruvbox_fg]Check configuration[/]");
-Clique.parser().print("[bg_gruvbox_bg1, gruvbox_aqua] → [/] [gruvbox_yellow]Processing...[/]");
+Clique.parser().print("[gb_orange, bold]Warning:[/] [gb_fg]Check configuration[/]");
+Clique.parser().print("[bg_gb_bg1, gb_aqua] → [/] [gb_yellow]Processing...[/]");
 ```
 
 ### Nord
@@ -219,9 +208,9 @@ Clique.parser().print("[gruvbox_orange, bg_gruvbox_bg1, bold] WARNING [/]");
 
 ## Best Practices
 
-### 1. Choose One Primary Theme
+### 1. Choose One or Two Primary Themes
 
-Stick to a single theme for consistency:
+Stick to a single or dual theme structure for consistency:
 
 ```java
 Clique.registerTheme("catppuccin-mocha");
@@ -280,7 +269,6 @@ Clique.parser().print("[ctp_overlay0]└──[/] [ctp_green]✓ Complete[/]");
 ```
 
 ## Finding Available Themes
-
 List all themes programmatically:
 
 ```java
@@ -303,7 +291,6 @@ Clique.findTheme("tokyo-night").ifPresentOrElse(
 ```
 
 ## Creating Custom Themes
-
 Want to create your own theme? Check out the [Custom Themes Guide](build-your-own-theme.md) for details on building custom themes that integrate with Clique's theme system.
 
 ## See Also

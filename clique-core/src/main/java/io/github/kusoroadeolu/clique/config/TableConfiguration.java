@@ -21,12 +21,7 @@ public class TableConfiguration {
 
     private TableConfiguration() {
         // Default config
-        this.padding = 1;
-        this.alignment = CellAlign.LEFT;
-        this.columnAlignment = new HashMap<>();
-        this.parser = Clique.parser();
-        this.nullReplacement = EMPTY;
-        this.borderStyle = null;
+        this(new TableConfigurationBuilder());
     }
 
     private TableConfiguration(TableConfigurationBuilder builder) {

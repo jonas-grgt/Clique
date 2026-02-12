@@ -1,6 +1,6 @@
-import io.github.kusoroadelu.clique.spi.CliqueTheme;
-
 module clique.core {
     requires clique.spi;
-    uses CliqueTheme;
+    uses io.github.kusoroadeolu.clique.spi.CliqueTheme;
+    provides io.github.kusoroadeolu.clique.spi.CliqueTheme
+            with io.github.kusoroadeolu.clique.themeloader.TestTheme;
 }

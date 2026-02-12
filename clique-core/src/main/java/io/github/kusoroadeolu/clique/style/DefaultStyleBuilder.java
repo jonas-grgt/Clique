@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.style;
 
 
-import io.github.kusoroadelu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 
 import java.io.PrintStream;
@@ -27,8 +27,7 @@ public non-sealed class DefaultStyleBuilder implements StyleBuilder {
      * */
     @Override
     public String format(String text, AnsiCode... ansiCodes) {
-        return this.style(text, ansiCodes)
-                .toString();
+        return this.style(text, ansiCodes).toString();
     }
 
 

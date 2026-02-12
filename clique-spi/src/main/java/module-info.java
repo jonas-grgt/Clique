@@ -1,3 +1,3 @@
 module clique.spi {
-    exports io.github.kusoroadelu.clique.spi;
+    exports io.github.kusoroadeolu.clique.spi;
 }

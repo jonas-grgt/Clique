@@ -14,35 +14,19 @@ A dependency free mini, customizable and extensible CLI library for beautifying 
 ### Maven
 
 ```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
 
-<dependencies>
-    <dependency>
-        <groupId>com.github.kusoroadeolu</groupId>
-        <artifactId>Clique</artifactId>
-        <version>v2.0.0</version>
-    </dependency>
-</dependencies>
+<dependency>
+      <groupId>io.github.kusoroadeolu</groupId>
+      <artifactId>clique-core</artifactId>
+      <version>3.0.0</version>
+</dependency>
 ```
 
 ### Gradle
 
 ```gradle
-dependencyResolutionManagement {
-	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-	repositories {
-		mavenCentral()
-		maven { url 'https://jitpack.io' }
-	}
-}
-
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v2.0.0'
+    implementation 'io.github.kusoroadeolu:clique-core:3.0.0'
 }
 ```
 
@@ -123,7 +107,7 @@ while (!bar.isDone()) {
 
 ## Documentation
 
-- **[Full Documentation](docs/)** - Complete guides for all features
+- **[Full Documentation](docs)** - Complete guides for all features
 - **[Markup Reference](docs/markup-reference.md)** - Colors, styles, and syntax
 - **[Examples & Demos](https://github.com/kusoroadeolu/clique-demos)** - Interactive examples
 
