@@ -172,6 +172,24 @@ com.example.themes.SolarizedLightTheme
 com.example.themes.MonokaiTheme
 ```
 
+#### Multi-module projects (JPMS)
+
+If you're using Java Platform Module System (JPMS), you'll also need to declare your theme services in your `module-info.java` file at the root of your module:
+
+**File location:** `src/main/java/module-info.java`
+```java
+module my.themes {
+    requires clique.spi;
+    uses io.github.kusoroadeolu.clique.spi.CliqueTheme;
+    provides io.github.kusoroadeolu.clique.spi.CliqueTheme
+            with com.example.themes.SolarizedDarkTheme,
+                    com.example.themes.SolarizedLightTheme,
+                    com.example.themes.MonokaiTheme;
+}
+```
+
+**Note:** You still need the `META-INF/services` file from step 2 for non-modular classpath scenarios.
+
 ### 3. Use Your Theme
 
 Once registered as a service, your theme is automatically discoverable:

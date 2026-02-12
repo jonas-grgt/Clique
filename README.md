@@ -9,8 +9,6 @@ A dependency free mini, customizable and extensible CLI library for beautifying 
 
 
 ## Quick Start
-[![](https://jitpack.io/v/kusoroadeolu/Clique.svg)](https://jitpack.io/#kusoroadeolu/Clique)
-
 ### Maven
 
 ```xml

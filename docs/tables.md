@@ -1,6 +1,6 @@
 # Tables
 
-Tables help you display structured data in a clean, formatted way. Clique supports multiple table styles with extensive customization options.
+Tables help you display structured data in a clean, formatted way. Clique supports multiple table styles with extensive customization options. Tables don't support multi line content
 
 ## Table Types
 
