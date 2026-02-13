@@ -360,4 +360,3 @@ bar.render();
 
 - [Progress Bars Documentation](progress-bars.md) - Core progress bar features
 - [Markup Reference](markup-reference.md) - Styling progress bar output
-- [Progress Bar Configuration](progress-bars.md#configuration) - General configuration options
