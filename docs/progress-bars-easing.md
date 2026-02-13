@@ -128,8 +128,7 @@ No easing - constant speed throughout:
 ```java
 EasingFunction.LINEAR
 ```
-
-Use when you want smooth animation without acceleration/deceleration.
+For a smooth animation without acceleration/deceleration.
 
 ### Sine Easing
 
@@ -164,8 +163,6 @@ EasingFunction.EASE_IN_CUBIC      // Strong acceleration
 EasingFunction.EASE_OUT_CUBIC     // Strong deceleration
 EasingFunction.EASE_IN_OUT_CUBIC  // Strong start and end
 ```
-
-Use for eye-catching, dramatic animations.
 
 ### Easing Function Comparison
 
@@ -321,7 +318,7 @@ bar.tickAnimated(35);   // Green phase (animated)
 
 **Balance frames and duration:**
 ```java
-// Smooth but CPU-intensive
+// Smooth but CPU intensive
 .duration(1000).frames(60)  // 60 FPS
 
 // Good balance

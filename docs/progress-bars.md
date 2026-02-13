@@ -159,41 +159,6 @@ ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
     .build();
 ```
 
-## Creating Custom Styles
-
-Implement `ProgressBarStyle` to create reusable styles:
-
-```java
-public enum MyCustomStyles implements ProgressBarStyle {
-    FANCY {
-        @Override
-        public ProgressBarConfiguration getConfiguration() {
-            return ProgressBarConfiguration.immutableBuilder()
-                .length(50)
-                .complete('▰')
-                .incomplete('▱')
-                .format("[magenta]:bar[/] [bold]:percent%[/] [:elapsed]")
-                .build();
-        }
-    },
-    
-    MINIMAL {
-        @Override
-        public ProgressBarConfiguration getConfiguration() {
-            return ProgressBarConfiguration.immutableBuilder()
-                .length(30)
-                .complete('━')
-                .incomplete('─')
-                .format(":bar :percent%")
-                .build();
-        }
-    };
-}
-
-// Use your custom style
-ProgressBar bar = Clique.progressBar(100, MyCustomStyles.FANCY);
-```
-
 ## Progress Bar Methods
 
 ### tick()
@@ -258,7 +223,7 @@ for (File file : files) {
 }
 ```
 
-### Download with Custom Style
+### Downloading a File
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
     .length(50)
