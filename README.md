@@ -1,6 +1,8 @@
-# CLIQUE
+![Supported JVM Versions](https://img.shields.io/badge/JVM-21+-brightgreen.svg?&logo=openjdk)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/kusoroadeolu/Clique/blob/main/LICENSE)
 
-A dependency free mini, customizable and extensible CLI library for beautifying Java terminal applications.
+# CLIQUE
+A dependency free, lightweight and extensible CLI library for beautifying Java terminal applications.
 
 ![Clique Hero](images/clique-hero.png)
 

@@ -42,7 +42,7 @@ dependencies {
 <dependency>
     <groupId>io.github.kusoroadeolu</groupId>
     <artifactId>clique-themes</artifactId>
-    <version>1.0.0</version>
+    <version>${version}</version>
 </dependency>
 ```
 
