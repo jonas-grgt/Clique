@@ -4,7 +4,14 @@ Extend Clique by creating custom ANSI codes, composing complex styles, and integ
 
 ## Understanding AnsiCode
 
-All styles in Clique implement the `AnsiCode` interface:
+All styles in Clique implement the `AnsiCode` interface from the `clique-spi` module:
+```xml
+<dependency>
+    <groupId>io.github.kusoroadeolu</groupId>
+    <artifactId>clique-themes</artifactId>
+    <version>${version}</version>
+</dependency>
+```
 
 ```java
 public interface AnsiCode {

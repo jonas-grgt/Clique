@@ -16,25 +16,25 @@ while (!bar.isDone()) {
 }
 ```
 
-### Using Predefined Styles
+### Using Predefined Presets
 
-Clique provides several built-in styles:
+Clique provides several built-in presets:
 
 ```java
 // Blocks style (default)
-ProgressBar bar = Clique.progressBar(100, BarPreset.BLOCKS);
+ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.BLOCKS);
 
 // Lines style
-ProgressBar bar = Clique.progressBar(100, DefaultProgressBarStyle.LINES);
+ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.LINES);
 
 // Bold style
-ProgressBar bar = Clique.progressBar(100, DefaultProgressBarStyle.BOLD);
+ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.BOLD);
 
 // Classic style
-ProgressBar bar = Clique.progressBar(100, DefaultProgressBarStyle.CLASSIC);
+ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.CLASSIC);
 
 // Dots style
-ProgressBar bar = Clique.progressBar(100, DefaultProgressBarStyle.DOTS);
+ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.DOTS);
 ```
 
 ## Predefined Styles
@@ -241,7 +241,7 @@ String barText = bar.get();
 System.out.println(barText);
 ```
 
-## Examples
+## Quick Examples
 
 ### File Processing
 ```java

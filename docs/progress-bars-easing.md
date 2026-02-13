@@ -301,25 +301,6 @@ bar.tickAnimated(40);   // Transitions to yellow (animated)
 bar.tickAnimated(35);   // Green phase (animated)
 ```
 
-### Performance-Critical Loop
-
-```java
-// No easing configuration - fast instant updates
-ProgressBar bar = Clique.progressBar(10000);
-
-for (int i = 0; i < 10000; i++) {
-    processItem(i);
-    bar.tick();
-    
-    // Only render periodically to avoid overhead
-    if (i % 100 == 0) {
-        bar.render();
-    }
-}
-
-bar.complete();
-```
-
 ## Performance Considerations
 
 ### When to Use Easing

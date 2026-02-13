@@ -137,7 +137,7 @@ while (!bar.isDone()) {
 **Methods:**
 - `progressBar(int total)` - Create with default style
 - `progressBar(int total, ProgressBarConfiguration)` - Custom configuration
-- `progressBar(int total, ProgressBarStyle)` - Use predefined style
+- `progressBar(int total, ProgressBarPreset)` - Use predefined preset
 
 **Predefined Styles:**
 `BLOCKS`, `LINES`, `BOLD`, `CLASSIC`, `DOTS`
