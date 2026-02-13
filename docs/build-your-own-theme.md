@@ -32,21 +32,17 @@ To create custom themes, you only need the clique-spi library:
 
 ### Gradle
 ```gradle
-repositories {
-    maven { url 'https://jitpack.io' }
-}
-
 dependencies {
-    implementation 'com.github.kusoroadeolu:Clique:v2.0.0'
+    implementation 'io.github.kusoroadeolu:clique-core:3.0.0'
 }
 ```
 
 **Optional:** If you want to reference or test against the pre-built themes, you can also include `clique-themes`:
 ```xml
 <dependency>
-    <groupId>com.github.kusoroadeolu</groupId>
+    <groupId>io.github.kusoroadeolu</groupId>
     <artifactId>clique-themes</artifactId>
-    <version>v0.0.1</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 

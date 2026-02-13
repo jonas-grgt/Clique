@@ -90,12 +90,12 @@ builder.formatAndReset("sometext", StyleCode.DIM);
 - **Namespace Migration (com to io)**: To align with modern publishing standards, the base package has been renamed.
 </br> Old: com.github.kusoroadeolu.clique
 </br> New: io.github.kusoroadeolu.clique
-Action Required: Global search and replace `com.github.kusoroadeolu` with `io.github.kusoroadeolu` in your imports.
+**Action Required:** Global search and replace `com.github.kusoroadeolu` with `io.github.kusoroadeolu` in your imports.
 
 - **Multi-Module Project Structure:** The project has been split into three modules to reduce footprint and improve extensibility.
-</br> clique-spi: Theme interface definitions 
-</br> clique-core: The main library
-</br> clique-themes: The optional theme pack (Dracula, Nord, etc.).
+</br> **clique-spi:** Theme interface definitions 
+</br> **clique-core:** The main library
+</br> **clique-themes:** The optional theme pack (Dracula, Nord, etc.).
 
 
 #### Refactored API
@@ -104,22 +104,12 @@ Action Required: Global search and replace `com.github.kusoroadeolu` with `io.gi
 - **Explicit Exceptions:** The `DeprecatedMethodException` has been phased out as those methods no longer exist in the bytecode.
 
 **Migration:** Remove any intermediate variable assignments and chain `addHeaders()` directly after `Clique.table()` and  `width(), length()` after `Clique.boxes()`
+
 ### Documentation Updates
 - Added comprehensive progress bar documentation
 - Updated table examples to reflect new API
 - Added easing animation guide
-
-### Testing
-This is a beta release. Please test the following:
-- Table creation with the new HeaderBuilder API
-- Progress bar rendering in your terminal
-- Easing animations with different configurations
+- Also note that you can still get previous versions on jitpack but not Maven Central, though future versions would be released only on Maven central
 
 Report issues at: https://github.com/kusoroadeolu/Clique/issues
 
-**Migration Path:**
-- v2.0.0 → v2.1.0-beta: Test your code, update breaking changes
-- v2.1.0-beta → v3.0.0: More breaking changes and stability improvements
-
-### Next Steps
-After beta testing period, stable release will be v3.0.0 with the same changes.
