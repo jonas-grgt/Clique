@@ -57,6 +57,8 @@ public class BoxDrawTable extends AbstractTable {
 
         //Build
         tableBuilder.append(header).append(Constants.NEWLINE);
+
+
         for (int i = 0; i < this.rows.size(); i++) {
             final WidthAwareList list = this.rows.get(i);
             tableBuilder.append(vLine);
