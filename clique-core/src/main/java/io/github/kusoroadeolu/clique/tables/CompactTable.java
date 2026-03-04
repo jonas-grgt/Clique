@@ -32,7 +32,7 @@ public class CompactTable extends AbstractTable {
             for (int j = 0; j < list.size(); j++) {
                 var cellAlign = this.tableConfiguration.getAlignment();
                 final String styledCell = list.getStyledText(j);
-                final int displayWidth = list.get(j).text().length();
+                final int displayWidth = list.get(j).width();
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
 
