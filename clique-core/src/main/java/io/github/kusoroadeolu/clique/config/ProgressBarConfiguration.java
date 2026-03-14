@@ -2,15 +2,20 @@ package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
-import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPredicate;
+import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
 
 public class ProgressBarConfiguration {
+    public static final ProgressBarConfiguration DEFAULT = ProgressBarPreset.BLOCKS.getConfiguration();
+
     private final int length;
     private final char complete;
     private final char incomplete;
@@ -18,8 +23,6 @@ public class ProgressBarConfiguration {
     private final AnsiStringParser parser;
     private final List<ProgressBarPredicate> styles;
     private final EasingConfiguration easingConfiguration;
-
-    public static final ProgressBarConfiguration DEFAULT = ProgressBarPreset.BLOCKS.getConfiguration();
 
 
     private ProgressBarConfiguration(ProgressBarConfigurationBuilder builder) {
@@ -65,7 +68,7 @@ public class ProgressBarConfiguration {
         return format;
     }
 
-    public EasingConfiguration getEasing(){
+    public EasingConfiguration getEasing() {
         return easingConfiguration;
     }
 
@@ -124,7 +127,7 @@ public class ProgressBarConfiguration {
             return this;
         }
 
-        public ProgressBarConfigurationBuilder easing(EasingConfiguration easing){
+        public ProgressBarConfigurationBuilder easing(EasingConfiguration easing) {
             requireNonNull(easing, "Easing configuration cannot be null");
             this.easing = easing;
             return this;

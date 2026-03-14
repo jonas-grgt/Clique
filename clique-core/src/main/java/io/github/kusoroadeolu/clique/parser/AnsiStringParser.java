@@ -4,11 +4,11 @@ public interface AnsiStringParser {
 
     String parse(String stringToParse);
 
-    default void print(String string){
+    default void print(String string) {
         System.out.println(this.parse(string));
     }
 
-    default void print(Object object){
+    default void print(Object object) {
         System.out.println(this.parse(object.toString()));
     }
 

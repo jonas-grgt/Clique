@@ -8,7 +8,7 @@ import java.util.List;
 public record BoxWrapper(
         int width,
         int length,
-        BoxConfiguration boxConfiguration,
+        BoxConfiguration configuration,
         List<Cell> wordWrap,
         String hLine,
         String vLine,

@@ -18,7 +18,7 @@ Clique provides 4 built-in box styles:
 ### Creating a Simple Box
 ```java
 Box box = Clique.box(BoxType.CLASSIC)
-    .withDimensions(10, 20)  //Width, length
+    .withDimensions(10, 20)  //Width, height
     .content("This is my first box");
     
 box.render(); // Print the box to terminal

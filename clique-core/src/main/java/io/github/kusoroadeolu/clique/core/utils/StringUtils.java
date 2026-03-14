@@ -11,28 +11,30 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 
 public final class StringUtils {
 
-    public static void clearStringBuilder(StringBuilder sb){
+    public static void clearStringBuilder(StringBuilder sb) {
         sb.setLength(ZERO);
     }
 
-    public static Cell parseCell(String text, AnsiStringParser parser){
-        if(parser != null) return new Cell(parser.getOriginalString(text), parser.parse(text));
+    public static Cell parseCell(String text, AnsiStringParser parser) {
+        if (parser != null) return new Cell(parser.getOriginalString(text), parser.parse(text));
         else return new Cell(text, text);
     }
 
 
     //Automatically get a suitable width when the width is not given
-    public static int getDynamicCharsPerLine(String content){
+    public static int getLengthOfLongestString(String content) {
         if (content.isBlank()) return content.length();
         String[] arr = content.split(NEWLINE_PATTERN.pattern());
-        int longest = arr[0].length();
-        for (String s : arr){
-            if (s.length() > longest) longest = s.length();
+        int longest = arr[ZERO].length();
+        for (String s : arr) {
+            if (s.length() > longest) {
+                longest = s.length();
+            }
         }
         return longest;
     }
 
-    public static String[] filterWhitespace(String[] arr){
+    public static String[] filterWhitespace(String[] arr) {
         return Arrays.stream(arr)
                 .filter(s -> {
                     // Remove all ANSI codes and check if anything remains
@@ -42,11 +44,11 @@ public final class StringUtils {
                 .toArray(String[]::new);
     }
 
-    public static void wrapLongString(StringBuilder currentOriginal, StringBuilder currentStyled, List<Cell> cells, int maxCharsPerLine){
-        if(currentOriginal.length() > maxCharsPerLine){
+    public static void wrapLongString(StringBuilder currentOriginal, StringBuilder currentStyled, List<Cell> cells, int maxCharsPerLine) {
+        if (currentOriginal.length() > maxCharsPerLine) {
             String activeAnsi = ""; // Track ANSI codes to carry forward
 
-            while (currentOriginal.length() > maxCharsPerLine){
+            while (currentOriginal.length() > maxCharsPerLine) {
                 // Take first maxCharsPerLine from original
                 String originalChunk = currentOriginal.substring(ZERO, maxCharsPerLine);
 
@@ -121,7 +123,6 @@ public final class StringUtils {
 
         return ansiCodes.toString();
     }
-
 
 
 }

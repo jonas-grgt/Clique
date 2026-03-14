@@ -4,25 +4,25 @@ import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 
 public class RoundedBox extends ClassicBox {
 
-    public RoundedBox(){
+    public RoundedBox() {
         super();
-        this.initBorders();
+        this.initRoundedBorders();
         this.styleBox();
     }
 
     public RoundedBox(BoxConfiguration configuration) {
         super(configuration);
-        this.initBorders();
+        this.initRoundedBorders();
         this.styleBox();
     }
 
     public RoundedBox(int width, int length, String content) {
         super(width, length, content);
-        this.initBorders();
+        this.initRoundedBorders();
         this.styleBox();
     }
 
-    public void initBorders(){
+    public void initRoundedBorders() {
         this.topLeft = "╭";
         this.topRight = "╮";
         this.bottomLeft = "╰";

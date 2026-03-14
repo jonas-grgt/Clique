@@ -20,18 +20,18 @@ public class BoxUtils {
     private final static char ANSI_END = 'm';
     private final static char ANSI_BEGIN = '\u001b';
 
-    public static void validateDimensions(int width, int len){
-        if(width <= 0 || len <= 0){
+    public static void validateDimensions(int width, int len) {
+        if (width <= 0 || len <= 0) {
             throw new InvalidDimensionException("Width or length cannot be 0");
         }
     }
 
-    public static void alignText(StringBuilder sb, int idx, TextAlign textAlign, String spaces, List<Cell> wordWrap, String vLine){
+    public static void alignText(StringBuilder sb, int idx, TextAlign textAlign, String spaces, List<Cell> wordWrap, String vLine) {
         final String s = wordWrap.get(idx).text();
         final String ss = wordWrap.get(idx).styledText();
         final int totalPadding = spaces.length() - s.length();
 
-        switch (textAlign){
+        switch (textAlign) {
             case TOP_LEFT, CENTER_LEFT, BOTTOM_LEFT -> {
                 final String padding = BLANK.repeat(Math.max(0, totalPadding));
                 sb.append(vLine)
@@ -55,7 +55,7 @@ public class BoxUtils {
 
             case TOP_CENTER, CENTER, BOTTOM_CENTER -> {
 
-                if(s.length() >= spaces.length()){
+                if (s.length() >= spaces.length()) {
                     sb.append(RESET).append(vLine).append(ss).append(RESET).append(vLine).append(Constants.NEWLINE);
                     return;
                 }
@@ -75,11 +75,11 @@ public class BoxUtils {
     }
 
 
-    public static void drawBox(StringBuilder sb, BoxWrapper boxWrapper){
-        final int centerPadding = boxWrapper.boxConfiguration().getCenterPadding();
+    public static void drawBox(StringBuilder sb, BoxWrapper boxWrapper) {
+        final int centerPadding = boxWrapper.configuration().getCenterPadding();
         final String spaces = BLANK.repeat(boxWrapper.width() - centerPadding);
         final String hLines = sb.repeat(boxWrapper.hLine(), boxWrapper.width() - centerPadding).toString();
-        final TextAlign textAlign = boxWrapper.boxConfiguration().getTextAlign();
+        final TextAlign textAlign = boxWrapper.configuration().getTextAlign();
         clearStringBuilder(sb);
         sb.append(boxWrapper.tLeft()).append(hLines).append(boxWrapper.tRight()).append(Constants.NEWLINE);
 
@@ -87,14 +87,14 @@ public class BoxUtils {
         final int availableLines = boxWrapper.length() - centerPadding;
         final int textLines = boxWrapper.wordWrap().size();
 
-        if(textAlign == TextAlign.CENTER || textAlign == TextAlign.CENTER_LEFT || textAlign == TextAlign.CENTER_RIGHT){
+        if (textAlign == TextAlign.CENTER || textAlign == TextAlign.CENTER_LEFT || textAlign == TextAlign.CENTER_RIGHT) {
             startLine = 1 + (availableLines - textLines) / 2;
-        } else if(textAlign == TextAlign.BOTTOM_LEFT || textAlign == TextAlign.BOTTOM_CENTER || textAlign == TextAlign.BOTTOM_RIGHT){
+        } else if (textAlign == TextAlign.BOTTOM_LEFT || textAlign == TextAlign.BOTTOM_CENTER || textAlign == TextAlign.BOTTOM_RIGHT) {
             startLine = 1 + (availableLines - textLines);
         }
 
-        for (int i = 1; i < boxWrapper.length() - 1; i++){
-            if(i >= startLine && i < (startLine + textLines)){
+        for (int i = 1; i < boxWrapper.length() - 1; i++) {
+            if (i >= startLine && i < (startLine + textLines)) {
                 int textIndex = i - startLine;
                 alignText(sb, textIndex, textAlign, spaces, boxWrapper.wordWrap(), boxWrapper.vLine());
             } else {
@@ -105,7 +105,7 @@ public class BoxUtils {
         sb.append(boxWrapper.bLeft()).append(hLines).append(boxWrapper.bRight());
     }
 
-    public static String[] splitPreservingAnsi(String styledContent) {
+    public static String[] splitAndPreserveAnsi(String styledContent) {
         final List<String> words = new ArrayList<>();
         final StringBuilder currentWord = new StringBuilder();
         final StringBuilder activeAnsiCodes = new StringBuilder(); // Track active formatting
@@ -162,13 +162,16 @@ public class BoxUtils {
             words.add(currentWord.toString());
         }
 
+        clearStringBuilder(currentWord);
+        clearStringBuilder(activeAnsiCodes);
+        clearStringBuilder(currentEscape);
         return words.toArray(String[]::new);
     }
 
-    public static <T> T handleDimensionsEx(ExceptionSupplier<T> e){
+    public static <T> T handleDimensionsEx(ExceptionSupplier<T> e) {
         try {
-             return e.supply();
-        }catch (IllegalArgumentException | StringIndexOutOfBoundsException ex){
+            return e.supply();
+        } catch (IllegalArgumentException | StringIndexOutOfBoundsException ex) {
             throw new InvalidDimensionException("The dimensions of this box are too small to wrap around the given content. You can prevent this by using the `autoSize` box configuration", ex);
         }
     }

@@ -33,7 +33,11 @@
         <module>clique-themes</module>
     </modules>
 
-
+    <scm>
+        <connection>scm:git:git://github.com/kusoroadeolu/Clique.git</connection>
+        <developerConnection>scm:git:ssh://github.com:kusoroadeolu/Clique.git</developerConnection>
+        <url>https://github.com/kusoroadeolu/Clique</url>
+    </scm>
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>

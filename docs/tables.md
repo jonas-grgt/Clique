@@ -258,7 +258,6 @@ table.render();
 ```
 
 ## Things to Watch Out For
-- **Emojis** will mess with width calculations. Try to avoid using them in tables.
 - **Column alignment** always overrides table-wide alignment settings.
 
 ## See Also

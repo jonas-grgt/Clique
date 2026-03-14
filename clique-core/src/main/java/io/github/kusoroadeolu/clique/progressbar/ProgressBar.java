@@ -13,11 +13,11 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 
 public final class ProgressBar implements Generated {
-    int currentTick;
     final int total;
-    boolean isDone;
     final long creationTime;
     final ProgressBarConfiguration progressBarConfiguration;
+    int currentTick;
+    boolean isDone;
 
     private ProgressBar(
             int currentTick,
@@ -45,9 +45,9 @@ public final class ProgressBar implements Generated {
         return this.tick(1);
     }
 
-    public ProgressBar tick(int amount){
+    public ProgressBar tick(int amount) {
         if (amount < 1) throw new IllegalArgumentException("Tick amount cannot be less than 1");
-        this.currentTick = Math.max(Math.min(currentTick + amount, total), ZERO);
+        currentTick = Math.clamp(currentTick + amount, ZERO, total);
         if (currentTick >= total && !isDone) isDone = true;
         return this;
     }
@@ -55,10 +55,10 @@ public final class ProgressBar implements Generated {
 
     public ProgressBar tickAnimated(int amount) {
         var config = this.progressBarConfiguration;
-        if (config != null && config.getEasing().shouldEase(amount)){
+        if (config != null && config.getEasing().shouldEase(amount)) {
             this.easeTick(amount, config.getEasing());
             return this;
-        }else {
+        } else {
             return this.tick(amount);
         }
     }
@@ -66,7 +66,7 @@ public final class ProgressBar implements Generated {
 
     private void easeTick(int amount, EasingConfiguration easingConfig) {
         int startValue = this.currentTick;
-        int targetValue = Math.max(Math.min(currentTick + amount, total), ZERO);
+        int targetValue = Math.clamp(currentTick + amount, ZERO, total);
         int diff = targetValue - startValue;
 
         int frames = easingConfig.getFrames();
@@ -93,7 +93,7 @@ public final class ProgressBar implements Generated {
         if (currentTick >= total && !isDone) isDone = true;
     }
 
-    public boolean isDone(){
+    public boolean isDone() {
         return isDone;
     }
 
@@ -156,8 +156,8 @@ public final class ProgressBar implements Generated {
 
         format = format.replace(":progress", progress);
 
-        var total = String.valueOf(this.total);
-        format = format.replace(":total", total);
+        var t = String.valueOf(this.total);
+        format = format.replace(":total", t);
 
         var percent = alignRight(String.valueOf(this.percent()), 3);
         format = format.replace(":percent", percent);

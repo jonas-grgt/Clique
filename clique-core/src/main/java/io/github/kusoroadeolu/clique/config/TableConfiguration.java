@@ -8,16 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
-
 public class TableConfiguration {
+    public static final TableConfiguration DEFAULT = new TableConfiguration();
+
     private final int padding;
     private final CellAlign alignment;
     private final AnsiStringParser parser;
     private final String nullReplacement;
     private final Map<Integer, CellAlign> columnAlignment;
     private final BorderStyle borderStyle;
-    public static final TableConfiguration DEFAULT = new TableConfiguration();
+
 
     private TableConfiguration() {
         // Default config
@@ -33,25 +33,30 @@ public class TableConfiguration {
         this.borderStyle = builder.borderStyle;
     }
 
-    public static TableConfigurationBuilder immutableBuilder(){
+    public static TableConfigurationBuilder immutableBuilder() {
         return new TableConfigurationBuilder();
     }
 
     public int getPadding() {
         return this.padding;
     }
+
     public CellAlign getAlignment() {
         return this.alignment;
     }
+
     public AnsiStringParser getParser() {
         return this.parser;
     }
+
     public String getNullReplacement() {
         return this.nullReplacement;
     }
+
     public BorderStyle getBorderStyle() {
         return this.borderStyle;
     }
+
     public Map<Integer, CellAlign> getColumnAlignment() {
         return new HashMap<>(this.columnAlignment);
     }
@@ -124,8 +129,8 @@ public class TableConfiguration {
             return this;
         }
 
-        public TableConfigurationBuilder columnAlignment(int column, CellAlign alignment){
-            if(column < 0) throw new IllegalArgumentException("Column index cannot be less than 0");
+        public TableConfigurationBuilder columnAlignment(int column, CellAlign alignment) {
+            if (column < 0) throw new IllegalArgumentException("Column index cannot be less than 0");
             Objects.requireNonNull(alignment, "Column alignment cannot be null");
             this.columnAlignment.put(column, alignment);
             return this;

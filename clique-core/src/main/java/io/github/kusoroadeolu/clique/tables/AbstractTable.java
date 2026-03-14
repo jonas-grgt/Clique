@@ -19,13 +19,13 @@ public abstract class AbstractTable implements Table {
     protected final List<WidthAwareList> rows;
     protected TableConfiguration tableConfiguration;
 
-    public AbstractTable(TableConfiguration configuration){
+     AbstractTable(TableConfiguration configuration) {
         this.columns = new ArrayList<>();
         this.rows = new ArrayList<>();
         this.tableConfiguration = configuration;
     }
 
-    public AbstractTable(){
+     AbstractTable() {
         this(TableConfiguration.DEFAULT);
     }
 
@@ -33,7 +33,7 @@ public abstract class AbstractTable implements Table {
         return this.addRows(rows.toArray(String[]::new));
     }
 
-    public AbstractTable addRows(String... rows){
+    public AbstractTable addRows(String... rows) {
         Objects.requireNonNull(rows, "Rows cannot be null");
         //Get the header's size
         final int headerSize = this.rows.getFirst().size();
@@ -43,7 +43,7 @@ public abstract class AbstractTable implements Table {
         for (int i = 0; i < headerSize; i++) {
             String row;
             //Pad the cells with null replacements
-            if(i >= rows.length)row = this.tableConfiguration.getNullReplacement();
+            if (i >= rows.length) row = this.tableConfiguration.getNullReplacement();
             else {
                 row = rows[i];
                 row = handleNulls(row, this.tableConfiguration.getNullReplacement());
@@ -58,24 +58,24 @@ public abstract class AbstractTable implements Table {
         return this;
     }
 
-    public AbstractTable removeRow(int index){
+    public AbstractTable removeRow(int index) {
         validateHeaders(index, index);
         validateRowIndex(index, this.rows);
         this.rows.remove(index);
-        for (WidthAwareList cl : this.columns){
+        for (WidthAwareList cl : this.columns) {
             cl.remove(cl.get(index));
         }
 
         return this;
     }
 
-    public AbstractTable removeCell(int row, int col){
+    public AbstractTable removeCell(int row, int col) {
         validateHeaders(row, col);
         this.updateCell(row, col, this.tableConfiguration.getNullReplacement());
         return this;
     }
 
-    public AbstractTable updateCell(int row, int col, String text){
+    public AbstractTable updateCell(int row, int col, String text) {
         validateRowIndex(row, this.rows);
         validateColumnIndex(col, this.columns);
 
@@ -97,7 +97,7 @@ public abstract class AbstractTable implements Table {
     }
 
     public int hashCode() {
-       return Objects.hash(columns, rows, tableConfiguration);
+        return Objects.hash(columns, rows, tableConfiguration);
     }
 
     public String toString() {
@@ -116,8 +116,9 @@ public abstract class AbstractTable implements Table {
             this.table = (AbstractTable) table;
         }
 
-        public Table addHeaders(String... headers){
-            if (isNull(headers) || headers.length == 0) throw new IllegalArgumentException("Headers cannot be null or empty");
+        public Table addHeaders(String... headers) {
+            if (isNull(headers) || headers.length == 0)
+                throw new IllegalArgumentException("Headers cannot be null or empty");
 
             final var rowList = new WidthAwareList();
             table.rows.add(rowList);
@@ -147,7 +148,7 @@ public abstract class AbstractTable implements Table {
             this.table = (AbstractTable) table;
         }
 
-        public CustomizableTable addHeaders(String... headers){
+        public CustomizableTable addHeaders(String... headers) {
             var builder = new TableHeaderBuilder(table);
             builder.addHeaders(headers);
             return (CustomizableTable) table;

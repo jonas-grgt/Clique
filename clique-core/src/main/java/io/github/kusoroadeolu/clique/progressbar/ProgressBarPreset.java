@@ -12,50 +12,50 @@ public enum ProgressBarPreset {
         @Override
         public ProgressBarConfiguration getConfiguration() {
             return ProgressBarConfiguration.immutableBuilder()
-                .length(40)
-                .complete('█')
-                .incomplete('░')
-                .format(":bar :percent% [:elapsed/:remaining]")
-                .build();
+                    .length(40)
+                    .complete('█')
+                    .incomplete('░')
+                    .format(":bar :percent% [:elapsed/:remaining]")
+                    .build();
         }
     },
-    
+
 
     LINES {
         @Override
         public ProgressBarConfiguration getConfiguration() {
             return ProgressBarConfiguration.immutableBuilder()
-                .length(50)
-                .complete('▂')
-                .incomplete('▁')
-                .format(":bar :percent%")
-                .build();
+                    .length(50)
+                    .complete('▂')
+                    .incomplete('▁')
+                    .format(":bar :percent%")
+                    .build();
         }
     },
-    
+
 
     BOLD {
         @Override
         public ProgressBarConfiguration getConfiguration() {
             return ProgressBarConfiguration.immutableBuilder()
-                .length(40)
-                .complete('▰')
-                .incomplete('▱')
-                .format(":bar :percent% | :progress/:total")
-                .build();
+                    .length(40)
+                    .complete('▰')
+                    .incomplete('▱')
+                    .format(":bar :percent% | :progress/:total")
+                    .build();
         }
     },
-    
+
 
     CLASSIC {
         @Override
         public ProgressBarConfiguration getConfiguration() {
             return ProgressBarConfiguration.immutableBuilder()
-                .length(50)
-                .complete('#')
-                .incomplete('=')
-                .format("[:bar] :percent% [:elapsed]")
-                .build();
+                    .length(50)
+                    .complete('#')
+                    .incomplete('=')
+                    .format("[:bar] :percent% [:elapsed]")
+                    .build();
         }
     },
 
@@ -63,11 +63,11 @@ public enum ProgressBarPreset {
         @Override
         public ProgressBarConfiguration getConfiguration() {
             return ProgressBarConfiguration.immutableBuilder()
-                .length(50)
-                .complete('●')
-                .incomplete('○')
-                .format(":bar :percent%")
-                .build();
+                    .length(50)
+                    .complete('●')
+                    .incomplete('○')
+                    .format(":bar :percent%")
+                    .build();
         }
     };
 

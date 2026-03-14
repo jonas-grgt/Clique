@@ -1,8 +1,8 @@
 package io.github.kusoroadeolu.clique.boxes;
 
-import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.drawBox;
@@ -10,8 +10,9 @@ import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.handleDimensions
 
 public class DefaultBox extends AbstractBox implements CustomizableBox {
 
-    public DefaultBox(int width, int length, String content) {
+    public DefaultBox(int width, int length, String content, BoxConfiguration configuration) {
         super(width, length, content);
+        this.boxConfiguration = configuration;
         this.styleBox();
     }
 
@@ -20,7 +21,7 @@ public class DefaultBox extends AbstractBox implements CustomizableBox {
         this.styleBox();
     }
 
-    public DefaultBox(){
+    public DefaultBox() {
         super();
         this.styleBox();
     }
@@ -30,7 +31,7 @@ public class DefaultBox extends AbstractBox implements CustomizableBox {
             this.wrapWord();
             final StringBuilder sb = new StringBuilder();
             final BoxWrapper wrapper = new BoxWrapper(
-                    this.width, this.length, this.boxConfiguration,
+                    this.width, this.height, this.boxConfiguration,
                     this.contentWrap, this.hLine, this.vLine,
                     this.edge, this.edge, this.edge, this.edge
             );
@@ -54,8 +55,8 @@ public class DefaultBox extends AbstractBox implements CustomizableBox {
         return this;
     }
 
-    protected void styleBox(){
-        if(this.boxConfiguration.getBorderStyle() != null){
+    protected void styleBox() {
+        if (this.boxConfiguration.getBorderStyle() != null) {
             final BorderStyle borderStyle = this.boxConfiguration.getBorderStyle();
             final StyleBuilder sb = borderStyle.styleBuilder();
             final AnsiCode[] horizontalStyles = borderStyle.getHorizontalBorderStyles();

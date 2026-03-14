@@ -1,11 +1,13 @@
 package io.github.kusoroadeolu.clique.tables;
 
-import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
+
+import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
@@ -57,6 +59,8 @@ public class BoxDrawTable extends AbstractTable {
 
         //Build
         tableBuilder.append(header).append(Constants.NEWLINE);
+
+
         for (int i = 0; i < this.rows.size(); i++) {
             final WidthAwareList list = this.rows.get(i);
             tableBuilder.append(vLine);
@@ -64,7 +68,7 @@ public class BoxDrawTable extends AbstractTable {
             for (int j = 0; j < list.size(); j++) {
                 var cellAlign = this.tableConfiguration.getAlignment();
                 final String styledCell = list.getStyledText(j);
-                final int displayWidth = list.get(j).text().length();
+                final int displayWidth = list.get(j).width();
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str length in each column
                 final int offset = (longest - displayWidth) + padding; //Add padding to avoid cramping
@@ -134,5 +138,51 @@ public class BoxDrawTable extends AbstractTable {
 
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
 
+        BoxDrawTable that = (BoxDrawTable) object;
+        return Objects.equals(topLeft, that.topLeft) && Objects.equals(topRight, that.topRight) && Objects.equals(bottomLeft, that.bottomLeft) && Objects.equals(bottomRight, that.bottomRight) && Objects.equals(hLine, that.hLine) && Objects.equals(vLine, that.vLine) && Objects.equals(topJoin, that.topJoin) && Objects.equals(bottomJoin, that.bottomJoin) && Objects.equals(leftJoin, that.leftJoin) && Objects.equals(rightJoin, that.rightJoin) && Objects.equals(cross, that.cross);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                super.hashCode(),
+                topLeft,
+                topRight,
+                bottomLeft,
+                bottomRight,
+                hLine,
+                vLine,
+                topJoin,
+                bottomJoin,
+                leftJoin,
+                rightJoin,
+                cross
+        );
+    }
+
+
+    @Override
+    public String toString() {
+        return "BoxDrawTable[" +
+                "topLeft='" + topLeft + '\'' +
+                ", topRight='" + topRight + '\'' +
+                ", bottomLeft='" + bottomLeft + '\'' +
+                ", bottomRight='" + bottomRight + '\'' +
+                ", hLine='" + hLine + '\'' +
+                ", vLine='" + vLine + '\'' +
+                ", topJoin='" + topJoin + '\'' +
+                ", bottomJoin='" + bottomJoin + '\'' +
+                ", leftJoin='" + leftJoin + '\'' +
+                ", rightJoin='" + rightJoin + '\'' +
+                ", cross='" + cross + '\'' +
+                ", columns=" + columns +
+                ", rows=" + rows +
+                ", tableConfiguration=" + tableConfiguration +
+                ']';
+    }
 }

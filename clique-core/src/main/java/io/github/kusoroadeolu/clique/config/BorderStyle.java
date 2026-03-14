@@ -10,15 +10,17 @@ import java.util.Objects;
 
 /**
  * A class for styling table borders
- * */
+ *
+ */
 public class BorderStyle {
+    public final static BorderStyle DEFAULT = new BorderStyle();
+
     private final AnsiCode[] verticalStyle;
     private final AnsiCode[] horizontalStyle;
     private final AnsiCode[] edgeStyle;
     private final StyleBuilder styleBuilder;
-    public final static BorderStyle DEFAULT = new BorderStyle();
 
-    private BorderStyle(){
+    private BorderStyle() {
         this(new BorderStyleBuilder());
     }
 
@@ -29,11 +31,11 @@ public class BorderStyle {
         this.styleBuilder = Clique.styleBuilder();
     }
 
-    public static BorderStyleBuilder immutableBuilder(){
+    public static BorderStyleBuilder immutableBuilder() {
         return new BorderStyleBuilder();
     }
 
-    public StyleBuilder styleBuilder(){
+    public StyleBuilder styleBuilder() {
         return this.styleBuilder;
     }
 
@@ -72,25 +74,27 @@ public class BorderStyle {
         return this.verticalStyle.clone();
     }
 
-    public static class BorderStyleBuilder{
+    public static class BorderStyleBuilder {
+        private final static String NULL_ANSI_CODE_WARNING = "Ansi codes cannot be null";
+
         private AnsiCode[] verticalStyle;
         private AnsiCode[] horizontalStyle;
         private AnsiCode[] edgeStyle;
 
         public BorderStyleBuilder verticalBorderStyles(AnsiCode... styles) {
-            Objects.requireNonNull(styles, "Ansi codes cannot be null");
+            Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
             this.verticalStyle = styles;
             return this;
         }
 
         public BorderStyleBuilder horizontalBorderStyles(AnsiCode... styles) {
-            Objects.requireNonNull(styles, "Ansi codes cannot be null");
+            Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
             this.horizontalStyle = styles;
             return this;
         }
 
         public BorderStyleBuilder edgeBorderStyles(AnsiCode... styles) {
-            Objects.requireNonNull(styles, "Ansi codes cannot be null");
+            Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
             this.edgeStyle = styles;
             return this;
         }
