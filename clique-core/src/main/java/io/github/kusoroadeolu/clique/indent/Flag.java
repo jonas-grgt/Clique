@@ -9,18 +9,18 @@ public enum Flag {
     CIRCLE("○"),
     RIGHT_TRIANGLE("▸");
 
-    private final String flag;
+    private final String flagString;
 
-    Flag(String flag) {
-        this.flag = flag;
+    Flag(String flagString) {
+        this.flagString = flagString;
     }
 
     public String flag() {
-        return this.flag;
+        return this.flagString;
     }
 
     @Override
     public String toString() {
-        return this.flag;
+        return this.flagString;
     }
 }

@@ -12,32 +12,36 @@ public class EasingConfiguration {
     private final int threshold;
 
 
-    private EasingConfiguration(){
+    private EasingConfiguration() {
         this(new EasingConfigurationBuilder());
     }
+
     private EasingConfiguration(EasingConfigurationBuilder easingConfigurationBuilder) {
         this.function = easingConfigurationBuilder.function;
         this.durationMs = easingConfigurationBuilder.durationMs;
         this.frames = easingConfigurationBuilder.frames;
         this.threshold = easingConfigurationBuilder.threshold;
     }
-    
+
+    public static EasingConfigurationBuilder immutableBuilder() {
+        return new EasingConfigurationBuilder();
+    }
+
     public EasingFunction getFunction() {
         return function;
     }
-    
+
     public int getDurationMs() {
         return durationMs;
     }
-    
+
     public int getFrames() {
         return frames;
     }
-    
+
     public int getThreshold() {
         return threshold;
     }
-    
 
     public long getFrameDelayMs() {
         return durationMs / frames;
@@ -66,7 +70,7 @@ public class EasingConfiguration {
 
     /**
      * Check if easing should be applied based on the tick amount
-     * 
+     *
      * @param tickAmount the amount being ticked
      * @return true if easing should be applied
      */
@@ -74,27 +78,23 @@ public class EasingConfiguration {
         if (threshold < 0) return false;
         return tickAmount >= threshold;
     }
-    
-    public static EasingConfigurationBuilder immutableBuilder() {
-        return new EasingConfigurationBuilder();
-    }
-    
+
     public static class EasingConfigurationBuilder {
         private EasingFunction function = EasingFunction.LINEAR;
         private int durationMs = 0;
         private int frames = 1;
         private int threshold = -1;
-        
+
 
         public EasingConfigurationBuilder function(EasingFunction function) {
             Objects.requireNonNull(function, "Easing function cannot be null");
             this.function = function;
             return this;
         }
-        
+
         /**
          * Set the total duration of the easing animation in milliseconds
-         * 
+         *
          * @param durationMs duration in milliseconds (must be positive)
          * @return this builder
          */
@@ -103,11 +103,11 @@ public class EasingConfiguration {
             this.durationMs = durationMs;
             return this;
         }
-        
+
         /**
          * Set the number of frames in the animation
          * Higher values = smoother but more CPU intensive
-         * 
+         *
          * @param frames number of frames (must be positive)
          * @return this builder
          */
@@ -116,11 +116,11 @@ public class EasingConfiguration {
             this.frames = frames;
             return this;
         }
-        
+
         /**
          * Set the minimum tick amount required to trigger easing
          * Ticks smaller than this will jump instantly to avoid unnecessary animation
-         * 
+         *
          * @param threshold minimum tick amount
          * @return this builder
          */
@@ -129,7 +129,7 @@ public class EasingConfiguration {
             this.threshold = threshold;
             return this;
         }
-        
+
         public EasingConfiguration build() {
             return new EasingConfiguration(this);
         }

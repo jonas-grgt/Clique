@@ -7,14 +7,15 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import java.util.Objects;
 
 public class BoxConfiguration {
+    public final static BoxConfiguration DEFAULT = new BoxConfiguration();
+
     private final int centerPadding;
     private final TextAlign textAlign;
     private final AnsiStringParser parser;
     private final BorderStyle borderStyle;
     private final boolean autoSize;
-    public final static BoxConfiguration DEFAULT = new BoxConfiguration();
 
-    private BoxConfiguration(){
+    private BoxConfiguration() {
         this(new BoxConfigurationBuilder());
     }
 
@@ -26,22 +27,26 @@ public class BoxConfiguration {
         this.autoSize = builder.autoSize;
     }
 
-    public static BoxConfigurationBuilder immutableBuilder(){
+    public static BoxConfigurationBuilder immutableBuilder() {
         return new BoxConfigurationBuilder();
     }
 
     public int getCenterPadding() {
         return this.centerPadding;
     }
+
     public boolean getAutoSize() {
         return this.autoSize;
     }
+
     public BorderStyle getBorderStyle() {
         return this.borderStyle;
     }
+
     public TextAlign getTextAlign() {
         return this.textAlign;
     }
+
     public AnsiStringParser getParser() {
         return this.parser;
     }
@@ -77,7 +82,7 @@ public class BoxConfiguration {
         private boolean autoSize = false;
 
         public BoxConfigurationBuilder centerPadding(int centerPadding) {
-            if(centerPadding > 0) this.centerPadding = centerPadding;
+            if (centerPadding > 0) this.centerPadding = centerPadding;
             return this;
         }
 

@@ -8,13 +8,9 @@ import java.util.Arrays;
 
 public final class CharWidth {
 
-    private CharWidth() {
-    }
-
     // Pre-computed width lookup for BMP characters (0x0000-0xFFFF).
     // Each byte stores the display width (0, 1, or 2) for that code point.
     private static final byte[] BMP_WIDTHS = new byte[0x10000];
-
     // Sorted start values of supplementary plane wide ranges
     private static final int[] SUPPLEMENTARY_WIDE_STARTS = {
             0x1F000, // Mahjong Tiles, Domino Tiles
@@ -35,7 +31,6 @@ public final class CharWidth {
             0x1F5FF, 0x1F64F, 0x1F6FF, 0x1F9FF, 0x1FA6F,
             0x1FAFF, 0x2FA1F,
     };
-
     // Sorted start/end values of supplementary plane zero-width ranges
     private static final int[] SUPPLEMENTARY_ZERO_STARTS = {
             0x1F3FB, // Emoji Modifier Fitzpatrick Type-1-2 through Type-6 (skin tones)
@@ -45,6 +40,7 @@ public final class CharWidth {
     private static final int[] SUPPLEMENTARY_ZERO_ENDS = {
             0x1F3FF, 0xE007F, 0xE01EF,
     };
+    private static final String DEFAULT_ELLIPSIS = "...";
 
     static {
         // Initialize all BMP code points to width 1 (default)
@@ -167,6 +163,9 @@ public final class CharWidth {
         }
     }
 
+    private CharWidth() {
+    }
+
     /**
      * Returns the display width (0, 1, or 2) of a Unicode code point.
      *
@@ -259,7 +258,7 @@ public final class CharWidth {
      * ZWJ sequences are kept intact - truncation happens at the last
      * safe break point before the ZWJ sequence if it wouldn't fit.
      *
-     * @param s the source string
+     * @param s        the source string
      * @param maxWidth the maximum display width in columns
      * @return a substring fitting within maxWidth columns
      */
@@ -378,7 +377,7 @@ public final class CharWidth {
     /**
      * Returns a substring starting from the end that fits within the given display width.
      *
-     * @param s the source string
+     * @param s        the source string
      * @param maxWidth the maximum display width in columns
      * @return a suffix substring fitting within maxWidth columns
      */
@@ -401,25 +400,11 @@ public final class CharWidth {
     }
 
     /**
-     * Truncation position for ellipsis.
-     */
-    public enum TruncatePosition {
-        /** Truncate at end: "Hello..." */
-        END,
-        /** Truncate at start: "...World" */
-        START,
-        /** Truncate in middle: "Hel...rld" */
-        MIDDLE
-    }
-
-    private static final String DEFAULT_ELLIPSIS = "...";
-
-    /**
      * Truncates a string to fit within the given display width, adding an ellipsis.
      * <p>
      * Uses the default ellipsis ("...").
      *
-     * @param s the source string
+     * @param s        the source string
      * @param maxWidth the maximum display width in columns (must be at least ellipsis width)
      * @param position where to place the ellipsis
      * @return the truncated string with ellipsis, or the original if it fits
@@ -431,7 +416,7 @@ public final class CharWidth {
     /**
      * Truncates a string to fit within the given display width, adding a custom ellipsis.
      *
-     * @param s the source string
+     * @param s        the source string
      * @param maxWidth the maximum display width in columns (must be at least ellipsis width)
      * @param ellipsis the ellipsis string to use (e.g., "...", "…", ">>")
      * @param position where to place the ellipsis
@@ -454,17 +439,16 @@ public final class CharWidth {
 
         int availableWidth = maxWidth - ellipsisWidth;
 
-        switch (position) {
-            case START:
-                return ellipsis + substringByWidthFromEnd(s, availableWidth);
-            case MIDDLE:
+        return switch (position) {
+            case START -> ellipsis + substringByWidthFromEnd(s, availableWidth);
+            case MIDDLE -> {
                 int leftWidth = (availableWidth + 1) / 2;
                 int rightWidth = availableWidth / 2;
-                return substringByWidth(s, leftWidth) + ellipsis + substringByWidthFromEnd(s, rightWidth);
-            case END:
-            default:
-                return substringByWidth(s, availableWidth) + ellipsis;
-        }
+                yield  substringByWidth(s, leftWidth) + ellipsis + substringByWidthFromEnd(s, rightWidth);
+            }
+            
+            case END -> substringByWidth(s, availableWidth) + ellipsis;
+        };
     }
 
     private static boolean inRanges(int codePoint, int[] starts, int[] ends) {
@@ -477,5 +461,23 @@ public final class CharWidth {
         int insertionPoint = -(idx + 1);
         // Check if codePoint falls within the preceding range
         return insertionPoint > 0 && codePoint <= ends[insertionPoint - 1];
+    }
+
+    /**
+     * Truncation position for ellipsis.
+     */
+    public enum TruncatePosition {
+        /**
+         * Truncate at end: "Hello..."
+         */
+        END,
+        /**
+         * Truncate at start: "...World"
+         */
+        START,
+        /**
+         * Truncate in middle: "Hel...rld"
+         */
+        MIDDLE
     }
 }

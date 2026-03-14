@@ -3,21 +3,15 @@ package io.github.kusoroadeolu.clique.core.utils;
 import java.util.regex.Pattern;
 
 public class Constants {
-    private Constants(){
-        throw new AssertionError("cannot instantiate this");
-    }
-
-    public final static String NEWLINE = "\n";
-    public final static String EMPTY = "";
-    public final static String BLANK = " ";
-    public final static int ZERO = 0;
-    public final static char ANSI_END = 'm';
-    public final static char ANSI_BEGIN = '\u001b';
-    public final static Pattern NEWLINE_PATTERN = Pattern.compile("\\n");
-    public final static Pattern SPACES_PATTERN = Pattern.compile("\\s+");
-    public final static Pattern WHITESPACE_PATTERN = Pattern.compile("\u001b\\[[;\\d]*m");
-
-
+    public static final String NEWLINE = "\n";
+    public static final String EMPTY = "";
+    public static final String BLANK = " ";
+    public static final int ZERO = 0;
+    public static final char ANSI_END = 'm';
+    public static final char ANSI_BEGIN = '\u001b';
+    public static final Pattern NEWLINE_PATTERN = Pattern.compile("\\n");
+    public static final Pattern SPACES_PATTERN = Pattern.compile("\\s+");
+    public static final Pattern WHITESPACE_PATTERN = Pattern.compile("\u001b\\[[;\\d]*m");
     //FOR ANSI DETECTOR
     public static final String TERM = "TERM";
     public static final String PLAIN = "plain";
@@ -28,4 +22,7 @@ public class Constants {
     public static final String NEVER = "never";
     public static final String OS_NAME = "os.name";
     public static final String WIN = "win";
+    private Constants() {
+        throw new AssertionError("cannot instantiate this");
+    }
 }

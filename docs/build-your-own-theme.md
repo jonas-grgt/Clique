@@ -18,6 +18,12 @@ For themes to display correctly with their full color palette, your terminal mus
 - Terminal compatibility: Ensure your terminal emulator supports 24-bit color (most modern terminals like iTerm2, Alacritty, Kitty, Windows Terminal, and recent versions of GNOME Terminal do)
   Without truecolor support, themes may appear with reduced color accuracy or fall back to the nearest 256-color approximation.
 
+**NOTE:** To enable Unicode support on Windows PowerShell, you can run these commands
+```bash
+$OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+```
+
 ## Setup
 To create custom themes, you only need the clique-spi library:
 

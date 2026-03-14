@@ -8,27 +8,27 @@ import java.util.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static java.util.Objects.requireNonNull;
 
-public class DefaultIndenter implements Indenter{
+public class DefaultIndenter implements Indenter {
     private final Deque<Indent> indents;
-    private String currentFlag;
-    private int currentLevel; //The current indent level
     private final StringBuilder sb;
     private final IndenterConfiguration configuration;
+    private String currentFlag;
+    private int currentLevel; //The current indent level
 
-    public DefaultIndenter(){
+    public DefaultIndenter() {
         this(IndenterConfiguration.DEFAULT);
     }
 
-    public DefaultIndenter(IndenterConfiguration indenterConfiguration){
+    public DefaultIndenter(IndenterConfiguration indenterConfiguration) {
         this.indents = new ArrayDeque<>();
         this.sb = new StringBuilder();
         this.configuration = indenterConfiguration;
         this.currentFlag = String.valueOf(this.configuration.getDefaultFlag());
     }
 
-    public Indenter indent(int level, String flag){
+    public Indenter indent(int level, String flag) {
         requireNonNull(flag, "Flag cannot be null");
-        if(level < 0) throw new IllegalArgumentException("Level cannot be less than 0");
+        if (level < 0) throw new IllegalArgumentException("Level cannot be less than 0");
         flag = parseString(flag);
         this.currentLevel += level;
 
@@ -37,43 +37,43 @@ public class DefaultIndenter implements Indenter{
         return this;
     }
 
-    public Indenter indent(int level){
+    public Indenter indent(int level) {
         return this.indent(level, Constants.BLANK);
     }
 
-    public Indenter indent(int level, Flag flag){
+    public Indenter indent(int level, Flag flag) {
         requireNonNull(flag, "Flag cannot be null");
-        return this.indent(level, flag.flag()) ;
+        return this.indent(level, flag.flag());
     }
 
-    public Indenter indent(String flag){
+    public Indenter indent(String flag) {
         return this.indent(this.configuration.getIndentLevel(), flag);
     }
 
-    public Indenter indent(Flag flag){
-        return this.indent(flag.flag()) ;
+    public Indenter indent(Flag flag) {
+        return this.indent(flag.flag());
     }
 
-    public Indenter indent(){
+    public Indenter indent() {
         return this.indent(Constants.BLANK);
     }
 
-    public Indenter add(String... args){
+    public Indenter add(String... args) {
         requireNonNull(args, "Args cannot be null");
         Arrays.stream(args).forEach(this::add);
         return this;
     }
 
-    public Indenter add(Collection<String> coll){
+    public Indenter add(Collection<String> coll) {
         requireNonNull(coll, "Collection cannot be null");
         coll.forEach(this::add);
         return this;
     }
 
-    public Indenter add(String str){
+    public Indenter add(String str) {
         if (this.currentLevel == 0) this.indent(); //If the current level hasn't been set, indent the str
 
-        if(!this.indents.isEmpty()) this.sb.append(Constants.BLANK.repeat(this.currentLevel - 1));
+        if (!this.indents.isEmpty()) this.sb.append(Constants.BLANK.repeat(this.currentLevel - 1));
 
         this.sb.append(this.currentFlag)
                 .append(parseString(str))
@@ -81,17 +81,17 @@ public class DefaultIndenter implements Indenter{
         return this;
     }
 
-    public Indenter add(Object object){
+    public Indenter add(Object object) {
         requireNonNull(object, "Object cannot be null");
         return this.add(object.toString());
     }
 
-    public Indenter unindent(){
-        if(this.indents.isEmpty())return this;
+    public Indenter unindent() {
+        if (this.indents.isEmpty()) return this;
 
         this.indents.pop(); //Remove the top flag
 
-        if(this.indents.isEmpty()){
+        if (this.indents.isEmpty()) {
             this.currentFlag = String.valueOf(this.configuration.getDefaultFlag());
             this.currentLevel = 0;
             return this;
@@ -103,7 +103,7 @@ public class DefaultIndenter implements Indenter{
     }
 
 
-    public String get(){
+    public String get() {
         return this.sb.toString();
     }
 
@@ -113,15 +113,15 @@ public class DefaultIndenter implements Indenter{
         this.resetLevel();
     }
 
-    private String parseString(String str){
-        if (this.configuration.getParser() != null){
+    private String parseString(String str) {
+        if (this.configuration.getParser() != null) {
             str = this.configuration.getParser().parse(str);
         }
 
         return str;
     }
 
-    public Indenter resetLevel(){
+    public Indenter resetLevel() {
         this.currentLevel = 0;
         return this;
     }

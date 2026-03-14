@@ -6,16 +6,18 @@ import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
+import java.util.Objects;
+
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
 public class CompactTable extends AbstractTable {
-    private String hLine;
     private final String vLine;
+    private String hLine;
 
-    public CompactTable(TableConfiguration tableConfiguration){
+    public CompactTable(TableConfiguration tableConfiguration) {
         super(tableConfiguration);
         this.vLine = Constants.BLANK.repeat(this.tableConfiguration.getPadding());
         this.hLine = "-";
@@ -46,7 +48,7 @@ public class CompactTable extends AbstractTable {
                 clearStringBuilder(sb);
             }
 
-            if(i == 0){
+            if (i == 0) {
                 tableBuilder.append(Constants.NEWLINE).append(this.appendHeader(sb));
                 clearStringBuilder(sb);
             }
@@ -58,7 +60,7 @@ public class CompactTable extends AbstractTable {
     }
 
     //Dynamically calculate the header for the table
-    private String appendHeader(StringBuilder sb){
+    private String appendHeader(StringBuilder sb) {
         for (int i = 0; i < this.columns.size(); i++) {
             final WidthAwareList col = this.columns.get(i);
             sb.repeat(hLine, col.longest());
@@ -72,9 +74,34 @@ public class CompactTable extends AbstractTable {
     }
 
 
-    protected void styleTableBorders(){
-        if(this.tableConfiguration.getBorderStyle() == null)return;
+    protected void styleTableBorders() {
+        if (this.tableConfiguration.getBorderStyle() == null) return;
         final StyleBuilder sb = this.tableConfiguration.getBorderStyle().styleBuilder();
         this.hLine = sb.formatAndReset(this.hLine, this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles());
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+
+        CompactTable that = (CompactTable) object;
+        return Objects.equals(hLine, that.hLine) && Objects.equals(vLine, that.vLine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), hLine, vLine);
+    }
+
+    @Override
+    public String toString() {
+        return "CompactTable[" +
+                "hLine='" + hLine + '\'' +
+                ", vLine='" + vLine + '\'' +
+                ", columns=" + columns +
+                ", rows=" + rows +
+                ", tableConfiguration=" + tableConfiguration +
+                ']';
     }
 }

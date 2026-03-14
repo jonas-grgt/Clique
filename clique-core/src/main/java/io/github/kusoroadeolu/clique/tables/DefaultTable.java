@@ -7,6 +7,8 @@ import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
 
+import java.util.Objects;
+
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
@@ -16,7 +18,7 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
     private String hLine;
     private String vLine;
 
-    public DefaultTable(TableConfiguration tableConfiguration){
+    public DefaultTable(TableConfiguration tableConfiguration) {
         super(tableConfiguration);
         this.edge = "+";
         this.hLine = "-";
@@ -25,7 +27,7 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
 
     }
 
-    public String get(){
+    public String get() {
         //Declarations
         final var tableBuilder = new StringBuilder();
         final var sb = new StringBuilder();
@@ -62,7 +64,7 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
     }
 
     //Dynamically calculate the header and footer for the table
-    private String appendHeader(StringBuilder sb){
+    private String appendHeader(StringBuilder sb) {
         for (final WidthAwareList l : this.columns) {
             sb.append(edge);
             sb.repeat(hLine, l.longest() + this.tableConfiguration.getPadding());
@@ -87,12 +89,38 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
     }
 
 
-     protected void styleTableBorders(){
-        if(this.tableConfiguration.getBorderStyle() == null) return;
+    protected void styleTableBorders() {
+        if (this.tableConfiguration.getBorderStyle() == null) return;
         final BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
         final StyleBuilder sb = borderStyle.styleBuilder();
         this.hLine = sb.formatAndReset(this.hLine, borderStyle.getHorizontalBorderStyles());
         this.vLine = sb.formatAndReset(this.vLine, borderStyle.getVerticalBorderStyles());
         this.edge = sb.formatAndReset(this.edge, borderStyle.getEdgeBorderStyles());
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+
+        DefaultTable that = (DefaultTable) object;
+        return Objects.equals(edge, that.edge) && Objects.equals(hLine, that.hLine) && Objects.equals(vLine, that.vLine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), edge, hLine, vLine);
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultTable[" +
+                "tableConfiguration=" + tableConfiguration +
+                ", vLine='" + vLine + '\'' +
+                ", hLine='" + hLine + '\'' +
+                ", edge='" + edge + '\'' +
+                ", rows=" + rows +
+                ", columns=" + columns +
+                ']';
     }
 }

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class TableFactory {
 
-    private TableFactory(){
+    private TableFactory() {
         throw new AssertionError();
     }
 

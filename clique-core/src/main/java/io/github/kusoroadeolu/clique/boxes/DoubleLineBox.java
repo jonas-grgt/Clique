@@ -5,25 +5,25 @@ import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 
 public class DoubleLineBox extends ClassicBox {
 
-    public DoubleLineBox(){
+    public DoubleLineBox() {
         super();
-        this.initBorders();
+        this.initDLBorders();
     }
 
     public DoubleLineBox(int width, int length, String content) {
         super(width, length, content);
-        this.initBorders();
+        this.initDLBorders();
         this.styleBox();
     }
 
     public DoubleLineBox(BoxConfiguration configuration) {
         super(configuration);
-        this.initBorders();
+        this.initDLBorders();
         this.styleBox();
 
     }
 
-    private void initBorders(){
+    private void initDLBorders() {
         this.topLeft = "╔";
         this.topRight = "╗";
         this.bottomLeft = "╚";

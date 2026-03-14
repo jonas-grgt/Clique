@@ -10,9 +10,10 @@ import static java.util.Objects.requireNonNull;
 public class CliqueThemeLoader {
     private final static Map<String, CliqueTheme> THEMES = new HashMap<>();
 
-    private CliqueThemeLoader(){}
+    private CliqueThemeLoader() {
+    }
 
-    public static List<CliqueTheme> discover(){
+    public static List<CliqueTheme> discover() {
         return ServiceLoader.load(CliqueTheme.class)
                 .stream()
                 .map(ServiceLoader.Provider::get)
@@ -35,15 +36,15 @@ public class CliqueThemeLoader {
         find(name).ifPresent(t -> Clique.registerStyles(t.styles()));
     }
 
-    public static void registerThemes(String... names){
-        for (String name : names){
+    public static void registerThemes(String... names) {
+        for (String name : names) {
             var optional = find(name);
             optional.ifPresent(t -> Clique.registerStyles(t.styles()));
         }
     }
 
-    public static void registerThemes(Collection<String> names){
-        for (String name : names){
+    public static void registerThemes(Collection<String> names) {
+        for (String name : names) {
             var optional = find(name);
             optional.ifPresent(t -> Clique.registerStyles(t.styles()));
         }

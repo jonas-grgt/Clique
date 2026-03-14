@@ -13,7 +13,7 @@ public enum EasingFunction {
             return t;
         }
     },
-    
+
     /**
      * Slow start, accelerates towards the end
      */
@@ -22,7 +22,7 @@ public enum EasingFunction {
             return 1 - Math.cos((t * Math.PI) / 2);
         }
     },
-    
+
     /**
      * Fast start, decelerates towards the end
      */
@@ -31,7 +31,7 @@ public enum EasingFunction {
             return Math.sin((t * Math.PI) / 2);
         }
     },
-    
+
     /**
      * Slow start and end, fast in the middle
      */
@@ -40,7 +40,7 @@ public enum EasingFunction {
             return -(Math.cos(Math.PI * t) - 1) / 2;
         }
     },
-    
+
     /**
      * Quadratic easing in - accelerating from zero
      */
@@ -49,7 +49,7 @@ public enum EasingFunction {
             return t * t;
         }
     },
-    
+
     /**
      * Quadratic easing out - decelerating to zero
      */
@@ -58,7 +58,7 @@ public enum EasingFunction {
             return 1 - (1 - t) * (1 - t);
         }
     },
-    
+
     /**
      * Quadratic easing in and out
      */
@@ -68,7 +68,7 @@ public enum EasingFunction {
             return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
         }
     },
-    
+
     /**
      * Cubic easing in, accelerating from zero
      */
@@ -78,7 +78,7 @@ public enum EasingFunction {
             return t * t * t;
         }
     },
-    
+
     /**
      * Cubic easing out, decelerating to zero
      */
@@ -88,7 +88,7 @@ public enum EasingFunction {
             return 1 - Math.pow(1 - t, 3);
         }
     },
-    
+
     /**
      * Cubic easing in and out
      */

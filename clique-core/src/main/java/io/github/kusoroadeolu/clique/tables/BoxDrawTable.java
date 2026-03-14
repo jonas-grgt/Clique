@@ -1,11 +1,13 @@
 package io.github.kusoroadeolu.clique.tables;
 
-import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
+
+import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
@@ -136,5 +138,51 @@ public class BoxDrawTable extends AbstractTable {
 
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
 
+        BoxDrawTable that = (BoxDrawTable) object;
+        return Objects.equals(topLeft, that.topLeft) && Objects.equals(topRight, that.topRight) && Objects.equals(bottomLeft, that.bottomLeft) && Objects.equals(bottomRight, that.bottomRight) && Objects.equals(hLine, that.hLine) && Objects.equals(vLine, that.vLine) && Objects.equals(topJoin, that.topJoin) && Objects.equals(bottomJoin, that.bottomJoin) && Objects.equals(leftJoin, that.leftJoin) && Objects.equals(rightJoin, that.rightJoin) && Objects.equals(cross, that.cross);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                super.hashCode(),
+                topLeft,
+                topRight,
+                bottomLeft,
+                bottomRight,
+                hLine,
+                vLine,
+                topJoin,
+                bottomJoin,
+                leftJoin,
+                rightJoin,
+                cross
+        );
+    }
+
+
+    @Override
+    public String toString() {
+        return "BoxDrawTable[" +
+                "topLeft='" + topLeft + '\'' +
+                ", topRight='" + topRight + '\'' +
+                ", bottomLeft='" + bottomLeft + '\'' +
+                ", bottomRight='" + bottomRight + '\'' +
+                ", hLine='" + hLine + '\'' +
+                ", vLine='" + vLine + '\'' +
+                ", topJoin='" + topJoin + '\'' +
+                ", bottomJoin='" + bottomJoin + '\'' +
+                ", leftJoin='" + leftJoin + '\'' +
+                ", rightJoin='" + rightJoin + '\'' +
+                ", cross='" + cross + '\'' +
+                ", columns=" + columns +
+                ", rows=" + rows +
+                ", tableConfiguration=" + tableConfiguration +
+                ']';
+    }
 }
