@@ -24,4 +24,8 @@ public final class Cell {
     public int width() {
         return width;
     }
+
+    public boolean isBlank() {
+        return width() == 0;
+    }
 }

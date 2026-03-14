@@ -27,9 +27,9 @@ public class BoxUtils {
     }
 
     public static void alignText(StringBuilder sb, int idx, TextAlign textAlign, String spaces, List<Cell> wordWrap, String vLine) {
-        final String s = wordWrap.get(idx).text();
+        final Cell cell = wordWrap.get(idx);
         final String ss = wordWrap.get(idx).styledText();
-        final int totalPadding = spaces.length() - s.length();
+        final int totalPadding = spaces.length() - cell.width();
 
         switch (textAlign) {
             case TOP_LEFT, CENTER_LEFT, BOTTOM_LEFT -> {
@@ -55,7 +55,7 @@ public class BoxUtils {
 
             case TOP_CENTER, CENTER, BOTTOM_CENTER -> {
 
-                if (s.length() >= spaces.length()) {
+                if (cell.width() >= spaces.length()) {
                     sb.append(RESET).append(vLine).append(ss).append(RESET).append(vLine).append(Constants.NEWLINE);
                     return;
                 }

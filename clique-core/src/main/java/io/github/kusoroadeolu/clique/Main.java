@@ -1,15 +1,15 @@
 package io.github.kusoroadeolu.clique;
 
-import io.github.kusoroadeolu.clique.tables.TableType;
+import io.github.kusoroadeolu.clique.ansi.ColorCode;
+import io.github.kusoroadeolu.clique.boxes.BoxType;
+import io.github.kusoroadeolu.clique.config.BorderStyle;
+import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 
 public class Main {
     public static void main(String[] args) {
-        var table = Clique.table(TableType.ROUNDED_BOX_DRAW)
-                .addHeaders("Name", "Score")
-                .addRows("👨‍👦Fire", "100")
-                .addRows("Normal", "200");
-        String result = table.get();
-
-        System.out.println(result);
+        Clique.box(BoxType.CLASSIC)
+                .withDimensions(20, 10)
+                .content("👨‍👦 family emoji in a manually sized box with some extra text to force wrapping")
+                .render();
     }
 }

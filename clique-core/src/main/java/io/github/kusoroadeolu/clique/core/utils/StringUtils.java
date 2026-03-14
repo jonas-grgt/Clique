@@ -25,11 +25,11 @@ public final class StringUtils {
     public static int getLengthOfLongestString(String content) {
         if (content.isBlank()) return content.length();
         String[] arr = content.split(NEWLINE_PATTERN.pattern());
-        int longest = arr[ZERO].length();
+        int longest = CharWidth.of(arr[ZERO]);
         for (String s : arr) {
-            if (s.length() > longest) {
-                longest = s.length();
-            }
+            int w = CharWidth.of(s);
+            if (w > longest) longest = w;
+
         }
         return longest;
     }
@@ -45,13 +45,13 @@ public final class StringUtils {
     }
 
     public static void wrapLongString(StringBuilder currentOriginal, StringBuilder currentStyled, List<Cell> cells, int maxCharsPerLine) {
-        if (currentOriginal.length() > maxCharsPerLine) {
+        if (CharWidth.of(currentOriginal.toString()) > maxCharsPerLine) {
             String activeAnsi = ""; // Track ANSI codes to carry forward
 
-            while (currentOriginal.length() > maxCharsPerLine) {
+            while (CharWidth.of(currentOriginal.toString()) > maxCharsPerLine) {
                 // Take first maxCharsPerLine from original
-                String originalChunk = currentOriginal.substring(ZERO, maxCharsPerLine);
-
+                String originalChunk = CharWidth.substringByWidth(currentOriginal.toString(), maxCharsPerLine);
+                
                 // Find corresponding styled text by counting visible characters
                 int styledEnd = getStyledEndIndex(currentStyled.toString(), maxCharsPerLine);
                 String styledChunk = activeAnsi + currentStyled.substring(ZERO, styledEnd);
@@ -62,7 +62,7 @@ public final class StringUtils {
                 activeAnsi = getActiveAnsiCodes(styledChunk);
 
                 // Remove the processed chunk
-                currentOriginal.delete(ZERO, maxCharsPerLine);
+                currentOriginal.delete(ZERO, originalChunk.length());
                 currentStyled.delete(ZERO, styledEnd);
             }
 
