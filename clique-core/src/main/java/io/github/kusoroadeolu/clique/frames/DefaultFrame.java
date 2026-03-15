@@ -13,54 +13,56 @@ import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.kusoroadeolu.clique.ansi.StyleCode.RESET;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
 import static java.util.Objects.requireNonNull;
 
 public class DefaultFrame implements Generated {
     private final List<FrameNode> nodes;
-    private final int maxWidth;
+    private final int width;
     private final int titleWidth;
     private final FrameConfiguration configuration;
     private final Cell title;
     private final BorderChars borderChar;
+    private String frameString = null;
+    private final FrameAlign titleAlign;
     private static final String RESET = "[/]";
 
      DefaultFrame(FrameBuilder builder) {
         this.nodes = builder.nodes;
         this.configuration = builder.configuration;
-        this.maxWidth = builder.width <= 0 ? findNodesMaxWidth() : builder.width;
-        String appendedTitle = builder.title;
+        this.width = (builder.width <= 0 ? findNodesMaxWidth() : builder.width) + (configuration.getPadding() * 2);
+        var appendedTitle = builder.title;
         if (configuration.getParser() != null) appendedTitle = builder.title + RESET;
         this.title = parseCell(appendedTitle, configuration.getParser());
         this.titleWidth = title.width() + 2;
+        validateTitleWidth();
         this.borderChar = BorderChars.from(builder.type);
+        this.titleAlign = builder.titleAlign;
         styleBorders();
     }
 
      public String get(){
+         if (frameString != null) return frameString;
         var sb = new StringBuilder();
-        int innerWidth = maxWidth + (configuration.getPadding() * 2); //Space between two vlines
-
         if (!title.isBlank()){
-            int leftWidth = findBlockOffset(innerWidth, titleWidth , FrameAlign.LEFT); //Hardcoded for now
+            int leftWidth = findTitleBlockOffset(width, titleWidth , titleAlign);
 
             sb.append(borderChar.topLeft())
                     .append(borderChar.hLine().repeat(leftWidth))
                     .append(BLANK).append(title.styledText()).append(BLANK)
-                    .append(borderChar.hLine().repeat(innerWidth - titleWidth - leftWidth))
+                    .append(borderChar.hLine().repeat(width - titleWidth - leftWidth))
                     .append(borderChar.topRight())
                     .append(NEWLINE);
         }
-        else sb.append(borderChar.topLeft()).append(borderChar.hLine().repeat(innerWidth)).append(borderChar.topRight()).append(NEWLINE);
+        else sb.append(borderChar.topLeft()).append(borderChar.hLine().repeat(width)).append(borderChar.topRight()).append(NEWLINE);
 
         for (FrameNode node : nodes) {
-            align(node, innerWidth, sb);
+            align(node, width, sb);
         }
 
-        sb.append(borderChar.bottomLeft()).append(borderChar.hLine().repeat(innerWidth)).append(borderChar.bottomRight());
-        return sb.toString();
+        sb.append(borderChar.bottomLeft()).append(borderChar.hLine().repeat(width)).append(borderChar.bottomRight());
+        return (frameString = sb.toString());
      }
 
      int findNodesMaxWidth(){
@@ -72,6 +74,7 @@ public class DefaultFrame implements Generated {
 
      void align(FrameNode node, int innerWidth, StringBuilder sb){
         int contentWidth = node.maxWidth(); // longest line in the component
+        if (contentWidth > innerWidth) throw new IllegalArgumentException("String with max width %s is greater than frame width %s".formatted(contentWidth, innerWidth));
 
         int blockOffset = findBlockOffset(innerWidth, contentWidth, node.align()); //2
 
@@ -95,6 +98,19 @@ public class DefaultFrame implements Generated {
             case RIGHT -> innerWidth - contentWidth;
             case CENTER -> (innerWidth - contentWidth) / 2;
         };
+    }
+
+    static int findTitleBlockOffset(int innerWidth, int contentWidth, FrameAlign align){
+        return switch (align) {
+            case LEFT -> 1;
+            case RIGHT -> (innerWidth - contentWidth) - 1;
+            case CENTER -> (innerWidth - contentWidth) / 2;
+        };
+    }
+
+
+    void validateTitleWidth(){
+        if (titleWidth > width) throw new IllegalArgumentException("Title of width %s is greater than Frame of width %s".formatted(titleWidth, width));
     }
 
     protected void styleBorders() {
@@ -127,6 +143,7 @@ public class DefaultFrame implements Generated {
         private final List<FrameNode> nodes;
         private String title = EMPTY;
         private final BoxType type;
+        private FrameAlign titleAlign;
         private static final String NULL_FRAME_ALIGN = "Frame align cannot be null";
         private final FrameConfiguration configuration;
         private int width;
@@ -141,10 +158,16 @@ public class DefaultFrame implements Generated {
             this(FrameConfiguration.DEFAULT, BoxType.ROUNDED);
         }
 
-        public FrameBuilder title(String title){
+        public FrameBuilder title(String title, FrameAlign titleAlign){
             requireNonNull(title, "Title cannot be null");
+            requireNonNull(titleAlign, NULL_FRAME_ALIGN);
             this.title = title;
+            this.titleAlign = titleAlign;
             return this;
+        }
+
+        public FrameBuilder title(String title){
+            return title(title, FrameAlign.CENTER);
         }
 
         public FrameBuilder width(int width) {
