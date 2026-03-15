@@ -1,8 +1,9 @@
-package io.github.kusoroadeolu.clique.frames;
+package io.github.kusoroadeolu.clique.frame;
 
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.config.FrameConfiguration;
+import io.github.kusoroadeolu.clique.core.display.Generated;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
@@ -14,7 +15,7 @@ import static io.github.kusoroadeolu.clique.ansi.StyleCode.RESET;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
 
-public class DefaultFrame implements Frame {
+public class Frame implements Generated {
     private final List<FrameNode> nodes;
     private final int width;
     private final int titleWidth;
@@ -24,7 +25,7 @@ public class DefaultFrame implements Frame {
     private String frameString = null;
     private final FrameAlign titleAlign;
 
-     DefaultFrame(FrameBuilder builder) {
+     Frame(FrameBuilder builder) {
         this.nodes = builder.nodes;
         this.configuration = builder.configuration;
         this.width = (builder.width <= 0 ? findNodesMaxWidth() : builder.width) + (configuration.getPadding() * 2);
@@ -127,11 +128,28 @@ public class DefaultFrame implements Frame {
     }
 
 
+    public static FrameBuilder builder(){
+        return new FrameBuilder();
+    }
+
+    public static FrameBuilder builder(FrameConfiguration configuration, FrameType type){
+        return new FrameBuilder(configuration, type);
+    }
+
+    public static FrameBuilder builder(FrameConfiguration configuration){
+        return new FrameBuilder(configuration);
+    }
+
+    public static FrameBuilder builder(FrameType type){
+        return new FrameBuilder(type);
+    }
+
+
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
 
-        DefaultFrame that = (DefaultFrame) object;
+        Frame that = (Frame) object;
         return width == that.width && titleWidth == that.titleWidth && Objects.equals(nodes, that.nodes) && Objects.equals(configuration, that.configuration) && Objects.equals(title, that.title) && Objects.equals(borderChar, that.borderChar) && Objects.equals(frameString, that.frameString) && titleAlign == that.titleAlign;
     }
 
@@ -142,7 +160,7 @@ public class DefaultFrame implements Frame {
 
     @Override
     public String toString() {
-        return "DefaultFrame[" +
+        return "Frame[" +
                 "nodes=" + nodes +
                 ", width=" + width +
                 ", titleWidth=" + titleWidth +

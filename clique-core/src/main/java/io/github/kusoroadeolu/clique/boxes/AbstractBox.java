@@ -3,9 +3,9 @@ package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
+import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.core.utils.CharWidth;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
-import io.github.kusoroadeolu.clique.core.structures.Cell;
 
 import java.io.PrintStream;
 import java.util.ArrayList;

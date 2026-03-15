@@ -1,4 +1,4 @@
-package io.github.kusoroadeolu.clique.frames;
+package io.github.kusoroadeolu.clique.frame;
 
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.config.FrameAlign;

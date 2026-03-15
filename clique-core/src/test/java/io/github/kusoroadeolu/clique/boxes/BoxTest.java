@@ -3,7 +3,7 @@ package io.github.kusoroadeolu.clique.boxes;
 import io.github.kusoroadeolu.clique.Clique;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BoxTest {
     @Test

@@ -1,6 +1,4 @@
-package io.github.kusoroadeolu.clique.frames;
-
-import io.github.kusoroadeolu.clique.boxes.*;
+package io.github.kusoroadeolu.clique.frame;
 
 class BorderChars {
     private String hLine;

@@ -1,7 +1,5 @@
-package io.github.kusoroadeolu.clique.frames;
+package io.github.kusoroadeolu.clique.frame;
 
-import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
@@ -12,7 +10,7 @@ import java.util.Arrays;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static org.junit.jupiter.api.Assertions.*;
 
-class DefaultFrameTest {
+class FrameTest {
 
     private static Component component(String output) {
         return () -> output;
@@ -34,7 +32,7 @@ class DefaultFrameTest {
     @Test
     void throwsWhenTitleWiderThanFrame() {
         assertThrows(IllegalArgumentException.class, () ->
-                DefaultFrame.builder()
+                Frame.builder()
                         .width(5)
                         .title("This title is way too long")
                         .nest("hi")
@@ -45,7 +43,7 @@ class DefaultFrameTest {
     @Test
     void throwsWhenNodeContentWiderThanExplicitWidth() {
         assertThrows(IllegalArgumentException.class, () ->
-                DefaultFrame.builder()
+                Frame.builder()
                         .width(3)
                         .nest("this string is too wide")
                         .build()
@@ -56,7 +54,7 @@ class DefaultFrameTest {
     @Test
     void throwsWhenWidthIsNegative() {
         assertThrows(IllegalArgumentException.class, () ->
-                DefaultFrame.builder().width(-1)
+                Frame.builder().width(-1)
         );
     }
 
@@ -67,7 +65,7 @@ class DefaultFrameTest {
     @Test
     void frameWithNoTitleHasPlainTopBorder() {
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .nest("hello")
                         .build()
                         .get()
@@ -81,7 +79,7 @@ class DefaultFrameTest {
     void frameWithTitleEmbedsTitleInTopBorder() {
         String title = "MyApp";
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .title(title)
                         .nest("hello")
                         .build()
@@ -95,7 +93,7 @@ class DefaultFrameTest {
     @Test
     void titleIsSurroundedBySpacesInTopBorder() {
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .title("T")
                         .nest("some content")
                         .build()
@@ -108,7 +106,7 @@ class DefaultFrameTest {
     @Test
     void topAndBottomBorderHaveSameWidth() {
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .title("Title")
                         .nest("hello world")
                         .build()
@@ -126,7 +124,7 @@ class DefaultFrameTest {
     void nestedComponentOutputAppearsInFrame() {
         Component comp = component("foo");
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .nest(comp)
                         .build()
                         .get()
@@ -137,7 +135,7 @@ class DefaultFrameTest {
     @Test
     void allContentLinesHaveSameWidth() {
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .nest("short")
                         .nest("a much longer line")
                         .build()
@@ -155,7 +153,7 @@ class DefaultFrameTest {
         String wide = "a much longer string";
         String narrow = "hi";
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .nest(wide)
                         .nest(narrow)
                         .build()
@@ -173,7 +171,7 @@ class DefaultFrameTest {
     void nestedComponentWithMultilineOutput() {
         Component comp = component("line one\nline two\nline three");
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .nest(comp)
                         .build()
                         .get()
@@ -185,7 +183,7 @@ class DefaultFrameTest {
 
     @Test
     void frameIsCachedOnSubsequentGetCalls() {
-        DefaultFrame frame = DefaultFrame.builder()
+        Frame frame = Frame.builder()
                 .nest("hello")
                 .build();
         String first = frame.get();
@@ -196,7 +194,7 @@ class DefaultFrameTest {
     @Test
     void leftAlignedNodeIsFlushToLeftBorder() {
         String rendered = stripAnsi(
-                DefaultFrame.builder()
+                Frame.builder()
                         .nest("hi", FrameAlign.LEFT)
                         .nest("much wider content here")
                         .build()
