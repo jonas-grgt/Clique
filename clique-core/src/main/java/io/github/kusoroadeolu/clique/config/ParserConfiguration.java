@@ -3,7 +3,7 @@ package io.github.kusoroadeolu.clique.config;
 import java.util.Objects;
 
 public class ParserConfiguration {
-    public final static ParserConfiguration DEFAULT = new ParserConfiguration();
+    public static final ParserConfiguration DEFAULT = new ParserConfiguration();
 
     private final String delimiter;
     private final boolean enableStrictParsing;

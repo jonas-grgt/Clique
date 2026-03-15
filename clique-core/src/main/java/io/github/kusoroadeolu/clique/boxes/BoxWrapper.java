@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
-import io.github.kusoroadeolu.clique.tables.structures.Cell;
+import io.github.kusoroadeolu.clique.core.structures.Cell;
 
 import java.util.List;
 

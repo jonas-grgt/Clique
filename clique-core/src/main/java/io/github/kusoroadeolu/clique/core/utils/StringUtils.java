@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.core.utils;
 
 
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
-import io.github.kusoroadeolu.clique.tables.structures.Cell;
+import io.github.kusoroadeolu.clique.core.structures.Cell;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,14 +24,10 @@ public final class StringUtils {
     //Automatically get a suitable width when the width is not given
     public static int getLengthOfLongestString(String content) {
         if (content.isBlank()) return content.length();
-        String[] arr = content.split(NEWLINE_PATTERN.pattern());
-        int longest = CharWidth.of(arr[ZERO]);
-        for (String s : arr) {
-            int w = CharWidth.of(s);
-            if (w > longest) longest = w;
-
-        }
-        return longest;
+        return content.lines()
+                .mapToInt(CharWidth::of)
+                .max()
+                .getAsInt();
     }
 
     public static String[] filterWhitespace(String[] arr) {

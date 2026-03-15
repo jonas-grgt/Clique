@@ -25,13 +25,9 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
 
     public String getOriginalString(String tokenedString) {
         if (tokenedString == null || tokenedString.isBlank()) return EMPTY;
-        String clean = tokenedString;
-        var result = this.getParseResult(clean);
-        for (String tag : result.extractedFormTags()) {
-            clean = clean.replace(tag, EMPTY);
-        }
-
-        return clean;
+        var result = this.getParseResult(tokenedString);
+        return result.extractedFormTags().stream()
+                .reduce(tokenedString, (s, tag) -> s.replace(tag, EMPTY));
     }
 
     private ParseResult getParseResult(String input) {

@@ -5,7 +5,7 @@ import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
-import io.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
+import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 
 import java.util.Objects;
 

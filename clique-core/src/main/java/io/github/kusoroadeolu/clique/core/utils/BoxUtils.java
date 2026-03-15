@@ -6,12 +6,13 @@ import io.github.kusoroadeolu.clique.boxes.BoxWrapper;
 import io.github.kusoroadeolu.clique.config.TextAlign;
 import io.github.kusoroadeolu.clique.core.exceptions.ExceptionSupplier;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
-import io.github.kusoroadeolu.clique.tables.structures.Cell;
+import io.github.kusoroadeolu.clique.core.structures.Cell;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
+import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
 public class BoxUtils {
@@ -39,7 +40,7 @@ public class BoxUtils {
                         .append(RESET)  //Appending RESET here to prevent colors from bleeding into the lines
                         .append(padding)
                         .append(vLine)
-                        .append("\n");
+                        .append(NEWLINE);
             }
 
             case TOP_RIGHT, CENTER_RIGHT, BOTTOM_RIGHT -> {
@@ -50,13 +51,13 @@ public class BoxUtils {
                         .append(ss)
                         .append(RESET)
                         .append(vLine)
-                        .append("\n");
+                        .append(NEWLINE);
             }
 
             case TOP_CENTER, CENTER, BOTTOM_CENTER -> {
 
                 if (cell.width() >= spaces.length()) {
-                    sb.append(RESET).append(vLine).append(ss).append(RESET).append(vLine).append(Constants.NEWLINE);
+                    sb.append(RESET).append(vLine).append(ss).append(RESET).append(vLine).append(NEWLINE);
                     return;
                 }
 
@@ -69,7 +70,7 @@ public class BoxUtils {
                         .append(RESET)
                         .append(BLANK.repeat(rightPadding))
                         .append(vLine)
-                        .append(Constants.NEWLINE);
+                        .append(NEWLINE);
             }
         }
     }
@@ -81,7 +82,7 @@ public class BoxUtils {
         final String hLines = sb.repeat(boxWrapper.hLine(), boxWrapper.width() - centerPadding).toString();
         final TextAlign textAlign = boxWrapper.configuration().getTextAlign();
         clearStringBuilder(sb);
-        sb.append(boxWrapper.tLeft()).append(hLines).append(boxWrapper.tRight()).append(Constants.NEWLINE);
+        sb.append(boxWrapper.tLeft()).append(hLines).append(boxWrapper.tRight()).append(NEWLINE);
 
         int startLine = 1;
         final int availableLines = boxWrapper.length() - centerPadding;
@@ -98,7 +99,7 @@ public class BoxUtils {
                 int textIndex = i - startLine;
                 alignText(sb, textIndex, textAlign, spaces, boxWrapper.wordWrap(), boxWrapper.vLine());
             } else {
-                sb.append(boxWrapper.vLine()).append(spaces).append(boxWrapper.vLine()).append(Constants.NEWLINE);
+                sb.append(boxWrapper.vLine()).append(spaces).append(boxWrapper.vLine()).append(NEWLINE);
             }
         }
 

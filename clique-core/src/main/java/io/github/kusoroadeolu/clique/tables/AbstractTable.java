@@ -2,8 +2,8 @@ package io.github.kusoroadeolu.clique.tables;
 
 
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
-import io.github.kusoroadeolu.clique.tables.structures.Cell;
-import io.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
+import io.github.kusoroadeolu.clique.core.structures.Cell;
+import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 
 import java.util.ArrayList;
 import java.util.Collection;

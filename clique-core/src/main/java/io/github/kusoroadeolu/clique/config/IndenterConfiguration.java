@@ -10,7 +10,7 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 
 public class IndenterConfiguration {
-    public final static IndenterConfiguration DEFAULT = new IndenterConfiguration();
+    public static final IndenterConfiguration DEFAULT = new IndenterConfiguration();
 
     private final AnsiStringParser parser;
     private final int indentLevel;

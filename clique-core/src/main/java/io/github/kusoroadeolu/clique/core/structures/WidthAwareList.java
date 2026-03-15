@@ -1,4 +1,4 @@
-package io.github.kusoroadeolu.clique.tables.structures;
+package io.github.kusoroadeolu.clique.core.structures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,12 @@ public class WidthAwareList {
     private int longest;
 
     public WidthAwareList() {
+        this(new ArrayList<>());
+    }
+
+    public WidthAwareList(List<Cell> list) {
         this.longest = 0;
-        this.list = new ArrayList<>();
+        this.list = list;
     }
 
 
@@ -35,10 +39,6 @@ public class WidthAwareList {
     //Gets the styled text from the table
     public String getStyledText(int pos) {
         return this.list.get(pos).styledText();
-    }
-
-    public String getOriginalText(int pos) {
-        return this.list.get(pos).text();
     }
 
     public Cell get(int pos) {

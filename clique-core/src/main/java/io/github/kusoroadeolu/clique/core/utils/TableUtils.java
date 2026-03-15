@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.core.utils;
 
 import io.github.kusoroadeolu.clique.config.CellAlign;
-import io.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
+import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 
 import java.util.List;
 import java.util.Map;

@@ -20,7 +20,6 @@ public class TableConfiguration {
 
 
     private TableConfiguration() {
-        // Default config
         this(new TableConfigurationBuilder());
     }
 

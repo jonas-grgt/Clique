@@ -6,29 +6,29 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
 
-public class BoxConfiguration {
-    public static final BoxConfiguration DEFAULT = new BoxConfiguration();
+public class FrameConfiguration {
+    public static final FrameConfiguration DEFAULT = new FrameConfiguration();
 
     private final int centerPadding;
-    private final TextAlign textAlign;
+    private final FrameAlign align;
     private final AnsiStringParser parser;
     private final BorderStyle borderStyle;
     private final boolean autoSize;
 
-    private BoxConfiguration() {
-        this(new BoxConfigurationBuilder());
+    private FrameConfiguration() {
+        this(new FrameConfigurationBuilder());
     }
 
-    private BoxConfiguration(BoxConfigurationBuilder builder) {
+    private FrameConfiguration(FrameConfigurationBuilder builder) {
         this.centerPadding = builder.centerPadding;
-        this.textAlign = builder.textAlign;
+        this.align = builder.frameAlign;
         this.parser = builder.parser;
         this.borderStyle = builder.borderStyle;
         this.autoSize = builder.autoSize;
     }
 
-    public static BoxConfigurationBuilder immutableBuilder() {
-        return new BoxConfigurationBuilder();
+    public static FrameConfigurationBuilder immutableBuilder() {
+        return new FrameConfigurationBuilder();
     }
 
     public int getCenterPadding() {
@@ -43,8 +43,8 @@ public class BoxConfiguration {
         return this.borderStyle;
     }
 
-    public TextAlign getTextAlign() {
-        return this.textAlign;
+    public FrameAlign getFrameAlign() {
+        return this.align;
     }
 
     public AnsiStringParser getParser() {
@@ -52,9 +52,9 @@ public class BoxConfiguration {
     }
 
     public String toString() {
-        return "BoxConfiguration[" +
+        return "FrameConfiguration[" +
                 "centerPadding=" + centerPadding +
-                ", textAlign=" + textAlign +
+                ", frameAlign=" + align +
                 ", parser=" + parser +
                 ", borderStyle=" + borderStyle +
                 ", autoSize=" + autoSize +
@@ -65,51 +65,51 @@ public class BoxConfiguration {
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
 
-        BoxConfiguration that = (BoxConfiguration) object;
-        return centerPadding == that.centerPadding && autoSize == that.autoSize && textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
+        FrameConfiguration that = (FrameConfiguration) object;
+        return centerPadding == that.centerPadding && autoSize == that.autoSize && align == that.align && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(centerPadding, autoSize, textAlign, parser, borderStyle);
+        return Objects.hash(centerPadding, autoSize, align, parser, borderStyle);
     }
 
-    public static class BoxConfigurationBuilder {
+    public static class FrameConfigurationBuilder {
         private int centerPadding = 2;
-        private TextAlign textAlign = TextAlign.CENTER;
+        private FrameAlign frameAlign = FrameAlign.CENTER;
         private AnsiStringParser parser = Clique.parser();
         private BorderStyle borderStyle = null;
         private boolean autoSize = false;
 
-        public BoxConfigurationBuilder centerPadding(int centerPadding) {
+        public FrameConfigurationBuilder centerPadding(int centerPadding) {
             if (centerPadding > 0) this.centerPadding = centerPadding;
             return this;
         }
 
-        public BoxConfigurationBuilder autoSize() {
+        public FrameConfigurationBuilder autoSize() {
             this.autoSize = true;
             return this;
         }
 
-        public BoxConfigurationBuilder borderStyle(BorderStyle borderStyle) {
+        public FrameConfigurationBuilder borderStyle(BorderStyle borderStyle) {
             Objects.requireNonNull(borderStyle, "Border style cannot be null");
             this.borderStyle = borderStyle;
             return this;
         }
 
-        public BoxConfigurationBuilder textAlign(TextAlign textAlign) {
-            Objects.requireNonNull(textAlign, "Text align cannot be null");
-            this.textAlign = textAlign;
+        public FrameConfigurationBuilder frameAlign(FrameAlign align) {
+            Objects.requireNonNull(frameAlign, "DefaultFrame align cannot be null");
+            this.frameAlign = align;
             return this;
         }
 
-        public BoxConfigurationBuilder parser(AnsiStringParser parser) {
+        public FrameConfigurationBuilder parser(AnsiStringParser parser) {
             this.parser = parser;
             return this;
         }
 
-        public BoxConfiguration build() {
-            return new BoxConfiguration(this);
+        public FrameConfiguration build() {
+            return new FrameConfiguration(this);
         }
     }
 }

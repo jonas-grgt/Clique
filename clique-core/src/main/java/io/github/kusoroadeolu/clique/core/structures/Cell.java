@@ -1,4 +1,4 @@
-package io.github.kusoroadeolu.clique.tables.structures;
+package io.github.kusoroadeolu.clique.core.structures;
 
 import io.github.kusoroadeolu.clique.core.utils.CharWidth;
 
