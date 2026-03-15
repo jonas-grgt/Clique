@@ -19,7 +19,7 @@ class BorderChars {
         this.bottomRight = bottomRight;
     }
 
-    static BorderChars from(BoxType type) {
+    static BorderChars from(FrameType type) {
         return switch (type) {
             case DEFAULT      -> new BorderChars("-", "|", "+", "+", "+", "+");
             case DOUBLE_LINE  -> new BorderChars("═", "║", "╔", "╗", "╚", "╝");

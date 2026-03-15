@@ -1,23 +1,20 @@
 package io.github.kusoroadeolu.clique.frames;
 
-import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.config.FrameConfiguration;
-import io.github.kusoroadeolu.clique.core.display.Component;
-import io.github.kusoroadeolu.clique.core.display.Generated;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import static io.github.kusoroadeolu.clique.ansi.StyleCode.RESET;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
-import static java.util.Objects.requireNonNull;
 
-public class DefaultFrame implements Generated {
+public class DefaultFrame implements Frame {
     private final List<FrameNode> nodes;
     private final int width;
     private final int titleWidth;
@@ -26,7 +23,6 @@ public class DefaultFrame implements Generated {
     private final BorderChars borderChar;
     private String frameString = null;
     private final FrameAlign titleAlign;
-    private static final String RESET = "[/]";
 
      DefaultFrame(FrameBuilder builder) {
         this.nodes = builder.nodes;
@@ -131,79 +127,30 @@ public class DefaultFrame implements Generated {
     }
 
 
-    public static FrameBuilder builder(){
-         return new FrameBuilder();
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        DefaultFrame that = (DefaultFrame) object;
+        return width == that.width && titleWidth == that.titleWidth && Objects.equals(nodes, that.nodes) && Objects.equals(configuration, that.configuration) && Objects.equals(title, that.title) && Objects.equals(borderChar, that.borderChar) && Objects.equals(frameString, that.frameString) && titleAlign == that.titleAlign;
     }
 
-    public static FrameBuilder builder(FrameConfiguration configuration, BoxType boxType){
-        return new FrameBuilder(configuration, boxType);
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, titleWidth, nodes, configuration, title, titleAlign, frameString, borderChar);
     }
 
-    public static final class FrameBuilder{
-        private final List<FrameNode> nodes;
-        private String title = EMPTY;
-        private final BoxType type;
-        private FrameAlign titleAlign;
-        private static final String NULL_FRAME_ALIGN = "Frame align cannot be null";
-        private final FrameConfiguration configuration;
-        private int width;
-
-        public FrameBuilder(FrameConfiguration configuration, BoxType type) {
-            this.nodes = new ArrayList<>();
-            this.type = type;
-            this.configuration = configuration;
-        }
-
-        public FrameBuilder(){
-            this(FrameConfiguration.DEFAULT, BoxType.ROUNDED);
-        }
-
-        public FrameBuilder title(String title, FrameAlign titleAlign){
-            requireNonNull(title, "Title cannot be null");
-            requireNonNull(titleAlign, NULL_FRAME_ALIGN);
-            this.title = title;
-            this.titleAlign = titleAlign;
-            return this;
-        }
-
-        public FrameBuilder title(String title){
-            return title(title, FrameAlign.CENTER);
-        }
-
-        public FrameBuilder width(int width) {
-            if (width < 0) throw new IllegalArgumentException("Width cannot be negative");
-            this.width = width;
-            return this;
-        }
-
-        public FrameBuilder nest(String str){
-            return nest(str, configuration.getFrameAlign());
-        }
-
-
-
-        public FrameBuilder nest(Component component, FrameAlign align){
-            requireNonNull(component, "Component cannot be null");
-            requireNonNull(align, NULL_FRAME_ALIGN);
-            nodes.add(new FrameNode.ComponentNode(component, align));
-            return this;
-        }
-
-
-        public FrameBuilder nest(Component component){
-            return nest(component, configuration.getFrameAlign());
-        }
-
-        public FrameBuilder nest(String str, FrameAlign align){
-            requireNonNull(str, "String cannot be null");
-            if (configuration.getParser() != null) str = str + RESET;
-            nodes.add(new FrameNode.StringNode(str, align, configuration.getParser()));
-            return this;
-        }
-
-        public DefaultFrame build(){
-            return new DefaultFrame(this);
-        }
-
+    @Override
+    public String toString() {
+        return "DefaultFrame[" +
+                "nodes=" + nodes +
+                ", width=" + width +
+                ", titleWidth=" + titleWidth +
+                ", configuration=" + configuration +
+                ", title=" + title +
+                ", borderChar=" + borderChar +
+                ", frameString='" + frameString + '\'' +
+                ", titleAlign=" + titleAlign +
+                ']';
     }
 }
