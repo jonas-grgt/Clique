@@ -5,7 +5,7 @@ import java.util.Objects;
 
 //Added docs here so I won't forget what each val does
 public class EasingConfiguration {
-    public final static EasingConfiguration DEFAULT = new EasingConfiguration();
+    public static final EasingConfiguration DEFAULT = new EasingConfiguration();
     private final EasingFunction function;
     private final int durationMs;
     private final int frames;

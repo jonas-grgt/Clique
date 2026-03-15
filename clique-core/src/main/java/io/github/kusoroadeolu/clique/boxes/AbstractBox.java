@@ -3,8 +3,9 @@ package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
+import io.github.kusoroadeolu.clique.core.utils.CharWidth;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
-import io.github.kusoroadeolu.clique.tables.structures.Cell;
+import io.github.kusoroadeolu.clique.core.structures.Cell;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public abstract class AbstractBox implements Box {
     }
 
     protected void wrapWord() {
-        if ((this.boxContent == null || this.boxContent.text().isBlank()) && !this.boxConfiguration.getAutoSize()) {
+        if ((this.boxContent == null || this.boxContent.isBlank()) && !this.boxConfiguration.getAutoSize()) {
             return;
         }
 
@@ -94,7 +95,7 @@ public abstract class AbstractBox implements Box {
                 final String styledWord = styledWords[j];
 
                 // Check if adding this word would overflow
-                if ((currentOriginal.length() + originalWord.length()) + 1 > maxCharsPerLine) {
+                if ((CharWidth.of(currentOriginal.toString()) + CharWidth.of(originalWord)) + 1 > maxCharsPerLine) {
                     wrapLongString(currentOriginal, currentStyled, this.contentWrap, maxCharsPerLine);
                     if (!currentOriginal.isEmpty()) {
                         this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));

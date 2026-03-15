@@ -2,10 +2,15 @@ package io.github.kusoroadeolu.clique;
 
 
 import io.github.kusoroadeolu.clique.boxes.AbstractBox;
+import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
+import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
+import io.github.kusoroadeolu.clique.frames.Frame;
+import io.github.kusoroadeolu.clique.frames.FrameBuilder;
+import io.github.kusoroadeolu.clique.frames.FrameType;
 import io.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
@@ -18,6 +23,8 @@ import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable;
+import io.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
+import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.themeloader.CliqueThemeLoader;
@@ -50,67 +57,67 @@ public final class Clique {
         return new AnsiStringParserImpl(configuration);
     }
 
-    public static AbstractTable.TableHeaderBuilder table() {
+    public static TableHeaderBuilder table() {
         return table(TableType.DEFAULT);
     }
 
-    public static AbstractTable.TableHeaderBuilder table(TableConfiguration configuration) {
+    public static TableHeaderBuilder table(TableConfiguration configuration) {
         return table(TableType.DEFAULT, configuration);
     }
 
-    public static AbstractTable.TableHeaderBuilder table(TableType type) {
+    public static TableHeaderBuilder table(TableType type) {
         return TableFactory.getTableBuilder(type);
     }
 
-    public static AbstractTable.TableHeaderBuilder table(TableType type, TableConfiguration configuration) {
+    public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) {
         return TableFactory.getTableBuilder(type, configuration);
     }
 
-    public static AbstractTable.CustomizableTableHeaderBuilder customizableTable(TableType type) {
+    public static CustomizableTableHeaderBuilder customizableTable(TableType type) {
         return TableFactory.getCustomizableTableBuilder(type);
     }
 
-    public static AbstractTable.CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration) {
+    public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration) {
         return TableFactory.getCustomizableTableBuilder(type, configuration);
     }
 
-    public static AbstractTable.CustomizableTableHeaderBuilder customizableTable() {
+    public static CustomizableTableHeaderBuilder customizableTable() {
         return customizableTable(TableConfiguration.DEFAULT);
     }
 
-    public static AbstractTable.CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration) {
+    public static CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration) {
         return customizableTable(TableType.DEFAULT, configuration);
     }
 
-    public static AbstractBox.BoxDimensionBuilder box() {
+    public static BoxDimensionBuilder box() {
         return box(BoxType.DEFAULT);
     }
 
-    public static AbstractBox.BoxDimensionBuilder box(BoxConfiguration configuration) {
+    public static BoxDimensionBuilder box(BoxConfiguration configuration) {
         return box(BoxType.DEFAULT, configuration);
     }
 
-    public static AbstractBox.BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) {
+    public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) {
         return BoxFactory.getBoxDimensionBuilder(type, configuration);
     }
 
-    public static AbstractBox.BoxDimensionBuilder box(BoxType type) {
+    public static BoxDimensionBuilder box(BoxType type) {
         return BoxFactory.getBoxDimensionBuilder(type);
     }
 
-    public static AbstractBox.CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration) {
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration) {
         return BoxFactory.getCustomizableBoxDimensionBuilder(type, configuration);
     }
 
-    public static AbstractBox.CustomizableBoxDimensionBuilder customizableBox(BoxType type) {
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type) {
         return BoxFactory.getCustomizableBoxDimensionBuilder(type);
     }
 
-    public static AbstractBox.CustomizableBoxDimensionBuilder customizableBox() {
+    public static CustomizableBoxDimensionBuilder customizableBox() {
         return customizableBox(BoxType.DEFAULT);
     }
 
-    public static AbstractBox.CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration) {
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration) {
         return customizableBox(BoxType.DEFAULT, configuration);
     }
 
@@ -137,6 +144,26 @@ public final class Clique {
     public static void enableCliqueColors(boolean enable) {
         if (enable) AnsiDetector.enableCliqueColors();
         else AnsiDetector.disableCliqueColors();
+    }
+
+    public static void enableCliqueColors() {
+        enableCliqueColors(true);
+    }
+
+    public static FrameBuilder frame(){
+        return Frame.builder();
+    }
+
+    public static FrameBuilder frame(FrameConfiguration configuration){
+        return Frame.builder(configuration);
+    }
+
+    public static FrameBuilder frame(FrameType type){
+        return Frame.builder(type);
+    }
+
+    public static FrameBuilder frame(FrameType type, FrameConfiguration configuration){
+        return Frame.builder(configuration, type);
     }
 
     public static void registerStyle(String style, AnsiCode code) {
@@ -172,3 +199,5 @@ public final class Clique {
     }
 
 }
+
+// https://patorjk.com/software/taag/

@@ -7,7 +7,7 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import java.util.Objects;
 
 public class BoxConfiguration {
-    public final static BoxConfiguration DEFAULT = new BoxConfiguration();
+    public static final BoxConfiguration DEFAULT = new BoxConfiguration();
 
     private final int centerPadding;
     private final TextAlign textAlign;

@@ -172,7 +172,7 @@ public final class CharWidth {
      * @param codePoint the Unicode code point
      * @return 0 for zero-width characters, 2 for wide characters, 1 otherwise
      */
-    public static int of(int codePoint) {
+    public static int ofCodePoint(int codePoint) {
         if (codePoint < 0x10000) {
             return BMP_WIDTHS[codePoint];
         }
@@ -211,7 +211,7 @@ public final class CharWidth {
         while (i < s.length()) {
             int codePoint = s.codePointAt(i);
             int charCount = Character.charCount(codePoint);
-            int cpWidth = of(codePoint);
+            int cpWidth = ofCodePoint(codePoint);
 
             // ZWJ: skip its width and the following codepoint's width contribution
             if (cpWidth == 0 && codePoint == 0x200D) {
@@ -275,7 +275,7 @@ public final class CharWidth {
         while (i < s.length()) {
             int codePoint = s.codePointAt(i);
             int charCount = Character.charCount(codePoint);
-            int cpWidth = of(codePoint);
+            int cpWidth = ofCodePoint(codePoint);
 
             // Track ZWJ sequences to avoid breaking in the middle
             if (codePoint == 0x200D) {
@@ -358,7 +358,7 @@ public final class CharWidth {
 
             if (first) {
                 // First character of sequence contributes width
-                width = of(codePoint);
+                width = ofCodePoint(codePoint);
                 first = false;
             }
             // Subsequent characters joined by ZWJ don't add width
@@ -389,7 +389,7 @@ public final class CharWidth {
         int width = 0;
         while (i > 0) {
             int codePoint = s.codePointBefore(i);
-            int charWidth = of(codePoint);
+            int charWidth = ofCodePoint(codePoint);
             if (width + charWidth > maxWidth) {
                 break;
             }

@@ -2,8 +2,8 @@ package io.github.kusoroadeolu.clique.tables;
 
 
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
-import io.github.kusoroadeolu.clique.tables.structures.Cell;
-import io.github.kusoroadeolu.clique.tables.structures.WidthAwareList;
+import io.github.kusoroadeolu.clique.core.structures.Cell;
+import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,6 +61,7 @@ public abstract class AbstractTable implements Table {
     public AbstractTable removeRow(int index) {
         validateHeaders(index, index);
         validateRowIndex(index, this.rows);
+
         this.rows.remove(index);
         for (WidthAwareList cl : this.columns) {
             cl.remove(cl.get(index));

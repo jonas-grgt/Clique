@@ -1,4 +1,4 @@
-package io.github.kusoroadeolu.clique.tables.structures;
+package io.github.kusoroadeolu.clique.core.structures;
 
 import io.github.kusoroadeolu.clique.core.utils.CharWidth;
 
@@ -23,5 +23,9 @@ public final class Cell {
 
     public int width() {
         return width;
+    }
+
+    public boolean isBlank() {
+        return width() == 0;
     }
 }

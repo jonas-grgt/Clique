@@ -242,16 +242,6 @@ Clique.parser().print("[red]This will definitely be colored[/]");
 
 ## Common Gotchas
 
-### Emoji Width Issues
-
-Emojis mess with width calculations in tables and boxes. Try to avoid using them:
-```java
-Clique.table(TableType.DEFAULT)
-    .addHeaders("Status", "Message")
-    .addRows("😀", "Success") //Avoid this
-    .render();
-```
-
 ### Column Alignment Precedence
 
 When using tables, remember that column alignment always overrides table-wide alignment:

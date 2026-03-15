@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.core.utils;
 
 
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
-import io.github.kusoroadeolu.clique.tables.structures.Cell;
+import io.github.kusoroadeolu.clique.core.structures.Cell;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,14 +24,10 @@ public final class StringUtils {
     //Automatically get a suitable width when the width is not given
     public static int getLengthOfLongestString(String content) {
         if (content.isBlank()) return content.length();
-        String[] arr = content.split(NEWLINE_PATTERN.pattern());
-        int longest = arr[ZERO].length();
-        for (String s : arr) {
-            if (s.length() > longest) {
-                longest = s.length();
-            }
-        }
-        return longest;
+        return content.lines()
+                .mapToInt(CharWidth::of)
+                .max()
+                .getAsInt();
     }
 
     public static String[] filterWhitespace(String[] arr) {
@@ -45,13 +41,13 @@ public final class StringUtils {
     }
 
     public static void wrapLongString(StringBuilder currentOriginal, StringBuilder currentStyled, List<Cell> cells, int maxCharsPerLine) {
-        if (currentOriginal.length() > maxCharsPerLine) {
+        if (CharWidth.of(currentOriginal.toString()) > maxCharsPerLine) {
             String activeAnsi = ""; // Track ANSI codes to carry forward
 
-            while (currentOriginal.length() > maxCharsPerLine) {
+            while (CharWidth.of(currentOriginal.toString()) > maxCharsPerLine) {
                 // Take first maxCharsPerLine from original
-                String originalChunk = currentOriginal.substring(ZERO, maxCharsPerLine);
-
+                String originalChunk = CharWidth.substringByWidth(currentOriginal.toString(), maxCharsPerLine);
+                
                 // Find corresponding styled text by counting visible characters
                 int styledEnd = getStyledEndIndex(currentStyled.toString(), maxCharsPerLine);
                 String styledChunk = activeAnsi + currentStyled.substring(ZERO, styledEnd);
@@ -62,7 +58,7 @@ public final class StringUtils {
                 activeAnsi = getActiveAnsiCodes(styledChunk);
 
                 // Remove the processed chunk
-                currentOriginal.delete(ZERO, maxCharsPerLine);
+                currentOriginal.delete(ZERO, originalChunk.length());
                 currentStyled.delete(ZERO, styledEnd);
             }
 
@@ -97,6 +93,30 @@ public final class StringUtils {
         }
 
         return i;
+    }
+
+    public static String skipAnsi(String styled) {
+        int i = 0;
+        boolean inAnsi = false;
+        var clean = new StringBuilder();
+
+        while (i < styled.length()) {
+            char c;
+            if ((c = styled.charAt(i)) == ANSI_BEGIN) {
+                inAnsi = true;
+            } else if (inAnsi && (c = styled.charAt(i)) == ANSI_END) {
+                inAnsi = false;
+                i++;
+                continue;
+            }
+
+            if (!inAnsi){
+                clean.append(c);
+            }
+            i++;
+        }
+
+        return clean.toString();
     }
 
     // Extract all ANSI codes that are currently active
