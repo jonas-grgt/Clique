@@ -9,34 +9,28 @@ import java.util.Objects;
 public class FrameConfiguration {
     public static final FrameConfiguration DEFAULT = new FrameConfiguration();
 
-    private final int centerPadding;
+    private final int padding;
     private final FrameAlign align;
     private final AnsiStringParser parser;
     private final BorderStyle borderStyle;
-    private final boolean autoSize;
 
     private FrameConfiguration() {
         this(new FrameConfigurationBuilder());
     }
 
     private FrameConfiguration(FrameConfigurationBuilder builder) {
-        this.centerPadding = builder.centerPadding;
+        this.padding = builder.padding;
         this.align = builder.frameAlign;
         this.parser = builder.parser;
         this.borderStyle = builder.borderStyle;
-        this.autoSize = builder.autoSize;
     }
 
     public static FrameConfigurationBuilder immutableBuilder() {
         return new FrameConfigurationBuilder();
     }
 
-    public int getCenterPadding() {
-        return this.centerPadding;
-    }
-
-    public boolean getAutoSize() {
-        return this.autoSize;
+    public int getPadding() {
+        return this.padding;
     }
 
     public BorderStyle getBorderStyle() {
@@ -53,11 +47,10 @@ public class FrameConfiguration {
 
     public String toString() {
         return "FrameConfiguration[" +
-                "centerPadding=" + centerPadding +
+                "centerPadding=" + padding +
                 ", frameAlign=" + align +
                 ", parser=" + parser +
                 ", borderStyle=" + borderStyle +
-                ", autoSize=" + autoSize +
                 ']';
     }
 
@@ -66,28 +59,22 @@ public class FrameConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         FrameConfiguration that = (FrameConfiguration) object;
-        return centerPadding == that.centerPadding && autoSize == that.autoSize && align == that.align && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
+        return padding == that.padding && align == that.align && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(centerPadding, autoSize, align, parser, borderStyle);
+        return Objects.hash(padding, align, parser, borderStyle);
     }
 
     public static class FrameConfigurationBuilder {
-        private int centerPadding = 2;
+        private int padding = 2;
         private FrameAlign frameAlign = FrameAlign.CENTER;
         private AnsiStringParser parser = Clique.parser();
         private BorderStyle borderStyle = null;
-        private boolean autoSize = false;
 
-        public FrameConfigurationBuilder centerPadding(int centerPadding) {
-            if (centerPadding > 0) this.centerPadding = centerPadding;
-            return this;
-        }
-
-        public FrameConfigurationBuilder autoSize() {
-            this.autoSize = true;
+        public FrameConfigurationBuilder padding(int padding) {
+            if (padding > 0) this.padding = padding;
             return this;
         }
 
@@ -98,7 +85,7 @@ public class FrameConfiguration {
         }
 
         public FrameConfigurationBuilder frameAlign(FrameAlign align) {
-            Objects.requireNonNull(frameAlign, "DefaultFrame align cannot be null");
+            Objects.requireNonNull(align, "DefaultFrame align cannot be null");
             this.frameAlign = align;
             return this;
         }

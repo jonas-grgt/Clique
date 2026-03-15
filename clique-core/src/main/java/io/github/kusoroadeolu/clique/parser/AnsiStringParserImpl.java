@@ -2,8 +2,10 @@ package io.github.kusoroadeolu.clique.parser;
 
 
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
+import io.github.kusoroadeolu.clique.core.utils.StringUtils;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.skipAnsi;
 
 public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) implements AnsiStringParser {
     private static final StyleApplicator STYLE_APPLICATOR = new StyleApplicator();
@@ -26,8 +28,9 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
     public String getOriginalString(String tokenedString) {
         if (tokenedString == null || tokenedString.isBlank()) return EMPTY;
         var result = this.getParseResult(tokenedString);
-        return result.extractedFormTags().stream()
+        var piped = result.extractedFormTags().stream()
                 .reduce(tokenedString, (s, tag) -> s.replace(tag, EMPTY));
+        return skipAnsi(piped);
     }
 
     private ParseResult getParseResult(String input) {

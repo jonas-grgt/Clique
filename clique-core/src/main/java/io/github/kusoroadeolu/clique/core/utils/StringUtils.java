@@ -95,6 +95,30 @@ public final class StringUtils {
         return i;
     }
 
+    public static String skipAnsi(String styled) {
+        int i = 0;
+        boolean inAnsi = false;
+        var clean = new StringBuilder();
+
+        while (i < styled.length()) {
+            char c;
+            if ((c = styled.charAt(i)) == ANSI_BEGIN) {
+                inAnsi = true;
+            } else if (inAnsi && (c = styled.charAt(i)) == ANSI_END) {
+                inAnsi = false;
+                i++;
+                continue;
+            }
+
+            if (!inAnsi){
+                clean.append(c);
+            }
+            i++;
+        }
+
+        return clean.toString();
+    }
+
     // Extract all ANSI codes that are currently active
     private static String getActiveAnsiCodes(String styled) {
         StringBuilder ansiCodes = new StringBuilder();
