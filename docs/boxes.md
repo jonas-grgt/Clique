@@ -247,7 +247,6 @@ Clique.box(BoxType.ROUNDED, config)
 
 ## Things to Watch Out For
 
-- **Emojis** will mess with width calculations. Try to avoid using them in boxes.
 - When using `autoSize`, you don't need to specify width or length, you can just use `noDimensions()` method
 
 ## See Also
