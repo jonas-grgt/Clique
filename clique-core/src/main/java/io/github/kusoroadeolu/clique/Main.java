@@ -27,15 +27,17 @@ public class Main {
                 .builder()
                 .nest("Hello")
                 .width(50)
+                .title("Heyy")
                 .nest("123")
-                .nest(indenter)
+                .nest(indenter.get())
                 .build();
+        frame.render();
 
-        DefaultFrame frame1 = DefaultFrame
-                .builder()
-                .nest(frame)
-                .build();
-
-        frame1.render();
+//        DefaultFrame frame1 = DefaultFrame
+//                .builder()
+//                .nest(frame)
+//                .build();
+//
+//        frame1.render();
     }
 }

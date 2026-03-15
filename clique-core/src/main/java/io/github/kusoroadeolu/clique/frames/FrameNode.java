@@ -3,10 +3,12 @@ package io.github.kusoroadeolu.clique.frames;
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.core.display.Component;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
+import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.List;
+
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
 
 sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode {
     List<Cell> lines();
@@ -28,11 +30,7 @@ sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode
 
     //For raw strings, we need to handle the case in which the string has markup, however for components, when we call the get method, they apply their markup so it's good
     static List<Cell> splitLines(String str, AnsiStringParser parser){
-        return str.lines().map(s -> new Cell(s, parser.parse(s))).toList();
-    }
-
-    static List<Cell> splitLines(String str){
-        return str.lines().map(s -> new Cell(s, s)).toList();
+        return str.lines().map(s -> parseCell(str, parser)).toList();
     }
 
 
@@ -69,7 +67,7 @@ sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode
         private final FrameAlign align;
 
         public StringNode(String str, FrameAlign align, AnsiStringParser parser) {
-            this.lines = split(str, parser);
+            this.lines = FrameNode.splitLines(str, parser);
             this.maxWidth = findMaxWidth(lines);
             this.align = align;
         }
@@ -87,11 +85,6 @@ sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode
         @Override
         public FrameAlign align() {
             return align;
-        }
-
-        static List<Cell> split(String str, AnsiStringParser parser){
-            if (parser == null) return FrameNode.splitLines(str);
-            else return FrameNode.splitLines(str, parser);
         }
     }
 }

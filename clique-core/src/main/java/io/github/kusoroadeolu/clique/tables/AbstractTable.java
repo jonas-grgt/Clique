@@ -61,6 +61,7 @@ public abstract class AbstractTable implements Table {
     public AbstractTable removeRow(int index) {
         validateHeaders(index, index);
         validateRowIndex(index, this.rows);
+
         this.rows.remove(index);
         for (WidthAwareList cl : this.columns) {
             cl.remove(cl.get(index));
