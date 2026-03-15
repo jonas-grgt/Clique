@@ -85,7 +85,7 @@ public class FrameConfiguration {
         }
 
         public FrameConfigurationBuilder frameAlign(FrameAlign align) {
-            Objects.requireNonNull(align, "DefaultFrame align cannot be null");
+            Objects.requireNonNull(align, "Frame align cannot be null");
             this.frameAlign = align;
             return this;
         }

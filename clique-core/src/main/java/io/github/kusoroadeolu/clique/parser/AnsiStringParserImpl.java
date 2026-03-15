@@ -2,7 +2,6 @@ package io.github.kusoroadeolu.clique.parser;
 
 
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
-import io.github.kusoroadeolu.clique.core.utils.StringUtils;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.skipAnsi;

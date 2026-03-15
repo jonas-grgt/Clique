@@ -1,4 +1,4 @@
-package io.github.kusoroadeolu.clique.frames;
+package io.github.kusoroadeolu.clique.frame;
 
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.config.FrameConfiguration;
@@ -84,8 +84,8 @@ public final class FrameBuilder{
             return this;
         }
 
-        public DefaultFrame build(){
-            return new DefaultFrame(this);
+        public Frame build(){
+            return new Frame(this);
         }
 
     }

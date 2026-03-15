@@ -1,16 +1,15 @@
 package io.github.kusoroadeolu.clique;
 
 
-import io.github.kusoroadeolu.clique.boxes.AbstractBox;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
-import io.github.kusoroadeolu.clique.frames.Frame;
-import io.github.kusoroadeolu.clique.frames.FrameBuilder;
-import io.github.kusoroadeolu.clique.frames.FrameType;
+import io.github.kusoroadeolu.clique.frame.Frame;
+import io.github.kusoroadeolu.clique.frame.FrameBuilder;
+import io.github.kusoroadeolu.clique.frame.FrameType;
 import io.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
@@ -22,12 +21,12 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
-import io.github.kusoroadeolu.clique.tables.AbstractTable;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.themeloader.CliqueThemeLoader;
+import io.github.kusoroadeolu.clique.tree.Tree;
 
 import java.util.Collection;
 import java.util.List;
@@ -45,9 +44,14 @@ public final class Clique {
         throw new AssertionError();
     }
 
+    //STYLE BUILDER
+
     public static StyleBuilder styleBuilder() {
         return new DefaultStyleBuilder();
     }
+
+
+    //PARSER
 
     public static AnsiStringParser parser() {
         return new AnsiStringParserImpl();
@@ -56,6 +60,8 @@ public final class Clique {
     public static AnsiStringParser parser(ParserConfiguration configuration) {
         return new AnsiStringParserImpl(configuration);
     }
+
+    //TABLE
 
     public static TableHeaderBuilder table() {
         return table(TableType.DEFAULT);
@@ -89,6 +95,9 @@ public final class Clique {
         return customizableTable(TableType.DEFAULT, configuration);
     }
 
+
+    //BOX
+
     public static BoxDimensionBuilder box() {
         return box(BoxType.DEFAULT);
     }
@@ -121,6 +130,9 @@ public final class Clique {
         return customizableBox(BoxType.DEFAULT, configuration);
     }
 
+
+    //INDENTER
+
     public static Indenter indenter() {
         return new DefaultIndenter();
     }
@@ -128,6 +140,9 @@ public final class Clique {
     public static Indenter indenter(IndenterConfiguration indenterConfiguration) {
         return new DefaultIndenter(indenterConfiguration);
     }
+
+
+    //PROGRESS BAR
 
     public static ProgressBar progressBar(int total) {
         return new ProgressBar(total);
@@ -141,14 +156,8 @@ public final class Clique {
         return progressBar(total, preset.getConfiguration());
     }
 
-    public static void enableCliqueColors(boolean enable) {
-        if (enable) AnsiDetector.enableCliqueColors();
-        else AnsiDetector.disableCliqueColors();
-    }
 
-    public static void enableCliqueColors() {
-        enableCliqueColors(true);
-    }
+    //FRAME
 
     public static FrameBuilder frame(){
         return Frame.builder();
@@ -165,6 +174,34 @@ public final class Clique {
     public static FrameBuilder frame(FrameType type, FrameConfiguration configuration){
         return Frame.builder(configuration, type);
     }
+
+
+    //TREE
+    public static Tree tree(String label){
+        return new Tree(label);
+    }
+
+    public static Tree tree(String label, TreeConfiguration configuration){
+        return new Tree(label, configuration);
+    }
+
+
+
+
+    //CLIQUE CONFIG
+
+    public static void enableCliqueColors(boolean enable) {
+        if (enable) AnsiDetector.enableCliqueColors();
+        else AnsiDetector.disableCliqueColors();
+    }
+
+    public static void enableCliqueColors() {
+        enableCliqueColors(true);
+    }
+
+
+
+    // THEMES AND STYLE REGISTRATION
 
     public static void registerStyle(String style, AnsiCode code) {
         GlobalStyleRegistry.registerStyle(style, code);
