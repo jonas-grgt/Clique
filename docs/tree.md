@@ -67,7 +67,7 @@ b.add("level 3");
 
 ## Using Markup in Labels
 
-Markup tags work in any label — root or child:
+Markup tags work in any label, root or child:
 ```java
 Tree tree = Clique.tree("[*magenta, bold]my_project/");
 

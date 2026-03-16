@@ -62,6 +62,12 @@ class TreeTest {
     }
 
     @Test
+    public void assertThrowsUnsupportedOperationExWhenTreeRefIsAddedToItself(){
+        Tree tree = Clique.tree("Some label");
+        assertThrows(UnsupportedOperationException.class, () -> tree.add(tree));
+    }
+
+    @Test
     public void onFlush_shouldUnlinkChildren(){
         Tree tree = Clique.tree("Some label");
         Tree child = tree.add("Node");

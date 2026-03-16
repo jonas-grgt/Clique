@@ -16,9 +16,8 @@ Clique provides 4 built-in frame styles:
 ### Creating a Simple Frame
 
 ```java
-Frame.builder()
+Clique.frame()
     .nest("Hello from a frame")
-    .build()
     .render();
 ```
 
@@ -38,7 +37,6 @@ bar.tick(70);
 Clique.frame()
     .nest(table)
     .nest(bar)
-    .build()
     .render();
 ```
 
@@ -48,7 +46,6 @@ Clique.frame()
 Clique.frame()
     .title("[bold]My App[/]")
     .nest(table)
-    .build()
     .render();
 ```
 
@@ -60,7 +57,6 @@ Specify a border style with `FrameType`:
 Clique.frame(FrameType.ROUNDED)
     .title("Stats")
     .nest(table)
-    .build()
     .render();
 ```
 
@@ -75,7 +71,6 @@ Clique.frame()
     .nest(table)
     .nest(progressBar)
     .nest(indenter)
-    .build()
     .render();
 ```
 
@@ -87,7 +82,6 @@ Raw strings and markup strings are both supported:
 Clique.frame()
     .nest("Plain string")
     .nest("[green, bold]Styled string[/]")
-    .build()
     .render();
 ```
 
@@ -100,7 +94,6 @@ Clique.frame()
     .nest(header, FrameAlign.CENTER)
     .nest(table, FrameAlign.LEFT)
     .nest("[dim]footer[/]", FrameAlign.RIGHT)
-    .build()
     .render();
 ```
 
@@ -117,7 +110,6 @@ By default, the frame derives its width from the widest nested component automat
 Clique.frame()
     .width(60)
     .nest(table)
-    .build()
     .render();
 ```
 
@@ -138,7 +130,6 @@ FrameConfiguration config = FrameConfiguration.immutableBuilder()
 Clique.frame(FrameType.ROUNDED, config)
     .title("My Frame")
     .nest(table)
-    .build()
     .render();
 ```
 
@@ -181,7 +172,6 @@ FrameConfiguration config = FrameConfiguration.immutableBuilder()
 
 Clique.frame(FrameType.CLASSIC, config)
     .nest(table)
-    .build()
     .render();
 ```
 
@@ -220,7 +210,6 @@ Clique.frame(FrameType.DOUBLE_LINE, config)
     .nest(headerTable, FrameAlign.CENTER)
     .nest(progressBar, FrameAlign.LEFT)
     .nest("[dim]last updated: just now[/]", FrameAlign.RIGHT)
-    .build()
     .render();
 ```
 
@@ -233,21 +222,18 @@ The frame title can be independently aligned within the top border:
 Clique.frame()
     .title("My App", FrameAlign.LEFT)
     .nest(table)
-    .build()
     .render();
 
 // Title centered (default)
 Clique.frame()
     .title("My App")
     .nest(table)
-    .build()
     .render();
 
 // Title on the right
 Clique.frame()
     .title("My App", FrameAlign.RIGHT)
     .nest(table)
-    .build()
     .render();
 ```
 
@@ -259,7 +245,6 @@ Use `get()` to retrieve the rendered frame as a string without printing:
 String frameString = Clique.frame()
     .title("Report")
     .nest(table)
-    .build()
     .get();
 
 System.out.println(frameString);
@@ -284,22 +269,27 @@ Clique.frame(FrameType.ROUNDED)
     .nest(stats, FrameAlign.CENTER)
     .nest("[dim]CPU Usage[/]", FrameAlign.LEFT)
     .nest(cpu, FrameAlign.LEFT)
-    .build()
     .render();
 ```
 
-### Nested Indenter
+### Nested Tree
 
 ```java
-Indenter tree = Clique.indenter()
-    .indent("├─")
-    .add("[yellow]src/[/]")
-    .indent()
-    .add("Main.java")
-    .add("Utils.java")
-    .unindent()
-    .indent("└─")
-    .add("README.md");
+Tree tree = Clique.tree("[*magenta, bold]clique-lib/", config);
+
+Tree src = tree.add("[*cyan, bold]src/");
+Tree core = src.add("[cyan]core/");
+core.add("[green]Parser.java         [dim]✓ 312 lines");
+core.add("[green]StyleResolver.java  [dim]✓ 198 lines");
+core.add("[yellow]Renderer.java       [dim]⚠ needs review");
+
+Tree tests = tree.add("[*cyan, bold]tests/");
+tests.add("[green, bold]ParserTest.java     [dim]✓ 14/14 pass");
+tests.add("[red, bold]RendererTest.java   [dim]✗  9/14 pass");
+tests.add("[dim, strike]TreeTest.java       skipped");
+
+tree.add("[white]README.md");
+tree.add("[dim].gitignore");
 
 Clique.frame(FrameType.CLASSIC)
     .title("Project Structure", FrameAlign.LEFT)
@@ -326,7 +316,6 @@ Clique.frame(FrameType.ROUNDED, config)
     .title("[green, bold]✓ Build Successful[/]")
     .nest("[green]All tests passed[/]", FrameAlign.CENTER)
     .nest(resultTable, FrameAlign.CENTER)
-    .build()
     .render();
 ```
 

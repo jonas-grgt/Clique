@@ -1,11 +1,11 @@
 package io.github.kusoroadeolu.clique.tables;
 
 
-import io.github.kusoroadeolu.clique.core.display.Generated;
+import io.github.kusoroadeolu.clique.core.display.Bordered;
 
 import java.util.Collection;
 
-public interface Table extends Generated {
+public interface Table extends Bordered {
     Table addRows(String... rows);
 
     Table addRows(Collection<String> rows);

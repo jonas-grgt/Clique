@@ -8,7 +8,6 @@ import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import io.github.kusoroadeolu.clique.frame.Frame;
-import io.github.kusoroadeolu.clique.frame.FrameBuilder;
 import io.github.kusoroadeolu.clique.frame.FrameType;
 import io.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import io.github.kusoroadeolu.clique.indent.Indenter;
@@ -159,20 +158,20 @@ public final class Clique {
 
     //FRAME
 
-    public static FrameBuilder frame(){
-        return Frame.builder();
+    public static Frame frame(){
+        return new Frame();
     }
 
-    public static FrameBuilder frame(FrameConfiguration configuration){
-        return Frame.builder(configuration);
+    public static Frame frame(FrameConfiguration configuration){
+        return new Frame(configuration);
     }
 
-    public static FrameBuilder frame(FrameType type){
-        return Frame.builder(type);
+    public static Frame frame(FrameType type){
+        return new Frame(type);
     }
 
-    public static FrameBuilder frame(FrameType type, FrameConfiguration configuration){
-        return Frame.builder(configuration, type);
+    public static Frame frame(FrameType type, FrameConfiguration configuration){
+        return new Frame(configuration, type);
     }
 
 

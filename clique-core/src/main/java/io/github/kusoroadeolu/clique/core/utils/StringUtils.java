@@ -15,7 +15,7 @@ public final class StringUtils {
         sb.setLength(ZERO);
     }
 
-    public static Cell parseCell(String text, AnsiStringParser parser) {
+    public static Cell parseToCell(String text, AnsiStringParser parser) {
         if (parser != null) return new Cell(parser.getOriginalString(text), parser.parse(text));
         else return new Cell(text, text);
     }

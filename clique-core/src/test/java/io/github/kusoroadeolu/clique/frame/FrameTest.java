@@ -3,6 +3,7 @@ package io.github.kusoroadeolu.clique.frame;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -12,6 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FrameTest {
 
+    private Frame frame;
+
+    @BeforeEach
+    public void setup(){
+        this.frame = new Frame();
+    }
+
     private static Component component(String output) {
         return () -> output;
     }
@@ -20,7 +28,6 @@ class FrameTest {
         return rendered.split(NEWLINE);
     }
 
-    // Strips ANSI codes for clean assertions
     private static String stripAnsi(String s) {
         return StringUtils.skipAnsi(s);
     }
@@ -30,23 +37,20 @@ class FrameTest {
     // -------------------------
 
     @Test
-    void throwsWhenTitleWiderThanFrame() {
+    void throwsWhenTitleWiderThanFrameAtRenderTime() {
         assertThrows(IllegalArgumentException.class, () ->
-                Frame.builder()
-                        .width(5)
+                frame.width(5)
                         .title("This title is way too long")
                         .nest("hi")
-                        .build()
+                        .render()
         );
     }
 
     @Test
     void throwsWhenNodeContentWiderThanExplicitWidth() {
         assertThrows(IllegalArgumentException.class, () ->
-                Frame.builder()
-                        .width(3)
+                frame.width(3)
                         .nest("this string is too wide")
-                        .build()
                         .get()
         );
     }
@@ -54,7 +58,7 @@ class FrameTest {
     @Test
     void throwsWhenWidthIsNegative() {
         assertThrows(IllegalArgumentException.class, () ->
-                Frame.builder().width(-1)
+                frame.width(-1)
         );
     }
 
@@ -65,9 +69,7 @@ class FrameTest {
     @Test
     void frameWithNoTitleHasPlainTopBorder() {
         String rendered = stripAnsi(
-                Frame.builder()
-                        .nest("hello")
-                        .build()
+                frame.nest("hello")
                         .get()
         );
         String topLine = lines(rendered)[0];
@@ -79,10 +81,8 @@ class FrameTest {
     void frameWithTitleEmbedsTitleInTopBorder() {
         String title = "MyApp";
         String rendered = stripAnsi(
-                Frame.builder()
-                        .title(title)
+                frame.title(title)
                         .nest("hello")
-                        .build()
                         .get()
         );
         String topLine = lines(rendered)[0];
@@ -93,10 +93,8 @@ class FrameTest {
     @Test
     void titleIsSurroundedBySpacesInTopBorder() {
         String rendered = stripAnsi(
-                Frame.builder()
-                        .title("T")
+                frame.title("T")
                         .nest("some content")
-                        .build()
                         .get()
         );
         String topLine = lines(rendered)[0];
@@ -106,10 +104,8 @@ class FrameTest {
     @Test
     void topAndBottomBorderHaveSameWidth() {
         String rendered = stripAnsi(
-                Frame.builder()
-                        .title("Title")
+                frame.title("Title")
                         .nest("hello world")
-                        .build()
                         .get()
         );
         String[] ls = lines(rendered);
@@ -124,9 +120,7 @@ class FrameTest {
     void nestedComponentOutputAppearsInFrame() {
         Component comp = component("foo");
         String rendered = stripAnsi(
-                Frame.builder()
-                        .nest(comp)
-                        .build()
+                frame.nest(comp)
                         .get()
         );
         assertTrue(rendered.contains("foo"));
@@ -135,10 +129,8 @@ class FrameTest {
     @Test
     void allContentLinesHaveSameWidth() {
         String rendered = stripAnsi(
-                Frame.builder()
-                        .nest("short")
+                frame.nest("short")
                         .nest("a much longer line")
-                        .build()
                         .get()
         );
         String[] ls = lines(rendered);
@@ -153,10 +145,8 @@ class FrameTest {
         String wide = "a much longer string";
         String narrow = "hi";
         String rendered = stripAnsi(
-                Frame.builder()
-                        .nest(wide)
+                frame.nest(wide)
                         .nest(narrow)
-                        .build()
                         .get()
         );
         // Every line should be the same width, driven by the wider content
@@ -171,9 +161,7 @@ class FrameTest {
     void nestedComponentWithMultilineOutput() {
         Component comp = component("line one\nline two\nline three");
         String rendered = stripAnsi(
-                Frame.builder()
-                        .nest(comp)
-                        .build()
+                frame.nest(comp)
                         .get()
         );
         assertTrue(rendered.contains("line one"));
@@ -183,21 +171,26 @@ class FrameTest {
 
     @Test
     void frameIsCachedOnSubsequentGetCalls() {
-        Frame frame = Frame.builder()
-                .nest("hello")
-                .build();
+        Frame frame = this.frame.nest("hello");
         String first = frame.get();
         String second = frame.get();
         assertSame(first, second); // same instance due to lazy cache
     }
 
     @Test
+    void cachedFrameIsNulledAfterModification() {
+        Frame frame = this.frame.nest("hello");
+        String first = frame.get();
+        assertNotNull(first);
+        frame.nest(frame);
+        assertNotNull(frame.get()); // same instance due to lazy cache
+    }
+
+    @Test
     void leftAlignedNodeIsFlushToLeftBorder() {
         String rendered = stripAnsi(
-                Frame.builder()
-                        .nest("hi", FrameAlign.LEFT)
+                frame.nest("hi", FrameAlign.LEFT)
                         .nest("much wider content here")
-                        .build()
                         .get()
         );
         // Line with "hi" should have it immediately after the vline with no leading spaces

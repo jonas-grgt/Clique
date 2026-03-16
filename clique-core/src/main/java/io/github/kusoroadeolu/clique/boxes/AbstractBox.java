@@ -44,12 +44,12 @@ public abstract class AbstractBox implements Box {
         this.edge = "+";
         this.contentWrap = new ArrayList<>();
         this.boxConfiguration = BoxConfiguration.DEFAULT;
-        this.boxContent = parseCell(content, this.boxConfiguration.getParser());
+        this.boxContent = parseToCell(content, this.boxConfiguration.getParser());
     }
 
     public Box content(String content) {
         Objects.requireNonNull(content, "Box content cannot be null");
-        this.boxContent = parseCell(content, this.boxConfiguration.getParser());
+        this.boxContent = parseToCell(content, this.boxConfiguration.getParser());
         return this;
     }
 

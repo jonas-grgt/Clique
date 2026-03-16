@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.tree;
 
 import io.github.kusoroadeolu.clique.config.TreeConfiguration;
-import io.github.kusoroadeolu.clique.core.display.Accumulated;
+import io.github.kusoroadeolu.clique.core.display.Borderless;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 
-public class Tree implements Accumulated{
+public class Tree implements Borderless {
     private final String label;
     private final List<Tree> children; //Accumulates children
     private final TreeConfiguration treeConfiguration;
@@ -47,6 +47,7 @@ public class Tree implements Accumulated{
 
     public Tree add(Tree tree) {
         Objects.requireNonNull(tree, "Tree cannot be null");
+        assertNotSelf(tree);
         tree.parent = this;
         children.add(tree);
         return tree;
@@ -102,5 +103,9 @@ public class Tree implements Accumulated{
     //For Tests
     List<Tree> children(){
         return children;
+    }
+
+    void assertNotSelf(Tree tree){
+        if (tree == this) throw new UnsupportedOperationException("Cannot a tree within itself");
     }
 }

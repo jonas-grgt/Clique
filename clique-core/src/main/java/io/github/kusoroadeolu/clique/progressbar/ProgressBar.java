@@ -3,7 +3,7 @@ package io.github.kusoroadeolu.clique.progressbar;
 
 import io.github.kusoroadeolu.clique.config.EasingConfiguration;
 import io.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
-import io.github.kusoroadeolu.clique.core.display.Generated;
+import io.github.kusoroadeolu.clique.core.display.Bordered;
 
 import java.io.PrintStream;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 
-public final class ProgressBar implements Generated {
+public final class ProgressBar implements Bordered {
     final int total;
     final long creationTime;
     final ProgressBarConfiguration progressBarConfiguration;

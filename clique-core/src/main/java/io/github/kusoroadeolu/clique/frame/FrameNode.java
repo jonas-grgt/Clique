@@ -8,7 +8,7 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.List;
 
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 
 sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode {
     List<Cell> lines();
@@ -25,12 +25,12 @@ sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode
     }
 
     static List<Cell> splitComponentLines(String str){
-        return str.lines().map(s -> parseCell(s, PARSER)).toList(); //Original to styled string for components, we actually need to parse here with a default parser
+        return str.lines().map(s -> parseToCell(s, PARSER)).toList(); //Original to styled string for components, we actually need to parse here with a default parser
     }
 
     //For raw strings, we need to handle the case in which the string has markup, however for components, when we call the get method, they apply their markup so it's good
     static List<Cell> splitLines(String str, AnsiStringParser parser){
-        return str.lines().map(s -> parseCell(s, parser)).toList();
+        return str.lines().map(s -> parseToCell(s, parser)).toList();
     }
 
 
