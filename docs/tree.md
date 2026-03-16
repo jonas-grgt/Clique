@@ -50,6 +50,14 @@ Tree child = tree.add("child label");
 
 `add()` returns the newly created child node, so you can nest further calls off it.
 
+```java
+Tree child = Clique.tree("Child node");
+Tree parent = Clique.tree("Parent Node");
+Tree tree = parent.add(child); //Returns the child node
+```
+`add()`returns the pre-created created child node, so you can nest further calls off it.
+
+
 ### Nesting Arbitrarily Deep
 ```java
 Tree a = tree.add("level 1");
@@ -150,8 +158,7 @@ System.out.println(result);
 
 ## Flushing
 
-Clear all children from the root:
-
+Recursively clears all children from the root and null out their parent references:
 ```java
 tree.flush();
 ```
