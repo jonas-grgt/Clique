@@ -3,8 +3,11 @@ package io.github.kusoroadeolu.clique.boxes;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
+import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class BoxFactory {
     private BoxFactory() {
@@ -13,12 +16,8 @@ public class BoxFactory {
 
     public static BoxDimensionBuilder getBoxDimensionBuilder(BoxType type, BoxConfiguration config) {
         validateTypeAndConfig(type, config);
-        var box = switch (type) {
-            case DEFAULT -> new DefaultBox(config);
-            case CLASSIC -> new ClassicBox(config);
-            case ROUNDED -> new RoundedBox(config);
-            case DOUBLE_LINE -> new DoubleLineBox(config);
-        };
+        var borderChar = BorderChars.from(type);
+        Box box = new DefaultBox(borderChar, config);
         return new BoxDimensionBuilder(box);
     }
 
@@ -32,17 +31,13 @@ public class BoxFactory {
 
     public static CustomizableBoxDimensionBuilder getCustomizableBoxDimensionBuilder(BoxType type, BoxConfiguration config) {
         validateTypeAndConfig(type, config);
-        var customizable = switch (type) {
-            case DEFAULT -> (CustomizableBox) getBoxDimensionBuilder(type, config);
-            default -> throw new UnsupportedOperationException("Box type: %s is not customizable".formatted(type));
-        };
-
+        var customizable = (CustomizableBox) getBoxDimensionBuilder(type, config);
         return new CustomizableBoxDimensionBuilder(customizable);
     }
 
     static void validateTypeAndConfig(BoxType type, BoxConfiguration config) {
-        Objects.requireNonNull(type, "Box type cannot be null");
-        Objects.requireNonNull(config, "Box configuration cannot be null");
+        requireNonNull(type, "Box type cannot be null");
+        requireNonNull(config, "Box configuration cannot be null");
     }
 
 

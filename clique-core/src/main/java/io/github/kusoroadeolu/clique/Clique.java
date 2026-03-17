@@ -7,8 +7,7 @@ import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
-import io.github.kusoroadeolu.clique.frame.Frame;
-import io.github.kusoroadeolu.clique.frame.FrameType;
+import io.github.kusoroadeolu.clique.frame.DefaultFrame;
 import io.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
@@ -113,23 +112,6 @@ public final class Clique {
         return BoxFactory.getBoxDimensionBuilder(type);
     }
 
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration) {
-        return BoxFactory.getCustomizableBoxDimensionBuilder(type, configuration);
-    }
-
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type) {
-        return BoxFactory.getCustomizableBoxDimensionBuilder(type);
-    }
-
-    public static CustomizableBoxDimensionBuilder customizableBox() {
-        return customizableBox(BoxType.DEFAULT);
-    }
-
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration) {
-        return customizableBox(BoxType.DEFAULT, configuration);
-    }
-
-
     //INDENTER
 
     public static Indenter indenter() {
@@ -158,20 +140,20 @@ public final class Clique {
 
     //FRAME
 
-    public static Frame frame(){
-        return new Frame();
+    public static DefaultFrame frame(){
+        return new DefaultFrame();
     }
 
-    public static Frame frame(FrameConfiguration configuration){
-        return new Frame(configuration);
+    public static DefaultFrame frame(FrameConfiguration configuration){
+        return new DefaultFrame(configuration);
     }
 
-    public static Frame frame(FrameType type){
-        return new Frame(type);
+    public static DefaultFrame frame(BoxType type){
+        return new DefaultFrame(type);
     }
 
-    public static Frame frame(FrameType type, FrameConfiguration configuration){
-        return new Frame(configuration, type);
+    public static DefaultFrame frame(BoxType type, FrameConfiguration configuration){
+        return new DefaultFrame(configuration, type);
     }
 
 
@@ -233,6 +215,28 @@ public final class Clique {
     public static Optional<CliqueTheme> findTheme(String name) {
         return CliqueThemeLoader.find(name);
     }
+
+
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration) {
+        return BoxFactory.getCustomizableBoxDimensionBuilder(type, configuration);
+    }
+
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type) {
+        return BoxFactory.getCustomizableBoxDimensionBuilder(type);
+    }
+
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableBoxDimensionBuilder customizableBox() {
+        return customizableBox(BoxType.DEFAULT);
+    }
+
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration) {
+        return customizableBox(BoxType.DEFAULT, configuration);
+    }
+
 
 }
 

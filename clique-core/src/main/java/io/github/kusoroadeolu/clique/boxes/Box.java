@@ -6,4 +6,6 @@ public interface Box extends Bordered {
     Box content(String content);
 
     Box content(Object object);
+
+    CustomizableBox customize();
 }

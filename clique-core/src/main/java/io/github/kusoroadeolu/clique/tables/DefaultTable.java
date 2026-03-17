@@ -13,7 +13,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBu
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
-public class DefaultTable extends AbstractTable implements CustomizableTable {
+class DefaultTable extends AbstractTable implements CustomizableTable {
     private String edge;
     private String hLine;
     private String vLine;

@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FrameTest {
 
-    private Frame frame;
+    private DefaultFrame frame;
 
     @BeforeEach
     public void setup(){
-        this.frame = new Frame();
+        this.frame = new DefaultFrame();
     }
 
     private static Component component(String output) {
@@ -171,7 +171,7 @@ class FrameTest {
 
     @Test
     void frameIsCachedOnSubsequentGetCalls() {
-        Frame frame = this.frame.nest("hello");
+        DefaultFrame frame = this.frame.nest("hello");
         String first = frame.get();
         String second = frame.get();
         assertSame(first, second); // same instance due to lazy cache
@@ -179,7 +179,7 @@ class FrameTest {
 
     @Test
     void cachedFrameIsNulledAfterModification() {
-        Frame frame = this.frame.nest("hello");
+        DefaultFrame frame = this.frame.nest("hello");
         String first = frame.get();
         assertNotNull(first);
         frame.nest(frame);

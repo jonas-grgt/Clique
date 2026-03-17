@@ -12,7 +12,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBu
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
-public class MarkdownTable extends AbstractTable {
+class MarkdownTable extends AbstractTable {
     private String hLine;
     private String vLine;
 

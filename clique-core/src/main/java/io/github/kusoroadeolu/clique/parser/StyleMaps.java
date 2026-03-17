@@ -7,6 +7,7 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 //A simple class which holds the maps of the syntax
@@ -84,27 +85,28 @@ final class StyleMaps {
         throw new AssertionError();
     }
 
-    static final AnsiCode findStyle(String s){
+    static Optional<AnsiCode> findStyle(String s){
         AnsiCode code = CUSTOM_STYLE_CODES.get(s);
+
         if (code != null) {
-            return code;
+            return Optional.of(code);
         }
 
         code = COLOR_CODES.get(s);
         if (code != null) {
-            return code;
+            return Optional.of(code);
         }
 
         code = BACKGROUND_CODES.get(s);
         if (code != null) {
-            return code;
+            return Optional.of(code);
         }
 
         code = STYLE_CODES.get(s);
         if (code != null) {
-            return code;
+            return Optional.of(code);
         }
 
-        return null;
+        return Optional.empty();
     }
 }

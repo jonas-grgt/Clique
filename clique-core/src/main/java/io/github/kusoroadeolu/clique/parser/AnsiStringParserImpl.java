@@ -2,6 +2,7 @@ package io.github.kusoroadeolu.clique.parser;
 
 
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
+import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
@@ -14,6 +15,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.skipAnsi;
 public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) implements AnsiStringParser {
     private static final StyleApplicator STYLE_APPLICATOR = new StyleApplicator();
     private static final TokenExtractor TOKEN_EXTRACTOR = new TokenExtractor();
+
 
     public AnsiStringParserImpl() {
         this(ParserConfiguration.DEFAULT);
@@ -48,8 +50,9 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
     @Override
     public List<AnsiCode> ansiCodes(String string) {
         return Arrays.stream(string.split(parserConfiguration.getDelimiter()))
-                .map(StyleMaps::findStyle)
-                .filter(Objects::nonNull)
+                .map(s -> StyleMaps.findStyle(s.trim())
+                        .orElseThrow(() -> new UnidentifiedStyleException("Failed to find ansi code mapped to style: %s".formatted(s)))
+                )
                 .toList();
     }
 }

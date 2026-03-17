@@ -13,7 +13,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBu
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
-public class BoxDrawTable extends AbstractTable {
+class BoxDrawTable extends AbstractTable {
     protected String topLeft;
     protected String topRight;
     protected String bottomLeft;

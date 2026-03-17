@@ -9,7 +9,7 @@ import java.util.Objects;
 public class BoxConfiguration {
     public static final BoxConfiguration DEFAULT = new BoxConfiguration();
 
-    private final int centerPadding;
+    private final int padding;
     private final TextAlign textAlign;
     private final AnsiStringParser parser;
     private final BorderStyle borderStyle;
@@ -20,7 +20,7 @@ public class BoxConfiguration {
     }
 
     private BoxConfiguration(BoxConfigurationBuilder builder) {
-        this.centerPadding = builder.centerPadding;
+        this.padding = builder.padding;
         this.textAlign = builder.textAlign;
         this.parser = builder.parser;
         this.borderStyle = builder.borderStyle;
@@ -31,8 +31,13 @@ public class BoxConfiguration {
         return new BoxConfigurationBuilder();
     }
 
+    public int getPadding() {
+        return this.padding;
+    }
+
+    @Deprecated(forRemoval = true, since = "3.1.0")
     public int getCenterPadding() {
-        return this.centerPadding;
+        return this.padding;
     }
 
     public boolean getAutoSize() {
@@ -53,7 +58,7 @@ public class BoxConfiguration {
 
     public String toString() {
         return "BoxConfiguration[" +
-                "centerPadding=" + centerPadding +
+                "centerPadding=" + padding +
                 ", textAlign=" + textAlign +
                 ", parser=" + parser +
                 ", borderStyle=" + borderStyle +
@@ -66,23 +71,30 @@ public class BoxConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         BoxConfiguration that = (BoxConfiguration) object;
-        return centerPadding == that.centerPadding && autoSize == that.autoSize && textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
+        return padding == that.padding && autoSize == that.autoSize && textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(centerPadding, autoSize, textAlign, parser, borderStyle);
+        return Objects.hash(padding, autoSize, textAlign, parser, borderStyle);
     }
 
     public static class BoxConfigurationBuilder {
-        private int centerPadding = 2;
+        private int padding = 2;
         private TextAlign textAlign = TextAlign.CENTER;
         private AnsiStringParser parser = Clique.parser();
         private BorderStyle borderStyle = null;
         private boolean autoSize = false;
 
+        @Deprecated(since = "3.1.0")
+        //Deprecated this in favor of `padding()`
         public BoxConfigurationBuilder centerPadding(int centerPadding) {
-            if (centerPadding > 0) this.centerPadding = centerPadding;
+            return this.padding(centerPadding);
+        }
+
+        public BoxConfigurationBuilder padding(int padding) {
+            if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
+            this.padding = padding;
             return this;
         }
 
