@@ -2,6 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 
 import io.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
@@ -87,16 +88,42 @@ public class BorderStyle {
             return this;
         }
 
+        public BorderStyleBuilder verticalBorderStyles(String style) {
+            return this.verticalBorderStyles(getAnsiCodes(style));
+        }
+
         public BorderStyleBuilder horizontalBorderStyles(AnsiCode... styles) {
             Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
             this.horizontalStyle = styles;
             return this;
         }
 
+        public BorderStyleBuilder horizontalBorderStyles(String style) {
+            return this.horizontalBorderStyles(getAnsiCodes(style));
+        }
+
         public BorderStyleBuilder edgeBorderStyles(AnsiCode... styles) {
             Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
             this.edgeStyle = styles;
             return this;
+        }
+
+        public BorderStyleBuilder edgeBorderStyles(String style) {
+            return this.edgeBorderStyles(getAnsiCodes(style));
+        }
+
+        public BorderStyleBuilder uniformStyle(AnsiCode... styles) {
+            this.edgeBorderStyles(styles);
+            this.horizontalBorderStyles(styles);
+            return this.verticalBorderStyles(styles);
+        }
+
+        public BorderStyleBuilder uniformStyle(String style) {
+            return this.uniformStyle(getAnsiCodes(style));
+        }
+
+        AnsiCode[] getAnsiCodes(String styles){
+            return AnsiStringParser.DEFAULT.ansiCodes(styles).toArray(AnsiCode[]::new); //Uses default delimiter
         }
 
         public BorderStyle build() {

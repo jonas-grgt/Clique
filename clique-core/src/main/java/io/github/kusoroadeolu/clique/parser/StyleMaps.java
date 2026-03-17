@@ -5,6 +5,7 @@ import io.github.kusoroadeolu.clique.ansi.ColorCode;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -76,9 +77,34 @@ final class StyleMaps {
             Map.entry("dbl_ul", StyleCode.DOUBLE_UNDERLINE),
             Map.entry("strike", StyleCode.STRIKETHROUGH)
     );
-    static final Map<String, AnsiCode> CUSTOM_STYLE_CODES = new ConcurrentHashMap<>();
+
+    static final Map<String, AnsiCode> CUSTOM_STYLE_CODES = new HashMap<>();
 
     private StyleMaps() {
         throw new AssertionError();
+    }
+
+    static final AnsiCode findStyle(String s){
+        AnsiCode code = CUSTOM_STYLE_CODES.get(s);
+        if (code != null) {
+            return code;
+        }
+
+        code = COLOR_CODES.get(s);
+        if (code != null) {
+            return code;
+        }
+
+        code = BACKGROUND_CODES.get(s);
+        if (code != null) {
+            return code;
+        }
+
+        code = STYLE_CODES.get(s);
+        if (code != null) {
+            return code;
+        }
+
+        return null;
     }
 }

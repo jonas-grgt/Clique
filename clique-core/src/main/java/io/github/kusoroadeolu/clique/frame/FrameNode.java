@@ -8,24 +8,25 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.List;
 
+import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
+import static io.github.kusoroadeolu.clique.parser.AnsiStringParser.DEFAULT;
 
 sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode {
     List<Cell> lines();
     int maxWidth();
     FrameAlign align();
-    AnsiStringParser PARSER = Clique.parser();
 
     static int findMaxWidth(List<Cell> lines) {
         return lines
                 .stream()
                 .mapToInt(Cell::width)
                 .max()
-                .getAsInt();
+                .orElse(ZERO);
     }
 
     static List<Cell> splitComponentLines(String str){
-        return str.lines().map(s -> parseToCell(s, PARSER)).toList(); //Original to styled string for components, we actually need to parse here with a default parser
+        return str.lines().map(s -> parseToCell(s, DEFAULT)).toList(); //Original to styled string for components, we actually need to parse here with a default parser
     }
 
     //For raw strings, we need to handle the case in which the string has markup, however for components, when we call the get method, they apply their markup so it's good

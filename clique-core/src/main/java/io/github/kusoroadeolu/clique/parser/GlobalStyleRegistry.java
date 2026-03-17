@@ -17,4 +17,6 @@ public class GlobalStyleRegistry {
     public static void registerStyles(Map<String, AnsiCode> codes) {
         StyleMaps.CUSTOM_STYLE_CODES.putAll(codes);
     }
+
+
 }

@@ -14,12 +14,16 @@
 ### Changed
 - `noDimensions()` now throws `IllegalStateException` if `autoSize` is not enabled in `BoxConfiguration`
 - `withDimensions()` now throws `IllegalArgumentException` for zero or negative values
-For both **Box** and **CustomizableBox**
+  For both **Box** and **CustomizableBox**
 
+- `BorderStyle` string overloads added for `horizontalBorderStyles()`, `verticalBorderStyles()`, and `edgeBorderStyles()` — accepts markup style strings using the default delimiter
+- `BorderStyle.BorderStyleBuilder` now has `uniformStyle(AnsiCode...)` and `uniformStyle(String)` for applying a single style across all border axes
+- `AnsiStringParser` now exposes `ansiCodes(String)` — splits by the configured delimiter, resolves each token to an `AnsiCode`, and silently drops unrecognized styles
 ### Deprecated
 - `addHeaders()` in favor of `Table#headers()` for cleaner and more concise chaining
 - `addRows()` in favor of `Table#row()` for cleaner and more concise chaining
   For both **Table** and **CustomizableTable**
+
 
 Report issues at: https://github.com/kusoroadeolu/Clique/issues
 

@@ -2,6 +2,11 @@ package io.github.kusoroadeolu.clique.parser;
 
 
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.skipAnsi;
@@ -40,4 +45,11 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         );
     }
 
+    @Override
+    public List<AnsiCode> ansiCodes(String string) {
+        return Arrays.stream(string.split(parserConfiguration.getDelimiter()))
+                .map(StyleMaps::findStyle)
+                .filter(Objects::nonNull)
+                .toList();
+    }
 }

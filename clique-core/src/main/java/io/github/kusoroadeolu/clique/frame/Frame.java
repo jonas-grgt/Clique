@@ -153,7 +153,7 @@ public class Frame implements Bordered {
         return nodes.stream()
                 .mapToInt(FrameNode::maxWidth)
                 .max()
-                .getAsInt();
+                .orElse(ZERO);
     }
 
     void align(FrameNode node, int innerWidth, StringBuilder sb, BorderChars borderChar) {
