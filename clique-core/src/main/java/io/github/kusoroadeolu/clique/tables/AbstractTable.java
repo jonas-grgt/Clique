@@ -29,11 +29,11 @@ public abstract class AbstractTable implements Table {
         this(TableConfiguration.DEFAULT);
     }
 
-    public Table addRows(Collection<String> rows) {
-        return this.addRows(rows.toArray(String[]::new));
+    public Table row(Collection<String> rows) {
+        return this.row(rows.toArray(String[]::new));
     }
 
-    public AbstractTable addRows(String... rows) {
+    public AbstractTable row(String... rows) {
         Objects.requireNonNull(rows, "Rows cannot be null");
         //Get the header's size
         final int headerSize = this.rows.getFirst().size();
@@ -117,7 +117,17 @@ public abstract class AbstractTable implements Table {
             this.table = (AbstractTable) table;
         }
 
-        public Table addHeaders(String... headers) {
+        @Deprecated(forRemoval = true, since = "3.1")
+        public Table addHeaders(String... headers){
+            return headers(headers);
+        }
+
+        @Deprecated(forRemoval = true, since = "3.1")
+        public Table addHeaders(Collection<String> headers){
+            return headers(headers);
+        }
+
+        public Table headers(String... headers) {
             if (isNull(headers) || headers.length == 0)
                 throw new IllegalArgumentException("Headers cannot be null or empty");
 
@@ -137,8 +147,8 @@ public abstract class AbstractTable implements Table {
             return table;
         }
 
-        public Table addHeaders(Collection<String> headers) {
-            return this.addHeaders(headers.toArray(String[]::new));
+        public Table headers(Collection<String> headers) {
+            return this.headers(headers.toArray(String[]::new));
         }
     }
 
@@ -149,14 +159,24 @@ public abstract class AbstractTable implements Table {
             this.table = (AbstractTable) table;
         }
 
-        public CustomizableTable addHeaders(String... headers) {
+        public CustomizableTable headers(String... headers) {
             var builder = new TableHeaderBuilder(table);
-            builder.addHeaders(headers);
+            builder.headers(headers);
             return (CustomizableTable) table;
         }
 
-        public CustomizableTable addHeaders(Collection<String> headers) {
-            return this.addHeaders(headers.toArray(String[]::new));
+        public CustomizableTable headers(Collection<String> headers) {
+            return this.headers(headers.toArray(String[]::new));
+        }
+
+        @Deprecated(forRemoval = true, since = "3.1")
+        public Table addHeaders(String... headers){
+            return headers(headers);
+        }
+
+        @Deprecated(forRemoval = true, since = "3.1")
+        public Table addHeaders(Collection<String> headers){
+            return headers(headers);
         }
     }
 

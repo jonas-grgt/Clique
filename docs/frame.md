@@ -294,7 +294,6 @@ tree.add("[dim].gitignore");
 Clique.frame(FrameType.CLASSIC)
     .title("Project Structure", FrameAlign.LEFT)
     .nest(tree)
-    .build()
     .render();
 ```
 

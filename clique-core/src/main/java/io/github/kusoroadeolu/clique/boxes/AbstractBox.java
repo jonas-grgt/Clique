@@ -175,14 +175,24 @@ public abstract class AbstractBox implements Box {
         }
 
         public Box withDimensions(int width, int height) {
-            if (width < 0 || height < 0) throw new IllegalArgumentException("Width or Height cannot be negative");
+            if (width <= 0 || height <= 0) {
+                throw new IllegalArgumentException(
+                        "Width and height must be greater than 0. To skip dimensions, enable autoSize() in BoxConfiguration and call noDimensions()."
+                );
+            }
             this.box.height = height;
             this.box.width = width;
             return box;
         }
 
         public Box noDimensions() {
-            return this.withDimensions(0, 0);
+            if (!this.box.boxConfiguration.getAutoSize())
+                throw new IllegalStateException(
+                        "noDimensions() requires autoSize to be enabled in BoxConfiguration"
+                );
+            this.box.width = 0;
+            this.box.height = 0;
+            return this.box;
         }
     }
 

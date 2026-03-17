@@ -1,9 +1,25 @@
-# Clique v3.1.0-beta
-- Added `Frame` component for layout composition — a bordered container that vertically stacks nested Clique components without interfering with their rendering. Supports all BoxType border styles, optional titled borders, per-node alignment, and markup in string nodes and titles
-- AnsiStringParser#getOriginalString actually strips ANSI codes now, not only Clique parser tags
-- Added RGB ANSI code interface
-- Emojis can now be used in boxes, tables and frames
-- Added `Tree` component for displaying hierarchical data with `├─, └─, │` connector lines, supports arbitrary nesting, markup in labels, and guide connector styling via TreeConfiguration
+# Changelog
+
+## [3.1.0-beta] - 2026-03-17
+
+### Added
+- `Frame` component for layout composition — bordered container that vertically stacks nested Clique components. Supports `FrameType` border styles, titled borders, per-node alignment, and markup in string nodes and titles
+- `Tree` component for hierarchical data with `├─, └─, │` connectors, arbitrary nesting, markup in labels, and guide styling via `TreeConfiguration`
+- RGB ANSI code support via new interface
+- Emoji support in `Box`, `Table`, and `Frame`
+
+### Fixed
+- `AnsiStringParser#getOriginalString` now correctly strips ANSI codes, not just Clique parser tags
+
+### Changed
+- `noDimensions()` now throws `IllegalStateException` if `autoSize` is not enabled in `BoxConfiguration`
+- `withDimensions()` now throws `IllegalArgumentException` for zero or negative values
+For both **Box** and **CustomizableBox**
+
+### Deprecated
+- `addHeaders()` in favor of `Table#headers()` for cleaner and more concise chaining
+- `addRows()` in favor of `Table#row()` for cleaner and more concise chaining
+  For both **Table** and **CustomizableTable**
 
 Report issues at: https://github.com/kusoroadeolu/Clique/issues
 

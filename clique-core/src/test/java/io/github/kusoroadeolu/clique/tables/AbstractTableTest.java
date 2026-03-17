@@ -10,7 +10,7 @@ class AbstractTableTest {
     @Test
     void testTableStructure() {
         Table table = Clique.table(TableType.DEFAULT)
-                .addHeaders("A", "B")
+                .headers("A", "B")
                 .addRows("1", "2");
         String output = table.get();
 
@@ -24,7 +24,7 @@ class AbstractTableTest {
     @Test
     void testTableCellUpdate() {
         Table table = Clique.table(TableType.DEFAULT)
-                .addHeaders("A", "B")
+                .headers("A", "B")
                 .addRows("1", "2");
         table.updateCell(1, 0, "99");
         String output = table.get();

@@ -49,7 +49,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 
 Box box = Clique.box(BoxType.DOUBLE_LINE, config)
-    .noDimensions() //Sets the width and length to zero    
+    .noDimensions() //Sets the width and height to zero    
     .content("This box auto-sizes to fit content")
     .render();
 ```
