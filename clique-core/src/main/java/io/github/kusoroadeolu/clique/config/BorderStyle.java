@@ -2,6 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 
 import io.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
@@ -20,16 +21,26 @@ public class BorderStyle {
     private final AnsiCode[] horizontalStyle;
     private final AnsiCode[] edgeStyle;
     private final StyleBuilder styleBuilder;
+    private final char cornerChar;
+    private final char verticalChar;
+    private final char horizontalChar;
+    private final boolean modifiedChar;
+
 
     private BorderStyle() {
         this(new BorderStyleBuilder());
     }
 
+
     private BorderStyle(BorderStyleBuilder builder) {
         this.verticalStyle = builder.verticalStyle;
         this.horizontalStyle = builder.horizontalStyle;
         this.edgeStyle = builder.edgeStyle;
+        this.cornerChar = builder.cornerChar;
+        this.verticalChar = builder.verticalChar;
+        this.horizontalChar = builder.horizontalChar;
         this.styleBuilder = Clique.styleBuilder();
+        this.modifiedChar = builder.modifiedChar;
     }
 
     public static BorderStyleBuilder immutableBuilder() {
@@ -40,86 +51,155 @@ public class BorderStyle {
         return this.styleBuilder;
     }
 
+    public boolean hasModifiedChar(){
+        return modifiedChar;
+    }
+
+    /** @deprecated Use {@link #getHorizontalStyle()} instead */
+    @Deprecated(since = "3.1")
     public AnsiCode[] getHorizontalBorderStyles() {
+        return this.getHorizontalStyle();
+    }
+
+    public AnsiCode[] getHorizontalStyle() {
         return this.horizontalStyle.clone();
     }
 
 
-    public String toString() {
-        return "BorderStyle[" +
-                "verticalStyle=" + Arrays.toString(verticalStyle) +
-                ", horizontalStyle=" + Arrays.toString(horizontalStyle) +
-                ", edgeStyle=" + Arrays.toString(edgeStyle) +
-                ", styleBuilder=" + styleBuilder +
-                ']';
+    public char getCornerChar() {
+        return cornerChar;
     }
 
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-
-        BorderStyle that = (BorderStyle) object;
-        return Arrays.equals(verticalStyle, that.verticalStyle) && Arrays.equals(horizontalStyle, that.horizontalStyle) && Arrays.equals(edgeStyle, that.edgeStyle) && styleBuilder.equals(that.styleBuilder);
+    public char getVerticalChar() {
+        return verticalChar;
     }
 
-    public int hashCode() {
-        return Objects.hash(Arrays.hashCode(verticalStyle), Arrays.hashCode(horizontalStyle), Arrays.hashCode(edgeStyle), styleBuilder);
+    public char getHorizontalChar() {
+        return horizontalChar;
     }
 
-
+    /** @deprecated Use {@link #getCornerStyle()} instead */
+    @Deprecated(since = "3.1")
     public AnsiCode[] getEdgeBorderStyles() {
+        return this.getCornerStyle();
+    }
+
+    public AnsiCode[] getCornerStyle() {
         return this.edgeStyle.clone();
     }
 
 
+    /** @deprecated Use {@link #getVerticalStyle()} instead */
+    @Deprecated(since = "3.1")
     public AnsiCode[] getVerticalBorderStyles() {
+        return this.getVerticalStyle();
+    }
+
+    public AnsiCode[] getVerticalStyle() {
         return this.verticalStyle.clone();
+    }
+
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        BorderStyle that = (BorderStyle) object;
+        return cornerChar == that.cornerChar && verticalChar == that.verticalChar && horizontalChar == that.horizontalChar && Arrays.equals(verticalStyle, that.verticalStyle) && Arrays.equals(horizontalStyle, that.horizontalStyle) && Arrays.equals(edgeStyle, that.edgeStyle) && Objects.equals(styleBuilder, that.styleBuilder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cornerChar, verticalChar, horizontalChar, Arrays.hashCode(verticalStyle), Arrays.hashCode(horizontalStyle), Arrays.hashCode(edgeStyle));
+
     }
 
     public static class BorderStyleBuilder {
         private final static String NULL_ANSI_CODE_WARNING = "Ansi codes cannot be null";
+        private final static AnsiCode[] NONE = new AnsiCode[0];
 
-        private AnsiCode[] verticalStyle;
-        private AnsiCode[] horizontalStyle;
-        private AnsiCode[] edgeStyle;
+        private AnsiCode[] verticalStyle = NONE;
+        private AnsiCode[] horizontalStyle = NONE;
+        private AnsiCode[] edgeStyle = NONE;
+        private boolean modifiedChar =  false;
+        private char cornerChar = Constants.BLANK_CHAR;
+        private char verticalChar = Constants.BLANK_CHAR;
+        private char horizontalChar = Constants.BLANK_CHAR;
 
+        /** @deprecated Use {@link #verticalStyle(AnsiCode...)} instead */
+        @Deprecated(since = "3.1")
         public BorderStyleBuilder verticalBorderStyles(AnsiCode... styles) {
+            return this.verticalStyle(styles);
+        }
+
+        public BorderStyleBuilder verticalStyle(AnsiCode... styles) {
             Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
             this.verticalStyle = styles;
             return this;
         }
 
-        public BorderStyleBuilder verticalBorderStyles(String style) {
-            return this.verticalBorderStyles(getAnsiCodes(style));
+        public BorderStyleBuilder verticalStyle(String style) {
+            return this.verticalStyle(getAnsiCodes(style));
         }
 
+        /** @deprecated Use {@link #horizontalStyle(AnsiCode...)} instead */
+        @Deprecated(since = "3.1")
         public BorderStyleBuilder horizontalBorderStyles(AnsiCode... styles) {
+            return this.horizontalStyle(styles);
+        }
+
+        public BorderStyleBuilder horizontalStyle(AnsiCode... styles) {
             Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
             this.horizontalStyle = styles;
             return this;
         }
 
-        public BorderStyleBuilder horizontalBorderStyles(String style) {
-            return this.horizontalBorderStyles(getAnsiCodes(style));
+        public BorderStyleBuilder horizontalStyle(String style) {
+            return this.horizontalStyle(getAnsiCodes(style));
         }
 
+        /** @deprecated Use {@link #cornerStyle(AnsiCode...)} instead */
+        @Deprecated
         public BorderStyleBuilder edgeBorderStyles(AnsiCode... styles) {
+            return this.cornerStyle(styles);
+        }
+
+        public BorderStyleBuilder cornerStyle(AnsiCode... styles) {
             Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
             this.edgeStyle = styles;
             return this;
         }
 
-        public BorderStyleBuilder edgeBorderStyles(String style) {
-            return this.edgeBorderStyles(getAnsiCodes(style));
+        public BorderStyleBuilder cornerStyle(String style) {
+            return this.cornerStyle(getAnsiCodes(style));
         }
 
         public BorderStyleBuilder uniformStyle(AnsiCode... styles) {
-            this.edgeBorderStyles(styles);
-            this.horizontalBorderStyles(styles);
-            return this.verticalBorderStyles(styles);
+            this.cornerStyle(styles);
+            this.horizontalStyle(styles);
+            return this.verticalStyle(styles);
         }
 
         public BorderStyleBuilder uniformStyle(String style) {
             return this.uniformStyle(getAnsiCodes(style));
+        }
+
+        public BorderStyleBuilder cornerChar(char cornerChar){
+            this.cornerChar = cornerChar;
+            modifiedChar = true;
+            return this;
+        }
+
+        public BorderStyleBuilder horizontalChar(char horizontalChar){
+            this.horizontalChar = horizontalChar;
+            modifiedChar = true;
+            return this;
+        }
+
+        public BorderStyleBuilder verticalChar(char verticalChar){
+            this.verticalChar = verticalChar;
+            modifiedChar = true;
+            return this;
         }
 
         AnsiCode[] getAnsiCodes(String styles){

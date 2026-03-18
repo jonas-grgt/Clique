@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Main facade — delegates to CliqueStyles and CliqueComponents.
+ * Main facade that delegates to CliqueStyles and CliqueComponents.
  */
 public final class Clique {
 
@@ -46,10 +46,6 @@ public final class Clique {
     public static TableHeaderBuilder table(TableConfiguration configuration) { return CliqueComponents.table(configuration); }
     public static TableHeaderBuilder table(TableType type) { return CliqueComponents.table(type); }
     public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) { return CliqueComponents.table(type, configuration); }
-    public static CustomizableTableHeaderBuilder customizableTable(TableType type) { return CliqueComponents.customizableTable(type); }
-    public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration) { return CliqueComponents.customizableTable(type, configuration); }
-    public static CustomizableTableHeaderBuilder customizableTable() { return CliqueComponents.customizableTable(); }
-    public static CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration) { return CliqueComponents.customizableTable(configuration); }
 
     // BOX
     public static BoxDimensionBuilder box() { return CliqueComponents.box(); }
@@ -98,6 +94,29 @@ public final class Clique {
     public static Optional<CliqueTheme> findTheme(String name) { return CliqueStyles.findTheme(name); }
 
     // DEPRECATED
+
+    /**
+     * @deprecated As of 3.1, use {@link #table(TableType)} instead. This will be removed in a future release.
+     */
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableTableHeaderBuilder customizableTable(TableType type) { return CliqueComponents.customizableTable(type); }
+    /**
+     * @deprecated As of 3.1, use {@link #table(TableType, TableConfiguration)} instead. This will be removed in a future release.
+     */
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration) { return CliqueComponents.customizableTable(type, configuration); }
+
+    /**
+     * @deprecated As of 3.1, use {@link #table()} instead. This will be removed in a future release.
+     */
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableTableHeaderBuilder customizableTable() { return CliqueComponents.customizableTable(); }
+    /**
+     * @deprecated As of 3.1, use {@link #table(TableConfiguration)} instead. This will be removed in a future release.
+     */
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration) { return CliqueComponents.customizableTable(configuration); }
+
     /**
      * @deprecated As of 3.1, use {@link #box(BoxType)} instead. This will be removed in a future release.
      */
@@ -116,7 +135,8 @@ public final class Clique {
      * @deprecated As of 3.1, use {@link #box()} instead. This will be removed in a future release.
      */
     @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox() { return CliqueComponents.customizableBox(); }
+    public static CustomizableBoxDimensionBuilder customizableBox() {
+        return CliqueComponents.customizableBox(); }
 
     /**
      * @deprecated As of 3.1, use {@link #box(BoxConfiguration)} instead. This will be removed in a future release.

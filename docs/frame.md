@@ -6,7 +6,7 @@ Frames are layout containers that vertically stack nested Clique components insi
 
 Clique provides 4 built-in frame styles:
 
-1. **DEFAULT** - Standard frame with simple borders
+1. **DEFAULT** - Standard frame with ASCII borders
 2. **CLASSIC** - Classic frame style
 3. **ROUNDED** - Frame with rounded corners
 4. **DOUBLE_LINE** - Frame with double-line borders
@@ -46,16 +46,6 @@ Clique.frame()
     .render();
 ```
 
-## Frame Types
-
-Specify a border style with `BoxType`:
-```java
-Clique.frame(BoxType.ROUNDED)
-    .title("Stats")
-    .nest(table)
-    .render();
-```
-
 ## Nesting Content
 
 ### Nesting Components
@@ -90,6 +80,29 @@ Clique.frame()
     .render();
 ```
 
+## Title Alignment
+
+The frame title can be independently aligned within the top border:
+```java
+// Title on the left
+Clique.frame()
+    .title("My App", FrameAlign.LEFT)
+    .nest(table)
+    .render();
+
+// Title centered (default)
+Clique.frame()
+    .title("My App")
+    .nest(table)
+    .render();
+
+// Title on the right
+Clique.frame()
+    .title("My App", FrameAlign.RIGHT)
+    .nest(table)
+    .render();
+```
+
 Available alignments:
 - `FrameAlign.LEFT` - Left-aligned
 - `FrameAlign.CENTER` - Centered
@@ -105,26 +118,7 @@ Clique.frame()
     .render();
 ```
 
-If you don't call `.width()`, the frame measures all nested children and sizes itself to the widest one.
-
-## Customizing Frames
-
-All frame types support border customization via `customize()`, which returns a `CustomizableFrame` for fluent chaining:
-```java
-Clique.frame(BoxType.ROUNDED)
-    .customize()
-    .customizeEdge('*')
-    .customizeHorizontalLine('=')
-    .customizeVerticalLine('!')
-    .nest(table)
-    .render();
-```
-
-### Customization Methods
-
-- `customizeEdge(char)` - Change corner characters
-- `customizeVerticalLine(char)` - Change vertical border character
-- `customizeHorizontalLine(char)` - Change horizontal border character
+If you don't call `.width()`, the frame measures all nested children and sizes itself to the widest one. Also, width cannot be set to zero or a negative value
 
 ## Frame Configuration
 
@@ -134,10 +128,10 @@ Use `FrameConfiguration` to customize frame appearance and behavior.
 ```java
 FrameConfiguration config = FrameConfiguration.immutableBuilder()
     .frameAlign(FrameAlign.LEFT)  // Default alignment for all children
-    .padding(4)
+    .padding(1)
     .build();
 
-Clique.frame(BoxType.ROUNDED, config)
+Clique.frame(config)
     .title("My Frame")
     .nest(table)
     .render();
@@ -194,12 +188,34 @@ FrameConfiguration config = FrameConfiguration.immutableBuilder()
     .build();
 ```
 
+### Customizing Frames
+
+All frame types support border char customization via `BorderStyle`
+```java
+BorderStyle style = BorderStyle.immutableBuilder()
+        .horizontalStyle("cyan")
+        .verticalStyle("magenta")
+        .cornerStyle("yellow") 
+        .build();
+
+FrameConfiguration config = FrameConfiguration.immutableBuilder()
+        .borderStyle(style)
+        .build();
+
+Clique.frame(BoxType.ROUNDED)
+    .customize()
+    .customizeEdge('*')
+    .customizeHorizontalLine('=')
+    .customizeVerticalLine('!')
+    .nest(table)
+    .render();
+```
+
+
 ### Full Configuration Example
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-    .horizontalBorderStyles(ColorCode.CYAN)
-    .verticalBorderStyles(ColorCode.MAGENTA)
-    .edgeBorderStyles(ColorCode.YELLOW)
+    .uniformStyle("blue")
     .build();
 
 FrameConfiguration config = FrameConfiguration.immutableBuilder()
@@ -213,29 +229,6 @@ Clique.frame(BoxType.DOUBLE_LINE, config)
     .nest(headerTable, FrameAlign.CENTER)
     .nest(progressBar, FrameAlign.LEFT)
     .nest("[dim]last updated: just now[/]", FrameAlign.RIGHT)
-    .render();
-```
-
-## Title Alignment
-
-The frame title can be independently aligned within the top border:
-```java
-// Title on the left
-Clique.frame()
-    .title("My App", FrameAlign.LEFT)
-    .nest(table)
-    .render();
-
-// Title centered (default)
-Clique.frame()
-    .title("My App")
-    .nest(table)
-    .render();
-
-// Title on the right
-Clique.frame()
-    .title("My App", FrameAlign.RIGHT)
-    .nest(table)
     .render();
 ```
 
@@ -299,9 +292,7 @@ Clique.frame(BoxType.CLASSIC)
 ### Styled Border Frame
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-    .horizontalBorderStyles(ColorCode.GREEN)
-    .verticalBorderStyles(ColorCode.GREEN)
-    .edgeBorderStyles(ColorCode.GREEN)
+    .uniform("blue")
     .build();
 
 FrameConfiguration config = FrameConfiguration.immutableBuilder()
@@ -309,30 +300,19 @@ FrameConfiguration config = FrameConfiguration.immutableBuilder()
     .frameAlign(FrameAlign.CENTER)
     .build();
 
-Clique.frame(BoxType.ROUNDED, config)
+Clique.frame(config)
     .title("[green, bold]✓ Build Successful[/]")
-    .nest("[green]All tests passed[/]", FrameAlign.CENTER)
-    .nest(resultTable, FrameAlign.CENTER)
-    .render();
-```
-
-### Custom Border Characters
-```java
-Clique.frame(BoxType.CLASSIC)
-    .customizeEdge('+')
-    .customizeHorizontalLine('-')
-    .customizeVerticalLine('|')
-    .title("Custom Frame")
-    .nest(table)
+    .nest("[green]All tests passed[/]")
+    .nest(resultTable)
     .render();
 ```
 
 ## Things to Watch Out For
 
-- A nested component's content width **cannot exceed the frame's inner width**. If it does, an exception is thrown.
+- A nested component's content width **cannot exceed the frame's width**. If it does, an exception is thrown.
 - The **title width cannot exceed the frame width**. Keep titles shorter than the frame's content.
 - Frame width is derived from the **widest child** automatically, so you generally don't need to set it manually.
-- Customization is not restricted to `DEFAULT`.
+- Blank chars for customization are not applied, and the previous default char of the `BoxType` is used instead
 
 ## See Also
 

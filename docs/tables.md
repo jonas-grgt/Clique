@@ -6,9 +6,9 @@ Tables help you display structured data in a clean, formatted way. Clique suppor
 
 Clique provides 5 built-in table styles:
 
-1. **DEFAULT** - Standard table with lines
+1. **DEFAULT** - Standard table with ASCII characters
 2. **COMPACT** (or **MINIMAL**) - Minimalist table with fewer borders
-3. **BOX_DRAW** - Table using box-drawing characters
+3. **BOX_DRAW** - Table using box drawing characters
 4. **ROUNDED_BOX_DRAW** - Box-draw table with rounded corners
 5. **MARKDOWN** - Markdown-style table format
 
@@ -24,15 +24,6 @@ table.headers("Name", "Age", "Class")
     .row("Doe", "26", "Class B");
 
 table.render(); // Print the table to terminal
-```
-
-### Compact Table
-```java
-TableHeaderBuilder builder = Clique.table(TableType.COMPACT);
-builder.headers("Name", "Age", "Status")
-    .row("Alice", "25", "Active")
-    .row("Bob", "30", "Inactive")
-    .render();
 ```
 
 ## Table Manipulation
@@ -67,6 +58,29 @@ table.removeRow(1);
 // Get table as string instead of printing
 String tableString = table.get();
 System.out.println(tableString);
+```
+
+### Using Markup in Tables
+Tables automatically parse markup tags when you add content:
+```java
+Table table = Clique.table(TableType.BOX_DRAW)
+    .headers(
+        "[cyan, bold]Product[/]",
+        "[cyan, bold]Price[/]",
+        "[cyan, bold]Stock[/]"
+    )
+    .row(
+        "[yellow]Widget[/]",
+        "[green]$19.99[/]",
+        "[red, bold]Low[/]"
+    )
+    .row(
+        "[yellow]Gadget[/]",
+        "[green]$29.99[/]",
+        "In Stock"
+    );
+
+table.render();
 ```
 
 ## Table Configuration
@@ -122,12 +136,11 @@ TableConfiguration config = TableConfiguration
 
 #### Border Styling
 
-Style table borders with different colors:
+Style table borders with uniform colors:
+**NOTE:** Uniform styling is recommended for tables, due to having more complex layouts than boxes, hence, horizontal/vertical styling might not fully align with each other
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-    .horizontalBorderStyles(ColorCode.CYAN)
-    .verticalBorderStyles(ColorCode.MAGENTA)
-    .edgeBorderStyles(ColorCode.YELLOW)
+    .uniformStyle("blue")
     .build();
 
 TableConfiguration config = TableConfiguration
@@ -156,18 +169,15 @@ TableConfiguration config = TableConfiguration
 ### Full Configuration Example
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-    .horizontalBorderStyles(ColorCode.CYAN)
-    .verticalBorderStyles(ColorCode.MAGENTA)
-    .edgeBorderStyles(ColorCode.YELLOW)
+    .uniformStyle("red")
     .build();
 
 TableConfiguration config = TableConfiguration
     .immutableBuilder()
-    .columnAlignment(0, CellAlign.LEFT)
+    .columnAlignment(0, CellAlign.LEFT) //Overrides table wide alignment
     .borderStyle(style)
-    .parser(Clique.parser())
-    .alignment(CellAlign.CENTER)
-    .padding(2)
+    .alignment(CellAlign.CENTER)  //Table Wide alignment
+    .padding(1)
     .build();
 
 Table table = Clique.table(TableType.MARKDOWN, config)
@@ -195,70 +205,31 @@ table.render();
 
 This is especially useful when you have incomplete data or when using `removeCell()`.
 
-## Customizable Tables
-
-Customizable tables let you modify edges, vertical lines, and horizontal lines. Currently, only the `DEFAULT` table type supports customization.
-
 ### Basic Customization
 ```java
+BorderStyle style = BorderStyle.immutableBuilder()
+        .horizontalChar('=')
+        .verticalChar('|')
+        .cornerChar('+')
+        .build();
+
+TableConfiguration config = TableConfiguration
+        .immutableBuilder()
+        .columnAlignment(0, CellAlign.LEFT) //Overrides table wide alignment
+        .borderStyle(style)
+        .padding(1)
+        .build();
 // Without configuration
-Clique.customizableTable(TableType.DEFAULT)
-    .headers("Col1", "Col2")
-    .customizeEdge('+')
-    .customizeHorizontalLine('=')
-    .customizeVerticalLine('|')
+Clique.table(TableType.DEFAULT, config)
     .row("A", "B")
     .render();
 ```
 
-### With Configuration
-```java
-TableConfiguration config = TableConfiguration
-    .immutableBuilder()
-    .padding(2)
-    .build();
-
-Clique.customizableTable(TableType.DEFAULT, config)
-    .headers("Name", "Age")
-    .customizeEdge('*')
-    .customizeHorizontalLine('-')
-    .customizeVerticalLine('|')
-    .row("Alice", "25")
-    .render();
-```
-
-### Customization Methods
-
-- `customizeEdge(char)` - Change corner/intersection characters
-- `customizeHorizontalLine(char)` - Change horizontal border character
-- `customizeVerticalLine(char)` - Change vertical border character
-
-## Using Markup in Tables
-
-Tables automatically parse markup tags when you add content:
-```java
-Table table = Clique.table(TableType.BOX_DRAW)
-    .headers(
-        "[cyan, bold]Product[/]",
-        "[cyan, bold]Price[/]",
-        "[cyan, bold]Stock[/]"
-    )
-    .row(
-        "[yellow]Widget[/]",
-        "[green]$19.99[/]",
-        "[red, bold]Low[/]"
-    )
-    .row(
-        "[yellow]Gadget[/]",
-        "[green]$29.99[/]",
-        "In Stock"
-    );
-
-table.render();
-```
-
 ## Things to Watch Out For
 - **Column alignment** always overrides table-wide alignment settings.
+- **Customization** Currently, only the `DEFAULT` table type supports customization. Other table types will throw during construction if `BorderStyle#horizontalChar()`, `BorderStyle#verticalChar()`, `BorderStyle#cornerChar()` is passed as a config option.
+- Blank chars for customization are not applied, and the previous default char of the `TableType` is used instead
+
 
 ## See Also
 - [Markup Reference](markup-reference.md) - Styling options for table content

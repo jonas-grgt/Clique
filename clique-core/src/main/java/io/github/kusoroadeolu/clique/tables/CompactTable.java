@@ -1,6 +1,7 @@
 package io.github.kusoroadeolu.clique.tables;
 
 
+import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
@@ -19,7 +20,7 @@ class CompactTable extends AbstractTable {
 
     public CompactTable(TableConfiguration tableConfiguration) {
         super(tableConfiguration);
-        this.vLine = Constants.BLANK.repeat(this.tableConfiguration.getPadding());
+        this.vLine = Constants.BLANK.repeat(this.tableConfiguration.getPadding());  //VLINE is blank
         this.hLine = "-";
         this.styleTableBorders();
     }
@@ -77,9 +78,18 @@ class CompactTable extends AbstractTable {
 
 
     protected void styleTableBorders() {
-        if (this.tableConfiguration.getBorderStyle() == null) return;
-        final StyleBuilder sb = this.tableConfiguration.getBorderStyle().styleBuilder();
-        this.hLine = sb.formatAndReset(this.hLine, this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles());
+        BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
+        if (borderStyle == null) return;
+        if (borderStyle.hasModifiedChar()) {
+            throw new IllegalArgumentException(
+                    "Border character customization is only supported for DEFAULT tables. " +
+                            "TableType.Compact" + " does not support character overrides."
+            );
+        }
+
+        final StyleBuilder sb = borderStyle.styleBuilder();
+        this.hLine = sb.formatAndReset(this.hLine, borderStyle.getHorizontalStyle());
+
     }
 
     @Override

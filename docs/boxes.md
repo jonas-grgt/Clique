@@ -6,7 +6,7 @@ Boxes are single-cell containers that display text with borders and support text
 
 Clique provides 4 built-in box styles:
 
-1. **DEFAULT** - Standard box with simple borders
+1. **DEFAULT** - Standard box with ASCII borders
 2. **CLASSIC** - Classic box style
 3. **ROUNDED** - Box with rounded corners
 4. **DOUBLE_LINE** - Box with double-line borders
@@ -17,7 +17,7 @@ Clique provides 4 built-in box styles:
 
 ### Creating a Simple Box
 ```java
-Box box = Clique.box(BoxType.CLASSIC)
+Box box = Clique.box()
         .withDimensions(10, 20)  //Width, height
         .content("This is my first box");
     
@@ -27,19 +27,41 @@ box.render(); // Print the box to terminal
 ### Box Dimensions
 
 - **Width** - The horizontal size of the box (in characters)
-- **Length** - The vertical size of the box (in lines)
+- **Height** - The vertical size of the box (in lines)
 ```java
-Box box = Clique.box(BoxType.ROUNDED)
-        .withDimensions(50, 5)
+Box box = Clique.box(BoxType.DEFAULT)
+        .withDimensions(50, 5) //Width, Height
         .content("A wider, shorter box")
         .render();
+```
+
+### Using Markup in Boxes
+
+Boxes automatically parse markup tags in content:
+```java
+Box box = Clique.box()
+    .withDimensions(40, 5)
+    .content("[yellow, bold]Warning:[/] This is an important message that needs attention")
+    .render();
+```
+
+### Multi-line Content
+
+Boxes handle newlines properly and will wrap text accordingly:
+```java
+Box box = Clique.box(BoxType.CLASSIC)
+    .withDimensions(40, 10)
+    .content(
+        "[green, bold]Success![/]\n\n" +
+        "Your operation completed successfully.\n" +
+        "You can now proceed to the next step."
+    )
+    .render();
 ```
 
 ## Box Configuration
 
 Use `BoxConfiguration` to customize box appearance and behavior.
-
-**Note:** Markup parsing is enabled by default.
 
 ### Basic Configuration
 ```java
@@ -89,7 +111,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .autoSize()
     .build();
 
-Box box = Clique.box(BoxType.ROUNDED, config)
+Box box = Clique.box( config)
     .noDimensions()   
     .content("This box will size itself")
     .render();
@@ -102,16 +124,19 @@ When `autoSize` is enabled, the box will automatically adjust dimensions even if
 Style box borders with different colors:
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-    .horizontalBorderStyles(ColorCode.CYAN)
-    .verticalBorderStyles(ColorCode.MAGENTA)
-    .edgeBorderStyles(ColorCode.YELLOW)
+    .horizontalStyle(ColorCode.CYAN)
+    .verticalStyle(ColorCode.MAGENTA)
+    .cornerStyle(ColorCode.YELLOW)
     .build();
 
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .borderStyle(style)
     .build();
 
-BoxDimensionBuilder builder = Clique.box(BoxType.CLASSIC, config);
+Clique.box(BoxType.CLASSIC, config)
+        .withDimensions(20, 10)
+        .content("Styled Box")
+        .render();
 ```
 
 #### Custom Parser
@@ -131,13 +156,12 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
 ### Full Configuration Example
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-    .uniformStyle("blue")
-    .build();
+        .uniformStyle(blue)
+        .build();
 
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .borderStyle(style)
     .textAlign(TextAlign.CENTER)
-    .centerPadding(3)
     .autoSize()
     .parser(Clique.parser())
     .build();
@@ -152,46 +176,20 @@ Box box = Clique.box(BoxType.DOUBLE_LINE, config)
 
 All box types support border customization, which returns a `Box` for fluent chaining:
 ```java
+BorderStyle style = BorderStyle.immutableBuilder()
+        .uniformStyle(blue)
+        .cornerChar('*')
+        .horizontalChar('~')
+        .verticalChar('I')
+        .build();
+
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .autoSize()
     .build();
 
-Clique.box(BoxType.ROUNDED, config)
+Clique.box(config)
     .noDimensions()
-    .customizeEdge('<')
-    .customizeVerticalLine('~')
-    .customizeHorizontalLine('-')
     .content("[red]This is my custom box :)[/]")
-    .render();
-```
-
-### Customization Methods
-
-- `customizeEdge(char)` - Change corner characters
-- `customizeVerticalLine(char)` - Change vertical border character
-- `customizeHorizontalLine(char)` - Change horizontal border character
-
-## Using Markup in Boxes
-
-Boxes automatically parse markup tags in content:
-```java
-Box box = Clique.box(BoxType.ROUNDED)
-    .withDimensions(40, 5)
-    .content("[yellow, bold]Warning:[/] This is an important message that needs attention")
-    .render();
-```
-
-### Multi-line Content
-
-Boxes handle newlines properly and will wrap text accordingly:
-```java
-Box box = Clique.box(BoxType.CLASSIC)
-    .withDimensions(40, 10)
-    .content(
-        "[green, bold]Success![/]\n\n" +
-        "Your operation completed successfully.\n" +
-        "You can now proceed to the next step."
-    )
     .render();
 ```
 
@@ -222,45 +220,11 @@ Clique.box(BoxType.ROUNDED)
     .render();
 ```
 
-### Custom Styled Box
-```java
-BorderStyle style = BorderStyle.immutableBuilder()
-    .horizontalBorderStyles(ColorCode.GREEN)
-    .verticalBorderStyles(ColorCode.GREEN)
-    .edgeBorderStyles(ColorCode.GREEN)
-    .build();
-
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .borderStyle(style)
-    .textAlign(TextAlign.CENTER)
-    .centerPadding(2)
-    .build();
-
-Clique.box(BoxType.ROUNDED, config)
-    .withDimensions(50, 10)
-    .content("[green, bold]✓ Build Successful[/]\n\nAll tests passed")
-    .render();
-```
-
-### Custom Border Characters
-```java
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .autoSize()
-    .build();
-
-Clique.box(BoxType.CLASSIC, config)
-    .noDimensions()
-    .customizeEdge('*')
-    .customizeHorizontalLine('=')
-    .customizeVerticalLine('!')
-    .content("[cyan]Custom borders on any box type[/]")
-    .render();
-```
-
 ## Things to Watch Out For
 
 - When using `autoSize`, you don't need to specify width or length, you can just use `noDimensions()`
-- Customization is no longer restricted to `DEFAULT`
+- Using `noDimensions` without an `autosize` config parameter throws an `IllegalStateEx`
+- Blank chars for customization are not applied, and the previous default char of the `BoxType` is used instead
 
 ## See Also
 

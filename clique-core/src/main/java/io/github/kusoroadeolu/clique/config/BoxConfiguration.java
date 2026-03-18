@@ -92,7 +92,7 @@ public class BoxConfiguration {
         /**
          * @deprecated As of 3.1, due to confusing/incorrect semantics. This will be removed in a future release.
          */
-        @Deprecated(forRemoval = true, since = "3.1")
+        @Deprecated(since = "3.1")
         public BoxConfigurationBuilder centerPadding(int padding) {
             if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
             this.padding = padding;

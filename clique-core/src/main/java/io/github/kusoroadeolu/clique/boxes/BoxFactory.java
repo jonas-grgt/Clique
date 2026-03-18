@@ -23,14 +23,23 @@ public class BoxFactory {
         return getBoxDimensionBuilder(type, BoxConfiguration.DEFAULT);
     }
 
+    /**
+     * @deprecated in favor of {@link io.github.kusoroadeolu.clique.config.BorderStyle} customization methods. This will be removed
+     * */
+    @Deprecated(since = "3.1", forRemoval = true)
     public static CustomizableBoxDimensionBuilder getCustomizableBoxDimensionBuilder(BoxType type) {
         return getCustomizableBoxDimensionBuilder(type, BoxConfiguration.DEFAULT);
     }
 
+    /**
+     * @deprecated in favor of {@link io.github.kusoroadeolu.clique.config.BorderStyle} customization methods. This will be removed
+     * */
+    @Deprecated(since = "3.1", forRemoval = true)
     public static CustomizableBoxDimensionBuilder getCustomizableBoxDimensionBuilder(BoxType type, BoxConfiguration config) {
         validateTypeAndConfig(type, config);
-        var customizable = (CustomizableBox) getBoxDimensionBuilder(type, config);
-        return new CustomizableBoxDimensionBuilder(customizable);
+        var borderChar = BorderChars.from(type);
+        Box box = new DefaultBox(borderChar, config);
+        return new CustomizableBoxDimensionBuilder(box);
     }
 
     static void validateTypeAndConfig(BoxType type, BoxConfiguration config) {

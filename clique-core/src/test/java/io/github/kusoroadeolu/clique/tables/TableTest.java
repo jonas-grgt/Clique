@@ -1,6 +1,9 @@
 package io.github.kusoroadeolu.clique.tables;
 
 import io.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.boxes.BoxType;
+import io.github.kusoroadeolu.clique.config.BorderStyle;
+import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.config.CellAlign;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import org.junit.jupiter.api.Test;
@@ -141,6 +144,7 @@ class TableTest {
         assertNotSame(str1, table.get());
     }
 
+    //Deprecated but here for backward compat
     @Test
     void assertNotSame_onSubsequentGetCalls_onCustomizeCall(){
         CustomizableTable table = Clique.customizableTable(TableType.DEFAULT)
@@ -152,4 +156,66 @@ class TableTest {
         assertNotSame(str1, table.get());
     }
 
+    @Test
+    void borderStyleConfig_shouldApplyGivenChanges(){
+        var table1 = Clique.table(TableType.DEFAULT)
+                .headers("ID", "Name", "Country")
+                .row("1", "Salamander", "Vasci"); //ASCII Table
+        List<String> lines = table1.get().lines().toList();
+        var line1 = lines.getFirst();
+        var line2 = lines.get(1);
+        assertTrue(line1.contains("+"));
+        assertTrue(line1.contains("-")); //Asserting line 1 contains both the corners and horizontal chars
+        assertTrue(line2.contains("|")); //Assert line2 contains the vlines
+
+        BorderStyle style = BorderStyle
+                .immutableBuilder()
+                .cornerChar('o')
+                .horizontalChar('~')
+                .verticalChar('/')
+                .build();
+        var config = TableConfiguration.immutableBuilder().borderStyle(style).build();
+
+
+        var table2 = Clique.table(TableType.DEFAULT, config)
+                .headers("ID", "Name", "Country")
+                .row("1", "Salamander", "Vasci");
+        List<String> lines2 = table2.get().lines().toList();
+        var lines2_1 = lines2.getFirst();
+        var lines2_2 = lines2.get(1);
+        assertTrue(lines2_1.contains("o"));
+        assertTrue(lines2_1.contains("~")); //Asserting line 1 contains both the corners and horizontal chars
+        assertTrue(lines2_2.contains("/")); //Assert line2 contains the vlines
+    }
+
+    @Test
+    void borderStyleConfig_shouldNotApplyChanges_onBlankChars(){
+        BorderStyle style = BorderStyle
+                .immutableBuilder()
+                .cornerChar(' ')
+                .build();
+        var config = TableConfiguration.immutableBuilder().borderStyle(style).build();
+
+
+        var table = Clique.table(TableType.DEFAULT, config)
+                .headers("ID", "Name", "Country")
+                .row("1", "Salamander", "Vasci");
+        List<String> lines2 = table.get().lines().toList();
+        var lines2_1 = lines2.getFirst();
+        assertFalse(lines2_1.contains(" "));
+        assertTrue(lines2_1.contains("+"));
+    }
+
+
+    @Test
+    void borderStyleConfig_assertThrows_onNonDefaultTableType(){
+        BorderStyle style = BorderStyle
+                .immutableBuilder()
+                .cornerChar('"')
+                .build();
+        var config = TableConfiguration.immutableBuilder().borderStyle(style).build();
+
+
+        assertThrows(IllegalArgumentException.class, () ->  Clique.table(TableType.ROUNDED_BOX_DRAW, config));
+    }
 }

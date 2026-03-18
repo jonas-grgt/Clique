@@ -183,15 +183,15 @@ public class BoxUtils {
 
     public static void applyAnsiToBorders(BorderChars borderChar, BorderStyle borderStyle) {
         final StyleBuilder sb = borderStyle.styleBuilder();
-        final AnsiCode[] horizontalStyles = borderStyle.getHorizontalBorderStyles();
-        final AnsiCode[] verticalStyles = borderStyle.getVerticalBorderStyles();
-        final AnsiCode[] edgeStyles = borderStyle.getEdgeBorderStyles();
+        final AnsiCode[] horizontalStyle = borderStyle.getHorizontalStyle();
+        final AnsiCode[] verticalStyle = borderStyle.getVerticalStyle();
+        final AnsiCode[] cornerStyle = borderStyle.getCornerStyle();
 
-        borderChar.setHLine(sb.formatAndReset(borderChar.hLine(), horizontalStyles));
-        borderChar.setVLine(sb.formatAndReset(borderChar.vLine(), verticalStyles));
-        borderChar.setTopLeft(sb.formatAndReset(borderChar.topLeft(), edgeStyles));
-        borderChar.setTopRight(sb.formatAndReset(borderChar.topRight(), edgeStyles));
-        borderChar.setBottomLeft(sb.formatAndReset(borderChar.bottomLeft(), edgeStyles));
-        borderChar.setBottomRight(sb.formatAndReset(borderChar.bottomRight(), edgeStyles));
+        borderChar.setHLine(sb.formatAndReset(borderChar.hLine(), horizontalStyle));
+        borderChar.setVLine(sb.formatAndReset(borderChar.vLine(), verticalStyle));
+        borderChar.setTopLeft(sb.formatAndReset(borderChar.topLeft(), cornerStyle));
+        borderChar.setTopRight(sb.formatAndReset(borderChar.topRight(), cornerStyle));
+        borderChar.setBottomLeft(sb.formatAndReset(borderChar.bottomLeft(), cornerStyle));
+        borderChar.setBottomRight(sb.formatAndReset(borderChar.bottomRight(), cornerStyle));
     }
 }

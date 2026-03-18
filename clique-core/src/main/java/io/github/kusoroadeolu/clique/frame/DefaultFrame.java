@@ -26,6 +26,7 @@ public class DefaultFrame implements  Frame {
     private FrameAlign titleAlign;
     private int width;
     private final BorderChars borderChars;
+    private static final int NO_WIDTH_SET = 0;
     private static final String NULL_FRAME_ALIGN = "DefaultFrame align cannot be null";
 
     public DefaultFrame(FrameConfiguration configuration, BoxType type) {
@@ -36,7 +37,7 @@ public class DefaultFrame implements  Frame {
         this.type = type;
         this.title = EMPTY;
         this.titleAlign = FrameAlign.CENTER;
-        this.width = 0;
+        this.width = NO_WIDTH_SET;
         borderChars = BorderChars.from(type);
         this.styleBorders(borderChars);
     }
@@ -69,7 +70,7 @@ public class DefaultFrame implements  Frame {
 
     @Override
     public DefaultFrame width(int width) {
-        if (width < 0) throw new IllegalArgumentException("Width cannot be negative");
+        if (width <= 0) throw new IllegalArgumentException("Width cannot be zero or negative");
         this.width = width;
         nullCachedFrame();
         return this;
@@ -115,16 +116,16 @@ public class DefaultFrame implements  Frame {
         var parsedTitle = parseToCell(appendedTitle, configuration.getParser());
         int titleWidth = parsedTitle.width() + 2;
 
-        this.width = (width <= 0 ? findNodesMaxWidth() : width);
-        int paddedWidth = width + configuration.getPadding();
-        if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, width);
+        int resolvedWidth = (this.width == NO_WIDTH_SET ? findNodesMaxWidth() : this.width);
+        int paddedWidth = resolvedWidth + configuration.getPadding();
+        if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, resolvedWidth);
 
         var sb = new StringBuilder();
 
         appendTitleToBox(parsedTitle, paddedWidth, titleWidth, sb);
 
         for (FrameNode node : nodes) {
-            align(node, paddedWidth  ,sb, borderChars);
+            align(node, resolvedWidth ,paddedWidth , sb, borderChars);
         }
 
         sb.append(borderChars.bottomLeft())
@@ -163,9 +164,9 @@ public class DefaultFrame implements  Frame {
                 .getAsInt();
     }
 
-    void align(FrameNode node, int paddedWidth, StringBuilder sb, BorderChars borderChar) {
+    void align(FrameNode node, int resolvedWidth ,int paddedWidth, StringBuilder sb, BorderChars borderChar) {
         int contentWidth = node.maxWidth();
-        if (contentWidth > width) throw new IllegalArgumentException("String with max width %s is greater than frame width %s".formatted(contentWidth, paddedWidth));
+        if (contentWidth > resolvedWidth) throw new IllegalArgumentException("String with width %s is greater than frame width %s".formatted(contentWidth, paddedWidth));
 
         int blockOffset = findBlockOffset(paddedWidth, contentWidth, node.align(), configuration.getPadding());
         for (var line : node.lines()) {
@@ -201,36 +202,44 @@ public class DefaultFrame implements  Frame {
             throw new IllegalArgumentException("Title of width %s is greater than DefaultFrame of width %s".formatted(titleWidth, resolvedWidth));
     }
 
-    void styleBorders(BorderChars borderChar) {
-        if (this.configuration.getBorderStyle() != null) {
-            final BorderStyle borderStyle = this.configuration.getBorderStyle();
-            applyAnsiToBorders(borderChar, borderStyle);
-        }
-    }
-
     void nullCachedFrame(){
         cachedFrame = null;
     }
 
 
-    @Override
-    public Frame customizeEdge(char edge) {
-        borderChars.setEdges(String.valueOf(edge));
-        return this;
+    void customizeCorner(char corner) {
+        var str = String.valueOf(corner);
+        if (!str.isBlank()){
+            borderChars.setCorners(str);
+            nullCachedFrame();
+        }
     }
 
-    @Override
-    public Frame customizeVerticalLine(char vLine) {
-        borderChars.setVLine(String.valueOf(vLine));
-        return this;
+    void customizeVLine(char vLine) {
+        var str = Character.toString(vLine);
+        if (!str.isBlank()){
+            borderChars.setVLine(str);
+            nullCachedFrame();
+        }
     }
 
-    @Override
-    public Frame customizeHorizontalLine(char hLine) {
-        borderChars.setHLine(String.valueOf(hLine));
-        return this;
+    void customizeHLine(char hLine) {
+        var str = Character.toString(hLine);
+        if (!str.isBlank()){
+            borderChars.setHLine(str);
+            nullCachedFrame();
+        }
     }
 
+    void styleBorders(BorderChars borderChar) {
+        final BorderStyle borderStyle = this.configuration.getBorderStyle();
+        if (borderStyle != null) {
+            applyAnsiToBorders(borderChar, borderStyle);
+            customizeHLine(borderStyle.getHorizontalChar());
+            customizeVLine(borderStyle.getVerticalChar());
+            customizeCorner(borderStyle.getCornerChar());
+        }
+    }
 
     @Override
     public boolean equals(Object object) {

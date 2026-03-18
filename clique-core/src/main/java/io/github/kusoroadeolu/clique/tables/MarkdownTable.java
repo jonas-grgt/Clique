@@ -1,6 +1,7 @@
 package io.github.kusoroadeolu.clique.tables;
 
 
+import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
@@ -70,10 +71,17 @@ class MarkdownTable extends AbstractTable {
 
 
     protected void styleTableBorders() {
-        if (this.tableConfiguration.getBorderStyle() == null) return;
-        final StyleBuilder sb = this.tableConfiguration.getBorderStyle().styleBuilder();
-        this.hLine = sb.formatAndReset(this.hLine, this.tableConfiguration.getBorderStyle().getHorizontalBorderStyles());
-        this.vLine = sb.formatAndReset(this.vLine, this.tableConfiguration.getBorderStyle().getVerticalBorderStyles());
+        BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
+        if (borderStyle == null) return;
+        if (borderStyle.hasModifiedChar()) {
+            throw new IllegalArgumentException(
+                    "Border character customization is only supported for DEFAULT tables. " +
+                            "TableType.Markdown" + " does not support character overrides."
+            );
+        }
+        final StyleBuilder sb = borderStyle.styleBuilder();
+        this.hLine = sb.formatAndReset(this.hLine, borderStyle.getHorizontalStyle());
+        this.vLine = sb.formatAndReset(this.vLine, borderStyle.getVerticalStyle());
     }
 
     @Override

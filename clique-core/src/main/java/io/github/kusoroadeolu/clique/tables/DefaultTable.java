@@ -14,13 +14,13 @@ import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
 class DefaultTable extends AbstractTable implements CustomizableTable {
-    private String edge;
+    private String corner;
     private String hLine;
     private String vLine;
 
     public DefaultTable(TableConfiguration tableConfiguration) {
         super(tableConfiguration);
-        this.edge = "+";
+        this.corner = "+";
         this.hLine = "-";
         this.vLine = "|";
         this.styleTableBorders();
@@ -68,39 +68,51 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
     //Dynamically calculate the header and footer for the table
     private String appendHeader(StringBuilder sb) {
         for (final WidthAwareList l : this.columns) {
-            sb.append(edge);
+            sb.append(corner);
             sb.repeat(hLine, l.longest() + this.tableConfiguration.getPadding());
         }
-        sb.append(edge);
+        sb.append(corner);
         return sb.toString();
     }
 
-    public CustomizableTable customizeEdge(char edge) {
-        this.edge = String.valueOf(edge);
-        nullCachedTable();
-        return this;
+    public void customizeCorner(char corner) {
+        var str = Character.toString(corner);
+        if (!str.isBlank()){
+            this.corner = str;
+            nullCachedTable();
+        }
+
     }
 
-    public CustomizableTable customizeVerticalLine(char vLine) {
-        this.vLine = String.valueOf(vLine);
-        nullCachedTable();
-        return this;
+    public void customizeVLine(char vLine) {
+        var str = Character.toString(vLine);
+        if (!str.isBlank()){
+            this.vLine = str;
+            nullCachedTable();
+        }
     }
 
-    public CustomizableTable customizeHorizontalLine(char hLine) {
-        this.hLine = String.valueOf(hLine);
-        nullCachedTable();
-        return this;
+    public void customizeHLine(char hLine) {
+        var str = Character.toString(hLine);
+        if (!str.isBlank()){
+            this.hLine = str;
+            nullCachedTable();
+        }
     }
 
 
     protected void styleTableBorders() {
-        if (this.tableConfiguration.getBorderStyle() == null) return;
         final BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
-        final StyleBuilder sb = borderStyle.styleBuilder();
-        this.hLine = sb.formatAndReset(this.hLine, borderStyle.getHorizontalBorderStyles());
-        this.vLine = sb.formatAndReset(this.vLine, borderStyle.getVerticalBorderStyles());
-        this.edge = sb.formatAndReset(this.edge, borderStyle.getEdgeBorderStyles());
+        if (borderStyle != null){
+            final StyleBuilder sb = borderStyle.styleBuilder();
+            this.hLine = sb.formatAndReset(this.hLine, borderStyle.getHorizontalStyle());
+            this.vLine = sb.formatAndReset(this.vLine, borderStyle.getVerticalStyle());
+            this.corner = sb.formatAndReset(this.corner, borderStyle.getCornerStyle());
+            this.customizeCorner(borderStyle.getCornerChar());
+            this.customizeHLine(borderStyle.getHorizontalChar());
+            this.customizeVLine(borderStyle.getVerticalChar());
+        }
+
     }
 
     @Override
@@ -109,12 +121,12 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
         if (!super.equals(object)) return false;
 
         DefaultTable that = (DefaultTable) object;
-        return Objects.equals(edge, that.edge) && Objects.equals(hLine, that.hLine) && Objects.equals(vLine, that.vLine);
+        return Objects.equals(corner, that.corner) && Objects.equals(hLine, that.hLine) && Objects.equals(vLine, that.vLine);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), edge, hLine, vLine);
+        return Objects.hash(super.hashCode(), corner, hLine, vLine);
     }
 
     @Override
@@ -123,9 +135,27 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
                 "tableConfiguration=" + tableConfiguration +
                 ", vLine='" + vLine + '\'' +
                 ", hLine='" + hLine + '\'' +
-                ", edge='" + edge + '\'' +
+                ", edge='" + corner + '\'' +
                 ", rows=" + rows +
                 ", columns=" + columns +
                 ']';
+    }
+
+    @Override
+    public CustomizableTable customizeEdge(char edge) {
+        this.customizeCorner(edge);
+        return this;
+    }
+
+    @Override
+    public CustomizableTable customizeVerticalLine(char vLine) {
+        this.customizeVLine(vLine);
+        return this;
+    }
+
+    @Override
+    public CustomizableTable customizeHorizontalLine(char hLine) {
+        this.customizeHLine(hLine);
+        return this;
     }
 }

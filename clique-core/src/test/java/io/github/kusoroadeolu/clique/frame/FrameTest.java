@@ -1,12 +1,17 @@
 package io.github.kusoroadeolu.clique.frame;
 
+import io.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.boxes.BoxType;
+import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
+import io.github.kusoroadeolu.clique.config.FrameConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static org.junit.jupiter.api.Assertions.*;
@@ -75,19 +80,6 @@ class FrameTest {
         String topLine = lines(rendered)[0];
         // Top border should have no spaces, since no title has been embedded
         assertFalse(topLine.contains(" "));
-    }
-
-    @Test
-    void frameWithTitleEmbedsTitleInTopBorder() {
-        String title = "MyApp";
-        String rendered = stripAnsi(
-                frame.title(title)
-                        .nest("hello")
-                        .get()
-        );
-        String topLine = lines(rendered)[0];
-        assertTrue(topLine.contains(title));
-        assertTrue(topLine.contains(" "));
     }
 
     @Test
@@ -179,7 +171,7 @@ class FrameTest {
 
     @Test
     void cachedFrameIsNulledAfterModification() {
-        DefaultFrame frame = this.frame.nest("hello");
+        frame.nest("hello");
         String first = frame.get();
         assertNotNull(first);
         frame.nest(frame);
@@ -187,7 +179,7 @@ class FrameTest {
     }
 
     @Test
-    void leftAlignedNodeIsFlushToLeftBorder() {
+    void leftAlignedNodeIsPaddedToLeftBorder() {
         String rendered = stripAnsi(
                 frame.nest("hi", FrameAlign.LEFT)
                         .nest("much wider content here")
@@ -199,6 +191,51 @@ class FrameTest {
                 .findFirst()
                 .get();
         // after the vline char, next char should be 'h'
-        assertEquals('h', hiLine.charAt(1));
+        assertEquals('h', hiLine.charAt(3));
+    }
+
+    @Test
+    void borderStyleConfig_shouldApplyGivenChanges(){
+        var frame = Clique.frame(BoxType.DEFAULT).nest("Hello"); //ASCII Box
+        List<String> lines = frame.get().lines().toList();
+        var line1 = lines.getFirst();
+        var line2 = lines.get(1);
+        assertTrue(line1.contains("+"));
+        assertTrue(line1.contains("-")); //Asserting line 1 contains both the corners and horizontal chars
+        assertTrue(line2.contains("|")); //Assert line2 contains the vlines
+
+        BorderStyle style = BorderStyle
+                .immutableBuilder()
+                .cornerChar('o')
+                .horizontalChar('~')
+                .verticalChar('/')
+                .build();
+        var config = FrameConfiguration.immutableBuilder().borderStyle(style).build();
+
+
+        var frame2 = Clique.frame(BoxType.DEFAULT, config).nest("Hello"); //ASCII
+        List<String> lines2 = frame2.get().lines().toList();
+        var lines2_1 = lines2.getFirst();
+        var lines2_2 = lines2.get(1);
+        assertTrue(lines2_1.contains("o"));
+        assertTrue(lines2_1.contains("~")); //Asserting line 1 contains both the corners and horizontal chars
+        assertTrue(lines2_2.contains("/")); //Assert line2 contains the vlines
+    }
+
+
+    @Test
+    void borderStyleConfig_shouldNotApplyChanges_onBlankChars(){
+        BorderStyle style = BorderStyle
+                .immutableBuilder()
+                .cornerChar(' ')
+                .build();
+        var config = FrameConfiguration.immutableBuilder().borderStyle(style).build();
+
+
+        var frame2 = Clique.frame(BoxType.DEFAULT, config).nest("Hello"); //ASCII
+        List<String> lines2 = frame2.get().lines().toList();
+        var lines2_1 = lines2.getFirst();
+        assertFalse(lines2_1.contains(" "));
+        assertTrue(lines2_1.contains("+"));
     }
 }

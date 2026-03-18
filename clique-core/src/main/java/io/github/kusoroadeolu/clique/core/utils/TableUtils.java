@@ -10,7 +10,6 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 
 public class TableUtils {
 
-
     public static String align(CellAlign cellAlign, StringBuilder sb, int offset, String cell, String vLine) {
 
         final String spaces = BLANK.repeat(offset);

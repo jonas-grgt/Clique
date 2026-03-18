@@ -1,5 +1,6 @@
 package io.github.kusoroadeolu.clique.tables;
 
+import io.github.kusoroadeolu.clique.boxes.Box;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
@@ -118,24 +119,39 @@ class BoxDrawTable extends AbstractTable {
 
 
     protected void styleTableBorders() {
-        if (this.tableConfiguration.getBorderStyle() == null) return;
         final BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
+        if (borderStyle == null) return;
+
+        var tableType = switch (this){
+            case RoundedBoxDrawTable rb -> "RoundedBoxDraw";
+            case BoxDrawTable b -> "BoxDraw";
+        };
+
+        if (borderStyle.hasModifiedChar()) {
+            throw new IllegalArgumentException(
+                    "Border character customization is only supported for DEFAULT tables. " +
+                            "TableType.%s does not support character overrides.".formatted(tableType)
+            );
+        }
+
         final StyleBuilder sb = borderStyle.styleBuilder();
-        final AnsiCode[] horizontalStyles = borderStyle.getHorizontalBorderStyles();
-        final AnsiCode[] verticalStyles = borderStyle.getVerticalBorderStyles();
-        final AnsiCode[] edgeStyles = borderStyle.getEdgeBorderStyles();
+        final AnsiCode[] horizontalStyles = borderStyle.getHorizontalStyle();
+        final AnsiCode[] verticalStyles = borderStyle.getVerticalStyle();
+        final AnsiCode[] cornerStyle = borderStyle.getCornerStyle();
 
         this.hLine = sb.formatAndReset(this.hLine, horizontalStyles);
-        this.vLine = sb.formatAndReset(this.vLine, verticalStyles);
-        this.topLeft = sb.formatAndReset(this.topLeft, edgeStyles);
-        this.topRight = sb.formatAndReset(this.topRight, edgeStyles);
-        this.bottomLeft = sb.formatAndReset(this.bottomLeft, edgeStyles);
-        this.bottomRight = sb.formatAndReset(this.bottomRight, edgeStyles);
         this.topJoin = sb.formatAndReset(this.topJoin, horizontalStyles);
         this.bottomJoin = sb.formatAndReset(this.bottomJoin, horizontalStyles);
+        this.cross = sb.formatAndReset(this.cross, horizontalStyles);
+
+        this.vLine = sb.formatAndReset(this.vLine, verticalStyles);
         this.leftJoin = sb.formatAndReset(this.leftJoin, verticalStyles);
         this.rightJoin = sb.formatAndReset(this.rightJoin, verticalStyles);
-        this.cross = sb.formatAndReset(this.cross, horizontalStyles);
+
+        this.topLeft = sb.formatAndReset(this.topLeft, cornerStyle);
+        this.topRight = sb.formatAndReset(this.topRight, cornerStyle);
+        this.bottomLeft = sb.formatAndReset(this.bottomLeft, cornerStyle);
+        this.bottomRight = sb.formatAndReset(this.bottomRight, cornerStyle);
 
     }
 

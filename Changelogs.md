@@ -13,8 +13,7 @@
 
 ### Fixed
 - `AnsiStringParser#getOriginalString` now correctly strips ANSI codes, not just Clique parser tags
-- `Table#removeColumn(row, col)` now does not throw an exception if col = 0
-
+- `Table#removeColumn(row, col)` does not throw an exception if col idx = 0
 
 ### Changed
 - `noDimensions()` now throws `IllegalStateException` if `autoSize` is not enabled in `BoxConfiguration`
@@ -26,15 +25,21 @@
 - `BorderStyle` string overloads added for `horizontalBorderStyles()`, `verticalBorderStyles()`, and `edgeBorderStyles()` — accepts markup style strings using the default delimiter, without the markup borders i.e. `[]`
 - `BorderStyle.BorderStyleBuilder` now has `uniformStyle(AnsiCode...)` and `uniformStyle(String)` for applying a single style across all border axes
 - `AnsiStringParser` now exposes `ansiCodes(String)` — splits by the configured delimiter, resolves each token to an `AnsiCode`, and silently drops unrecognized styles
+- Default `BoxType` changed from `BoxType.DEFAULT` to `BoxType.ROUNDED`, more visually appealing out of the box(for both frame and box)
+- Default `TableType` changed from `TableType.DEFAULT` to `TableType.BOX_DRAW`, same reason
+
 
 ### Deprecated
 - `addHeaders()` in favor of `Table#headers()` for cleaner and more concise chaining
 - `addRows()` in favor of `Table#row()` for cleaner and more concise chaining
-  For both **Table** and **CustomizableTable**
-- `Clique#customizableBox()` overloads in favor of `Clique#box()`
+- `Clique#customizableBox()` overloads in favor of using `BorderStyle#horizontalChar()`, `BorderStyle#verticalChar()`, `BorderStyle#cornerChar()` config methods
+- `Clique#customizableTable()` overloads in favor of using `BorderStyle#horizontalChar()`, `BorderStyle#verticalChar()`, `BorderStyle#cornerChar()` config methods
 - `BoxConfiguration#centerPadding` due to unclear and incorrect semantics
-
-
+- `BorderStyle#getHorizontalBorderStyles()` in favor of `getHorizontalStyle()`
+- `BorderStyle#getEdgeBorderStyles()` in favor of `getCornerStyle()`
+- `BorderStyle#getVerticalBorderStyles()` in favor of `getVerticalStyle()`
+- `BorderStyleBuilder#horizontalBorderStyles()` in favor of `horizontalStyle()`
+- `BorderStyleBuilder#edgeBorderStyles()` in favor of `cornerStyle()`
+- `BorderStyleBuilder#verticalBorderStyles()` in favor of `verticalStyle()`
 
 Report issues at: https://github.com/kusoroadeolu/Clique/issues
-

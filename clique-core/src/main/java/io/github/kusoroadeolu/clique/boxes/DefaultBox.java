@@ -9,7 +9,7 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.*;
 
 //TODO fix BoxConfig#padding to apply padding at both sides r
-class DefaultBox extends AbstractBox {
+class DefaultBox extends AbstractBox implements CustomizableBox {
     private final BorderChars borderChars;
 
     DefaultBox(BorderChars borderChars, BoxConfiguration configuration) {
@@ -40,28 +40,37 @@ class DefaultBox extends AbstractBox {
         }));
     }
 
-    public Box customizeEdge(char edge) {
-        borderChars.setEdges(String.valueOf(edge));
-        cachedString = null;
-        return this;
+    void customizeCorner(char corner) {
+        var str = String.valueOf(corner);
+        if (!str.isBlank()){
+            borderChars.setCorners(str);
+            cachedString = null;
+        }
     }
 
-    public Box customizeVerticalLine(char vLine) {
-        borderChars.setVLine(String.valueOf(vLine));
-        cachedString = null;
-        return this;
+    void customizeVLine(char vLine) {
+        var str = Character.toString(vLine);
+        if (!str.isBlank()){
+            borderChars.setVLine(str);
+            cachedString = null;
+        }
     }
 
-    public Box customizeHorizontalLine(char hLine) {
-        borderChars.setHLine(String.valueOf(hLine));
-        cachedString = null;
-        return this;
+    void customizeHLine(char hLine) {
+        var str = Character.toString(hLine);
+        if (!str.isBlank()){
+            borderChars.setHLine(str);
+            cachedString = null;
+        }
     }
 
     void styleBorders() {
-        if (this.boxConfiguration.getBorderStyle() != null) {
-            final BorderStyle borderStyle = this.boxConfiguration.getBorderStyle();
+        final BorderStyle borderStyle = this.boxConfiguration.getBorderStyle();
+        if (borderStyle != null) {
             applyAnsiToBorders(borderChars, borderStyle);
+            customizeHLine(borderStyle.getHorizontalChar());
+            customizeVLine(borderStyle.getVerticalChar());
+            customizeCorner(borderStyle.getCornerChar());
         }
     }
 
@@ -86,6 +95,24 @@ class DefaultBox extends AbstractBox {
         return "DefaultBox[" +
                 "borderChars=" + borderChars +
                 ']';
+    }
+
+    @Override
+    public CustomizableBox customizeEdge(char edge) {
+        customizeCorner(edge);
+        return this;
+    }
+
+    @Override
+    public CustomizableBox customizeVerticalLine(char vLine) {
+        customizeVLine(vLine);
+        return this;
+    }
+
+    @Override
+    public CustomizableBox customizeHorizontalLine(char hLine) {
+        customizeHLine(hLine);
+        return this;
     }
 }
 
