@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.1.0-beta] - 2026-03-17
+## [3.1.0]
 
 ### Added
 - `Frame` component for layout composition — bordered container that vertically stacks nested Clique components. Supports `BoxType` border styles, titled borders, per-node alignment, and markup in string nodes and titles

@@ -232,6 +232,21 @@ Clique.frame(BoxType.DOUBLE_LINE, config)
     .render();
 ```
 
+## Lazy Evaluation
+
+Components nested inside a frame are evaluated lazily — every call to `get()` or `render()` re-invokes each `Component` to produce fresh output. This means dynamic components like clocks, counters, or live status strings just work without any extra wiring.
+```java
+Component clock = () -> {
+    var now = java.time.LocalTime.now();
+    return "[cyan]%02d:%02d:%02d[/]".formatted(now.getHour(), now.getMinute(), now.getSecond());
+};
+
+// clock is re-evaluated on every render call
+frame.nest(clock).render();
+```
+
+Raw strings passed to `nest()` are static — only `Component` instances get re-evaluated.
+
 ## Getting the Frame as a String
 
 Use `get()` to retrieve the rendered frame as a string without printing:
@@ -244,26 +259,8 @@ String frameString = Clique.frame()
 System.out.println(frameString);
 ```
 
+
 ## Examples
-
-### Dashboard Layout
-```java
-Table stats = Clique.table(TableType.ROUNDED_BOX_DRAW)
-    .addHeaders("[cyan, bold]Metric[/]", "[cyan, bold]Value[/]")
-    .addRows("Uptime", "[green]99.9%[/]")
-    .addRows("Requests", "1,204,309")
-    .addRows("Errors", "[red]42[/]");
-
-ProgressBar cpu = Clique.progressBar(100, ProgressBarPreset.BLOCKS);
-cpu.tick(73);
-
-Clique.frame(BoxType.ROUNDED)
-    .title("[bold, cyan]System Dashboard[/]")
-    .nest(stats, FrameAlign.CENTER)
-    .nest("[dim]CPU Usage[/]", FrameAlign.LEFT)
-    .nest(cpu, FrameAlign.LEFT)
-    .render();
-```
 
 ### Nested Tree
 ```java
@@ -286,24 +283,6 @@ tree.add("[dim].gitignore");
 Clique.frame(BoxType.CLASSIC)
     .title("Project Structure", FrameAlign.LEFT)
     .nest(tree)
-    .render();
-```
-
-### Styled Border Frame
-```java
-BorderStyle style = BorderStyle.immutableBuilder()
-    .uniform("blue")
-    .build();
-
-FrameConfiguration config = FrameConfiguration.immutableBuilder()
-    .borderStyle(style)
-    .frameAlign(FrameAlign.CENTER)
-    .build();
-
-Clique.frame(config)
-    .title("[green, bold]✓ Build Successful[/]")
-    .nest("[green]All tests passed[/]")
-    .nest(resultTable)
     .render();
 ```
 

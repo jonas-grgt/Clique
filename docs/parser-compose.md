@@ -471,4 +471,4 @@ Clique.parser().print("[mycolor]Text[/]");
 
 - [Parser Documentation](parser.md) - Basic parser usage
 - [Markup Reference](markup-reference.md) - Built-in styles
-- [Tips and Tricks](tips.md) - General usage patterns
+- [Tips and Tricks](reference.md) - General usage patterns

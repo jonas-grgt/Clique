@@ -35,24 +35,22 @@ sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode
 
 
     non-sealed class ComponentNode implements FrameNode {
-        private final List<Cell> lines;
-        private final int maxWidth;
+        private final Component component;
         private final FrameAlign align;
 
         public ComponentNode(Component component, FrameAlign align) {
-            this.lines = splitComponentLines(component.get());
-            this.maxWidth = findMaxWidth(lines);
+            this.component = component;
             this.align = align;
         }
 
         @Override
         public List<Cell> lines() {
-            return lines;
+            return splitComponentLines(component.get()); // resolved at render time
         }
 
         @Override
         public int maxWidth() {
-            return maxWidth;
+            return findMaxWidth(lines());
         }
 
         @Override

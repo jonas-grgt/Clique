@@ -22,7 +22,6 @@ public class DefaultFrame implements  Frame {
     private final FrameConfiguration configuration;
     private final BoxType type;
     private String title;
-    private String cachedFrame = null;
     private FrameAlign titleAlign;
     private int width;
     private final BorderChars borderChars;
@@ -72,7 +71,6 @@ public class DefaultFrame implements  Frame {
     public DefaultFrame width(int width) {
         if (width <= 0) throw new IllegalArgumentException("Width cannot be zero or negative");
         this.width = width;
-        nullCachedFrame();
         return this;
     }
 
@@ -87,7 +85,6 @@ public class DefaultFrame implements  Frame {
         Objects.requireNonNull(align, NULL_FRAME_ALIGN);
         if (configuration.getParser() != null) str = str + RESET;
         nodes.add(new FrameNode.StringNode(str, align, configuration.getParser()));
-        nullCachedFrame();
         return this;
     }
 
@@ -101,12 +98,10 @@ public class DefaultFrame implements  Frame {
         Objects.requireNonNull(component, "Component cannot be null");
         Objects.requireNonNull(align, NULL_FRAME_ALIGN);
         nodes.add(new FrameNode.ComponentNode(component, align));
-        nullCachedFrame();
         return this;
     }
 
     public String get() {
-        if (cachedFrame != null) return cachedFrame;
         var appendedTitle = title;
 
         //If parser is not null
@@ -117,6 +112,10 @@ public class DefaultFrame implements  Frame {
         int titleWidth = parsedTitle.width() + 2;
 
         int resolvedWidth = (this.width == NO_WIDTH_SET ? findNodesMaxWidth() : this.width);
+
+        if (this.width == NO_WIDTH_SET && !parsedTitle.isBlank()) {
+            resolvedWidth = Math.max(resolvedWidth, titleWidth);
+        }
         int paddedWidth = resolvedWidth + configuration.getPadding();
         if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, resolvedWidth);
 
@@ -133,7 +132,7 @@ public class DefaultFrame implements  Frame {
                 .append(borderChars.bottomRight())
                 .append(NEWLINE);
 
-        return (cachedFrame = sb.toString());
+        return sb.toString();
     }
 
     void appendTitleToBox(Cell parsedTitle, int resolvedWidth, int titleWidth, StringBuilder sb){
@@ -202,16 +201,11 @@ public class DefaultFrame implements  Frame {
             throw new IllegalArgumentException("Title of width %s is greater than DefaultFrame of width %s".formatted(titleWidth, resolvedWidth));
     }
 
-    void nullCachedFrame(){
-        cachedFrame = null;
-    }
-
 
     void customizeCorner(char corner) {
         var str = String.valueOf(corner);
         if (!str.isBlank()){
             borderChars.setCorners(str);
-            nullCachedFrame();
         }
     }
 
@@ -219,7 +213,6 @@ public class DefaultFrame implements  Frame {
         var str = Character.toString(vLine);
         if (!str.isBlank()){
             borderChars.setVLine(str);
-            nullCachedFrame();
         }
     }
 
@@ -227,7 +220,6 @@ public class DefaultFrame implements  Frame {
         var str = Character.toString(hLine);
         if (!str.isBlank()){
             borderChars.setHLine(str);
-            nullCachedFrame();
         }
     }
 

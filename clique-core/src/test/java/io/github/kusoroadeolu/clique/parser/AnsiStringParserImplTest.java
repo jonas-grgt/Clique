@@ -128,7 +128,7 @@ class AnsiStringParserImplTest {
     void test_getOriginalString_withNoAnsi_returnsEqualString(){
         var parser = AnsiStringParser.DEFAULT;
         var string = parser.parse("Hello");
-        assertSame("Hello", parser.getOriginalString(string));
+        assertEquals("Hello", parser.getOriginalString(string));
     }
 
     @Test

@@ -162,23 +162,6 @@ class FrameTest {
     }
 
     @Test
-    void frameIsCachedOnSubsequentGetCalls() {
-        DefaultFrame frame = this.frame.nest("hello");
-        String first = frame.get();
-        String second = frame.get();
-        assertSame(first, second); // same instance due to lazy cache
-    }
-
-    @Test
-    void cachedFrameIsNulledAfterModification() {
-        frame.nest("hello");
-        String first = frame.get();
-        assertNotNull(first);
-        frame.nest(frame);
-        assertNotNull(frame.get()); // same instance due to lazy cache
-    }
-
-    @Test
     void leftAlignedNodeIsPaddedToLeftBorder() {
         String rendered = stripAnsi(
                 frame.nest("hi", FrameAlign.LEFT)

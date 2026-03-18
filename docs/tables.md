@@ -130,8 +130,23 @@ Add whitespace around cell content to prevent cramping:
 ```java
 TableConfiguration config = TableConfiguration
     .immutableBuilder()
-    .padding(3)  // 3 spaces on each side
+    .padding(3)  // 3 spaces on the left/right side, halved on each side if cell is centered
     .build();
+```
+
+### Null Handling
+
+When cells are null or removed, Clique replaces them with a configurable value:
+```java
+TableConfiguration config = TableConfiguration.immutableBuilder()
+    .nullReplacement("N/A")  // Default is empty string
+    .build();
+
+TableHeaderBuilder builder = Clique.table(TableType.DEFAULT, config);
+builder.headers("Name", "Age", "City")
+    .row("Alice", null, "NYC");  // null becomes "N/A"
+
+table.render();
 ```
 
 #### Border Styling
@@ -184,21 +199,6 @@ Table table = Clique.table(TableType.MARKDOWN, config)
     .headers("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]")
     .row("[red]John[/]", "25", "Class A")
     .row("[red]Doe[/]", "26", "Class B");
-
-table.render();
-```
-
-## Null Handling
-
-When cells are null or removed, Clique replaces them with a configurable value:
-```java
-TableConfiguration config = TableConfiguration.immutableBuilder()
-    .nullReplacement("N/A")  // Default is empty string
-    .build();
-
-TableHeaderBuilder builder = Clique.table(TableType.DEFAULT, config);
-builder.headers("Name", "Age", "City")
-    .row("Alice", null, "NYC");  // null becomes "N/A"
 
 table.render();
 ```
