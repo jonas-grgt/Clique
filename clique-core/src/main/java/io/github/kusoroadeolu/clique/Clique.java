@@ -64,11 +64,11 @@ public final class Clique {
     //TABLE
 
     public static TableHeaderBuilder table() {
-        return table(TableType.DEFAULT);
+        return table(TableType.BOX_DRAW);
     }
 
     public static TableHeaderBuilder table(TableConfiguration configuration) {
-        return table(TableType.DEFAULT, configuration);
+        return table(TableType.BOX_DRAW, configuration);
     }
 
     public static TableHeaderBuilder table(TableType type) {

@@ -58,8 +58,8 @@ public class TreeConfiguration {
     }
 
     public static class TreeConfigurationBuilder {
-        private String guideStyle = EMPTY; //A reset flag, because we'll wrap this in markup tags
-        private AnsiStringParser parser = Clique.parser().DEFAULT;
+        private String guideStyle = EMPTY;
+        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
 
 
         public TreeConfigurationBuilder parser(AnsiStringParser parser) {

@@ -15,9 +15,10 @@ import static io.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 import static java.util.Objects.isNull;
 
 public abstract class AbstractTable implements Table {
-    protected final List<WidthAwareList> columns; //This is used to track the max length in that column
-    protected final List<WidthAwareList> rows;
-    protected TableConfiguration tableConfiguration;
+    final List<WidthAwareList> columns; //This is used to track the max length in that column
+    final List<WidthAwareList> rows;
+    final TableConfiguration tableConfiguration;
+    String cachedTable = null;
 
      AbstractTable(TableConfiguration configuration) {
         this.columns = new ArrayList<>();
@@ -54,7 +55,7 @@ public abstract class AbstractTable implements Table {
             final WidthAwareList colList = this.columns.get(i);
             colList.add(c);
         }
-
+        nullCachedTable();
         return this;
     }
 
@@ -66,7 +67,7 @@ public abstract class AbstractTable implements Table {
         for (WidthAwareList cl : this.columns) {
             cl.remove(cl.get(index));
         }
-
+        nullCachedTable();
         return this;
     }
 
@@ -85,7 +86,12 @@ public abstract class AbstractTable implements Table {
         final Cell c = parseToCell(text, this.tableConfiguration.getParser());
         rl.update(col, c);
         cl.update(row, c);
+        nullCachedTable();
         return this;
+    }
+
+    void nullCachedTable(){
+        cachedTable = null;
     }
 
     abstract void styleTableBorders();

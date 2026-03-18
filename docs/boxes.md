@@ -80,7 +80,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 ```
 
-> **Note:** `centerPadding` affects both horizontal and vertical space. A value of `3` means the content area is reduced by 3 characters on all sides.
+> **Note:** `centerPadding` affects both horizontal and vertical space. A value of `2` means the content area is reduced by 2 characters on all sides.
 #### Auto Size
 
 Let the box automatically resize to fit its content:

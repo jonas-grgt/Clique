@@ -5,10 +5,7 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPredicate;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
@@ -70,6 +67,32 @@ public class ProgressBarConfiguration {
 
     public EasingConfiguration getEasing() {
         return easingConfiguration;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        ProgressBarConfiguration that = (ProgressBarConfiguration) object;
+        return length == that.length && complete == that.complete && incomplete == that.incomplete && Objects.equals(format, that.format) && Objects.equals(parser, that.parser) && styles.equals(that.styles) && Objects.equals(easingConfiguration, that.easingConfiguration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(length, complete, incomplete, format, parser, styles, easingConfiguration);
+    }
+
+    @Override
+    public String toString() {
+        return "ProgressBarConfiguration[" +
+                "length=" + length +
+                ", complete=" + complete +
+                ", incomplete=" + incomplete +
+                ", format='" + format + '\'' +
+                ", parser=" + parser +
+                ", styles=" + styles +
+                ", easingConfiguration=" + easingConfiguration +
+                ']';
     }
 
     public static class ProgressBarConfigurationBuilder {

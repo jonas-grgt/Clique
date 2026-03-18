@@ -13,6 +13,8 @@
 
 ### Fixed
 - `AnsiStringParser#getOriginalString` now correctly strips ANSI codes, not just Clique parser tags
+- `Table#removeColumn(row, col)` now does not throw an exception if col = 0
+
 
 ### Changed
 - `noDimensions()` now throws `IllegalStateException` if `autoSize` is not enabled in `BoxConfiguration`
@@ -21,7 +23,7 @@
 - All box types (`DEFAULT`, `CLASSIC`, `ROUNDED`, `DOUBLE_LINE`) consolidated into a single `DefaultBox` implementation driven by `BorderChars`, eliminates the previous per-type subclass hierarchy
 - All box types now support border customization — previously restricted to `DEFAULT` only
 
-- `BorderStyle` string overloads added for `horizontalBorderStyles()`, `verticalBorderStyles()`, and `edgeBorderStyles()` — accepts markup style strings using the default delimiter
+- `BorderStyle` string overloads added for `horizontalBorderStyles()`, `verticalBorderStyles()`, and `edgeBorderStyles()` — accepts markup style strings using the default delimiter, without the markup borders i.e. `[]`
 - `BorderStyle.BorderStyleBuilder` now has `uniformStyle(AnsiCode...)` and `uniformStyle(String)` for applying a single style across all border axes
 - `AnsiStringParser` now exposes `ansiCodes(String)` — splits by the configured delimiter, resolves each token to an `AnsiCode`, and silently drops unrecognized styles
 

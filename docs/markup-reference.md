@@ -127,21 +127,18 @@ Clique.parser().print("[red, bold, ul, italic]Everything at once[/]");
 | Reset | `[red]Text[/]` | Resets style after closing tag |
 
 ## Terminal Compatibility
+For all colors to display correctly with their full color palette, your terminal must support truecolor (24-bit color). Most modern terminals support this by default, but you may need to enable it:
 
-Not all terminals support all ANSI features. Most modern terminals support:
-- All standard and bright colors
-- Bold, underline, and dim
-- Basic backgrounds
+- Check support: Run echo $COLORTERM - it should output truecolor or 24bit
+- Enable truecolor: Set the environment variable COLORTERM=truecolor in your shell profile
+- Terminal compatibility: Ensure your terminal emulator supports 24-bit color (most modern terminals like iTerm2, Alacritty, Kitty, Windows Terminal, and recent versions of GNOME Terminal do)
+  Without truecolor support, themes may appear with reduced color accuracy or fall back to the nearest 256-color approximation.
 
-Less commonly supported:
-- Italic (varies by terminal)
-- Reverse video (some terminals)
-- Invisible text (implementation varies)
 
 Clique automatically detects ANSI support and can be manually controlled:
 
 ```java
-Clique.enableCliqueColors(true);  // Force enable colors
+Clique.enableCliqueColors();  // Force enable colors
 Clique.enableCliqueColors(false); // Force disable colors
 ```
 

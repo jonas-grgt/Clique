@@ -25,6 +25,8 @@ class CompactTable extends AbstractTable {
     }
 
     public String get() {
+        if (cachedTable != null) return cachedTable;
+
         final var tableBuilder = new StringBuilder();
         final StringBuilder sb = new StringBuilder();
 
@@ -56,7 +58,7 @@ class CompactTable extends AbstractTable {
             tableBuilder.append(Constants.NEWLINE);
         }
 
-        return tableBuilder.toString();
+        return (cachedTable = tableBuilder.toString());
     }
 
     //Dynamically calculate the header for the table
