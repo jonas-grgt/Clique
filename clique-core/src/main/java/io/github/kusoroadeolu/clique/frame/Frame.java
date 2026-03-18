@@ -3,8 +3,9 @@ package io.github.kusoroadeolu.clique.frame;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.core.display.Bordered;
 import io.github.kusoroadeolu.clique.core.display.Component;
+import io.github.kusoroadeolu.clique.core.display.Customizable;
 
-public interface Frame extends Bordered {
+public interface Frame extends Bordered, Customizable<Frame> {
     DefaultFrame title(String title, FrameAlign titleAlign);
 
     DefaultFrame title(String title);

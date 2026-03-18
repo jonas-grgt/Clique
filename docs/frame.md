@@ -319,7 +319,6 @@ Clique.frame(BoxType.ROUNDED, config)
 ### Custom Border Characters
 ```java
 Clique.frame(BoxType.CLASSIC)
-    .customize()
     .customizeEdge('+')
     .customizeHorizontalLine('-')
     .customizeVerticalLine('|')
@@ -333,7 +332,7 @@ Clique.frame(BoxType.CLASSIC)
 - A nested component's content width **cannot exceed the frame's inner width**. If it does, an exception is thrown.
 - The **title width cannot exceed the frame width**. Keep titles shorter than the frame's content.
 - Frame width is derived from the **widest child** automatically, so you generally don't need to set it manually.
-- `customize()` can be called on any frame type — customization is not restricted to `DEFAULT`.
+- Customization is not restricted to `DEFAULT`.
 
 ## See Also
 

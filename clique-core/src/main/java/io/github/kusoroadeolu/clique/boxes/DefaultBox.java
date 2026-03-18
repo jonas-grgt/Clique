@@ -9,7 +9,7 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.*;
 
 //TODO fix BoxConfig#padding to apply padding at both sides r
-class DefaultBox extends AbstractBox implements CustomizableBox {
+class DefaultBox extends AbstractBox {
     private final BorderChars borderChars;
 
     DefaultBox(BorderChars borderChars, BoxConfiguration configuration) {
@@ -40,18 +40,21 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
         }));
     }
 
-    public CustomizableBox customizeEdge(char edge) {
+    public Box customizeEdge(char edge) {
         borderChars.setEdges(String.valueOf(edge));
+        cachedString = null;
         return this;
     }
 
-    public CustomizableBox customizeVerticalLine(char vLine) {
+    public Box customizeVerticalLine(char vLine) {
         borderChars.setVLine(String.valueOf(vLine));
+        cachedString = null;
         return this;
     }
 
-    public CustomizableBox customizeHorizontalLine(char hLine) {
+    public Box customizeHorizontalLine(char hLine) {
         borderChars.setHLine(String.valueOf(hLine));
+        cachedString = null;
         return this;
     }
 
@@ -60,11 +63,6 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
             final BorderStyle borderStyle = this.boxConfiguration.getBorderStyle();
             applyAnsiToBorders(borderChars, borderStyle);
         }
-    }
-
-    @Override
-    public CustomizableBox customize() {
-        return this;
     }
 
     @Override

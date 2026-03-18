@@ -150,7 +150,7 @@ Box box = Clique.box(BoxType.DOUBLE_LINE, config)
 
 ## Customizing Boxes
 
-All box types support border customization via `customize()`, which returns a `CustomizableBox` for fluent chaining:
+All box types support border customization, which returns a `Box` for fluent chaining:
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .autoSize()
@@ -158,7 +158,6 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
 
 Clique.box(BoxType.ROUNDED, config)
     .noDimensions()
-    .customize()
     .customizeEdge('<')
     .customizeVerticalLine('~')
     .customizeHorizontalLine('-')
@@ -251,7 +250,6 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
 
 Clique.box(BoxType.CLASSIC, config)
     .noDimensions()
-    .customize()
     .customizeEdge('*')
     .customizeHorizontalLine('=')
     .customizeVerticalLine('!')
@@ -262,7 +260,7 @@ Clique.box(BoxType.CLASSIC, config)
 ## Things to Watch Out For
 
 - When using `autoSize`, you don't need to specify width or length, you can just use `noDimensions()`
-- `customize()` can be called on any box type — customization is no longer restricted to `DEFAULT`
+- Customization is no longer restricted to `DEFAULT`
 
 ## See Also
 

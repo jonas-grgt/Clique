@@ -7,7 +7,7 @@
 - `Tree` component for hierarchical data with `├─, └─, │` connectors, arbitrary nesting, markup in labels, and guide styling via `TreeConfiguration`
 - RGB ANSI code support via new interface
 - Emoji support in `Box`, `Table`, and `Frame`
-- `Box#customize()` — casts to `CustomizableBox` for fluent customization chaining
+- `Box` now allows for fluent customization chaining
 - `Clique#rgb(int, int, int)` and `Clique#rgb(int, int, int, boolean)` factory methods for creating RGB ANSI codes directly — returns `RGBAnsiCode` compatible with `Clique#registerStyle()`
 
 

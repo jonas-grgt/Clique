@@ -64,7 +64,9 @@ class BoxTest {
         var box = Clique.box(BoxType.ROUNDED)
                 .withDimensions(50, 10)
                 .content("Test");
+
         String output = box.get();
+
         assertSame(output, box.get());
     }
 

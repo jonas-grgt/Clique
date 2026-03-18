@@ -17,7 +17,7 @@ import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.applyAnsiToBorde
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 
-public class DefaultFrame implements  Frame ,CustomizableFrame {
+public class DefaultFrame implements  Frame {
     private final List<FrameNode> nodes;
     private final FrameConfiguration configuration;
     private final BoxType type;
@@ -135,10 +135,6 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
         return (cachedFrame = sb.toString());
     }
 
-    public CustomizableFrame customize(){
-        return this;
-    }
-
     void appendTitleToBox(Cell parsedTitle, int resolvedWidth, int titleWidth, StringBuilder sb){
         if (!parsedTitle.isBlank()) {
             int leftWidth = findTitleBlockOffset(resolvedWidth, titleWidth, titleAlign);
@@ -218,19 +214,19 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
 
 
     @Override
-    public CustomizableFrame customizeEdge(char edge) {
+    public Frame customizeEdge(char edge) {
         borderChars.setEdges(String.valueOf(edge));
         return this;
     }
 
     @Override
-    public CustomizableFrame customizeVerticalLine(char vLine) {
+    public Frame customizeVerticalLine(char vLine) {
         borderChars.setVLine(String.valueOf(vLine));
         return this;
     }
 
     @Override
-    public CustomizableFrame customizeHorizontalLine(char hLine) {
+    public Frame customizeHorizontalLine(char hLine) {
         borderChars.setHLine(String.valueOf(hLine));
         return this;
     }

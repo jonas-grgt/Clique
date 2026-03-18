@@ -4,6 +4,7 @@ package io.github.kusoroadeolu.clique;
 import io.github.kusoroadeolu.clique.ansi.RGBAnsiColor;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
+import io.github.kusoroadeolu.clique.boxes.Box;
 import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
@@ -248,6 +249,9 @@ public final class Clique {
         return customizableBox(BoxType.DEFAULT, configuration);
     }
 
+
+    void quickTest(){
+    }
 
 }
 
