@@ -125,7 +125,7 @@ TreeConfiguration config = TreeConfiguration.immutableBuilder()
 
 ```java
 TreeConfiguration config = TreeConfiguration.immutableBuilder()
-    .guideStyle("*cyan, bold")
+    .guideStyle("*cyan, bold") //Do not add the markup tag borders i.e [*cyan, bold]
     .build();
 
 Tree tree = Clique.tree("[*magenta, bold]clique-lib/", config);

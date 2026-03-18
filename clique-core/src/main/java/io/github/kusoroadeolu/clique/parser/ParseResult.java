@@ -6,4 +6,7 @@ public record ParseResult(
         List<ParserToken> tokens,
         List<String> extractedFormTags
 ) {
+    boolean isEmpty(){
+        return tokens.isEmpty() && extractedFormTags.isEmpty();
+    }
 }

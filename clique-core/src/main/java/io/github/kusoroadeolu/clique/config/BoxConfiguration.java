@@ -86,17 +86,13 @@ public class BoxConfiguration {
         private BorderStyle borderStyle = null;
         private boolean autoSize = false;
 
-        @Deprecated(since = "3.1.0")
-        //Deprecated this in favor of `padding()`
-        public BoxConfigurationBuilder centerPadding(int centerPadding) {
-            return this.padding(centerPadding);
-        }
-
-        public BoxConfigurationBuilder padding(int padding) {
+        @Deprecated(forRemoval = true, since = "3.1")
+        public BoxConfigurationBuilder centerPadding(int padding) {
             if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
             this.padding = padding;
             return this;
         }
+
 
         public BoxConfigurationBuilder autoSize() {
             this.autoSize = true;

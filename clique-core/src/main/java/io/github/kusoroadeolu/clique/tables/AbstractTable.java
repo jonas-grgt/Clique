@@ -59,7 +59,7 @@ public abstract class AbstractTable implements Table {
     }
 
     public AbstractTable removeRow(int index) {
-        validateHeaders(index, index);
+        validateHeaders(index);
         validateRowIndex(index, this.rows);
 
         this.rows.remove(index);
@@ -71,7 +71,7 @@ public abstract class AbstractTable implements Table {
     }
 
     public AbstractTable removeCell(int row, int col) {
-        validateHeaders(row, col);
+        validateHeaders(row);
         this.updateCell(row, col, this.tableConfiguration.getNullReplacement());
         return this;
     }
@@ -91,7 +91,7 @@ public abstract class AbstractTable implements Table {
     abstract void styleTableBorders();
 
     public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
+        if (isNull(object) || getClass() != object.getClass()) return false;
 
         AbstractTable that = (AbstractTable) object;
         return columns.equals(that.columns) && rows.equals(that.rows) && Objects.equals(tableConfiguration, that.tableConfiguration);

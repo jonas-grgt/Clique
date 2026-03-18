@@ -81,15 +81,15 @@ public class BoxUtils {
 
 
     public static void drawBox(StringBuilder sb, BoxWrapper boxWrapper) {
-        final int centerPadding = boxWrapper.configuration().getPadding();
-        final String spaces = BLANK.repeat(boxWrapper.width() - centerPadding);
-        final String hLines = sb.repeat(boxWrapper.hLine(), boxWrapper.width() - centerPadding).toString();
+        final int padding = boxWrapper.configuration().getPadding();
+        final String spaces = BLANK.repeat(boxWrapper.width() - padding);
+        final String hLines = sb.repeat(boxWrapper.hLine(), boxWrapper.width() - padding).toString();
         final TextAlign textAlign = boxWrapper.configuration().getTextAlign();
         clearStringBuilder(sb);
         sb.append(boxWrapper.tLeft()).append(hLines).append(boxWrapper.tRight()).append(NEWLINE);
 
         int startLine = 1;
-        final int availableLines = boxWrapper.length() - centerPadding;
+        final int availableLines = boxWrapper.length() - padding;
         final int textLines = boxWrapper.wordWrap().size();
 
         if (textAlign == TextAlign.CENTER || textAlign == TextAlign.CENTER_LEFT || textAlign == TextAlign.CENTER_RIGHT) {

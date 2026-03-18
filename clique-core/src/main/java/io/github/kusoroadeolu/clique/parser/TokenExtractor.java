@@ -42,7 +42,7 @@ public final class TokenExtractor {
             final char c = stringToParse.charAt(i);
             if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
                 if (isTracking && enableStrictParsing) { //If we're still tracking, this means we have nested form starts
-                    throw new ParseProblemException("Nested tag detected without closure at char: " + i);
+                    throw new ParseProblemException("Nested tag detected at index: " + i);
                 }
 
                 fs = i;

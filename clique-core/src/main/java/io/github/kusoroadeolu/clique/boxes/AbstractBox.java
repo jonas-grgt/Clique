@@ -110,6 +110,7 @@ public abstract class AbstractBox implements Box {
             }
         }
 
+
         if (this.boxConfiguration.getAutoSize() && this.height <= this.contentWrap.size()) {
             this.height = this.contentWrap.size() + 2;
             return;
@@ -128,11 +129,19 @@ public abstract class AbstractBox implements Box {
         else validateDimensions(this.width, this.height);
     }
 
+
     @Override
-    public void render(PrintStream stream) {
-        stream.println(this.get());
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+
+        AbstractBox that = (AbstractBox) object;
+        return width == that.width && height == that.height && Objects.equals(boxContent, that.boxContent) && Objects.equals(contentWrap, that.contentWrap) && Objects.equals(boxConfiguration, that.boxConfiguration);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height, boxContent, contentWrap, boxConfiguration);
+    }
 
     public static class BoxDimensionBuilder {
         private final AbstractBox box;

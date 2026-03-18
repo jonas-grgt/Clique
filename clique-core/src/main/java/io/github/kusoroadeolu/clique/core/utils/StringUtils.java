@@ -95,7 +95,7 @@ public final class StringUtils {
         return i;
     }
 
-    public static String skipAnsi(String styled) {
+    public static String stripAnsi(String styled) {
         int i = 0;
         boolean inAnsi = false;
         var clean = new StringBuilder();

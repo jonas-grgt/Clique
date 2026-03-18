@@ -42,7 +42,7 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
     }
 
     public DefaultFrame() {
-        this(FrameConfiguration.DEFAULT, BoxType.DEFAULT);
+        this(FrameConfiguration.DEFAULT, BoxType.ROUNDED);
     }
 
     public DefaultFrame(BoxType type) {
@@ -50,7 +50,7 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
     }
 
     public DefaultFrame(FrameConfiguration configuration) {
-        this(configuration, BoxType.DEFAULT);
+        this(configuration, BoxType.ROUNDED);
     }
 
     @Override
@@ -115,20 +115,20 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
         var parsedTitle = parseToCell(appendedTitle, configuration.getParser());
         int titleWidth = parsedTitle.width() + 2;
 
-        int resolvedWidth = (width <= 0 ? findNodesMaxWidth() : width) + (configuration.getPadding() * 2);
-
-        if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, resolvedWidth);
+        this.width = (width <= 0 ? findNodesMaxWidth() : width);
+        int paddedWidth = width + configuration.getPadding();
+        if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, width);
 
         var sb = new StringBuilder();
 
-        appendTitleToBox(parsedTitle, resolvedWidth, titleWidth, sb);
+        appendTitleToBox(parsedTitle, paddedWidth, titleWidth, sb);
 
         for (FrameNode node : nodes) {
-            align(node, resolvedWidth, sb, borderChars);
+            align(node, paddedWidth  ,sb, borderChars);
         }
 
         sb.append(borderChars.bottomLeft())
-                .append(borderChars.hLine().repeat(resolvedWidth))
+                .append(borderChars.hLine().repeat(paddedWidth))
                 .append(borderChars.bottomRight())
                 .append(NEWLINE);
 
@@ -138,25 +138,6 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
     public CustomizableFrame customize(){
         return this;
     }
-
-    @Override
-    public CustomizableFrame customizeEdge(char edge) {
-        borderChars.setEdges(String.valueOf(edge));
-        return this;
-    }
-
-    @Override
-    public CustomizableFrame customizeVerticalLine(char vLine) {
-        borderChars.setVLine(String.valueOf(vLine));
-        return this;
-    }
-
-    @Override
-    public CustomizableFrame customizeHorizontalLine(char hLine) {
-        borderChars.setHLine(String.valueOf(hLine));
-        return this;
-    }
-
 
     void appendTitleToBox(Cell parsedTitle, int resolvedWidth, int titleWidth, StringBuilder sb){
         if (!parsedTitle.isBlank()) {
@@ -183,19 +164,17 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
         return nodes.stream()
                 .mapToInt(FrameNode::maxWidth)
                 .max()
-                .orElse(ZERO);
+                .getAsInt();
     }
 
-    void align(FrameNode node, int innerWidth, StringBuilder sb, BorderChars borderChar) {
+    void align(FrameNode node, int paddedWidth, StringBuilder sb, BorderChars borderChar) {
         int contentWidth = node.maxWidth();
-        if (contentWidth > innerWidth)
-            throw new IllegalArgumentException("String with max width %s is greater than frame width %s".formatted(contentWidth, innerWidth));
+        if (contentWidth > width) throw new IllegalArgumentException("String with max width %s is greater than frame width %s".formatted(contentWidth, paddedWidth));
 
-        int blockOffset = findBlockOffset(innerWidth, contentWidth, node.align());
-
+        int blockOffset = findBlockOffset(paddedWidth, contentWidth, node.align(), configuration.getPadding());
         for (var line : node.lines()) {
             String content = line.styledText();
-            int rightPad = innerWidth - blockOffset - line.width();
+            int rightPad = paddedWidth - blockOffset - line.width();
             sb.append(borderChar.vLine())
                     .append(BLANK.repeat(blockOffset))
                     .append(content)
@@ -205,10 +184,10 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
         }
     }
 
-    static int findBlockOffset(int innerWidth, int contentWidth, FrameAlign align) {
+    static int findBlockOffset(int innerWidth, int contentWidth, FrameAlign align, int padding) {
         return switch (align) {
-            case LEFT -> ZERO;
-            case RIGHT -> innerWidth - contentWidth;
+            case LEFT -> ZERO + padding;
+            case RIGHT -> innerWidth - contentWidth - padding;
             case CENTER -> (innerWidth - contentWidth) / 2;
         };
     }
@@ -236,6 +215,26 @@ public class DefaultFrame implements  Frame ,CustomizableFrame {
     void nullCachedFrame(){
         cachedFrame = null;
     }
+
+
+    @Override
+    public CustomizableFrame customizeEdge(char edge) {
+        borderChars.setEdges(String.valueOf(edge));
+        return this;
+    }
+
+    @Override
+    public CustomizableFrame customizeVerticalLine(char vLine) {
+        borderChars.setVLine(String.valueOf(vLine));
+        return this;
+    }
+
+    @Override
+    public CustomizableFrame customizeHorizontalLine(char hLine) {
+        borderChars.setHLine(String.valueOf(hLine));
+        return this;
+    }
+
 
     @Override
     public boolean equals(Object object) {

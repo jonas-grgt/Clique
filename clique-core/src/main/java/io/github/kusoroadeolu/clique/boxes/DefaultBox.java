@@ -4,8 +4,11 @@ import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 
+import java.util.Objects;
+
 import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.*;
 
+//TODO fix BoxConfig#padding to apply padding at both sides r
 class DefaultBox extends AbstractBox implements CustomizableBox {
     private final BorderChars borderChars;
 
@@ -18,13 +21,18 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
 
     public String get() {
         if (cachedString != null) return cachedString;
+
         return (cachedString = handleDimensionsEx(() -> {
             this.wrapWord();
+            if (this.height <= this.contentWrap.size()) {
+                throw new IllegalArgumentException();
+            }
+            final var contentLs = this.contentWrap;
             final var chars = this.borderChars;
             final StringBuilder sb = new StringBuilder();
             final BoxWrapper wrapper = new BoxWrapper(
                     this.width, this.height, this.boxConfiguration,
-                    this.contentWrap, chars.hLine(), chars.vLine(),
+                    contentLs, chars.hLine(), chars.vLine(),
                     chars.topLeft(), chars.topRight(), chars.bottomRight(), chars.bottomLeft()
             );
             drawBox(sb, wrapper);
@@ -57,6 +65,29 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
     @Override
     public CustomizableBox customize() {
         return this;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+
+        DefaultBox that = (DefaultBox) object;
+        return Objects.equals(borderChars, that.borderChars);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + Objects.hashCode(borderChars);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultBox[" +
+                "borderChars=" + borderChars +
+                ']';
     }
 }
 

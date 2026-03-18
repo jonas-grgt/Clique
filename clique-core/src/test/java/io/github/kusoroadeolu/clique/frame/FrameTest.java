@@ -29,7 +29,7 @@ class FrameTest {
     }
 
     private static String stripAnsi(String s) {
-        return StringUtils.skipAnsi(s);
+        return StringUtils.stripAnsi(s);
     }
 
     // -------------------------

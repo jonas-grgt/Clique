@@ -1,6 +1,7 @@
 package io.github.kusoroadeolu.clique;
 
 
+import io.github.kusoroadeolu.clique.ansi.RGBAnsiColor;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.BoxFactory;
@@ -17,6 +18,7 @@ import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
+import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
 import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
@@ -97,11 +99,11 @@ public final class Clique {
     //BOX
 
     public static BoxDimensionBuilder box() {
-        return box(BoxType.DEFAULT);
+        return box(BoxType.ROUNDED);
     }
 
     public static BoxDimensionBuilder box(BoxConfiguration configuration) {
-        return box(BoxType.DEFAULT, configuration);
+        return box(BoxType.ROUNDED, configuration);
     }
 
     public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) {
@@ -180,6 +182,15 @@ public final class Clique {
         enableCliqueColors(true);
     }
 
+
+    // RGB
+    public static RGBAnsiCode rgb(int r, int g, int b) {
+        return new RGBAnsiColor(r, g, b, false);
+    }
+
+    public static RGBAnsiCode rgb(int r, int g, int b, boolean background) {
+        return new RGBAnsiColor(r, g, b, background);
+    }
 
 
     // THEMES AND STYLE REGISTRATION
