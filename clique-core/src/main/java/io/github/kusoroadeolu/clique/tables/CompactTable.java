@@ -13,7 +13,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBu
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
-public class CompactTable extends AbstractTable {
+class CompactTable extends AbstractTable {
     private final String vLine;
     private String hLine;
 
@@ -25,6 +25,8 @@ public class CompactTable extends AbstractTable {
     }
 
     public String get() {
+        if (cachedTable != null) return cachedTable;
+
         final var tableBuilder = new StringBuilder();
         final StringBuilder sb = new StringBuilder();
 
@@ -56,7 +58,7 @@ public class CompactTable extends AbstractTable {
             tableBuilder.append(Constants.NEWLINE);
         }
 
-        return tableBuilder.toString();
+        return (cachedTable = tableBuilder.toString());
     }
 
     //Dynamically calculate the header for the table

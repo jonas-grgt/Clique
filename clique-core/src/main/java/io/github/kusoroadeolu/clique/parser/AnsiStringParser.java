@@ -1,6 +1,12 @@
 package io.github.kusoroadeolu.clique.parser;
 
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
+
+import java.util.List;
+
 public interface AnsiStringParser {
+    AnsiStringParser DEFAULT = new AnsiStringParserImpl();
+
 
     String parse(String stringToParse);
 
@@ -16,5 +22,5 @@ public interface AnsiStringParser {
 
     String getOriginalString(String string);
 
-
+    List<AnsiCode> ansiCodes(String string);
 }

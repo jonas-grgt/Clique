@@ -11,13 +11,14 @@
 
     <groupId>io.github.kusoroadeolu</groupId>
     <artifactId>clique-core</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0-beta</version>
+
 
     <dependencies>
         <dependency>
             <groupId>io.github.kusoroadeolu</groupId>
             <artifactId>clique-spi</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
         </dependency>
     </dependencies>
 
@@ -50,29 +51,29 @@
         <url>https://github.com/kusoroadeolu/Clique</url>
     </scm>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>io.github.kusoroadeolu.clique.Main</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-shade-plugin</artifactId>-->
+<!--                <version>3.6.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>shade</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <transformers>-->
+<!--                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
+<!--                                    <mainClass>io.github.kusoroadeolu.clique</mainClass>-->
+<!--                                </transformer>-->
+<!--                            </transformers>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

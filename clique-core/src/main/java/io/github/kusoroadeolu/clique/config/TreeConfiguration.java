@@ -5,6 +5,8 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
 
+import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
+
 public class TreeConfiguration {
     private final AnsiStringParser parser;
     private final String guideStyle;
@@ -56,8 +58,8 @@ public class TreeConfiguration {
     }
 
     public static class TreeConfigurationBuilder {
-        private String guideStyle = "/"; //A reset flag, cause we'll wrap this in markup tags
-        private AnsiStringParser parser = Clique.parser(ParserConfiguration.immutableBuilder().enableAutoCloseTags().build());
+        private String guideStyle = EMPTY;
+        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
 
 
         public TreeConfigurationBuilder parser(AnsiStringParser parser) {
@@ -67,8 +69,7 @@ public class TreeConfiguration {
 
         public TreeConfigurationBuilder guideStyle(String guideStyle){
             Objects.requireNonNull(guideStyle, "Guide style cannot be null");
-            if (guideStyle.isBlank()) guideStyle = this.guideStyle;
-            this.guideStyle = "[%s]".formatted(guideStyle);
+            if (!guideStyle.isBlank()) this.guideStyle = "[%s]".formatted(guideStyle);
             return this;
         }
 

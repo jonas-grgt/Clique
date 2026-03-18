@@ -1,15 +1,12 @@
 package io.github.kusoroadeolu.clique.indent;
 
 
-import io.github.kusoroadeolu.clique.core.display.Accumulated;
+import io.github.kusoroadeolu.clique.core.display.Borderless;
 
 import java.util.Collection;
 
-/**
- * @deprecated Use {@link io.github.kusoroadeolu.clique.tree.Tree} instead. This class will be removed in future versions.
- */
-@Deprecated
-public interface Indenter extends Accumulated {
+
+public interface Indenter extends Borderless {
 
     Indenter indent(int level, String flag);
 

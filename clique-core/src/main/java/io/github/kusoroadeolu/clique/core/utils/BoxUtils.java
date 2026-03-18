@@ -3,10 +3,14 @@ package io.github.kusoroadeolu.clique.core.utils;
 
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.boxes.BoxWrapper;
+import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TextAlign;
 import io.github.kusoroadeolu.clique.core.exceptions.ExceptionSupplier;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
+import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,15 +81,15 @@ public class BoxUtils {
 
 
     public static void drawBox(StringBuilder sb, BoxWrapper boxWrapper) {
-        final int centerPadding = boxWrapper.configuration().getCenterPadding();
-        final String spaces = BLANK.repeat(boxWrapper.width() - centerPadding);
-        final String hLines = sb.repeat(boxWrapper.hLine(), boxWrapper.width() - centerPadding).toString();
+        final int padding = boxWrapper.configuration().getPadding();
+        final String spaces = BLANK.repeat(boxWrapper.width() - padding);
+        final String hLines = sb.repeat(boxWrapper.hLine(), boxWrapper.width() - padding).toString();
         final TextAlign textAlign = boxWrapper.configuration().getTextAlign();
         clearStringBuilder(sb);
         sb.append(boxWrapper.tLeft()).append(hLines).append(boxWrapper.tRight()).append(NEWLINE);
 
         int startLine = 1;
-        final int availableLines = boxWrapper.length() - centerPadding;
+        final int availableLines = boxWrapper.length() - padding;
         final int textLines = boxWrapper.wordWrap().size();
 
         if (textAlign == TextAlign.CENTER || textAlign == TextAlign.CENTER_LEFT || textAlign == TextAlign.CENTER_RIGHT) {
@@ -177,4 +181,17 @@ public class BoxUtils {
         }
     }
 
+    public static void applyAnsiToBorders(BorderChars borderChar, BorderStyle borderStyle) {
+        final StyleBuilder sb = borderStyle.styleBuilder();
+        final AnsiCode[] horizontalStyles = borderStyle.getHorizontalBorderStyles();
+        final AnsiCode[] verticalStyles = borderStyle.getVerticalBorderStyles();
+        final AnsiCode[] edgeStyles = borderStyle.getEdgeBorderStyles();
+
+        borderChar.setHLine(sb.formatAndReset(borderChar.hLine(), horizontalStyles));
+        borderChar.setVLine(sb.formatAndReset(borderChar.vLine(), verticalStyles));
+        borderChar.setTopLeft(sb.formatAndReset(borderChar.topLeft(), edgeStyles));
+        borderChar.setTopRight(sb.formatAndReset(borderChar.topRight(), edgeStyles));
+        borderChar.setBottomLeft(sb.formatAndReset(borderChar.bottomLeft(), edgeStyles));
+        borderChar.setBottomRight(sb.formatAndReset(borderChar.bottomRight(), edgeStyles));
+    }
 }

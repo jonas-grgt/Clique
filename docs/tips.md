@@ -117,20 +117,6 @@ if (needsUpdate) {
 table.render();
 ```
 
-### Getting Table Strings
-
-Use `get()` to get the table as a string without printing:
-```java
-Table table = Clique.table(TableType.MARKDOWN)
-    .addHeaders("Item", "Price")
-    .addRows("Widget", "$10");
-
-String tableString = table.get();
-
-// Now you can log it, save it, or process it
-logger.info(tableString);
-```
-
 ## Some Box Tips
 
 ### Auto-Sizing Boxes
@@ -151,6 +137,7 @@ Clique.box(BoxType.ROUNDED, config)
 ### Multi-line Content
 
 Boxes handle newlines properly, so you can use `\n` for line breaks, though they don't handle preformatted content well
+**NOTE:** Frames are more encouraged for multi-line/preformatted content
 ```java
 Clique.box(BoxType.CLASSIC)
     .width(50)
@@ -212,7 +199,7 @@ parser.print("[red, bold]This tag auto-closes");
 
 ### Force Enable Colors
 ```java
-Clique.enableCliqueColors(true);  // Force enable colors
+Clique.enableCliqueColors();  // Force enable colors
 ```
 
 Use this when:
@@ -236,7 +223,7 @@ Use this when:
 Clique.parser().print("[red]This might be colored[/]");
 
 // After forcing
-Clique.enableCliqueColors(true);
+Clique.enableCliqueColors();
 Clique.parser().print("[red]This will definitely be colored[/]");
 ```
 
@@ -264,7 +251,7 @@ ParserConfiguration config = ParserConfiguration
     .enableAutoCloseTags()
     .build();
 
-AnsiStringParser parser = Clique.parser(config);
+var parser = Clique.parser(config);
 
 // Reuse throughout your app
 parser.print("[red bold]Error message[/]");

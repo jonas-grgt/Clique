@@ -2,73 +2,90 @@ package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
-import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import io.github.kusoroadeolu.clique.style.StyleBuilder;
+import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 
-import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.drawBox;
-import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.handleDimensionsEx;
+import java.util.Objects;
 
-public class DefaultBox extends AbstractBox implements CustomizableBox {
+import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.*;
 
-    public DefaultBox(int width, int length, String content, BoxConfiguration configuration) {
-        super(width, length, content);
-        this.boxConfiguration = configuration;
-        this.styleBox();
-    }
+//TODO fix BoxConfig#padding to apply padding at both sides r
+class DefaultBox extends AbstractBox {
+    private final BorderChars borderChars;
 
-    public DefaultBox(BoxConfiguration configuration) {
-        super(configuration);
-        this.styleBox();
-    }
-
-    public DefaultBox() {
+    DefaultBox(BorderChars borderChars, BoxConfiguration configuration) {
         super();
-        this.styleBox();
+        this.borderChars = borderChars;
+        this.boxConfiguration = configuration;
+        this.styleBorders();
     }
 
     public String get() {
-        return handleDimensionsEx(() -> {
+        if (cachedString != null) return cachedString;
+
+        return (cachedString = handleDimensionsEx(() -> {
             this.wrapWord();
+            if (this.height <= this.contentWrap.size()) {
+                throw new IllegalArgumentException();
+            }
+            final var contentLs = this.contentWrap;
+            final var chars = this.borderChars;
             final StringBuilder sb = new StringBuilder();
             final BoxWrapper wrapper = new BoxWrapper(
                     this.width, this.height, this.boxConfiguration,
-                    this.contentWrap, this.hLine, this.vLine,
-                    this.edge, this.edge, this.edge, this.edge
+                    contentLs, chars.hLine(), chars.vLine(),
+                    chars.topLeft(), chars.topRight(), chars.bottomRight(), chars.bottomLeft()
             );
             drawBox(sb, wrapper);
             return sb.toString();
-        });
+        }));
     }
 
-    public CustomizableBox customizeEdge(char edge) {
-        this.edge = String.valueOf(edge);
+    public Box customizeEdge(char edge) {
+        borderChars.setEdges(String.valueOf(edge));
+        cachedString = null;
         return this;
     }
 
-    public CustomizableBox customizeVerticalLine(char vLine) {
-        this.vLine = String.valueOf(vLine);
+    public Box customizeVerticalLine(char vLine) {
+        borderChars.setVLine(String.valueOf(vLine));
+        cachedString = null;
         return this;
     }
 
-    public CustomizableBox customizeHorizontalLine(char hLine) {
-        this.hLine = String.valueOf(hLine);
+    public Box customizeHorizontalLine(char hLine) {
+        borderChars.setHLine(String.valueOf(hLine));
+        cachedString = null;
         return this;
     }
 
-    protected void styleBox() {
+    void styleBorders() {
         if (this.boxConfiguration.getBorderStyle() != null) {
             final BorderStyle borderStyle = this.boxConfiguration.getBorderStyle();
-            final StyleBuilder sb = borderStyle.styleBuilder();
-            final AnsiCode[] horizontalStyles = borderStyle.getHorizontalBorderStyles();
-            final AnsiCode[] verticalStyles = borderStyle.getVerticalBorderStyles();
-            final AnsiCode[] edgeStyles = borderStyle.getEdgeBorderStyles();
-
-            this.hLine = sb.formatAndReset(this.hLine, horizontalStyles);
-            this.vLine = sb.formatAndReset(this.vLine, verticalStyles);
-            this.edge = sb.formatAndReset(this.edge, edgeStyles);
-
+            applyAnsiToBorders(borderChars, borderStyle);
         }
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+
+        DefaultBox that = (DefaultBox) object;
+        return Objects.equals(borderChars, that.borderChars);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + Objects.hashCode(borderChars);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultBox[" +
+                "borderChars=" + borderChars +
+                ']';
+    }
 }
 

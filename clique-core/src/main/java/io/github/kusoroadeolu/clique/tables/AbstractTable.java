@@ -10,14 +10,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseCell;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 import static java.util.Objects.isNull;
 
 public abstract class AbstractTable implements Table {
-    protected final List<WidthAwareList> columns; //This is used to track the max length in that column
-    protected final List<WidthAwareList> rows;
-    protected TableConfiguration tableConfiguration;
+    final List<WidthAwareList> columns; //This is used to track the max length in that column
+    final List<WidthAwareList> rows;
+    final TableConfiguration tableConfiguration;
+    String cachedTable = null;
 
      AbstractTable(TableConfiguration configuration) {
         this.columns = new ArrayList<>();
@@ -29,11 +30,11 @@ public abstract class AbstractTable implements Table {
         this(TableConfiguration.DEFAULT);
     }
 
-    public Table addRows(Collection<String> rows) {
-        return this.addRows(rows.toArray(String[]::new));
+    public Table row(Collection<String> rows) {
+        return this.row(rows.toArray(String[]::new));
     }
 
-    public AbstractTable addRows(String... rows) {
+    public AbstractTable row(String... rows) {
         Objects.requireNonNull(rows, "Rows cannot be null");
         //Get the header's size
         final int headerSize = this.rows.getFirst().size();
@@ -49,29 +50,29 @@ public abstract class AbstractTable implements Table {
                 row = handleNulls(row, this.tableConfiguration.getNullReplacement());
             }
 
-            final Cell c = parseCell(row, this.tableConfiguration.getParser());
+            final Cell c = parseToCell(row, this.tableConfiguration.getParser());
             rowList.add(c);
             final WidthAwareList colList = this.columns.get(i);
             colList.add(c);
         }
-
+        nullCachedTable();
         return this;
     }
 
     public AbstractTable removeRow(int index) {
-        validateHeaders(index, index);
+        validateHeaders(index);
         validateRowIndex(index, this.rows);
 
         this.rows.remove(index);
         for (WidthAwareList cl : this.columns) {
             cl.remove(cl.get(index));
         }
-
+        nullCachedTable();
         return this;
     }
 
     public AbstractTable removeCell(int row, int col) {
-        validateHeaders(row, col);
+        validateHeaders(row);
         this.updateCell(row, col, this.tableConfiguration.getNullReplacement());
         return this;
     }
@@ -82,16 +83,21 @@ public abstract class AbstractTable implements Table {
 
         final WidthAwareList rl = this.rows.get(row);
         final WidthAwareList cl = this.columns.get(col);
-        final Cell c = parseCell(text, this.tableConfiguration.getParser());
+        final Cell c = parseToCell(text, this.tableConfiguration.getParser());
         rl.update(col, c);
         cl.update(row, c);
+        nullCachedTable();
         return this;
+    }
+
+    void nullCachedTable(){
+        cachedTable = null;
     }
 
     abstract void styleTableBorders();
 
     public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
+        if (isNull(object) || getClass() != object.getClass()) return false;
 
         AbstractTable that = (AbstractTable) object;
         return columns.equals(that.columns) && rows.equals(that.rows) && Objects.equals(tableConfiguration, that.tableConfiguration);
@@ -117,7 +123,17 @@ public abstract class AbstractTable implements Table {
             this.table = (AbstractTable) table;
         }
 
-        public Table addHeaders(String... headers) {
+        @Deprecated(forRemoval = true, since = "3.1")
+        public Table addHeaders(String... headers){
+            return headers(headers);
+        }
+
+        @Deprecated(forRemoval = true, since = "3.1")
+        public Table addHeaders(Collection<String> headers){
+            return headers(headers);
+        }
+
+        public Table headers(String... headers) {
             if (isNull(headers) || headers.length == 0)
                 throw new IllegalArgumentException("Headers cannot be null or empty");
 
@@ -127,7 +143,7 @@ public abstract class AbstractTable implements Table {
             for (int i = 0; i < headers.length; i++) {
                 String header = headers[i];
                 header = handleNulls(header, table.tableConfiguration.getNullReplacement());
-                final var cell = parseCell(header, table.tableConfiguration.getParser());
+                final var cell = parseToCell(header, table.tableConfiguration.getParser());
                 rowList.add(cell);
                 final var colList = new WidthAwareList(); //To keep track of all values in this column
                 colList.add(cell);
@@ -137,8 +153,8 @@ public abstract class AbstractTable implements Table {
             return table;
         }
 
-        public Table addHeaders(Collection<String> headers) {
-            return this.addHeaders(headers.toArray(String[]::new));
+        public Table headers(Collection<String> headers) {
+            return this.headers(headers.toArray(String[]::new));
         }
     }
 
@@ -149,14 +165,24 @@ public abstract class AbstractTable implements Table {
             this.table = (AbstractTable) table;
         }
 
-        public CustomizableTable addHeaders(String... headers) {
+        public CustomizableTable headers(String... headers) {
             var builder = new TableHeaderBuilder(table);
-            builder.addHeaders(headers);
+            builder.headers(headers);
             return (CustomizableTable) table;
         }
 
-        public CustomizableTable addHeaders(Collection<String> headers) {
-            return this.addHeaders(headers.toArray(String[]::new));
+        public CustomizableTable headers(Collection<String> headers) {
+            return this.headers(headers.toArray(String[]::new));
+        }
+
+        @Deprecated(forRemoval = true, since = "3.1")
+        public Table addHeaders(String... headers){
+            return headers(headers);
+        }
+
+        @Deprecated(forRemoval = true, since = "3.1")
+        public Table addHeaders(Collection<String> headers){
+            return headers(headers);
         }
     }
 

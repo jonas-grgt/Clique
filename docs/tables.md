@@ -19,9 +19,9 @@ Clique provides 5 built-in table styles:
 ### Creating a Simple Table
 ```java
 Table table = Clique.table(TableType.DEFAULT);
-table.addHeaders("Name", "Age", "Class")
-    .addRows("John", "25", "Class A")
-    .addRows("Doe", "26", "Class B");
+table.headers("Name", "Age", "Class")
+    .row("John", "25", "Class A")
+    .row("Doe", "26", "Class B");
 
 table.render(); // Print the table to terminal
 ```
@@ -29,9 +29,9 @@ table.render(); // Print the table to terminal
 ### Compact Table
 ```java
 TableHeaderBuilder builder = Clique.table(TableType.COMPACT);
-builder.addHeaders("Name", "Age", "Status")
-    .addRows("Alice", "25", "Active")
-    .addRows("Bob", "30", "Inactive")
+builder.headers("Name", "Age", "Status")
+    .row("Alice", "25", "Active")
+    .row("Bob", "30", "Inactive")
     .render();
 ```
 
@@ -42,9 +42,9 @@ Tables support dynamic updates after creation:
 ### Update a Cell
 ```java
 Table table = Clique.table(TableType.DEFAULT)
-    .addHeaders("Name", "Age", "Status")
-    .addRows("Alice", "25", "Active")
-    .addRows("Bob", "30", "Inactive");
+    .headers("Name", "Age", "Status")
+    .row("Alice", "25", "Active")
+    .row("Bob", "30", "Inactive");
 
 // Update a specific cell (row 1, column 2)
 table.updateCell(1, 2, "Active");
@@ -65,7 +65,7 @@ table.removeRow(1);
 ### Get Table as String
 ```java
 // Get table as string instead of printing
-String tableString = table.buildTable();
+String tableString = table.get();
 System.out.println(tableString);
 ```
 
@@ -84,8 +84,8 @@ TableConfiguration config = TableConfiguration
     .build();
 
 Clique.table(TableType.DEFAULT, config)
-    .addHeaders("Name", "Age", "Class")
-    .addRows("John", "25", "Class A")
+    .headers("Name", "Age", "Class")
+    .row("John", "25", "Class A")
     .render();
 ```
 
@@ -171,9 +171,9 @@ TableConfiguration config = TableConfiguration
     .build();
 
 Table table = Clique.table(TableType.MARKDOWN, config)
-    .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]")
-    .addRows("[red]John[/]", "25", "Class A")
-    .addRows("[red]Doe[/]", "26", "Class B");
+    .headers("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]")
+    .row("[red]John[/]", "25", "Class A")
+    .row("[red]Doe[/]", "26", "Class B");
 
 table.render();
 ```
@@ -187,8 +187,8 @@ TableConfiguration config = TableConfiguration.immutableBuilder()
     .build();
 
 TableHeaderBuilder builder = Clique.table(TableType.DEFAULT, config);
-builder.addHeaders("Name", "Age", "City")
-    .addRows("Alice", null, "NYC");  // null becomes "N/A"
+builder.headers("Name", "Age", "City")
+    .row("Alice", null, "NYC");  // null becomes "N/A"
 
 table.render();
 ```
@@ -203,11 +203,11 @@ Customizable tables let you modify edges, vertical lines, and horizontal lines. 
 ```java
 // Without configuration
 Clique.customizableTable(TableType.DEFAULT)
-    .addHeaders("Col1", "Col2")
+    .headers("Col1", "Col2")
     .customizeEdge('+')
     .customizeHorizontalLine('=')
     .customizeVerticalLine('|')
-    .addRows("A", "B")
+    .row("A", "B")
     .render();
 ```
 
@@ -219,11 +219,11 @@ TableConfiguration config = TableConfiguration
     .build();
 
 Clique.customizableTable(TableType.DEFAULT, config)
-    .addHeaders("Name", "Age")
+    .headers("Name", "Age")
     .customizeEdge('*')
     .customizeHorizontalLine('-')
     .customizeVerticalLine('|')
-    .addRows("Alice", "25")
+    .row("Alice", "25")
     .render();
 ```
 
@@ -238,17 +238,17 @@ Clique.customizableTable(TableType.DEFAULT, config)
 Tables automatically parse markup tags when you add content:
 ```java
 Table table = Clique.table(TableType.BOX_DRAW)
-    .addHeaders(
+    .headers(
         "[cyan, bold]Product[/]",
         "[cyan, bold]Price[/]",
         "[cyan, bold]Stock[/]"
     )
-    .addRows(
+    .row(
         "[yellow]Widget[/]",
         "[green]$19.99[/]",
         "[red, bold]Low[/]"
     )
-    .addRows(
+    .row(
         "[yellow]Gadget[/]",
         "[green]$29.99[/]",
         "In Stock"

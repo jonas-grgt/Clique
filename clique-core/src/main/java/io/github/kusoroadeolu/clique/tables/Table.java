@@ -1,14 +1,24 @@
 package io.github.kusoroadeolu.clique.tables;
 
 
-import io.github.kusoroadeolu.clique.core.display.Generated;
+import io.github.kusoroadeolu.clique.core.display.Bordered;
 
 import java.util.Collection;
 
-public interface Table extends Generated {
-    Table addRows(String... rows);
+public interface Table extends Bordered {
+    @Deprecated
+    default Table addRows(String... rows){
+        return row(rows);
+    }
 
-    Table addRows(Collection<String> rows);
+    @Deprecated
+    default Table addRows(Collection<String> rows){
+        return row(rows);
+    }
+
+    Table row(String... rows);
+
+    Table row(Collection<String> rows);
 
     Table removeRow(int index);
 

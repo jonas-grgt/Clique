@@ -1,24 +1,25 @@
 package io.github.kusoroadeolu.clique.tree;
 
 import io.github.kusoroadeolu.clique.config.TreeConfiguration;
-import io.github.kusoroadeolu.clique.core.display.Accumulated;
+import io.github.kusoroadeolu.clique.core.display.Borderless;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 
-public class Tree implements Accumulated{
+public class Tree implements Borderless {
     private final String label;
     private final List<Tree> children; //Accumulates children
     private final TreeConfiguration treeConfiguration;
-    private static final String CONNECTOR = "├─ ";
-    private static final String END_CONNECTOR = "└─ ";
-    private static final String SPACE = "   ";
-    private static final String CONNECTING_LINE = "│  ";
+    static final String CONNECTOR = "├─ ";
+    static final String END_CONNECTOR = "└─ ";
+    static final String SPACE = "   ";
+    static final String CONNECTING_LINE = "│  ";
     private static final String RESET = "[/]";
-    private final Tree parent;
+    private Tree parent;
 
     public Tree(String label) {
         this(label, TreeConfiguration.DEFAULT, null);
@@ -29,6 +30,8 @@ public class Tree implements Accumulated{
     }
 
     private Tree(String label, TreeConfiguration treeConfiguration, Tree parent) {
+        validateLabel(label);
+        Objects.requireNonNull(treeConfiguration, "Tree configuration cannot be null");
         this.label = label;
         this.children = new ArrayList<>();
         this.treeConfiguration = treeConfiguration;
@@ -36,9 +39,18 @@ public class Tree implements Accumulated{
     }
 
     public Tree add(String label) {
+        validateLabel(label);
         var child = new Tree(label, treeConfiguration, this);
         children.add(child);
         return child;
+    }
+
+    public Tree add(Tree tree) {
+        Objects.requireNonNull(tree, "Tree cannot be null");
+        assertNotSelf(tree);
+        tree.parent = this;
+        children.add(tree);
+        return tree;
     }
 
     public Tree parent(){
@@ -63,8 +75,14 @@ public class Tree implements Accumulated{
         }
     }
 
+    void validateLabel(String label){
+        Objects.requireNonNull(label, "Label cannot be null");
+    }
+
     @Override
-    public void flush() {
+    public void flush() {;
+        children.forEach(Tree::flush);
+        parent = null;
         children.clear();
     }
 
@@ -80,5 +98,14 @@ public class Tree implements Accumulated{
 
         var parser = treeConfiguration.getParser();
         return parser != null ? parser.parse(sb.toString()) : sb.toString();
+    }
+
+    //For Tests
+    List<Tree> children(){
+        return children;
+    }
+
+    void assertNotSelf(Tree tree){
+        if (tree == this) throw new UnsupportedOperationException("Cannot a tree within itself");
     }
 }

@@ -18,38 +18,28 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.*;
 
 public abstract class AbstractBox implements Box {
-    protected int width;
-    protected int height;
-    protected Cell boxContent;
-    protected List<Cell> contentWrap;
-    protected String vLine;
-    protected String hLine;
-    protected String edge;
-    protected BoxConfiguration boxConfiguration;
+    int width;
+    int height;
+    Cell boxContent;
+    String cachedString = null;
+    List<Cell> contentWrap;
+    BoxConfiguration boxConfiguration;
 
     public AbstractBox() {
-        this(ZERO, ZERO, EMPTY);
+        this(ZERO, ZERO);
     }
 
-    AbstractBox(BoxConfiguration configuration) {
-        this(ZERO, ZERO, EMPTY);
-        this.boxConfiguration = configuration;
-    }
-
-    AbstractBox(int width, int height, String content) {
+    AbstractBox(int width, int height) {
         this.width = width;
         this.height = height;
-        this.vLine = "|";
-        this.hLine = "-";
-        this.edge = "+";
         this.contentWrap = new ArrayList<>();
         this.boxConfiguration = BoxConfiguration.DEFAULT;
-        this.boxContent = parseCell(content, this.boxConfiguration.getParser());
     }
 
     public Box content(String content) {
         Objects.requireNonNull(content, "Box content cannot be null");
-        this.boxContent = parseCell(content, this.boxConfiguration.getParser());
+        this.boxContent = parseToCell(content, this.boxConfiguration.getParser());
+        cachedString = null;
         return this;
     }
 
@@ -67,7 +57,7 @@ public abstract class AbstractBox implements Box {
         this.contentWrap.clear();
         this.adjustBox();
 
-        final int maxCharsPerLine = this.width - (this.boxConfiguration.getCenterPadding() * 2);
+        final int maxCharsPerLine = this.width - (this.boxConfiguration.getPadding() * 2);
 
         final String originalContent = this.boxContent.text();
         final String styledContent = this.boxContent.styledText();
@@ -120,6 +110,7 @@ public abstract class AbstractBox implements Box {
             }
         }
 
+
         if (this.boxConfiguration.getAutoSize() && this.height <= this.contentWrap.size()) {
             this.height = this.contentWrap.size() + 2;
             return;
@@ -134,37 +125,22 @@ public abstract class AbstractBox implements Box {
         final String originalContent = this.boxContent.text();
         final int longest = getLengthOfLongestString(originalContent);
         if (this.boxConfiguration.getAutoSize())
-            this.width = Math.max(this.width, longest) + (this.boxConfiguration.getCenterPadding() * 2);
+            this.width = Math.max(this.width, longest) + (this.boxConfiguration.getPadding() * 2);
         else validateDimensions(this.width, this.height);
     }
 
+
     @Override
-    public void render(PrintStream stream) {
-        stream.println(this.get());
-    }
-
-
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
-        AbstractBox that = (AbstractBox) object;
-        return width == that.width && height == that.height && Objects.equals(boxContent, that.boxContent) && vLine.equals(that.vLine) && hLine.equals(that.hLine) && edge.equals(that.edge) && Objects.equals(boxConfiguration, that.boxConfiguration);
-    }
 
-    public int hashCode() {
-        return Objects.hash(width, height, boxContent, vLine, edge, boxConfiguration);
+        AbstractBox that = (AbstractBox) object;
+        return width == that.width && height == that.height && Objects.equals(boxContent, that.boxContent) && Objects.equals(contentWrap, that.contentWrap) && Objects.equals(boxConfiguration, that.boxConfiguration);
     }
 
     @Override
-    public String toString() {
-        return "Box[" +
-                "width=" + width +
-                ", length=" + height +
-                ", content=" + boxContent +
-                ", vLine='" + vLine + '\'' +
-                ", hLine='" + hLine + '\'' +
-                ", edge='" + edge + '\'' +
-                ", configuration=" + boxConfiguration +
-                ']';
+    public int hashCode() {
+        return Objects.hash(width, height, boxContent, contentWrap, boxConfiguration);
     }
 
     public static class BoxDimensionBuilder {
@@ -175,17 +151,28 @@ public abstract class AbstractBox implements Box {
         }
 
         public Box withDimensions(int width, int height) {
-            if (width < 0 || height < 0) throw new IllegalArgumentException("Width or Height cannot be negative");
+            if (width <= 0 || height <= 0) {
+                throw new IllegalArgumentException(
+                        "Width and height must be greater than 0. To skip dimensions, enable autoSize() in BoxConfiguration and call noDimensions()."
+                );
+            }
             this.box.height = height;
             this.box.width = width;
             return box;
         }
 
         public Box noDimensions() {
-            return this.withDimensions(0, 0);
+            if (!this.box.boxConfiguration.getAutoSize())
+                throw new IllegalStateException(
+                        "noDimensions() requires autoSize to be enabled in BoxConfiguration"
+                );
+            this.box.width = 0;
+            this.box.height = 0;
+            return this.box;
         }
     }
 
+    @Deprecated(forRemoval = true, since = "3.1")
     public static class CustomizableBoxDimensionBuilder {
         private final AbstractBox box;
 

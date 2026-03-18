@@ -29,6 +29,29 @@ class AnsiStringParserImplTest {
     }
 
     @Test
+    @Disabled("Fails in Maven Surefire due to unknown JVM fork issue - works in integration tests")
+    void testCustomStyleRegistration() {
+        Clique.registerStyle("custom", ColorCode.BLUE);
+        String output = Clique.parser().parse("[custom]Text[/]");
+        assertTrue(output.contains(ColorCode.BLUE.toString()));
+    }
+
+    @Test
+    @Disabled("Fails in Maven Surefire due to unknown JVM fork issue - works in integration tests")
+    void testCompositeStyleRegistration() {
+        AnsiCode composite = new CompositeStyle(
+                ColorCode.RED,
+                StyleCode.BOLD
+        );
+        Clique.registerStyle("error", composite);
+        String output = Clique.parser().parse("[error]Text[/]");
+        assertTrue(output.contains(ColorCode.RED.toString()));
+        assertTrue(output.contains(StyleCode.BOLD.toString()));
+    }
+
+
+    // PARSING AND CONFIG
+    @Test
     void testStrictParsingThrows() {
         ParserConfiguration config = ParserConfiguration
                 .immutableBuilder()
@@ -56,7 +79,7 @@ class AnsiStringParserImplTest {
     }
 
     @Test
-    void testNestedBrackets() {
+    void testStrictParsing() {
         ParserConfiguration config = ParserConfiguration
                 .immutableBuilder()
                 .enableStrictParsing()
@@ -65,31 +88,54 @@ class AnsiStringParserImplTest {
                 () -> new AnsiStringParserImpl(config).parse("[[[red]]]"));
     }
 
+
+
     @Test
     void testInvalidStyleIgnored() {
         String output = Clique.parser().parse("[notacolor]Text");
         assertFalse(output.contains("\u001B["));
     }
 
+
+    //Ansi code methods
     @Test
-    @Disabled("Fails in Maven Surefire due to unknown JVM fork issue - works in integration tests")
-    void testCustomStyleRegistration() {
-        Clique.registerStyle("custom", ColorCode.BLUE);
-        String output = Clique.parser().parse("[custom]Text[/]");
-        assertTrue(output.contains(ColorCode.BLUE.toString()));
+    void testAnsiCodes(){
+        var parser = AnsiStringParser.DEFAULT;
+        var ls = parser.ansiCodes("red, blue, cyan");
+        assertEquals(3, ls.size());
+        AnsiCode[] arr = {ColorCode.RED, ColorCode.BLUE, ColorCode.CYAN};
+        for (var ansi : arr){
+            assertTrue(ls.contains(ansi));
+        }
     }
 
     @Test
-    @Disabled("Fails in Maven Surefire due to unknown JVM fork issue - works in integration tests")
-    void testCompositeStyleRegistration() {
-        AnsiCode composite = new CompositeStyle(
-                ColorCode.RED,
-                StyleCode.BOLD
-        );
-        Clique.registerStyle("error", composite);
-        String output = Clique.parser().parse("[error]Text[/]");
-        assertTrue(output.contains(ColorCode.RED.toString()));
-        assertTrue(output.contains(StyleCode.BOLD.toString()));
+    void assertThrowEx_onUnidentifiedStyle(){
+        var parser = AnsiStringParser.DEFAULT;
+        assertThrows(UnidentifiedStyleException.class, () -> parser.ansiCodes("notastyle"));
+    }
+
+
+    //ORIGINAL STRING TESTS
+    @Test
+    void test_getOriginalString_stripsAnsi(){
+        var parser = AnsiStringParser.DEFAULT;
+        var string = parser.parse("[red, bold]Hello");
+        assertEquals("Hello", parser.getOriginalString(string));
+    }
+
+    @Test
+    void test_getOriginalString_withNoAnsi_returnsEqualString(){
+        var parser = AnsiStringParser.DEFAULT;
+        var string = parser.parse("Hello");
+        assertSame("Hello", parser.getOriginalString(string));
+    }
+
+    @Test
+    void onNullString_returnsBlankString(){
+        var parser = AnsiStringParser.DEFAULT;
+        var string = parser.parse(null);
+        assertTrue(string.isBlank());
     }
 
 }

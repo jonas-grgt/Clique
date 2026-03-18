@@ -1,6 +1,8 @@
-package io.github.kusoroadeolu.clique.frame;
+package io.github.kusoroadeolu.clique.core.structures;
 
-class BorderChars {
+import io.github.kusoroadeolu.clique.boxes.BoxType;
+
+public class BorderChars {
     private String hLine;
     private String vLine;
     private String topLeft;
@@ -17,7 +19,7 @@ class BorderChars {
         this.bottomRight = bottomRight;
     }
 
-    static BorderChars from(FrameType type) {
+    public static BorderChars from(BoxType type) {
         return switch (type) {
             case DEFAULT      -> new BorderChars("-", "|", "+", "+", "+", "+");
             case DOUBLE_LINE  -> new BorderChars("═", "║", "╔", "╗", "╚", "╝");
@@ -39,4 +41,11 @@ class BorderChars {
     public void setTopRight(String topRight)     { this.topRight = topRight; }
     public void setBottomLeft(String bottomLeft) { this.bottomLeft = bottomLeft; }
     public void setBottomRight(String bottomRight){ this.bottomRight = bottomRight; }
+    public void setEdges(String edge){
+        setTopLeft(edge);
+        setTopRight(edge);
+        setBottomLeft(edge);
+        setBottomRight(edge);
+    }
+
 }

@@ -36,8 +36,8 @@ public class TableUtils {
         if (rowIdx > (rows.size() - 1)) throw new IllegalArgumentException("Row: " + rowIdx + "does not exist");
     }
 
-    public static void validateHeaders(int idx, int col) {
-        if (idx == 0 || col == 0) throw new IllegalArgumentException("Cannot remove a header from a table");
+    public static void validateHeaders(int idx) {
+        if (idx == 0) throw new IllegalArgumentException("Cannot remove a header from a table");
     }
 
     public static void validateColumnIndex(int colIdx, List<WidthAwareList> cols) {

@@ -5,7 +5,9 @@ import io.github.kusoroadeolu.clique.ansi.ColorCode;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 //A simple class which holds the maps of the syntax
@@ -76,9 +78,35 @@ final class StyleMaps {
             Map.entry("dbl_ul", StyleCode.DOUBLE_UNDERLINE),
             Map.entry("strike", StyleCode.STRIKETHROUGH)
     );
-    static final Map<String, AnsiCode> CUSTOM_STYLE_CODES = new ConcurrentHashMap<>();
+
+    static final Map<String, AnsiCode> CUSTOM_STYLE_CODES = new HashMap<>();
 
     private StyleMaps() {
         throw new AssertionError();
+    }
+
+    static Optional<AnsiCode> findStyle(String s){
+        AnsiCode code = CUSTOM_STYLE_CODES.get(s);
+
+        if (code != null) {
+            return Optional.of(code);
+        }
+
+        code = COLOR_CODES.get(s);
+        if (code != null) {
+            return Optional.of(code);
+        }
+
+        code = BACKGROUND_CODES.get(s);
+        if (code != null) {
+            return Optional.of(code);
+        }
+
+        code = STYLE_CODES.get(s);
+        if (code != null) {
+            return Optional.of(code);
+        }
+
+        return Optional.empty();
     }
 }

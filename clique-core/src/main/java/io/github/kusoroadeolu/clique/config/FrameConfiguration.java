@@ -74,7 +74,8 @@ public class FrameConfiguration {
         private BorderStyle borderStyle = null;
 
         public FrameConfigurationBuilder padding(int padding) {
-            if (padding > 0) this.padding = padding;
+            if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
+            this.padding = padding;
             return this;
         }
 
@@ -85,7 +86,7 @@ public class FrameConfiguration {
         }
 
         public FrameConfigurationBuilder frameAlign(FrameAlign align) {
-            Objects.requireNonNull(align, "Frame align cannot be null");
+            Objects.requireNonNull(align, "DefaultFrame align cannot be null");
             this.frameAlign = align;
             return this;
         }

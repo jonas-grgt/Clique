@@ -13,11 +13,11 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBu
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
-public class BoxDrawTable extends AbstractTable {
-    protected String topLeft;
-    protected String topRight;
-    protected String bottomLeft;
-    protected String bottomRight;
+class BoxDrawTable extends AbstractTable {
+    String topLeft;
+    String topRight;
+    String bottomLeft;
+    String bottomRight;
     private String hLine;
     private String vLine;
     private String topJoin;
@@ -45,6 +45,7 @@ public class BoxDrawTable extends AbstractTable {
     }
 
     public String get() {
+        if (cachedTable != null) return cachedTable;
         //Declarations
         var tableBuilder = new StringBuilder();
         final StringBuilder sb = new StringBuilder();
@@ -85,7 +86,7 @@ public class BoxDrawTable extends AbstractTable {
         }
 
         tableBuilder.append(footer);
-        return tableBuilder.toString();
+        return (cachedTable = tableBuilder.toString());
     }
 
     public String appendHeader(StringBuilder sb) {

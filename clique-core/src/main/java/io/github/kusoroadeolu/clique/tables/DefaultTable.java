@@ -7,13 +7,14 @@ import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
+import java.util.Collection;
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
-public class DefaultTable extends AbstractTable implements CustomizableTable {
+class DefaultTable extends AbstractTable implements CustomizableTable {
     private String edge;
     private String hLine;
     private String vLine;
@@ -28,6 +29,8 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
     }
 
     public String get() {
+        if (cachedTable != null) return cachedTable;
+
         //Declarations
         final var tableBuilder = new StringBuilder();
         final var sb = new StringBuilder();
@@ -60,7 +63,7 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
             tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
         }
 
-        return tableBuilder.toString();
+        return (cachedTable = tableBuilder.toString());
     }
 
     //Dynamically calculate the header and footer for the table
@@ -75,16 +78,19 @@ public class DefaultTable extends AbstractTable implements CustomizableTable {
 
     public CustomizableTable customizeEdge(char edge) {
         this.edge = String.valueOf(edge);
+        nullCachedTable();
         return this;
     }
 
     public CustomizableTable customizeVerticalLine(char vLine) {
         this.vLine = String.valueOf(vLine);
+        nullCachedTable();
         return this;
     }
 
     public CustomizableTable customizeHorizontalLine(char hLine) {
         this.hLine = String.valueOf(hLine);
+        nullCachedTable();
         return this;
     }
 

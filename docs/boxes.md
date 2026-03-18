@@ -18,8 +18,8 @@ Clique provides 4 built-in box styles:
 ### Creating a Simple Box
 ```java
 Box box = Clique.box(BoxType.CLASSIC)
-    .withDimensions(10, 20)  //Width, height
-    .content("This is my first box");
+        .withDimensions(10, 20)  //Width, height
+        .content("This is my first box");
     
 box.render(); // Print the box to terminal
 ```
@@ -30,9 +30,9 @@ box.render(); // Print the box to terminal
 - **Length** - The vertical size of the box (in lines)
 ```java
 Box box = Clique.box(BoxType.ROUNDED)
-    .withDimensions(50, 5)
-    .content("A wider, shorter box")
-    .render();
+        .withDimensions(50, 5)
+        .content("A wider, shorter box")
+        .render();
 ```
 
 ## Box Configuration
@@ -44,14 +44,14 @@ Use `BoxConfiguration` to customize box appearance and behavior.
 ### Basic Configuration
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .textAlign(TextAlign.CENTER)
-    .autoSize()
-    .build();
+        .textAlign(TextAlign.CENTER)
+        .autoSize()
+        .build();
 
 Box box = Clique.box(BoxType.DOUBLE_LINE, config)
-    .noDimensions() //Sets the width and length to zero    
-    .content("This box auto-sizes to fit content")
-    .render();
+        .noDimensions()
+        .content("This box auto-sizes to fit content")
+        .render();
 ```
 
 ### Configuration Options
@@ -72,20 +72,21 @@ Available alignments:
 
 #### Center Padding
 
-Add padding from both sides when content is centered:
+Reduces the drawable area of the box from both sides, creating inner breathing room around the content:
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .textAlign(TextAlign.CENTER)
-    .centerPadding(3)  // 3 spaces on each side
+    .centerPadding(3)  // Shrinks drawable area by 3 characters on each side
     .build();
 ```
 
+> **Note:** `centerPadding` affects both horizontal and vertical space. A value of `2` means the content area is reduced by 2 characters on all sides.
 #### Auto Size
 
 Let the box automatically resize to fit its content:
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .autoSize()  // No need to specify width/length
+    .autoSize()
     .build();
 
 Box box = Clique.box(BoxType.ROUNDED, config)
@@ -130,9 +131,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
 ### Full Configuration Example
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-    .horizontalBorderStyles(ColorCode.CYAN)
-    .verticalBorderStyles(ColorCode.MAGENTA)
-    .edgeBorderStyles(ColorCode.YELLOW)
+    .uniformStyle("blue")
     .build();
 
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
@@ -149,18 +148,16 @@ Box box = Clique.box(BoxType.DOUBLE_LINE, config)
     .render();
 ```
 
-## Customizable Boxes
+## Customizing Boxes
 
-Customizable boxes let you modify edges, vertical lines, and horizontal lines. Currently, only the `DEFAULT` box type supports customization.
-
-### Basic Customization
+All box types support border customization, which returns a `Box` for fluent chaining:
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .autoSize()
     .build();
 
-Box box = Clique.customizableBox(BoxType.DEFAULT, config)
-    .noDimensions()   
+Clique.box(BoxType.ROUNDED, config)
+    .noDimensions()
     .customizeEdge('<')
     .customizeVerticalLine('~')
     .customizeHorizontalLine('-')
@@ -245,9 +242,25 @@ Clique.box(BoxType.ROUNDED, config)
     .render();
 ```
 
+### Custom Border Characters
+```java
+BoxConfiguration config = BoxConfiguration.immutableBuilder()
+    .autoSize()
+    .build();
+
+Clique.box(BoxType.CLASSIC, config)
+    .noDimensions()
+    .customizeEdge('*')
+    .customizeHorizontalLine('=')
+    .customizeVerticalLine('!')
+    .content("[cyan]Custom borders on any box type[/]")
+    .render();
+```
+
 ## Things to Watch Out For
 
-- When using `autoSize`, you don't need to specify width or length, you can just use `noDimensions()` method
+- When using `autoSize`, you don't need to specify width or length, you can just use `noDimensions()`
+- Customization is no longer restricted to `DEFAULT`
 
 ## See Also
 
