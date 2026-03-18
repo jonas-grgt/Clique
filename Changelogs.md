@@ -31,11 +31,10 @@
 - `addHeaders()` in favor of `Table#headers()` for cleaner and more concise chaining
 - `addRows()` in favor of `Table#row()` for cleaner and more concise chaining
   For both **Table** and **CustomizableTable**
-- `Clique#customizableBox()` overloads in favor of `Clique#box().customize()`
+- `Clique#customizableBox()` overloads in favor of `Clique#box()`
 - `BoxConfiguration#centerPadding` due to unclear and incorrect semantics
 
 
-### Deprecated
 
 Report issues at: https://github.com/kusoroadeolu/Clique/issues
 

@@ -172,6 +172,9 @@ public abstract class AbstractBox implements Box {
         }
     }
 
+    /**
+     * @deprecated As of 3.1, use {@link BoxDimensionBuilder} instead. This class will be removed in a future release.
+     */
     @Deprecated(forRemoval = true, since = "3.1")
     public static class CustomizableBoxDimensionBuilder {
         private final AbstractBox box;

@@ -1,32 +1,23 @@
 package io.github.kusoroadeolu.clique;
 
-
-import io.github.kusoroadeolu.clique.ansi.RGBAnsiColor;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
-import io.github.kusoroadeolu.clique.boxes.Box;
 import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import io.github.kusoroadeolu.clique.frame.DefaultFrame;
-import io.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
-import io.github.kusoroadeolu.clique.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
-import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
-import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
-import io.github.kusoroadeolu.clique.themeloader.CliqueThemeLoader;
 import io.github.kusoroadeolu.clique.tree.Tree;
 
 import java.util.Collection;
@@ -35,224 +26,101 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A facade class to hide the instantiation of multiple implementations of different classes
- *
+ * Main facade — delegates to CliqueStyles and CliqueComponents.
  */
 public final class Clique {
 
-    //Change: Hide the default public constructor
     private Clique() {
         throw new AssertionError();
     }
 
-    //STYLE BUILDER
+    // STYLE BUILDER
+    public static StyleBuilder styleBuilder() { return CliqueStyles.styleBuilder(); }
 
-    public static StyleBuilder styleBuilder() {
-        return new DefaultStyleBuilder();
-    }
+    // PARSER
+    public static AnsiStringParser parser() { return CliqueStyles.parser(); }
+    public static AnsiStringParser parser(ParserConfiguration configuration) { return CliqueStyles.parser(configuration); }
 
+    // TABLE
+    public static TableHeaderBuilder table() { return CliqueComponents.table(); }
+    public static TableHeaderBuilder table(TableConfiguration configuration) { return CliqueComponents.table(configuration); }
+    public static TableHeaderBuilder table(TableType type) { return CliqueComponents.table(type); }
+    public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) { return CliqueComponents.table(type, configuration); }
+    public static CustomizableTableHeaderBuilder customizableTable(TableType type) { return CliqueComponents.customizableTable(type); }
+    public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration) { return CliqueComponents.customizableTable(type, configuration); }
+    public static CustomizableTableHeaderBuilder customizableTable() { return CliqueComponents.customizableTable(); }
+    public static CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration) { return CliqueComponents.customizableTable(configuration); }
 
-    //PARSER
+    // BOX
+    public static BoxDimensionBuilder box() { return CliqueComponents.box(); }
+    public static BoxDimensionBuilder box(BoxConfiguration configuration) { return CliqueComponents.box(configuration); }
+    public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) { return CliqueComponents.box(type, configuration); }
+    public static BoxDimensionBuilder box(BoxType type) { return CliqueComponents.box(type); }
 
-    public static AnsiStringParser parser() {
-        return new AnsiStringParserImpl();
-    }
+    // INDENTER
+    public static Indenter indenter() { return CliqueComponents.indenter(); }
+    public static Indenter indenter(IndenterConfiguration indenterConfiguration) { return CliqueComponents.indenter(indenterConfiguration); }
 
-    public static AnsiStringParser parser(ParserConfiguration configuration) {
-        return new AnsiStringParserImpl(configuration);
-    }
+    // PROGRESS BAR
+    public static ProgressBar progressBar(int total) { return CliqueComponents.progressBar(total); }
+    public static ProgressBar progressBar(int total, ProgressBarConfiguration configuration) { return CliqueComponents.progressBar(total, configuration); }
+    public static ProgressBar progressBar(int total, ProgressBarPreset preset) { return CliqueComponents.progressBar(total, preset); }
 
-    //TABLE
+    // FRAME
+    public static DefaultFrame frame() { return CliqueComponents.frame(); }
+    public static DefaultFrame frame(FrameConfiguration configuration) { return CliqueComponents.frame(configuration); }
+    public static DefaultFrame frame(BoxType type) { return CliqueComponents.frame(type); }
+    public static DefaultFrame frame(BoxType type, FrameConfiguration configuration) { return CliqueComponents.frame(type, configuration); }
 
-    public static TableHeaderBuilder table() {
-        return table(TableType.BOX_DRAW);
-    }
+    // TREE
+    public static Tree tree(String label) { return CliqueComponents.tree(label); }
+    public static Tree tree(String label, TreeConfiguration configuration) { return CliqueComponents.tree(label, configuration); }
 
-    public static TableHeaderBuilder table(TableConfiguration configuration) {
-        return table(TableType.BOX_DRAW, configuration);
-    }
-
-    public static TableHeaderBuilder table(TableType type) {
-        return TableFactory.getTableBuilder(type);
-    }
-
-    public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) {
-        return TableFactory.getTableBuilder(type, configuration);
-    }
-
-    public static CustomizableTableHeaderBuilder customizableTable(TableType type) {
-        return TableFactory.getCustomizableTableBuilder(type);
-    }
-
-    public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration) {
-        return TableFactory.getCustomizableTableBuilder(type, configuration);
-    }
-
-    public static CustomizableTableHeaderBuilder customizableTable() {
-        return customizableTable(TableConfiguration.DEFAULT);
-    }
-
-    public static CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration) {
-        return customizableTable(TableType.DEFAULT, configuration);
-    }
-
-
-    //BOX
-
-    public static BoxDimensionBuilder box() {
-        return box(BoxType.ROUNDED);
-    }
-
-    public static BoxDimensionBuilder box(BoxConfiguration configuration) {
-        return box(BoxType.ROUNDED, configuration);
-    }
-
-    public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) {
-        return BoxFactory.getBoxDimensionBuilder(type, configuration);
-    }
-
-    public static BoxDimensionBuilder box(BoxType type) {
-        return BoxFactory.getBoxDimensionBuilder(type);
-    }
-
-    //INDENTER
-
-    public static Indenter indenter() {
-        return new DefaultIndenter();
-    }
-
-    public static Indenter indenter(IndenterConfiguration indenterConfiguration) {
-        return new DefaultIndenter(indenterConfiguration);
-    }
-
-
-    //PROGRESS BAR
-
-    public static ProgressBar progressBar(int total) {
-        return new ProgressBar(total);
-    }
-
-    public static ProgressBar progressBar(int total, ProgressBarConfiguration configuration) {
-        return new ProgressBar(total, configuration);
-    }
-
-    public static ProgressBar progressBar(int total, ProgressBarPreset preset) {
-        return progressBar(total, preset.getConfiguration());
-    }
-
-
-    //FRAME
-
-    public static DefaultFrame frame(){
-        return new DefaultFrame();
-    }
-
-    public static DefaultFrame frame(FrameConfiguration configuration){
-        return new DefaultFrame(configuration);
-    }
-
-    public static DefaultFrame frame(BoxType type){
-        return new DefaultFrame(type);
-    }
-
-    public static DefaultFrame frame(BoxType type, FrameConfiguration configuration){
-        return new DefaultFrame(configuration, type);
-    }
-
-
-    //TREE
-    public static Tree tree(String label){
-        return new Tree(label);
-    }
-
-    public static Tree tree(String label, TreeConfiguration configuration){
-        return new Tree(label, configuration);
-    }
-
-
-
-
-    //CLIQUE CONFIG
-
+    // CLIQUE CONFIG
     public static void enableCliqueColors(boolean enable) {
         if (enable) AnsiDetector.enableCliqueColors();
         else AnsiDetector.disableCliqueColors();
     }
-
-    public static void enableCliqueColors() {
-        enableCliqueColors(true);
-    }
-
+    public static void enableCliqueColors() { enableCliqueColors(true); }
 
     // RGB
-    public static RGBAnsiCode rgb(int r, int g, int b) {
-        return new RGBAnsiColor(r, g, b, false);
-    }
-
-    public static RGBAnsiCode rgb(int r, int g, int b, boolean background) {
-        return new RGBAnsiColor(r, g, b, background);
-    }
-
+    public static RGBAnsiCode rgb(int r, int g, int b) { return CliqueStyles.rgb(r, g, b); }
+    public static RGBAnsiCode rgb(int r, int g, int b, boolean background) { return CliqueStyles.rgb(r, g, b, background); }
 
     // THEMES AND STYLE REGISTRATION
+    public static void registerStyle(String style, AnsiCode code) { CliqueStyles.registerStyle(style, code); }
+    public static void registerStyles(Map<String, AnsiCode> codes) { CliqueStyles.registerStyles(codes); }
+    public static void registerTheme(String name) { CliqueStyles.registerTheme(name); }
+    public static void registerThemes(String... themes) { CliqueStyles.registerThemes(themes); }
+    public static void registerThemes(Collection<String> themes) { CliqueStyles.registerThemes(themes); }
+    public static void registerAllThemes() { CliqueStyles.registerAllThemes(); }
+    public static List<CliqueTheme> discoverThemes() { return CliqueStyles.discoverThemes(); }
+    public static Optional<CliqueTheme> findTheme(String name) { return CliqueStyles.findTheme(name); }
 
-    public static void registerStyle(String style, AnsiCode code) {
-        GlobalStyleRegistry.registerStyle(style, code);
-    }
-
-    public static void registerStyles(Map<String, AnsiCode> codes) {
-        GlobalStyleRegistry.registerStyles(codes);
-    }
-
-    public static void registerTheme(String name) {
-        CliqueThemeLoader.register(name);
-    }
-
-    public static void registerThemes(String... themes) {
-        CliqueThemeLoader.registerThemes(themes);
-    }
-
-    public static void registerThemes(Collection<String> themes) {
-        CliqueThemeLoader.registerThemes(themes);
-    }
-
-    public static void registerAllThemes() {
-        CliqueThemeLoader.registerAll();
-    }
-
-    public static List<CliqueTheme> discoverThemes() {
-        return CliqueThemeLoader.discover();
-    }
-
-    public static Optional<CliqueTheme> findTheme(String name) {
-        return CliqueThemeLoader.find(name);
-    }
-
-
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration) {
-        return BoxFactory.getCustomizableBoxDimensionBuilder(type, configuration);
-    }
-
+    // DEPRECATED
+    /**
+     * @deprecated As of 3.1, use {@link #box(BoxType)} instead. This will be removed in a future release.
+     */
     @Deprecated(forRemoval = true, since = "3.1")
     public static CustomizableBoxDimensionBuilder customizableBox(BoxType type) {
         return BoxFactory.getCustomizableBoxDimensionBuilder(type);
     }
 
+    /**
+     * @deprecated As of 3.1, use {@link #box(BoxType, BoxConfiguration)} instead. This will be removed in a future release.
+     */
     @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox() {
-        return customizableBox(BoxType.DEFAULT);
-    }
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration) { return CliqueComponents.customizableBox(type, configuration); }
 
+    /**
+     * @deprecated As of 3.1, use {@link #box()} instead. This will be removed in a future release.
+     */
     @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration) {
-        return customizableBox(BoxType.DEFAULT, configuration);
-    }
+    public static CustomizableBoxDimensionBuilder customizableBox() { return CliqueComponents.customizableBox(); }
 
-
-    void quickTest(){
-    }
-
+    /**
+     * @deprecated As of 3.1, use {@link #box(BoxConfiguration)} instead. This will be removed in a future release.
+     */
+    @Deprecated(forRemoval = true, since = "3.1")
+    public static CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration) { return CliqueComponents.customizableBox(configuration); }
 }
-
-// https://patorjk.com/software/taag/

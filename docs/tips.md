@@ -26,7 +26,7 @@ Clique.parser().print("[123, 456[/]]");
 **In Tables:**
 ```java
 Clique.table(TableType.DEFAULT)
-    .addHeaders("[123, 456[/]]", "text asd", "another qwe")
+    .headers("[123, 456[/]]", "text asd", "another qwe")
     .render();
 ```
 
@@ -80,20 +80,20 @@ TableConfiguration config = TableConfiguration
     .build();
 
 Clique.customizableTable(TableType.DEFAULT, config)
-    .addHeaders("Col1", "Col2")
+    .headers("Col1", "Col2")
     .customizeEdge('*')
     .customizeHorizontalLine('=')
     .customizeVerticalLine('|')
-    .addRows("A", "B")
+    .rows("A", "B")
     .render();
 
 // Without configuration (uses defaults)
 Clique.customizableTable(TableType.DEFAULT)
-    .addHeaders("Name", "Age")
+    .headers("Name", "Age")
     .customizeEdge('+')
     .customizeHorizontalLine('-')
     .customizeVerticalLine('|')
-    .addRows("Alice", "25")
+    .row("Alice", "25")
     .render();
 ```
 
@@ -106,7 +106,7 @@ Table table = Clique.table(TableType.BOX_DRAW)
 
 // Add rows dynamically
 for (Player player : players) {
-    table.addRows(player.getName(), String.valueOf(player.getScore()));
+    table.row(player.getName(), String.valueOf(player.getScore()));
 }
 
 // Update based on conditions
@@ -265,10 +265,10 @@ parser.print("[green]Success message[/]");
 When building large tables or indenters, batch your operations:
 ```java
 TableHeaderBuilder table = Clique.table(TableType.DEFAULT);
-table.addHeaders("Name", "Value");
+table.headers("Name", "Value");
 
 for (Item item : items) {
-    table.addRows(item.getName(), item.getValue());
+    table.row(item.getName(), item.getValue());
 }
 table.render();
 ```

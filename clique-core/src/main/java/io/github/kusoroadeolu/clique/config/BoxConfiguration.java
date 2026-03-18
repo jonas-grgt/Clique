@@ -2,6 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 
 import io.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
@@ -35,7 +36,10 @@ public class BoxConfiguration {
         return this.padding;
     }
 
-    @Deprecated(forRemoval = true, since = "3.1.0")
+    /**
+     * @deprecated As of 3.1, due to confusing/incorrect semantics. This will be removed in a future release.
+     */
+    @Deprecated(forRemoval = true, since = "3.1")
     public int getCenterPadding() {
         return this.padding;
     }
@@ -86,6 +90,9 @@ public class BoxConfiguration {
         private BorderStyle borderStyle = null;
         private boolean autoSize = false;
 
+        /**
+         * @deprecated As of 3.1, due to confusing/incorrect semantics. This will be removed in a future release.
+         */
         @Deprecated(forRemoval = true, since = "3.1")
         public BoxConfigurationBuilder centerPadding(int padding) {
             if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
