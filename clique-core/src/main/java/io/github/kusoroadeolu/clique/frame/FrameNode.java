@@ -1,6 +1,5 @@
 package io.github.kusoroadeolu.clique.frame;
 
-import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.structures.Cell;

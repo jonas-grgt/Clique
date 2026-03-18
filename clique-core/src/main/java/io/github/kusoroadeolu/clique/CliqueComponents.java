@@ -19,7 +19,7 @@ import io.github.kusoroadeolu.clique.tree.Tree;
 /**
  * Sub-facade for all rendering components: boxes, tables, frames, trees, indenters, and progress bars.
  */
-public final class CliqueComponents {
+final class CliqueComponents {
 
     private CliqueComponents() {
         throw new AssertionError();

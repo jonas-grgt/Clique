@@ -4,7 +4,6 @@ import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import org.junit.jupiter.api.Test;
 
-import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoxTest {

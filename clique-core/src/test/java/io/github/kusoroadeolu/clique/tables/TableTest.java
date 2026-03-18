@@ -5,7 +5,6 @@ import io.github.kusoroadeolu.clique.config.CellAlign;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

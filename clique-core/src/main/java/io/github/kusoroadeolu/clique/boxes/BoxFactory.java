@@ -5,8 +5,6 @@ import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionB
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 
 public class BoxFactory {

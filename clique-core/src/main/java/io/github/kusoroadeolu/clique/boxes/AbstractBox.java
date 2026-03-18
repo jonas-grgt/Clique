@@ -7,7 +7,6 @@ import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.core.utils.CharWidth;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

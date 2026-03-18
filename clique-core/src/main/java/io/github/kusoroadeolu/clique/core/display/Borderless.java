@@ -1,7 +1,6 @@
 package io.github.kusoroadeolu.clique.core.display;
 
 import java.io.PrintStream;
-import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 

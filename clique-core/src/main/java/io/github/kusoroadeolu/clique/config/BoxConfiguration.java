@@ -2,7 +2,6 @@ package io.github.kusoroadeolu.clique.config;
 
 
 import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;

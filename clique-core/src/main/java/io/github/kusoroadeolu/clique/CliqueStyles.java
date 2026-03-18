@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * Sub-facade for style, parsing, RGB, and theme-related functionality.
  */
-public final class CliqueStyles {
+final class CliqueStyles {
 
     private CliqueStyles() {
         throw new AssertionError();
