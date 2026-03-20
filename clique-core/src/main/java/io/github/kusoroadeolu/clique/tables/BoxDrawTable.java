@@ -1,6 +1,5 @@
 package io.github.kusoroadeolu.clique.tables;
 
-import io.github.kusoroadeolu.clique.boxes.Box;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;

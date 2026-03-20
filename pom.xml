@@ -46,7 +46,7 @@
         <clique-core.version>3.1.0</clique-core.version>
         <clique-spi.version>1.0.2</clique-spi.version>
         <junit.version>5.11.4</junit.version>
-        <clique-themes.version>1.0.1</clique-themes.version>
+        <clique-themes.version>1.0.0</clique-themes.version>
     </properties>
 
 

@@ -3,7 +3,6 @@ package io.github.kusoroadeolu.clique.boxes;
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
-import io.github.kusoroadeolu.clique.config.FrameConfiguration;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

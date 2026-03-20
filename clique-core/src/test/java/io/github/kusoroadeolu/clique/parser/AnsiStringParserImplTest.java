@@ -100,8 +100,7 @@ class AnsiStringParserImplTest {
     //Ansi code methods
     @Test
     void testAnsiCodes(){
-        var parser = AnsiStringParser.DEFAULT;
-        var ls = parser.ansiCodes("red, blue, cyan");
+        var ls = ParserUtils.getAnsiCodes("red, blue, cyan");
         assertEquals(3, ls.size());
         AnsiCode[] arr = {ColorCode.RED, ColorCode.BLUE, ColorCode.CYAN};
         for (var ansi : arr){
@@ -112,7 +111,7 @@ class AnsiStringParserImplTest {
     @Test
     void assertThrowEx_onUnidentifiedStyle(){
         var parser = AnsiStringParser.DEFAULT;
-        assertThrows(UnidentifiedStyleException.class, () -> parser.ansiCodes("notastyle"));
+        assertThrows(UnidentifiedStyleException.class, () -> ParserUtils.getAnsiCodes("notastyle"));
     }
 
 

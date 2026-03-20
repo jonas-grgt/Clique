@@ -1,9 +1,7 @@
 package io.github.kusoroadeolu.clique.tables;
 
 import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
-import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.config.CellAlign;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import org.junit.jupiter.api.Test;

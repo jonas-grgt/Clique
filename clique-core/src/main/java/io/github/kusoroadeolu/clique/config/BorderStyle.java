@@ -3,7 +3,7 @@ package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
@@ -203,7 +203,7 @@ public class BorderStyle {
         }
 
         AnsiCode[] getAnsiCodes(String styles){
-            return AnsiStringParser.DEFAULT.ansiCodes(styles).toArray(AnsiCode[]::new); //Uses default delimiter
+            return ParserUtils.getAnsiCodes(styles).toArray(AnsiCode[]::new);  //Uses default delimiter
         }
 
         public BorderStyle build() {

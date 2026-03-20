@@ -24,7 +24,6 @@
 
 - `BorderStyle` string overloads added for `horizontalBorderStyles()`, `verticalBorderStyles()`, and `edgeBorderStyles()` — accepts markup style strings using the default delimiter, without the markup borders i.e. `[]`
 - `BorderStyle.BorderStyleBuilder` now has `uniformStyle(AnsiCode...)` and `uniformStyle(String)` for applying a single style across all border axes
-- `AnsiStringParser` now exposes `ansiCodes(String)` — splits by the configured delimiter, resolves each token to an `AnsiCode`, and silently drops unrecognized styles
 - Default `BoxType` changed from `BoxType.DEFAULT` to `BoxType.ROUNDED`, more visually appealing out of the box(for both frame and box)
 - Default `TableType` changed from `TableType.DEFAULT` to `TableType.BOX_DRAW`, same reason
 

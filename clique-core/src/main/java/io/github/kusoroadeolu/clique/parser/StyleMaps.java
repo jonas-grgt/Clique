@@ -5,9 +5,9 @@ import io.github.kusoroadeolu.clique.ansi.ColorCode;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 //A simple class which holds the maps of the syntax
 final class StyleMaps {
@@ -78,7 +78,7 @@ final class StyleMaps {
             Map.entry("strike", StyleCode.STRIKETHROUGH)
     );
 
-    static final Map<String, AnsiCode> CUSTOM_STYLE_CODES = new HashMap<>();
+    static final Map<String, AnsiCode> CUSTOM_STYLE_CODES = new ConcurrentHashMap<>();
 
     private StyleMaps() {
         throw new AssertionError();

@@ -11,12 +11,13 @@
     </parent>
 
     <artifactId>clique-themes</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
             <groupId>io.github.kusoroadeolu</groupId>
             <artifactId>clique-spi</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 
