@@ -7,7 +7,7 @@ A dependency free, lightweight and extensible CLI library for beautifying Java t
 ![Clique Hero](images/clique-hero.png)
 
 ## Why Clique?
-![Ansi Comparison](images/ansi-comparison.png)
+![Ansi Comparison](images/comparison.png)
 
 
 ## Quick Start
