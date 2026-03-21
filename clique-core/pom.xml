@@ -12,6 +12,7 @@
     <artifactId>clique-core</artifactId>
     <version>3.1.0</version>
 
+    <name>clique-core</name>
 
     <dependencies>
         <dependency>

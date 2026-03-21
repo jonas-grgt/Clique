@@ -9,6 +9,8 @@
         <version>3.1.0</version>
     </parent>
 
+    <name>clique-spi</name>
+
     <artifactId>clique-spi</artifactId>
     <version>1.0.2</version>
 </project>

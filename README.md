@@ -71,25 +71,38 @@ Clique.box(BoxType.ROUNDED)
 ```
 ![Sample box](images/sample-box.png)
 
-### Indenter
-Create hierarchical text structures:
+### Tree
+Display hierarchical data with clean connector lines:
 ```java
-Clique.indenter()
-    .indent("-")
-    .add("Root item")
-    .indent("•")
-    .add("Nested item")
-    .print();
+Tree tree = Clique.tree("project/");
+
+Tree src = tree.add("src/");
+src.add("Main.java");
+src.add("Utils.java");
+
+tree.add("README.md");
+tree.print();
 ```
-![Sample Indenter](images/sample-indenter.png)
+![Sample Tree](images/sample-tree.png)
+
+### Frames
+Layout container that vertically stacks nested Clique components inside a border:
+```java
+Clique.frame()
+    .title("[bold]My App[/]")
+    .nest(table)
+    .nest(progressBar)
+    .render();
+```
+![Sample Frame](images/sample-frame.png)
 
 
 ### StyleBuilder
-Fluent API for building styled strings:
+Programmatic API for building styled strings:
 ```java
 Clique.styleBuilder()
     .append("Success: ", ColorCode.GREEN, StyleCode.BOLD)
-    .append("Operation completed", ColorCode.WHITE)
+    .append("Operation completed", Clique.rgb(100, 120, 140))
     .print();
 ```
 
@@ -97,11 +110,7 @@ Clique.styleBuilder()
 Visual feedback for long-running operations:
 ```java
 ProgressBar bar = Clique.progressBar(100);
-while (!bar.isDone()) {
-    bar.tick();
-    bar.render();
-    Thread.sleep(50);
-}
+bar.tickAnimated(70);
 ```
 ![Sample progress bar](images/sample-pg-bar.png)
 
