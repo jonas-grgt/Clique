@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.1.0]
+## Clique [3.1.0] - 2026-03-21
 
 ### Added
 - `Frame` component for layout composition — bordered container that vertically stacks nested Clique components. Supports `BoxType` border styles, titled borders, per-node alignment, and markup in string nodes and titles
@@ -41,4 +41,14 @@
 - `BorderStyleBuilder#edgeBorderStyles()` in favor of `cornerStyle()`
 - `BorderStyleBuilder#verticalBorderStyles()` in favor of `verticalStyle()`
 
+## clique-spi [1.0.2] - 2026-03-21
+
+> Changes to the SPI module in this release.
+
+### Changed
+- Introduction of `RGBAnsiCode` interface
+
+---
+
 Report issues at: https://github.com/kusoroadeolu/Clique/issues
+
