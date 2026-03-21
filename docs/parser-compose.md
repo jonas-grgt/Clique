@@ -1,474 +1,149 @@
 # Parser Composability
 
-Extend Clique by creating custom ANSI codes, composing complex styles, and integrating external design systems.
+The parser knows about built-in colors and styles out of the box, but it's also fully open to extension. If you've ever wanted a `[brand-primary]` tag or a sunset gradient in your terminal, this is where that happens.
 
-## Understanding AnsiCode
+## The AnsiCode Interface
 
-All styles in Clique implement the `AnsiCode` interface from the `clique-spi` module:
-```xml
-<dependency>
-    <groupId>io.github.kusoroadeolu</groupId>
-    <artifactId>clique-themes</artifactId>
-    <version>${version}</version>
-</dependency>
-```
+Everything the parser understands is an `AnsiCode`. Colors, styles, themes — they all implement the same interface from `clique-spi`:
 
 ```java
 public interface AnsiCode {
-    String toString();
+    String toString(); // return your ANSI escape sequence here
 }
 ```
 
-This simple interface returns the ANSI escape sequence as a string. When you create custom styles, you'll implement this interface and return your computed ANSI code.
+That's it. If your class returns a valid ANSI escape string from `toString()`, the parser will use it. This means you can plug in anything — RGB colors, 256-color codes, composite styles, values loaded from a config file — as long as it speaks ANSI.
 
-## Creating Custom ANSI Codes
+> **Tip:** Compute your escape sequence once in the constructor and just return the stored value in `toString()`. No need to recompute it on every call.
 
-### RGB True Color Support
+## Custom Colors
 
-Add full 24-bit RGB colors to your terminal output:
+Clique ships with `RGBAnsiColor` for 24-bit color support, and you can create it directly via `Clique.rgb()`. But if you need something lower-level, implementing `AnsiCode` yourself is straightforward:
 
 ```java
-import io.github.kusoroadeolu.clique.spi.AnsiCode;
-
-public class RGBColor implements AnsiCode {
+// 256-color support for older terminals
+public class Color256 implements AnsiCode {
     private final String code;
-    
-    public RGBColor(int r, int g, int b, boolean isBackground) {
-        r = clamp(r, 0, 255);
-        g = clamp(g, 0, 255);
-        b = clamp(b, 0, 255);
-        
-        int type = isBackground ? 48 : 38;
-        this.code = String.format("\u001B[%d;2;%d;%d;%dm", type, r, g, b);
+
+    public Color256(int index, boolean background) {
+        if (index < 0 || index > 255) throw new IllegalArgumentException("Color index must be 0-255");
+        this.code = "\u001B[%d;5;%dm".formatted(background ? 48 : 38, index);
     }
-    
+
     @Override
-    public String toString() {
-        return code;
-    }
-    
-    private int clamp(int value, int min, int max) {
-        return Math.max(min, Math.min(max, value));
-    }
+    public String toString() { return code; }
 }
 
-// Usage
-Clique.registerStyle("coral", new RGBColor(255, 127, 80, false));
-Clique.parser().print("[coral]Beautiful coral text![/]");
+Clique.registerStyle("orange", new Color256(214, false));
+Clique.parser().print("[orange]Look ma, 256 colors[/]");
 ```
 
-### 256-Color Support
+## Composing Styles
 
-For terminals with 256-color support:
-
-```java
-public class Extended256Color implements AnsiCode {
-    private final String code;
-    
-    public Extended256Color(int colorNumber, boolean isBackground) {
-        if (colorNumber < 0 || colorNumber > 255) {
-            throw new IllegalArgumentException("Color must be 0-255");
-        }
-        int type = isBackground ? 48 : 38;
-        this.code = String.format("\u001B[%d;5;%dm", type, colorNumber);
-    }
-    
-    @Override
-    public String toString() {
-        return code;
-    }
-}
-
-// Usage
-Clique.registerStyle("orange", new Extended256Color(214, false));
-Clique.parser().print("[orange]Orange text![/]");
-```
-
-### Basic Custom Effects
-
-Create any ANSI effect:
+Multiple `AnsiCode` instances can be chained together into a single reusable style. This is great for semantic aliases that carry real meaning in your app:
 
 ```java
-public class CustomAnsiCode implements AnsiCode {
-    private final String code;
-    
-    public CustomAnsiCode(String ansiSequence) {
-        this.code = ansiSequence;
-    }
-    
-    @Override
-    public String toString() {
-        return code;
-    }
-}
-
-// Usage
-Clique.registerStyle("blink", new CustomAnsiCode("\u001B[5m"));
-Clique.parser().print("[blink]Blinking text![/]");
-```
-
-## Composing Complex Styles
-Combine multiple ANSI codes into reusable semantic styles:
-
-```java
-import ansi.io.github.kusoroadeolu.clique.ColorCode;
-import ansi.io.github.kusoroadeolu.clique.StyleCode;
-
 public class CompositeStyle implements AnsiCode {
-    private final String compositeCode;
-    
+    private final String code;
+
     public CompositeStyle(AnsiCode... codes) {
-        StringBuilder sb = new StringBuilder();
-        for (AnsiCode code : codes) {
-            sb.append(code.toString());
-        }
-        this.compositeCode = sb.toString();
+        var sb = new StringBuilder();
+        for (AnsiCode c : codes) sb.append(c);
+        this.code = sb.toString();
     }
-    
+
     @Override
-    public String toString() {
-        return compositeCode;
-    }
+    public String toString() { return code; }
 }
 
-// Create semantic styles
-AnsiCode errorStyle = new CompositeStyle(
-    ColorCode.BRIGHT_RED,
-    StyleCode.BOLD,
-    StyleCode.UNDERLINE
-);
+// Semantic styles that actually mean something
+Clique.registerStyle("error", new CompositeStyle(ColorCode.BRIGHT_RED, StyleCode.BOLD));
+Clique.registerStyle("warn",  new CompositeStyle(ColorCode.YELLOW, StyleCode.ITALIC));
+Clique.registerStyle("ok",    new CompositeStyle(ColorCode.BRIGHT_GREEN, StyleCode.BOLD));
 
-AnsiCode successStyle = new CompositeStyle(
-    ColorCode.BRIGHT_GREEN,
-    StyleCode.BOLD
-);
-
-// Register and use
-Clique.registerStyle("error", errorStyle);
-Clique.registerStyle("success", successStyle);
-
-Clique.parser().print("[error]Critical error![/]");
-Clique.parser().print("[success]Operation complete![/]");
+Clique.parser().print("[error]Build failed[/]");
+Clique.parser().print("[ok]All tests passed[/]");
 ```
 
-## Example: Design System Integration
+## Dynamic Style Generation
 
-Here's a complete example integrating the Catppuccin Mocha color palette:
-
-```java
-import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import ansi.io.github.kusoroadeolu.clique.StyleCode;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class CatppuccinColors {
-
-    // RGBColor implementation
-    public static class RGBColor implements AnsiCode {
-        private final String code;
-
-        public RGBColor(int r, int g, int b, boolean isBackground) {
-            r = clamp(r, 0, 255);
-            g = clamp(g, 0, 255);
-            b = clamp(b, 0, 255);
-            int type = isBackground ? 48 : 38;
-            this.code = String.format("\u001B[%d;2;%d;%d;%dm", type, r, g, b);
-        }
-
-        @Override
-        public String toString() {
-            return code;
-        }
-
-        private int clamp(int v, int min, int max) {
-            return Math.max(min, Math.min(max, v));
-        }
-    }
-
-    // CompositeStyle implementation
-    private static class CompositeStyle implements AnsiCode {
-        private final String compositeCode;
-
-        public CompositeStyle(AnsiCode... codes) {
-            StringBuilder sb = new StringBuilder();
-            for (AnsiCode code : codes) {
-                sb.append(code.toString());
-            }
-            
-            this.compositeCode = sb.toString();
-        }
-
-        @Override
-        public String toString() {
-            return compositeCode;
-        }
-    }
-
-    // Catppuccin Mocha palette
-    private static final Map<String, int[]> PALETTE = new HashMap<>() {{
-        put("ctp-mauve", new int[]{203, 166, 247});
-        put("ctp-pink", new int[]{245, 194, 231});
-        put("ctp-red", new int[]{243, 139, 168});
-        put("ctp-peach", new int[]{250, 179, 135});
-        put("ctp-yellow", new int[]{249, 226, 175});
-        put("ctp-green", new int[]{166, 227, 161});
-        put("ctp-blue", new int[]{137, 180, 250});
-        put("ctp-text", new int[]{205, 214, 244});
-    }};
-
-    public static void register() {
-        Map<String, AnsiCode> styles = new HashMap<>();
-
-        // Register all colors 
-        for (Map.Entry<String, int[]> entry : PALETTE.entrySet()) {
-            int[] rgb = entry.getValue();
-            styles.put(entry.getKey(), new RGBColor(rgb[0], rgb[1], rgb[2], false));
-            styles.put("bg-" + entry.getKey(), new RGBColor(rgb[0], rgb[1], rgb[2], true));
-        }
-
-        Clique.registerStyles(styles);
-    }
-
-    public static void registerSemanticStyles() {
-        Map<String, AnsiCode> semantic = new HashMap<>();
-
-        // Create semantic aliases
-        semantic.put("success", getColor("ctp-green"));
-        semantic.put("error", getColor("ctp-red"));
-        semantic.put("warning", getColor("ctp-yellow"));
-
-        // Create composite styles
-        semantic.put("heading", new CompositeStyle(
-                getColor("ctp-mauve"),
-                StyleCode.BOLD,
-                StyleCode.UNDERLINE
-        ));
-
-        Clique.registerStyles(semantic);
-    }
-
-    private static AnsiCode getColor(String name) {
-        int[] rgb = PALETTE.get(name.replace("bg-", ""));
-        boolean isBg = name.startsWith("bg-");
-        return new RGBColor(rgb[0], rgb[1], rgb[2], isBg);
-    }
-}
-
-// Usage
-CatppuccinColors.register();
-CatppuccinColors.registerSemanticStyles();
-
-Clique.parser().print("[ctp-mauve]Catppuccin Mauve![/]");
-Clique.parser().print("[success]✓ Build successful[/]");
-Clique.parser().print("[heading]My Heading[/]");
-```
-
-## Some Advanced Patterns
-### Dynamic Style Generation
-
-Generate gradients dynamically:
+Since styles are just `AnsiCode` instances, you can generate them programmatically. Here's a gradient registered as a set of indexed tags:
 
 ```java
-public class GradientGenerator {
-    public static void registerGradient(String name, int[] startRGB, int[] endRGB, int steps) {
-        Map<String, AnsiCode> gradient = new HashMap<>();
-        
-        for (int i = 0; i < steps; i++) {
-            double ratio = (double) i / (steps - 1);
-            int r = (int) (startRGB[0] + ratio * (endRGB[0] - startRGB[0]));
-            int g = (int) (startRGB[1] + ratio * (endRGB[1] - startRGB[1]));
-            int b = (int) (startRGB[2] + ratio * (endRGB[2] - startRGB[2]));
-            
-            gradient.put(name + "-" + i, new RGBColor(r, g, b, false));
-        }
-        
-        Clique.registerStyles(gradient);
+public static void registerGradient(String name, int[] from, int[] to, int steps) {
+    Map<String, AnsiCode> gradient = new HashMap<>();
+
+    for (int i = 0; i < steps; i++) {
+        double t = (double) i / (steps - 1);
+        int r = (int) (from[0] + t * (to[0] - from[0]));
+        int g = (int) (from[1] + t * (to[1] - from[1]));
+        int b = (int) (from[2] + t * (to[2] - from[2]));
+        gradient.put(name + "-" + i, Clique.rgb(r, g, b));
     }
+
+    Clique.registerStyles(gradient);
 }
 
-// Create a sunset gradient
-GradientGenerator.registerGradient(
-    "sunset",
-    new int[]{255, 94, 77},   // Coral
-    new int[]{138, 35, 135},  // Purple
-    5
-);
+// Coral → purple, 5 steps
+registerGradient("sunset", new int[]{255, 94, 77}, new int[]{138, 35, 135}, 5);
 
-// Use gradient
 Clique.parser().print("[sunset-0]█[/][sunset-1]█[/][sunset-2]█[/][sunset-3]█[/][sunset-4]█[/]");
 ```
 
-### Terminal Capability Detection
+## Loading Styles from Config
 
-Provide fallbacks for terminals without RGB support:
-
-```java
-public class StyleWithFallback implements AnsiCode {
-    private final String code;
-    
-    public StyleWithFallback(AnsiCode primary, AnsiCode fallback) {
-        boolean hasTrueColor = supportsTrueColor();
-        this.code = hasTrueColor ? primary.toString() : fallback.toString();
-    }
-    
-    @Override
-    public String toString() { return code; }
-    
-    private static boolean supportsTrueColor() {
-        String colorterm = System.getenv("COLORTERM");
-        return colorterm != null && 
-               (colorterm.equals("truecolor") || colorterm.equals("24bit"));
-    }
-}
-
-// Use with fallback
-Clique.registerStyle("brand-primary", new StyleWithFallback(
-    new RGBColor(66, 135, 245, false),  // True color
-    ColorCode.BRIGHT_BLUE                // Fallback
-));
-```
-
-### Loading from Configuration
-
-Load colors from JSON:
+If you want your styles to live outside the codebase — a `colors.json` or a `.theme` file — you can load and register them at startup:
 
 ```java
-import com.google.gson.*;
-import java.nio.file.*;
-
-public class StyleLoader {
-    public static void loadFromJson(String jsonPath) throws IOException {
-        String json = Files.readString(Path.of(jsonPath));
-        JsonObject root = JsonParser.parseString(json).getAsJsonObject();
-        JsonObject styles = root.getAsJsonObject("styles");
-        
-        Map<String, AnsiCode> customStyles = new HashMap<>();
-        
-        for (Map.Entry<String, JsonElement> entry : styles.entrySet()) {
-            JsonObject color = entry.getValue().getAsJsonObject();
-            int r = color.get("r").getAsInt();
-            int g = color.get("g").getAsInt();
-            int b = color.get("b").getAsInt();
-            
-            customStyles.put(entry.getKey(), new RGBColor(r, g, b, false));
-        }
-        
-        Clique.registerStyle(customStyles);
-    }
-}
-
-// colors.json:
+// colors.json
 // {
-//   "styles": {
-//     "primary": {"r": 66, "g": 135, "b": 245},
-//     "accent": {"r": 156, "g": 39, "b": 176}
-//   }
+//   "brand":   { "r": 66,  "g": 135, "b": 245 },
+//   "accent":  { "r": 156, "g": 39,  "b": 176 }
 // }
 
-StyleLoader.loadFromJson("config/colors.json");
-Clique.parser().print("[primary]Styled from config![/]");
-```
+JsonObject styles = JsonParser.parseString(Files.readString(Path.of("colors.json"))).getAsJsonObject();
+Map<String, AnsiCode> loaded = new HashMap<>();
 
-## Best Practices
-
-### 1. Pre-compute ANSI codes
-Store the computed code in the constructor rather than generating it in `toString()`.
-
-```java
-// Good - computed once in constructor
-public class RGBColor implements AnsiCode {
-    private final String code;
-    
-    public RGBColor(int r, int g, int b, boolean isBackground) {
-        // Compute once and store
-        this.code = String.format("\u001B[%d;2;%d;%d;%dm", ...);
-    }
-    
-    @Override
-    public String toString() {
-        return code;  // Just return the stored value
-    }
+for (var entry : styles.entrySet()) {
+    JsonObject c = entry.getValue().getAsJsonObject();
+    loaded.put(entry.getKey(), Clique.rgb(
+        c.get("r").getAsInt(),
+        c.get("g").getAsInt(),
+        c.get("b").getAsInt()
+    ));
 }
 
-// Bad - computes every time toString() is called
-public class RGBColor implements AnsiCode {
-    private final int r, g, b;
-    private final boolean isBackground;
-    
-    @Override
-    public String toString() {
-        // Recomputes on every call!
-        return String.format("\u001B[%d;2;%d;%d;%dm", ...);
-    }
-}
+Clique.registerStyles(loaded);
+Clique.parser().print("[brand]Styled from config[/]");
 ```
 
-### 2. Encapsulate registration logic
-Create a single registration point for your custom styles:
+## Keeping Registration Clean
+
+If your app registers a lot of custom styles, it's worth centralizing that into a single class with a guard so it only runs once:
 
 ```java
 public class AppStyles {
     private static boolean registered = false;
-    
+
     public static synchronized void register() {
         if (registered) return;
-        
-        Map<String, AnsiCode> styles = new HashMap<>();
-        // ... add all your styles
-        Clique.registerStyle(styles);
-        
+
+        Clique.registerStyles(Map.of(
+            "error", new CompositeStyle(ColorCode.BRIGHT_RED, StyleCode.BOLD),
+            "warn",  new CompositeStyle(ColorCode.YELLOW, StyleCode.ITALIC),
+            "ok",    new CompositeStyle(ColorCode.BRIGHT_GREEN, StyleCode.BOLD)
+        ));
+
         registered = true;
     }
 }
 
-// Call once at startup
+// Somewhere at startup
 AppStyles.register();
-```
-
-
-## Common Pitfalls
-
-### Missing toString() implementation
-**Symptom:** You see `com.example.RGBColor@abc123` instead of colored text.
-
-**Fix:** Always implement `toString()` to return your ANSI escape code:
-
-```java
-public class MyColor implements AnsiCode {
-    private final String code;
-    
-    public MyColor(String ansiCode) {
-        this.code = ansiCode;
-    }
-    
-    @Override
-    public String toString() {  // Don't forget this!
-        return code;
-    }
-}
-```
-
-### Forgetting to register styles
-**Symptom:** Tags don't work or appear as plain text.
-
-**Fix:** Custom styles must be registered before use:
-
-```java
-// Create the style
-AnsiCode myColor = new RGBColor(255, 0, 0, false);
-
-// This won't work - style not registered yet
-Clique.parser().print("[mycolor]Text[/]");
-
-// Register first, then use
-Clique.registerStyle("mycolor", myColor);
-Clique.parser().print("[mycolor]Text[/]");
 ```
 
 ## See Also
 
-- [Parser Documentation](parser.md) - Basic parser usage
-- [Markup Reference](markup-reference.md) - Built-in styles
-- [Tips and Tricks](reference.md) - General usage patterns
+- [Parser](parser.md) - Basic usage, configuration, and syntax
+- [Markup Reference](markup-reference.md) - Built-in colors and styles
+- [Themes](themes.md) - Pre-built palettes you can register and use

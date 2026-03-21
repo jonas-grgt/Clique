@@ -126,8 +126,14 @@ Clique.parser().print("[red, bold, ul, italic]Everything at once[/]");
 | Style | `[bold, ul, red]Text[/]` | Red, bold, and underlined |
 | Reset | `[red]Text[/]` | Resets style after closing tag |
 
+Clique automatically detects ANSI support and can be manually controlled:
+
+```java
+Clique.enableCliqueColors();  // Force enable colors
+Clique.enableCliqueColors(false); // Force disable colors
+```
 ## Terminal Compatibility
-For all colors to display correctly with their full color palette, your terminal must support truecolor (24-bit color). Most modern terminals support this by default, but you may need to enable it:
+For all colors to display correctly, your terminal must support truecolor (24-bit color). Most modern terminals support this by default, but you may need to enable it:
 
 - Check support: Run echo $COLORTERM - it should output truecolor or 24bit
 - Enable truecolor: Set the environment variable COLORTERM=truecolor in your shell profile
@@ -135,12 +141,6 @@ For all colors to display correctly with their full color palette, your terminal
   Without truecolor support, themes may appear with reduced color accuracy or fall back to the nearest 256-color approximation.
 
 
-Clique automatically detects ANSI support and can be manually controlled:
-
-```java
-Clique.enableCliqueColors();  // Force enable colors
-Clique.enableCliqueColors(false); // Force disable colors
-```
 
 ## See Also
 

@@ -114,6 +114,8 @@ bar.tickAnimated(70);
 ```
 ![Sample progress bar](images/sample-pg-bar.png)
 
+> **Note:** Style registration/lookup and config objects(once built) are thread-safe. All other components are not, avoid sharing instances across threads.
+
 ## Documentation
 
 - **[Full Documentation](docs)** - Complete guides for all features

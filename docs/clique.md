@@ -26,11 +26,21 @@ Clique.styleBuilder()
 **Methods:**
 - `styleBuilder()` - Create a new style builder
 
+### RGB Colors
+Create custom RGB colors for use with the style API:
+```java
+RGBAnsiCode color = Clique.rgb(255, 128, 0);
+RGBAnsiCode bgColor = Clique.rgb(255, 128, 0, true); // background color
+```
+
+**Methods:**
+- `rgb(int r, int g, int b)` - Create an RGB foreground color
+- `rgb(int r, int g, int b, boolean background)` - Create an RGB color, optionally as background
+
 ## Tables
 
 Create formatted tables with headers and rows.
 
-### Basic Tables
 ```java
 Clique.table()
     .addHeaders("Name", "Age", "Status")
@@ -47,29 +57,12 @@ Clique.table()
 **Available Types:**
 `DEFAULT`, `COMPACT`/`MINIMAL`, `BOX_DRAW`, `ROUNDED_BOX_DRAW`, `MARKDOWN`
 
-### Customizable Tables
-Tables where you can customize borders:
-```java
-Clique.customizableTable()
-    .addHeaders("Col1", "Col2")
-    .customizeEdge('+')
-    .customizeHorizontalLine('=')
-    .customizeVerticalLine('|')
-    .addRows("A", "B")
-    .render();
-```
-
-**Methods:**
-- `customizableTable()` - Default customizable table
-- `customizableTable(TableType)` - Specify table type
-- `customizableTable(TableConfiguration)` - Custom configuration
-- `customizableTable(TableType, TableConfiguration)` - Full customization
+> **Note:** `customizableTable()` and its overloads are deprecated as of 3.1. Use the `table()` methods above instead. They will be removed in a future release.
 
 ## Boxes
 
 Single-cell containers for displaying text with borders.
 
-### Basic Boxes
 ```java
 Clique.box()
     .withDimensions(40, 10)
@@ -86,27 +79,42 @@ Clique.box()
 **Available Types:**
 `DEFAULT`, `CLASSIC`, `ROUNDED`, `DOUBLE_LINE`
 
-### Customizable Boxes
-Boxes where you can customize borders:
+> **Note:** `customizableBox()` and its overloads are deprecated as of 3.1. Use the `box()` methods above instead. They will be removed in a future release.
+
+## Frames
+
+A frame is a box-based container for displaying multi-line or structured content.
+
 ```java
-Clique.customizableBox()
-    .withDimensions(40, 10)
-    .customizeEdge('<')
-    .customizeVerticalLine('~')
-    .customizeHorizontalLine('-')
-    .content("Custom box")
+Clique.frame()
+    .content("Line one", "Line two")
     .render();
 ```
 
 **Methods:**
-- `customizableBox()` - Default customizable box
-- `customizableBox(BoxType)` - Specify box type
-- `customizableBox(BoxConfiguration)` - Custom configuration
-- `customizableBox(BoxType, BoxConfiguration)` - Full customization
+- `frame()` - Create frame with default type and configuration
+- `frame(BoxType)` - Create frame with specific box type
+- `frame(FrameConfiguration)` - Create frame with custom configuration
+- `frame(BoxType, FrameConfiguration)` - Full customization
+
+## Trees
+
+Render hierarchical data as an indented tree structure(favored over tree)
+
+```java
+Clique.tree("root")
+    .branch("child one")
+    .branch("child two")
+    .render();
+```
+
+**Methods:**
+- `tree(String label)` - Create a tree with the given root label
+- `tree(String label, TreeConfiguration)` - Create a tree with custom configuration
 
 ## Indenter
 
-Create hierarchical text structures with nested indentation.
+Create hierarchical text structures with nested indentation
 ```java
 Clique.indenter()
     .indent("→")
@@ -194,10 +202,14 @@ Clique.enableCliqueColors(false);
 
 // Re-enable colors
 Clique.enableCliqueColors(true);
+
+// Enable colors (no-arg shorthand)
+Clique.enableCliqueColors();
 ```
 
 **Methods:**
 - `enableCliqueColors(boolean enable)` - Control ANSI color output
+- `enableCliqueColors()` - Enable ANSI color output (shorthand)
 
 ## See Also
 - [Markup Reference](markup-reference.md) - Available colors and styles
