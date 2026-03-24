@@ -1,8 +1,30 @@
 # Progress Bar Easing
 
-Progress bars usually jump. A batch finishes, the bar lurches forward 30%, done. That works — but if you want the bar to actually *feel* like something is happening, easing gives you smooth, animated transitions between values instead.
+Progress bars usually jump. A batch finishes, the bar lurches forward 30%, done. That works, but if you want the bar to actually *feel* like something is happening, easing gives you smooth, animated transitions between values instead.
 
 It's opt-in, lightweight, and takes about ten lines to set up.
+
+---
+
+## Constants
+
+`EasingConfiguration.DEFAULT` gives you a ready-to-use animation with sensible values — `EASE_OUT_QUAD`, 500ms duration, 20 frames, and a threshold of 5. Good for most cases without any configuration:
+
+```java
+ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+    .easing(EasingConfiguration.DEFAULT)
+    .build();
+
+ProgressBar bar = Clique.progressBar(100, config);
+```
+
+`EasingConfiguration.DISABLED` is an explicit no-op. Pass it anywhere an `EasingConfiguration` is accepted to opt out of animation entirely:
+
+```java
+ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+    .easing(EasingConfiguration.DISABLED)
+    .build();
+```
 
 ---
 
@@ -68,7 +90,7 @@ The minimum tick amount needed to trigger animation. Ticks below this jump insta
 .threshold(10)  // animate ticks >= 10, instant otherwise
 ```
 
-One thing worth knowing: threshold defaults to `-1`, which means easing is disabled until you set it. If you build an `EasingConfiguration` but forget the threshold, `tickAnimated()` will just tick instantly every time.
+If you need to explicitly disable easing, use `EasingConfiguration.DISABLED` instead of building a configuration manually.
 
 ---
 
@@ -105,10 +127,10 @@ bar.tickAnimated(150);
 
 // Process items individually — instant, no overhead
 for (int i = 0; i < 50; i++) {
-    processItem();
+processItem();
     bar.tick();
 }
-bar.render();
+        bar.render();
 
 // Another large batch
 bar.tickAnimated(200);

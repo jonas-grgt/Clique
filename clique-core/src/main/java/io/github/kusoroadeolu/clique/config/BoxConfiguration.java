@@ -1,10 +1,11 @@
 package io.github.kusoroadeolu.clique.config;
 
 
-import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
+
+import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotNull;
 
 public class BoxConfiguration {
     public static final BoxConfiguration DEFAULT = new BoxConfiguration();
@@ -29,6 +30,12 @@ public class BoxConfiguration {
 
     public static BoxConfigurationBuilder immutableBuilder() {
         return new BoxConfigurationBuilder();
+    }
+
+
+    public static BoxConfiguration fromBorderStyle(BorderStyle style) {
+        assertStyleNotNull(style);
+        return BoxConfiguration.immutableBuilder().borderStyle(style).build();
     }
 
     public int getPadding() {
@@ -85,7 +92,7 @@ public class BoxConfiguration {
     public static class BoxConfigurationBuilder {
         private int padding = 2;
         private TextAlign textAlign = TextAlign.CENTER;
-        private AnsiStringParser parser = Clique.parser();
+        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
         private BorderStyle borderStyle = null;
         private boolean autoSize = false;
 

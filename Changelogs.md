@@ -42,13 +42,31 @@
 - `BorderStyleBuilder#verticalBorderStyles()` in favor of `verticalStyle()`
 
 ## clique-spi [1.0.2] - 2026-03-21
-
-> Changes to the SPI module in this release.
-
+Changes to the SPI module in this release.
 ### Changed
 - Introduction of `RGBAnsiCode` interface
 
 ---
 
-Report issues at: https://github.com/kusoroadeolu/Clique/issues
+# Changelog
 
+## Clique [3.1.1] - 2026-03-24
+
+### Added
+- `BorderStyle` overloads for `Clique#frame()`, `Clique#box()`, and `Clique#table()`
+- `EasingConfiguration` overload for `Clique#progressBar()`
+- `ProgressBarConfiguration#fromPreset()` — returns a configuration builder for further customization of progress bar presets
+
+### Changed
+- `EasingConfiguration.DEFAULT` now uses sensible animation defaults (`EASE_OUT_QUAD`, 500ms, 20 frames, threshold 5)
+- Added `EasingConfiguration.DISABLED` as an explicit no-op constant
+- `AnsiDetector#autoDetect()` now checks `CLICOLOR_FORCE` and `COLORTERM` environment variables
+- `NO_COLOR` detection now correctly requires a non-empty value per spec
+- Added `WT_SESSION` check for Windows Terminal ANSI support
+- `AnsiDetector#ansiEnabled()` now returns a cached value instead of re-running detection on every call
+- `AnsiDetector#enableCliqueColors()` and `#disableCliqueColors()` now update the cache directly
+
+---
+...
+
+Report issues at: https://github.com/kusoroadeolu/Clique/issues

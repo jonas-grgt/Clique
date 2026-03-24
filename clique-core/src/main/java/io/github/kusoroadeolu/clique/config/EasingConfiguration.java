@@ -6,6 +6,7 @@ import java.util.Objects;
 //Added docs here so I won't forget what each val does
 public class EasingConfiguration {
     public static final EasingConfiguration DEFAULT = new EasingConfiguration();
+    public static final EasingConfiguration DISABLED = new EasingConfiguration(true);
     private final EasingFunction function;
     private final int durationMs;
     private final int frames;
@@ -14,6 +15,16 @@ public class EasingConfiguration {
 
     private EasingConfiguration() {
         this(new EasingConfigurationBuilder());
+    }
+
+
+    private static final int DISABLED_THRESHOLD = -1;
+
+    private EasingConfiguration(boolean disabled) {
+        this.function = EasingFunction.LINEAR;
+        this.durationMs = 0;
+        this.frames = 1;
+        this.threshold = DISABLED_THRESHOLD;
     }
 
     private EasingConfiguration(EasingConfigurationBuilder easingConfigurationBuilder) {
@@ -71,20 +82,19 @@ public class EasingConfiguration {
     /**
      * Check if easing should be applied based on the tick amount
      *
-     * @param tickAmount the amount being ticked
+     * @param tickBy the amount being ticked
      * @return true if easing should be applied
      */
-    public boolean shouldEase(int tickAmount) {
+    public boolean shouldEase(int tickBy) {
         if (threshold < 0) return false;
-        return tickAmount >= threshold;
+        return tickBy >= threshold;
     }
 
     public static class EasingConfigurationBuilder {
-        private EasingFunction function = EasingFunction.LINEAR;
-        private int durationMs = 0;
-        private int frames = 1;
-        private int threshold = -1;
-
+        private EasingFunction function = EasingFunction.EASE_OUT_QUAD;
+        private int durationMs = 500;
+        private int frames = 20;
+        private int threshold = 5;
 
         public EasingConfigurationBuilder function(EasingFunction function) {
             Objects.requireNonNull(function, "Easing function cannot be null");
@@ -125,7 +135,7 @@ public class EasingConfiguration {
          * @return this builder
          */
         public EasingConfigurationBuilder threshold(int threshold) {
-            if (threshold < 0) throw new IllegalArgumentException("Threshold must be non-negative");
+            if (threshold < 0) throw new IllegalArgumentException("Threshold must be positive");
             this.threshold = threshold;
             return this;
         }

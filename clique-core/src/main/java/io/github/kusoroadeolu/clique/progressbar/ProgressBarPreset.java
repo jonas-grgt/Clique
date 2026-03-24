@@ -11,7 +11,8 @@ public enum ProgressBarPreset {
     BLOCKS {
         @Override
         public ProgressBarConfiguration getConfiguration() {
-            return ProgressBarConfiguration.immutableBuilder()
+            return ProgressBarConfiguration
+                    .immutableBuilder()
                     .length(40)
                     .complete('█')
                     .incomplete('░')

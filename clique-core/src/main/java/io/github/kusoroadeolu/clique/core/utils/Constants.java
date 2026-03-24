@@ -23,6 +23,10 @@ public class Constants {
     public static final String NEVER = "never";
     public static final String OS_NAME = "os.name";
     public static final String WIN = "win";
+    public static final String CLI_COLOR_FORCE = "CLICOLOR_FORCE";
+    public static final String COLOR_TERM = "COLORTERM";
+    public static final String WT_SESSION = "WT_SESSION";
+
     private Constants() {
         throw new AssertionError("cannot instantiate this");
     }

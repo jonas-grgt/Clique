@@ -6,6 +6,7 @@ import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.frame.DefaultFrame;
+import io.github.kusoroadeolu.clique.frame.Frame;
 import io.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
@@ -15,6 +16,8 @@ import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.tree.Tree;
+
+import static io.github.kusoroadeolu.clique.config.ProgressBarConfiguration.fromEasing;
 
 /**
  * Sub-facade for all rendering components: boxes, tables, frames, trees, indenters, and progress bars.
@@ -35,12 +38,20 @@ final class CliqueComponents {
         return table(TableType.BOX_DRAW, configuration);
     }
 
+    public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) {
+        return table(type, configuration);
+    }
+
     public static TableHeaderBuilder table(TableType type) {
         return TableFactory.getTableBuilder(type);
     }
 
-    public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) {
-        return TableFactory.getTableBuilder(type, configuration);
+    public static TableHeaderBuilder table(BorderStyle style) {
+        return table(TableConfiguration.fromBorderStyle(style));
+    }
+
+    public static TableHeaderBuilder table(TableType type, BorderStyle style) {
+        return table(type, TableConfiguration.fromBorderStyle(style));
     }
 
     // BOX
@@ -60,6 +71,15 @@ final class CliqueComponents {
     public static BoxDimensionBuilder box(BoxType type) {
         return BoxFactory.getBoxDimensionBuilder(type);
     }
+
+    public static BoxDimensionBuilder box(BorderStyle style) {
+        return box(BoxConfiguration.fromBorderStyle(style));
+    }
+
+    public static BoxDimensionBuilder box(BoxType type, BorderStyle style) {
+        return box(type, BoxConfiguration.fromBorderStyle(style));
+    }
+
 
     // INDENTER
 
@@ -85,23 +105,36 @@ final class CliqueComponents {
         return progressBar(total, preset.getConfiguration());
     }
 
-    // FRAME
+    public static ProgressBar progressBar(int total, EasingConfiguration easing) {
+        return progressBar(total, fromEasing(easing));
+    }
 
-    public static DefaultFrame frame() {
+
+    // FRAME
+    public static Frame frame() {
         return new DefaultFrame();
     }
 
-    public static DefaultFrame frame(FrameConfiguration configuration) {
+    public static Frame frame(FrameConfiguration configuration) {
         return new DefaultFrame(configuration);
     }
 
-    public static DefaultFrame frame(BoxType type) {
+    public static Frame frame(BoxType type) {
         return new DefaultFrame(type);
     }
 
-    public static DefaultFrame frame(BoxType type, FrameConfiguration configuration) {
+    public static Frame frame(BoxType type, FrameConfiguration configuration) {
         return new DefaultFrame(configuration, type);
     }
+
+    public static Frame frame(BorderStyle style) {
+        return frame(FrameConfiguration.fromBorderStyle(style));
+    }
+
+    public static Frame frame(BoxType type, BorderStyle style) {
+        return frame(type, FrameConfiguration.fromBorderStyle(style));
+    }
+
 
     // TREE
 
@@ -112,6 +145,7 @@ final class CliqueComponents {
     public static Tree tree(String label, TreeConfiguration configuration) {
         return new Tree(label, configuration);
     }
+
 
     // DEPRECATED BOX METHODS
     /**

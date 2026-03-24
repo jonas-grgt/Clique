@@ -6,6 +6,8 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
 
+import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotNull;
+
 public class FrameConfiguration {
     public static final FrameConfiguration DEFAULT = new FrameConfiguration();
 
@@ -27,6 +29,11 @@ public class FrameConfiguration {
 
     public static FrameConfigurationBuilder immutableBuilder() {
         return new FrameConfigurationBuilder();
+    }
+
+    public static FrameConfiguration fromBorderStyle(BorderStyle style) {
+        assertStyleNotNull(style);
+        return FrameConfiguration.immutableBuilder().borderStyle(style).build();
     }
 
     public int getPadding() {
