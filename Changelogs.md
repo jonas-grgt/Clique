@@ -66,6 +66,12 @@ Changes to the SPI module in this release.
 - `AnsiDetector#ansiEnabled()` now returns a cached value instead of re-running detection on every call
 - `AnsiDetector#enableCliqueColors()` and `#disableCliqueColors()` now update the cache directly
 
+
+### Fixed
+- Fixed an issue with `Indenter` where, if an empty(not blank) flag was passed as the current flag, it'd take precedence over the default configuration flag
+
+## clique-spi [1.0.3] - 2026-03-24
+
 ---
 ...
 

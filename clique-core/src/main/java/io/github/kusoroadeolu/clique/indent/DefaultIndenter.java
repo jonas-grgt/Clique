@@ -6,6 +6,7 @@ import io.github.kusoroadeolu.clique.core.utils.Constants;
 import java.util.*;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
+import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 
 public class DefaultIndenter implements Indenter {
@@ -29,6 +30,8 @@ public class DefaultIndenter implements Indenter {
     public Indenter indent(int level, String flag) {
         requireNonNull(flag, "Flag cannot be null");
         if (level < 0) throw new IllegalArgumentException("Level cannot be less than 0");
+        if (flag.isEmpty()) flag = configuration.getDefaultFlag();
+
         flag = parseString(flag);
         this.currentLevel += level;
 
@@ -38,7 +41,7 @@ public class DefaultIndenter implements Indenter {
     }
 
     public Indenter indent(int level) {
-        return this.indent(level, Constants.BLANK);
+        return this.indent(level, Constants.EMPTY);
     }
 
     public Indenter indent(int level, Flag flag) {
@@ -55,12 +58,12 @@ public class DefaultIndenter implements Indenter {
     }
 
     public Indenter indent() {
-        return this.indent(Constants.BLANK);
+        return this.indent(Constants.EMPTY);
     }
 
     public Indenter add(String... args) {
         requireNonNull(args, "Args cannot be null");
-        Arrays.stream(args).forEach(this::add);
+        stream(args).forEach(this::add);
         return this;
     }
 

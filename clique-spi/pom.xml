@@ -6,11 +6,11 @@
     <parent>
         <groupId>io.github.kusoroadeolu</groupId>
         <artifactId>clique</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
     </parent>
 
     <name>clique-spi</name>
 
     <artifactId>clique-spi</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </project>

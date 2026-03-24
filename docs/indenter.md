@@ -1,173 +1,120 @@
 # Indenter
 
-Indenter helps you create hierarchical and nested text structures with ease. It's perfect for building tree views, nested lists, file structures, or any content that needs multiple levels of indentation.
+Indenter lets you build styled, nested text structures with full control over indentation symbols and spacing. Think bullet lists, CLI menus, task trackers, or any output where you want different symbols at different levels — not auto-generated tree connectors.
+
+> **Heads up:** If you're trying to render a file tree or parent-child hierarchy with `├─` / `└─` connectors, use [`Tree`](tree.md) instead. Indenter can technically fake those connectors, but you'll be fighting it the whole way. Indenter shines when the *structure itself* is your design choice, not derived from data.
 
 ## Basic Usage
 
-### Simple Indentation
 ```java
 Indenter indenter = Clique.indenter()
-    .indent()  // Create first indent level
+    .indent()
     .add("Root Level")
-    .indent()  // Nest deeper
+    .indent()
     .add("Nested Item 1")
     .add("Nested Item 2")
-    .unindent()  // Go back up
+    .unindent()
     .add("Back to Root");
 
-indenter.print();  // Print the indented structure
+indenter.print();
 ```
 
-### With Custom Flags
+### Custom Flags Per Level
 
-Flags are the characters/symbols that appear at the start of each indented line:
+Flags are the characters/symbols that appear at the start of each indented line. You can set a different one per level:
+
 ```java
-Indenter indenter = Clique.indenter()
-    .indent(2, "-")  // Indent 2 spaces with "-" flag
+Clique.indenter()
+    .indent(2, "-")
     .add("First item")
     .add("Second item")
-    .indent(2, "•")  // Nest deeper with bullet flag
+    .indent(2, "•")
     .add("Nested item")
-    .unindent()  // Pop back to previous level
-    .add("Back to first level");
-
-indenter.print();
+    .unindent()
+    .add("Back to first level")
+    .print();
 ```
 
 ## Indent Methods
 
-### Indent with Level and Flag
 ```java
-indenter.indent(4, "→");  // 4 spaces with arrow flag
+indenter.indent(4, "→");   // specific level + flag
+indenter.indent(3);         // specific level, uses default flag
+indenter.indent("•");       // default level from config, custom flag
+indenter.indent();          // both from config defaults
 ```
 
-### Indent with Just Level
-```java
-indenter.indent(3);  // 3 spaces, uses default flag
-```
+## Managing Levels
 
-### Indent with Just Flag
 ```java
-indenter.indent("•");  // Uses default level from config
-```
-
-### Indent with Defaults
-```java
-indenter.indent();  // Uses both default level and flag
-```
-
-## Managing Indent Levels
-
-### Go Back One Level
-```java
-indenter.unindent();  // Move back up one indent level
-```
-
-### Reset to Zero
-```java
-indenter.resetLevel();  // Reset to 0 indents, does not reset the flag
+indenter.unindent();     // pop back one level
+indenter.resetLevel();   // reset to 0, keeps current flag
 ```
 
 ## Adding Content
 
-### Add Single Strings
 ```java
-Indenter indenter = Clique.indenter()
-    .indent("-");
+indenter.add("Single item");
+indenter.add("Item A", "Item B", "Item C");   // varargs
 
-indenter.add("Item 1");
-indenter.add("Item 2");
-```
+List<String> items = List.of("X", "Y", "Z");
+indenter.add(items);                           // collection
 
-### Add Multiple Strings (Varargs)
-```java
-indenter.add("Item 3", "Item 4", "Item 5");
-```
-
-### Add a Collection
-```java
-List<String> items = Arrays.asList("A", "B", "C");
-indenter.add(items);
-```
-
-### Add Any Object
-```java
-// Calls toString() on the object
-indenter.add(new SomeObject());
-indenter.add(42);
+indenter.add(42);                              // any object, calls toString()
 ```
 
 ## Built-in Flags
 
-Use the `Flag` enum for common flag characters:
+The `Flag` enum covers the most common symbols:
+
 ```java
-Indenter indenter = Clique.indenter()
-    .indent(Flag.BULLET)   // •
+Clique.indenter()
+    .indent(Flag.BULLET)          // •
     .add("Bullet item")
-    .indent(Flag.ARROW)    // →
+    .indent(Flag.ARROW)           // →
     .add("Arrow item")
-    .indent(Flag.DASH)     // -
-    .add("Dash item");
+    .indent(Flag.HYPHEN)          // -
+    .add("Hyphen item")
+    .indent(Flag.ASTERISK)        // *
+    .add("Asterisk item")
+    .indent(Flag.SQUARE_BULLET)   // ▪
+    .add("Square bullet item")
+    .indent(Flag.CIRCLE)          // ○
+    .add("Circle item")
+    .indent(Flag.RIGHT_TRIANGLE)  // ▸
+    .add("Triangle item");
 ```
 
-Provided available flags:
+Available flags:
 - `Flag.BULLET` - `•`
 - `Flag.ARROW` - `→`
-- `Flag.DASH` - `-`
-- `Flag.PLUS` - `+`
+- `Flag.HYPHEN` - `-`
 - `Flag.ASTERISK` - `*`
+- `Flag.SQUARE_BULLET` - `▪`
+- `Flag.CIRCLE` - `○`
+- `Flag.RIGHT_TRIANGLE` - `▸`
 
-## Indenter Configuration
+## Configuration
 
-Configure your indenter for more control over spacing, default flags, and styling.
-
-**Note:** Markup parsing is enabled by default.
 ```java
 IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
-    .indentLevel(4)       // 4 spaces per indent level
-    .defaultFlag("→")     // Default flag when none specified
-    .parser(Clique.parser())  // Enable markup parsing
+    .indentLevel(4)            // spaces per indent level (default: 2)
+    .defaultFlag("→")          // flag used when none is specified
+    .parser(Clique.parser())   // markup parsing is on by default
     .build();
 
-Indenter indenter = Clique.indenter(config)
+Clique.indenter(config)
     .indent()
     .add("[blue, bold]Root[/]")
     .indent()
-    .add("[green]Nested item[/]");
-
-indenter.print();
+    .add("[green]Nested item[/]")
+    .print();
 ```
 
-### Configuration Options
+### Custom Parser
 
-#### Indent Level
-
-Set the number of spaces per indent level:
 ```java
-IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
-    .indentLevel(4)  // 4 spaces per level (default is 2)
-    .build();
-```
-
-#### Default Flag
-
-Set a default flag to use when none is specified:
-```java
-IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
-    .defaultFlag("•")
-    .build();
-
-Indenter indenter = Clique.indenter(config)
-    .indent()  // Uses "•" as the flag
-    .add("Item");
-```
-
-#### Custom Parser
-
-Provide a custom configured parser for markup processing:
-```java
-ParserConfiguration parserConfig = ParserConfiguration
-    .immutableBuilder()
+ParserConfiguration parserConfig = ParserConfiguration.immutableBuilder()
     .delimiter(' ')
     .build();
 
@@ -178,79 +125,39 @@ IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
 
 ## Getting and Clearing Content
 
-### Get Without Printing
 ```java
-Indenter indenter = Clique.indenter()
-    .indent("-")
-    .add("Item 1")
-    .add("Item 2");
-
-// Get the indented string without printing
-String result = indenter.get();
-System.out.println(result);
+String result = indenter.get();   // get rendered string without printing
+indenter.flush();                  // clear content + reset indent levels
 ```
 
-### Flush Everything
+## Markup Support
+
+Markup tags work anywhere — in flags, content, or both:
+
 ```java
-// Clear content AND reset indent levels
-indenter.flush();
-```
-
-## Using Markup in Indenter
-
-Indenters automatically parse markup tags:
-```java
-IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
-    .indentLevel(3)
-    .build();
-
-Clique.indenter(config)
-    .indent("[magenta]├─[/] ")
-    .add("[yellow, bold]src/[/]")
+Clique.indenter()
+    .indent("[cyan]▸[/] ")
+    .add("[bold]Section Title[/]")
     .indent()
-    .add("[green]Main.java[/]")
-    .add("[green]Utils.java[/]")
+    .add("[green]Item one[/]")
+    .add("[yellow]Item two[/]")
     .print();
 ```
 
 ## Examples
 
-### File Tree
-```java
-IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
-    .indentLevel(2)
-    .build();
+### Task / Todo List
 
-Indenter tree = Clique.indenter(config)
-    .add("[blue, bold]project/[/]")
-    .indent("[magenta]├─[/] ")
-    .add("[yellow]src/[/]")
-    .indent()
-    .add("com.github.kusoroadeolu.Main.java")
-    .add("Utils.java")
-    .unindent()
-    .add("[yellow]test/[/]")
-    .indent()
-    .add("MainTest.java")
-    .unindent()
-    .unindent() 
-    .indent("[magenta]└─[/] ")
-    .add("README.md");
+Indenter is a natural fit for checklists where done/pending items need distinct symbols:
 
-tree.print();
-```
-
-![Indenter Output](../images/indent.png)
-
-### Task List
 ```java
 Clique.indenter()
-    .indent("☐")
+    .indent("☐ ")
     .add("[bold]Project Tasks[/]")
-    .indent("  ☐")
+    .indent("  ☐ ")
     .add("Design phase")
     .add("Development")
-    .indent("    ☑")
+    .indent("    ☑ ")
     .add("[dim, strike]Setup environment[/]")
     .add("[dim, strike]Write tests[/]")
     .unindent()
@@ -260,11 +167,14 @@ Clique.indenter()
     .print();
 ```
 
-### Nested Menu
+### CLI Menu
+
+Nested menus where each level has a consistent but distinct visual treatment:
+
 ```java
 IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
     .indentLevel(3)
-    .defaultFlag("▸")
+    .defaultFlag("▸ ")
     .build();
 
 Clique.indenter(config)
@@ -287,28 +197,28 @@ Clique.indenter(config)
     .print();
 ```
 
-### Hierarchical Data
+### Styled Log / Report Output
+
+When you want structured, scannable CLI output with visual hierarchy but no tree connectors:
+
 ```java
 Clique.indenter()
-    .add("[bold]Company Structure[/]")
-    .indent("├─")
-    .add("[yellow]Engineering[/]")
-    .indent("│  ├─")
-    .add("Backend Team")
-    .add("Frontend Team")
+    .indent("[bold]>[/] ")
+    .add("[bold, cyan]Build Report[/]")
+    .indent("  [green]✓[/] ")
+    .add("Compiled 42 files")
+    .add("Tests passed: 108/108")
     .unindent()
-    .add("[yellow]Design[/]")
-    .indent("│  ├─")
-    .add("UI/UX Team")
-    .add("Graphics Team")
+    .indent("  [yellow]⚠[/] ")
+    .add("2 deprecation warnings")
     .unindent()
-    .unindent()
-    .indent("└─")
-    .add("[yellow]Operations[/]")
+    .indent("  [red]✗[/] ")
+    .add("Coverage below threshold (74%)")
     .print();
 ```
 
 ## See Also
 
+- [Tree Documentation](tree.md) - Better choice for hierarchical data with auto-generated connectors
 - [Markup Reference](markup-reference.md) - Styling options for indented content
 - [Parser Documentation](parser.md) - How markup parsing works

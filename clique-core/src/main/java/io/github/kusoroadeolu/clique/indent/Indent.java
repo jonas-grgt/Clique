@@ -1,6 +1,6 @@
 package io.github.kusoroadeolu.clique.indent;
 
-public record Indent(
+record Indent(
         String flag,
         int level
 ) {

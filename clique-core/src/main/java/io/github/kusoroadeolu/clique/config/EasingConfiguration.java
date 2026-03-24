@@ -6,7 +6,7 @@ import java.util.Objects;
 //Added docs here so I won't forget what each val does
 public class EasingConfiguration {
     public static final EasingConfiguration DEFAULT = new EasingConfiguration();
-    public static final EasingConfiguration DISABLED = new EasingConfiguration(true);
+    public static final EasingConfiguration DISABLED = disabledConfig();
     private final EasingFunction function;
     private final int durationMs;
     private final int frames;
@@ -20,11 +20,14 @@ public class EasingConfiguration {
 
     private static final int DISABLED_THRESHOLD = -1;
 
-    private EasingConfiguration(boolean disabled) {
-        this.function = EasingFunction.LINEAR;
-        this.durationMs = 0;
-        this.frames = 1;
-        this.threshold = DISABLED_THRESHOLD;
+    private static EasingConfiguration disabledConfig(){
+        return EasingConfiguration
+                .immutableBuilder()
+                .function(EasingFunction.LINEAR)
+                .duration(0)
+                .threshold(DISABLED_THRESHOLD)
+                .frames(1)
+                .build();
     }
 
     private EasingConfiguration(EasingConfigurationBuilder easingConfigurationBuilder) {

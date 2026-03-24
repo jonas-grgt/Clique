@@ -26,6 +26,7 @@ public class Constants {
     public static final String CLI_COLOR_FORCE = "CLICOLOR_FORCE";
     public static final String COLOR_TERM = "COLORTERM";
     public static final String WT_SESSION = "WT_SESSION";
+    public static final String FORCE_COLOR = "FORCE_COLOR";
 
     private Constants() {
         throw new AssertionError("cannot instantiate this");

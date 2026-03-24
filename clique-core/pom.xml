@@ -6,11 +6,11 @@
     <parent>
         <groupId>io.github.kusoroadeolu</groupId>
         <artifactId>clique</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
     </parent>
 
     <artifactId>clique-core</artifactId>
-    <version>3.1.0</version>
+    <version>3.1.1</version>
 
     <name>clique-core</name>
 
@@ -22,6 +22,12 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>uk.org.webcompere</groupId>
+            <artifactId>system-stubs-jupiter</artifactId>
+            <version>2.1.8</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

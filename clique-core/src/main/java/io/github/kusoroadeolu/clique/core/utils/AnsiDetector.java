@@ -4,24 +4,33 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 
 public final class AnsiDetector {
 
-    private static boolean ANSI_ENABLED = autoDetect();
+    private AnsiDetector() {
+        throw new AssertionError("Cannot instantiate this");
+    }
+
+    private static boolean ansiEnabled = autoDetect();
+
+
+    //FOR TESTS
+    public static boolean testAnsiEnabled() {
+        String cliqueColor = System.getProperty(CLIQUE_COLOR);
+        if (ALWAYS.equals(cliqueColor)) return true;
+        if (NEVER.equals(cliqueColor)) return false;
+        return autoDetect();
+    }
 
     public static boolean ansiEnabled() {
-        return ANSI_ENABLED;
+        return ansiEnabled;
     }
 
     public static void enableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, ALWAYS);
-        ANSI_ENABLED = true;
+        ansiEnabled = true;
     }
 
     public static void disableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, NEVER);
-        ANSI_ENABLED = false;
-    }
-
-    private AnsiDetector() {
-        throw new AssertionError("cannot instantiate this");
+        ansiEnabled = false;
     }
 
     private static boolean autoDetect() {
@@ -31,7 +40,14 @@ public final class AnsiDetector {
         String cliColorForce = System.getenv(CLI_COLOR_FORCE);
         if (cliColorForce != null && !cliColorForce.isEmpty()) return true;
 
-        if (System.console() == null) return false;
+        String forceColor = System.getenv(FORCE_COLOR);
+        if (forceColor != null && !forceColor.isEmpty()) return true;
+
+
+        if (System.console() == null) {
+            String os = System.getProperty(OS_NAME).toLowerCase();
+            if (!os.contains(WIN)) return false;
+        }
 
         String colorTerm = System.getenv(COLOR_TERM);
         if (colorTerm != null) return true;
@@ -39,7 +55,6 @@ public final class AnsiDetector {
         final String term = System.getenv(TERM);
 
         if (term == null) {
-            // Windows Terminal sets WT_SESSION
             if (System.getenv(WT_SESSION) != null) return true;
             String os = System.getProperty(OS_NAME).toLowerCase();
             return os.contains(WIN);
@@ -47,4 +62,7 @@ public final class AnsiDetector {
 
         return !term.equalsIgnoreCase(DUMB) && !term.equalsIgnoreCase(PLAIN);
     }
+
+
+
 }
