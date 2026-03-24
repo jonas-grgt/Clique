@@ -4,15 +4,15 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 
 public final class AnsiDetector {
 
-    private static boolean ANSI_ENABLED = autoDetect(); // mutable, not final
+    private static boolean ANSI_ENABLED = autoDetect();
 
     public static boolean ansiEnabled() {
-        return ANSI_ENABLED; // just return the field
+        return ANSI_ENABLED;
     }
 
     public static void enableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, ALWAYS);
-        ANSI_ENABLED = true; // update cache directly
+        ANSI_ENABLED = true;
     }
 
     public static void disableCliqueColors() {
@@ -37,6 +37,7 @@ public final class AnsiDetector {
         if (colorTerm != null) return true;
 
         final String term = System.getenv(TERM);
+
         if (term == null) {
             // Windows Terminal sets WT_SESSION
             if (System.getenv(WT_SESSION) != null) return true;
