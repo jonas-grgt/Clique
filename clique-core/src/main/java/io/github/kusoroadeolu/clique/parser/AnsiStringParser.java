@@ -11,7 +11,7 @@ public interface AnsiStringParser {
     }
 
     default void print(Object object) {
-        System.out.println(this.parse(object.toString()));
+        this.print(object.toString());
     }
 
     String parse(Object object);

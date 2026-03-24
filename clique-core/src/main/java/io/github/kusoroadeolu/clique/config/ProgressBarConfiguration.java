@@ -1,6 +1,5 @@
 package io.github.kusoroadeolu.clique.config;
 
-import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPredicate;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
@@ -34,6 +33,25 @@ public class ProgressBarConfiguration {
 
     public static ProgressBarConfigurationBuilder immutableBuilder() {
         return new ProgressBarConfigurationBuilder();
+    }
+
+    public static ProgressBarConfigurationBuilder fromPreset(ProgressBarPreset preset) {
+        Objects.requireNonNull(preset, "Preset cannot be null");
+        var config = preset.getConfiguration();
+        return ProgressBarConfiguration
+                .immutableBuilder()
+                .length(config.length)
+                .complete(config.complete)
+                .incomplete(config.incomplete)
+                .format(config.format);
+    }
+
+    public static ProgressBarConfiguration fromEasing(EasingConfiguration easing) {
+        Objects.requireNonNull(easing, "Easing config cannot be null");
+        return ProgressBarConfiguration
+                .immutableBuilder()
+                .easing(easing)
+                .build();
     }
 
     // Get the format based on current percent
@@ -100,7 +118,7 @@ public class ProgressBarConfiguration {
         private char complete = '█';
         private char incomplete = '░';
         private String format = ":bar :percent% [:elapsed/:remaining]";
-        private AnsiStringParser parser = Clique.parser();
+        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
         private List<ProgressBarPredicate> styles = new ArrayList<>();
         private EasingConfiguration easing = EasingConfiguration.DEFAULT;
 

@@ -1,12 +1,13 @@
 package io.github.kusoroadeolu.clique.config;
 
 
-import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotNull;
 
 public class TableConfiguration {
     public static final TableConfiguration DEFAULT = new TableConfiguration();
@@ -34,6 +35,11 @@ public class TableConfiguration {
 
     public static TableConfigurationBuilder immutableBuilder() {
         return new TableConfigurationBuilder();
+    }
+
+    public static TableConfiguration fromBorderStyle(BorderStyle style) {
+        assertStyleNotNull(style);
+        return TableConfiguration.immutableBuilder().borderStyle(style).build();
     }
 
     public int getPadding() {
@@ -88,7 +94,7 @@ public class TableConfiguration {
     public static class TableConfigurationBuilder {
         private int padding = 1;
         private CellAlign alignment = CellAlign.LEFT;
-        private AnsiStringParser parser = Clique.parser();
+        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
         private String nullReplacement = "";
         private Map<Integer, CellAlign> columnAlignment = new HashMap<>();
         private BorderStyle borderStyle = null;
