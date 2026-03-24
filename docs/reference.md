@@ -56,15 +56,15 @@ This is useful when you need to:
 
 You can reuse a `StyleBuilder` instance by calling methods multiple times:
 ```java
-StyleBuilder easingConfigurationBuilder = Clique.styleBuilder();
+StyleBuilder builder = Clique.styleBuilder();
 
 // First message
-easingConfigurationBuilder.append("Loading... ", ColorCode.YELLOW).print();
+builder.append("Loading... ", ColorCode.YELLOW).print();
 
 // Do some work...
 
-// Second message (reuses same easingConfigurationBuilder)
-easingConfigurationBuilder.append("Done!", ColorCode.GREEN).print();
+// Second message (reuses same builder)
+builder.append("Done!", ColorCode.GREEN).print();
 ```
 
 ## Some Table Tips

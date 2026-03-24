@@ -92,7 +92,7 @@ Clique.parser().print("[sunset-0]█[/][sunset-1]█[/][sunset-2]█[/][sunset-3
 
 ## Loading Styles from Config
 
-If you want your styles to live outside the codebase — a `colors.json` or a `.theme` file — you can load and register them at startup:
+If you want your styles to live outside the codebase — a `colors.json` or a `.theme` file, you can load and register them at startup:
 
 ```java
 // colors.json

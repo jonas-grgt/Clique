@@ -18,7 +18,7 @@ public class EasingConfiguration {
     }
 
 
-    private static final int DISABLED_THRESHOLD = -1;
+    private static final int DISABLED_THRESHOLD = 0;
 
     private static EasingConfiguration disabledConfig(){
         return EasingConfiguration
@@ -112,7 +112,7 @@ public class EasingConfiguration {
          * @return this builder
          */
         public EasingConfigurationBuilder duration(int durationMs) {
-            if (durationMs <= 0) throw new IllegalArgumentException("Duration must be positive");
+            if (durationMs < 0) throw new IllegalArgumentException("Duration must be positive");
             this.durationMs = durationMs;
             return this;
         }
@@ -125,7 +125,7 @@ public class EasingConfiguration {
          * @return this builder
          */
         public EasingConfigurationBuilder frames(int frames) {
-            if (frames < 0) throw new IllegalArgumentException("Frames must be greater than 0");
+            if (frames <= 0) throw new IllegalArgumentException("Frames must be greater than or equal to zero");
             this.frames = frames;
             return this;
         }

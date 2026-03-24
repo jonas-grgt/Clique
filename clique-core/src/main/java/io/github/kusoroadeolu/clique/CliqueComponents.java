@@ -31,15 +31,15 @@ final class CliqueComponents {
     // TABLE
 
     public static TableHeaderBuilder table() {
-        return table(TableType.BOX_DRAW);
+        return TableFactory.getTableBuilder(TableType.BOX_DRAW);
     }
 
     public static TableHeaderBuilder table(TableConfiguration configuration) {
-        return table(TableType.BOX_DRAW, configuration);
+        return TableFactory.getTableBuilder(TableType.BOX_DRAW, configuration);
     }
 
     public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) {
-        return table(type, configuration);
+        return TableFactory.getTableBuilder(type, configuration);
     }
 
     public static TableHeaderBuilder table(TableType type) {
@@ -57,11 +57,11 @@ final class CliqueComponents {
     // BOX
 
     public static BoxDimensionBuilder box() {
-        return box(BoxType.ROUNDED);
+        return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED);
     }
 
     public static BoxDimensionBuilder box(BoxConfiguration configuration) {
-        return box(BoxType.ROUNDED, configuration);
+        return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED, configuration);
     }
 
     public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) {
@@ -73,11 +73,11 @@ final class CliqueComponents {
     }
 
     public static BoxDimensionBuilder box(BorderStyle style) {
-        return box(BoxConfiguration.fromBorderStyle(style));
+        return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED, BoxConfiguration.fromBorderStyle(style));
     }
 
     public static BoxDimensionBuilder box(BoxType type, BorderStyle style) {
-        return box(type, BoxConfiguration.fromBorderStyle(style));
+        return BoxFactory.getBoxDimensionBuilder(type, BoxConfiguration.fromBorderStyle(style));
     }
 
 
@@ -102,11 +102,11 @@ final class CliqueComponents {
     }
 
     public static ProgressBar progressBar(int total, ProgressBarPreset preset) {
-        return progressBar(total, preset.getConfiguration());
+        return new ProgressBar(total, preset.getConfiguration());
     }
 
     public static ProgressBar progressBar(int total, EasingConfiguration easing) {
-        return progressBar(total, fromEasing(easing));
+        return new ProgressBar(total, ProgressBarConfiguration.fromEasing(easing));
     }
 
 
@@ -128,11 +128,11 @@ final class CliqueComponents {
     }
 
     public static Frame frame(BorderStyle style) {
-        return frame(FrameConfiguration.fromBorderStyle(style));
+        return new DefaultFrame(FrameConfiguration.fromBorderStyle(style));
     }
 
     public static Frame frame(BoxType type, BorderStyle style) {
-        return frame(type, FrameConfiguration.fromBorderStyle(style));
+        return new DefaultFrame(FrameConfiguration.fromBorderStyle(style), type);
     }
 
 

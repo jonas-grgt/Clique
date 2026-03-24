@@ -15,13 +15,13 @@ Just the SPI module:
 <dependency>
     <groupId>io.github.kusoroadeolu</groupId>
     <artifactId>clique-spi</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
 ```gradle
 // Gradle
-implementation 'io.github.kusoroadeolu:clique-spi:1.0.2'
+implementation 'io.github.kusoroadeolu:clique-spi:1.0.3'
 ```
 
 If you want to reference the built-in themes while building yours, add `clique-themes` too — but it's optional.
@@ -125,9 +125,6 @@ public class SolarizedDarkTheme implements CliqueTheme {
     }
 }
 ```
-
-The `put()` helper is worth stealing — registering foreground and background together means you never forget one or the other.
-
 ---
 
 ## Working from hex
@@ -150,7 +147,7 @@ private AnsiCode hexToAnsi(String hex, boolean bg) {
 }
 ```
 
-Then your palette becomes just a list of names and hex values — readable, easy to update:
+Then your palette becomes just a list of names and hex values, readable, easy to update:
 
 ```java
 addHex(colors, "corp_navy",    "#003366");
@@ -243,7 +240,7 @@ theme.styles().forEach((name, code) -> {
 });
 ```
 
-It's rough, but it catches the common mistakes — missing `toString()`, forgotten colors, names that clash.
+It's rough, but it catches the common mistakes, missing `toString()`, forgotten colors, names that clash.
 
 ---
 
