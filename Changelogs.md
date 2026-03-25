@@ -1,4 +1,4 @@
-# Changelog
+**# Changelog
 
 ## Clique [3.1.0] - 2026-03-21
 
@@ -75,4 +75,21 @@ Changes to the SPI module in this release.
 ---
 ...
 
-Report issues at: https://github.com/kusoroadeolu/Clique/issues
+# Changelog
+
+## Clique [3.1.2] - 2026-03-26
+**NOTE:** Most of these changes are internal changes and don't affect the public facing API
+
+### Changed
+- `Frame` padding is now applied symmetrically on both sides for all alignment values, matching `Box` padding behaviour
+- `BorderStyle#styleBuilder()` now returns a fresh `StyleBuilder` instance per call instead of a cached shared instance, eliminates mutable shared state on an otherwise immutable config object
+
+### Removed
+- Word wrap pipeline from `AbstractBox` -> `wrapWord()`, `adjustBox()` removed from `AbstractBox`; `wrapLongString()`, `getActiveAnsiCodes()`, `getStyledEndIndex()` removed from `StringUtils`; `splitAndPreserveAnsi()` removed from `BoxUtils`
+
+### Added
+- `resolveLines()` -> splits box content on `\n`, returns `List<Cell>`
+- `resolveDimensions()` -> validates explicit dimensions or computes them for `autoSize`
+- `Box#content(String, TextAlign)` and `Box#content(Object, TextAlign)` -> convenience overloads for setting content and alignment inline
+
+Report issues at: https://github.com/kusoroadeolu/Clique/issues**
