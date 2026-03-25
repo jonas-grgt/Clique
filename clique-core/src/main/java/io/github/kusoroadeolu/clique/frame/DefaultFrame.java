@@ -70,8 +70,9 @@ public class DefaultFrame implements  Frame {
 
     @Override
     public DefaultFrame width(int width) {
-        if (width <= 0) throw new InvalidDimensionException("Width cannot be zero or negative");
-        this.width = width;
+        if (width <= 0) throw new InvalidDimensionException(
+                "Frame width must be greater than zero, got: %d".formatted(width)
+        );        this.width = width;
         return this;
     }
 
@@ -111,44 +112,93 @@ public class DefaultFrame implements  Frame {
 
         var parsedTitle = parseToCell(appendedTitle, configuration.getParser());
         int titleWidth = parsedTitle.width() + 2;
+        int nodesMaxWidth = findNodesMaxWidth(); //Max content width
 
-        int resolvedWidth = (this.width == NO_WIDTH_SET ? findNodesMaxWidth() : this.width);
+        int givenWidth = (noWidthSet() ? nodesMaxWidth + (configuration.getPadding() * 2) : this.width);
 
-        if (this.width == NO_WIDTH_SET && !parsedTitle.isBlank()) {
-            resolvedWidth = Math.max(resolvedWidth, titleWidth);
+        if (noWidthSet() && !parsedTitle.isBlank()) {
+            givenWidth = Math.max(givenWidth, titleWidth);
         }
 
-        int paddedWidth = resolvedWidth + configuration.getPadding();
-        if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, resolvedWidth);
+        int availableWidth = givenWidth - (configuration.getPadding() * 2);
+        if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, givenWidth);
+
+        if (nodesMaxWidth > availableWidth) {
+            throw new InvalidDimensionException(
+                    "Content width (%d) exceeds available frame width (%d). Either increase frame width to at least %d or reduce content size."
+                            .formatted(nodesMaxWidth, availableWidth, nodesMaxWidth + (configuration.getPadding() * 2))
+            );
+        }
 
         var sb = new StringBuilder();
-
-        appendTitleToBox(parsedTitle, paddedWidth, titleWidth, sb);
+        appendTitleToBox(parsedTitle, givenWidth, titleWidth, sb); //Using given width, not available width here, since avail width is meant for content not title
 
         for (FrameNode node : nodes) {
-            align(node, resolvedWidth ,paddedWidth , sb, borderChars);
+            align(node, givenWidth  , sb);
         }
 
         sb.append(borderChars.bottomLeft())
-                .append(borderChars.hLine().repeat(paddedWidth))
+                .append(borderChars.hLine().repeat(givenWidth))
                 .append(borderChars.bottomRight())
                 .append(NEWLINE);
 
         return sb.toString();
     }
 
-    void appendTitleToBox(Cell parsedTitle, int resolvedWidth, int titleWidth, StringBuilder sb){
+    //Given width = well the given width, avail width = width - (padding * 2), in the case of no width set, the avail width = max node width, given width = (width) + (padding * 2)
+    void align(FrameNode node ,int availableWidth, StringBuilder sb) {
+        var borderChar = this.borderChars;
+        var padding = configuration.getPadding();
+        int contentWidth = node.maxWidth();
+
+        String fixed = BLANK.repeat(padding);
+        int rem = availableWidth - contentWidth; //Given avail width = 6, content width = 5, we should append fixed, then the remainder = avail width
+        for (var line : node.lines()) {
+            String content = line.styledText();
+            switch (node.align()){
+                case RIGHT -> sb.append(borderChar.vLine())
+                        .append(fixed)
+                        .append(BLANK.repeat(rem))
+                        .append(content)
+                        .append(fixed)
+                        .append(borderChar.vLine())
+                        .append(NEWLINE);
+                case LEFT -> sb.append(borderChar.vLine())
+                        .append(fixed)
+                        .append(content)
+                        .append(BLANK.repeat(rem))
+                        .append(fixed)
+                        .append(borderChar.vLine())
+                        .append(NEWLINE);
+
+                case CENTER -> {
+                    int leftPad = rem / 2;
+                    int rightPad = rem - leftPad;
+                    sb.append(borderChar.vLine())
+                            .append(fixed)
+                            .append(BLANK.repeat(leftPad))
+                            .append(content)
+                            .append(BLANK.repeat(rightPad))
+                            .append(fixed)
+                            .append(borderChar.vLine())
+                            .append(NEWLINE);
+                }
+            }
+        }
+    }
+
+    void appendTitleToBox(Cell parsedTitle, int givenWidth, int titleWidth, StringBuilder sb){
         if (!parsedTitle.isBlank()) {
-            int leftWidth = findTitleBlockOffset(resolvedWidth, titleWidth, titleAlign);
+            int leftWidth = findTitleBlockOffset(givenWidth, titleWidth, titleAlign);
             sb.append(borderChars.topLeft())
                     .append(borderChars.hLine().repeat(leftWidth))
                     .append(BLANK).append(parsedTitle.styledText()).append(BLANK)
-                    .append(borderChars.hLine().repeat(resolvedWidth - titleWidth - leftWidth))
+                    .append(borderChars.hLine().repeat(givenWidth - titleWidth - leftWidth))
                     .append(borderChars.topRight())
                     .append(NEWLINE);
         } else {
             sb.append(borderChars.topLeft())
-                    .append(borderChars.hLine().repeat(resolvedWidth))
+                    .append(borderChars.hLine().repeat(givenWidth))
                     .append(borderChars.topRight())
                     .append(NEWLINE);
         }
@@ -158,32 +208,7 @@ public class DefaultFrame implements  Frame {
         return nodes.stream()
                 .mapToInt(FrameNode::maxWidth)
                 .max()
-                .getAsInt();
-    }
-
-    void align(FrameNode node, int resolvedWidth ,int paddedWidth, StringBuilder sb, BorderChars borderChar) {
-        int contentWidth = node.maxWidth();
-        if (contentWidth > resolvedWidth) throw new IllegalArgumentException("String with width %s is greater than frame width %s".formatted(contentWidth, paddedWidth));
-
-        int blockOffset = findBlockOffset(paddedWidth, contentWidth, node.align(), configuration.getPadding());
-        for (var line : node.lines()) {
-            String content = line.styledText();
-            int rightPad = paddedWidth - blockOffset - line.width();
-            sb.append(borderChar.vLine())
-                    .append(BLANK.repeat(blockOffset))
-                    .append(content)
-                    .append(BLANK.repeat(Math.max(ZERO, rightPad)))
-                    .append(borderChar.vLine())
-                    .append(NEWLINE);
-        }
-    }
-
-    static int findBlockOffset(int innerWidth, int contentWidth, FrameAlign align, int padding) {
-        return switch (align) {
-            case LEFT -> ZERO + padding;
-            case RIGHT -> innerWidth - contentWidth - padding;
-            case CENTER -> (innerWidth - contentWidth) / 2;
-        };
+                .orElse(ZERO);
     }
 
     static int findTitleBlockOffset(int innerWidth, int contentWidth, FrameAlign align) {
@@ -194,9 +219,16 @@ public class DefaultFrame implements  Frame {
         };
     }
 
+    boolean noWidthSet(){
+        return this.width == NO_WIDTH_SET;
+    }
+
     void validateTitleWidth(int titleWidth, int resolvedWidth) {
         if (titleWidth > resolvedWidth)
-            throw new IllegalArgumentException("Title of width %s is greater than DefaultFrame of width %s".formatted(titleWidth, resolvedWidth));
+            throw new InvalidDimensionException(
+                    "Title width (%d) exceeds frame width (%d). Increase frame width to at least %d or shorten the title."
+                            .formatted(titleWidth, resolvedWidth, titleWidth)
+            );
     }
 
 
