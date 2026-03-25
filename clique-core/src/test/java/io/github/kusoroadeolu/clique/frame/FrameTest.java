@@ -38,13 +38,10 @@ class FrameTest {
         return StringUtils.stripAnsi(s);
     }
 
-    // -------------------------
-    // Validation tests
-    // -------------------------
 
     @Test
     void throwsWhenTitleWiderThanFrameAtRenderTime() {
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(InvalidDimensionException.class, () ->
                 frame.width(5)
                         .title("This title is way too long")
                         .nest("hi")
@@ -122,12 +119,15 @@ class FrameTest {
     @Test
     void allContentLinesHaveSameWidth() {
         String rendered = stripAnsi(
-                frame.nest("short")
+                frame.nest("short", FrameAlign.LEFT)
+                        .width(28)
                         .nest("a much longer line")
                         .get()
         );
+        System.out.println(rendered);
         String[] ls = lines(rendered);
         int expectedWidth = ls[0].length();
+        System.out.println("Width: " + expectedWidth);
         for (String line : ls) {
             assertEquals(expectedWidth, line.length(), "Line width mismatch: [" + line + "]");
         }

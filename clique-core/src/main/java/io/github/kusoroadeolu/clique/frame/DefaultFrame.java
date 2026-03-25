@@ -134,7 +134,7 @@ public class DefaultFrame implements  Frame {
         appendTitleToBox(parsedTitle, givenWidth, titleWidth, sb); //Using given width, not available width here, since avail width is meant for content not title
 
         for (FrameNode node : nodes) {
-            align(node, givenWidth  , sb);
+            align(node, availableWidth  , sb);
         }
 
         sb.append(borderChars.bottomLeft())
@@ -152,6 +152,7 @@ public class DefaultFrame implements  Frame {
         int contentWidth = node.maxWidth();
 
         String fixed = BLANK.repeat(padding);
+
         int rem = availableWidth - contentWidth; //Given avail width = 6, content width = 5, we should append fixed, then the remainder = avail width
         for (var line : node.lines()) {
             String content = line.styledText();
@@ -163,6 +164,7 @@ public class DefaultFrame implements  Frame {
                         .append(fixed)
                         .append(borderChar.vLine())
                         .append(NEWLINE);
+
                 case LEFT -> sb.append(borderChar.vLine())
                         .append(fixed)
                         .append(content)
