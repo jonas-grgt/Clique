@@ -1,6 +1,6 @@
 # Boxes
 
-Boxes are single-cell containers that display text with borders and support text wrapping. They're perfect for displaying standalone messages, warnings, or long-form text.
+Boxes are single-cell containers that display text with borders and support text. They're perfect for displaying standalone messages, warnings, or long-form text.
 
 ## Box Types
 
@@ -50,14 +50,40 @@ Box box = Clique.box()
 Boxes handle newlines properly and will wrap text accordingly:
 ```java
 Box box = Clique.box(BoxType.CLASSIC)
+        .withDimensions(40, 10)
+        .content(
+                """
+                    [green, bold]Success![/]
+                    Your operation completed successfully.
+                    You can now proceed to the next step.
+                """
+        )
+        .render();
+```
+
+
+### Text alignment
+Boxes support range of text alignment, with the default being centered
+```java
+Box box = Clique.box(BoxType.CLASSIC)
     .withDimensions(40, 10)
     .content(
-        "[green, bold]Success![/]\n\n" +
-        "Your operation completed successfully.\n" +
-        "You can now proceed to the next step."
+            """
+                [green, bold]Success![/]
+                 Your operation completed successfully.
+                 You can now proceed to the next step.
+            """, TextAlign.CENTER
     )
     .render();
 ```
+
+Available alignments:
+- `TextAlign.TOP_LEFT`, `TextAlign.TOP_CENTER`, `TextAlign.TOP_RIGHT` - Left-aligned (default)
+- `TextAlign.CENTER_LEFT`, `TextAlign.CENTER`, `TextAlign.CENTER_RIGHT`  - Centered
+- `TextAlign.BOTTOM_LEFT`, `TextAlign.BOTTOM_CENTER`, `TextAlign.BOTTOM_RIGHT` - Right-aligned
+
+
+### 
 
 ## Box Configuration
 
@@ -87,22 +113,15 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
     .build();
 ```
 
-Available alignments:
-- `TextAlign.LEFT` - Left-aligned (default)
-- `TextAlign.CENTER` - Centered
-- `TextAlign.RIGHT` - Right-aligned
+#### Padding
+Pads both sides of the box with the given number
 
-#### Center Padding
-
-Reduces the drawable area of the box from both sides, creating inner breathing room around the content:
 ```java
 BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .textAlign(TextAlign.CENTER)
-    .centerPadding(3)  // Shrinks drawable area by 3 characters on each side
+    .padding(3)  // Shrinks drawable area by 3 characters on each side
     .build();
 ```
 
-> **Note:** `centerPadding` affects both horizontal and vertical space. A value of `2` means the content area is reduced by 2 characters on all sides.
 #### Auto Size
 
 Let the box automatically resize to fit its content:
@@ -177,18 +196,14 @@ Box box = Clique.box(BoxType.DOUBLE_LINE, config)
 All box types support border customization, which returns a `Box` for fluent chaining:
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-        .uniformStyle(blue)
+        .uniformStyle("blue")
         .cornerChar('*')
         .horizontalChar('~')
         .verticalChar('I')
         .build();
 
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .autoSize()
-    .build();
-
-Clique.box(config)
-    .noDimensions()
+Clique.box(style)
+    .withDimensions(10, 20)
     .content("[red]This is my custom box :)[/]")
     .render();
 ```

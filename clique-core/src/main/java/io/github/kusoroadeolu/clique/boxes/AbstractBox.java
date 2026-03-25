@@ -2,27 +2,28 @@ package io.github.kusoroadeolu.clique.boxes;
 
 
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
+import io.github.kusoroadeolu.clique.config.TextAlign;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
-import io.github.kusoroadeolu.clique.core.structures.Cell;
-import io.github.kusoroadeolu.clique.core.utils.CharWidth;
-import io.github.kusoroadeolu.clique.core.utils.Constants;
+import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
+import io.github.kusoroadeolu.clique.core.utils.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.splitAndPreserveAnsi;
-import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.validateDimensions;
-import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.*;
+import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 
 public abstract class AbstractBox implements Box {
     int width;
     int height;
-    Cell boxContent;
+    String boxContent;
     String cachedString = null;
-    List<Cell> contentWrap;
+    WidthAwareList cells;
     BoxConfiguration boxConfiguration;
+    TextAlign align = null; //Takes precedence over box config only if not null
+
+    private static final String BOX_CONTENT_NOT_NULL = "Box content cannot be null";
+    private static final String OBJECT_NOT_NULL = "Object given cannot be null";
+    private static final String TEXT_ALIGN_NOT_NULL = "Text align cannot be null";
+
 
     public AbstractBox() {
         this(ZERO, ZERO);
@@ -31,102 +32,67 @@ public abstract class AbstractBox implements Box {
     AbstractBox(int width, int height) {
         this.width = width;
         this.height = height;
-        this.contentWrap = new ArrayList<>();
+        this.cells = new WidthAwareList();
         this.boxConfiguration = BoxConfiguration.DEFAULT;
     }
 
+    @Override
     public Box content(String content) {
-        Objects.requireNonNull(content, "Box content cannot be null");
-        this.boxContent = parseToCell(content, this.boxConfiguration.getParser());
+        Objects.requireNonNull(content, BOX_CONTENT_NOT_NULL);
+        this.boxContent = content;
         cachedString = null;
         return this;
     }
 
     @Override
     public Box content(Object object) {
-        Objects.requireNonNull(object, "Object cannot be null");
+        Objects.requireNonNull(object, OBJECT_NOT_NULL);
         return this.content(object.toString());
     }
 
-    protected void wrapWord() {
-        if ((this.boxContent == null || this.boxContent.isBlank()) && !this.boxConfiguration.getAutoSize()) {
-            return;
-        }
+    @Override
+    public Box content(String content, TextAlign align) {
+        Objects.requireNonNull(content, BOX_CONTENT_NOT_NULL);
+        Objects.requireNonNull(align, TEXT_ALIGN_NOT_NULL);
+        this.boxContent = content;
+        this.align = align;
+        cachedString = null;
+        return this;
+    }
 
-        this.contentWrap.clear();
-        this.adjustBox();
-
-        final int maxCharsPerLine = this.width - (this.boxConfiguration.getPadding() * 2);
-
-        final String originalContent = this.boxContent.text();
-        final String styledContent = this.boxContent.styledText();
-        final String[] originalLines = originalContent.split(Constants.NEWLINE_PATTERN.pattern(), -1);
-        final String[] styledLines = styledContent.split(Constants.NEWLINE_PATTERN.pattern(), -1);
-
-        // Process each line independently
-        for (int i = 0; i < originalLines.length; i++) {
-            final String originalLine = originalLines[i];
-            final String styledLine = styledLines[i];
-            if (originalLine.isEmpty()) {
-                this.contentWrap.add(new Cell(Constants.EMPTY, Constants.EMPTY));
-                continue;
-            }
-
-            // Split line into words
-            final String[] originalWords = filterWhitespace(originalLine.split(SPACES_PATTERN.pattern()));
-            final String[] styledWords = filterWhitespace(splitAndPreserveAnsi(styledLine));
-
-            final var currentOriginal = new StringBuilder();
-            final var currentStyled = new StringBuilder();
-
-            for (int j = 0; j < originalWords.length; j++) {
-                final String originalWord = originalWords[j];
-                final String styledWord = styledWords[j];
-
-                // Check if adding this word would overflow
-                if ((CharWidth.of(currentOriginal.toString()) + CharWidth.of(originalWord)) + 1 > maxCharsPerLine) {
-                    wrapLongString(currentOriginal, currentStyled, this.contentWrap, maxCharsPerLine);
-                    if (!currentOriginal.isEmpty()) {
-                        this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
-                        clearStringBuilder(currentOriginal);
-                        clearStringBuilder(currentStyled);
-                    }
-                }
-
-                if (!currentOriginal.isEmpty()) {
-                    currentOriginal.append(BLANK);
-                    currentStyled.append(BLANK);
-                }
-
-                currentOriginal.append(originalWord);
-                currentStyled.append(styledWord);
-            }
-
-            // Add the last line from this newline
-            if (!currentOriginal.isEmpty()) {
-                wrapLongString(currentOriginal, currentStyled, this.contentWrap, maxCharsPerLine);
-                this.contentWrap.add(new Cell(currentOriginal.toString(), currentStyled.toString()));
-            }
-        }
+    @Override
+    public Box content(Object object, TextAlign align) {
+        Objects.requireNonNull(object, OBJECT_NOT_NULL);
+        return content(object.toString(), align);
+    }
 
 
-        if (this.boxConfiguration.getAutoSize() && this.height <= this.contentWrap.size()) {
-            this.height = this.contentWrap.size() + 2;
-            return;
-        }
+    protected void resolveDimensions(WidthAwareList cells) {
+        var config = this.boxConfiguration;
+        int padding = config.getPadding();
 
-        if (this.height < this.contentWrap.size()) {
-            throw new InvalidDimensionException("The length of this box is too little. Try enabling auto size");
+        if (config.getAutoSize()) {
+            this.width = cells.longest() + (padding * 2);
+            this.height = cells.size(); //Taking into account the top and bottom border
+        } else {
+            int usableWidth = this.width - (padding * 2);
+            int contentWidth = cells.longest();
+            int contentHeight = cells.size();
+
+            if (contentWidth > usableWidth) throw new InvalidDimensionException("Width: %s is less than max width of string %s".formatted(this.width, contentWidth));
+            if (contentHeight > height) throw new InvalidDimensionException("Height: %s is less than max height of string %s".formatted(this.height, contentHeight));
         }
     }
 
-    protected void adjustBox() {
-        final String originalContent = this.boxContent.text();
-        final int longest = getLengthOfLongestString(originalContent);
-        if (this.boxConfiguration.getAutoSize())
-            this.width = Math.max(this.width, longest) + (this.boxConfiguration.getPadding() * 2);
-        else validateDimensions(this.width, this.height);
+    WidthAwareList resolveLines(){
+        var parser = boxConfiguration.getParser();
+        var cellList = boxContent.lines()
+                .map(s -> StringUtils.parseToCell(s, parser))
+                .toList();
+        return new WidthAwareList(cellList);
     }
+
+    //Splits the box content per newline, maps each chunk to a cell and encompasses them in a list
 
 
     @Override
@@ -134,12 +100,12 @@ public abstract class AbstractBox implements Box {
         if (object == null || getClass() != object.getClass()) return false;
 
         AbstractBox that = (AbstractBox) object;
-        return width == that.width && height == that.height && Objects.equals(boxContent, that.boxContent) && Objects.equals(contentWrap, that.contentWrap) && Objects.equals(boxConfiguration, that.boxConfiguration);
+        return width == that.width && height == that.height && Objects.equals(boxContent, that.boxContent) && Objects.equals(cachedString, that.cachedString) && Objects.equals(cells, that.cells) && Objects.equals(boxConfiguration, that.boxConfiguration) && align == that.align;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(width, height, boxContent, contentWrap, boxConfiguration);
+        return Objects.hash(width, height, boxContent, cachedString, cells, boxConfiguration, align);
     }
 
     public static class BoxDimensionBuilder {
@@ -155,6 +121,7 @@ public abstract class AbstractBox implements Box {
                         "Width and height must be greater than 0. To skip dimensions, enable autoSize() in BoxConfiguration and call noDimensions()."
                 );
             }
+
             this.box.height = height;
             this.box.width = width;
             return box;
@@ -169,6 +136,8 @@ public abstract class AbstractBox implements Box {
             this.box.height = 0;
             return this.box;
         }
+
+
     }
 
     /**

@@ -103,7 +103,7 @@ public class ProgressBarConfiguration {
     @Override
     public String toString() {
         return "ProgressBarConfiguration[" +
-                "length=" + length +
+                "height=" + length +
                 ", complete=" + complete +
                 ", incomplete=" + incomplete +
                 ", format='" + format + '\'' +

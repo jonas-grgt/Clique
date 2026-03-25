@@ -10,22 +10,24 @@ import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotN
 public class BoxConfiguration {
     public static final BoxConfiguration DEFAULT = new BoxConfiguration();
 
-    private final int padding;
+    private final int centerPadding;
     private final TextAlign textAlign;
     private final AnsiStringParser parser;
     private final BorderStyle borderStyle;
     private final boolean autoSize;
+    private final int padding;
 
     private BoxConfiguration() {
         this(new BoxConfigurationBuilder());
     }
 
     private BoxConfiguration(BoxConfigurationBuilder builder) {
-        this.padding = builder.padding;
+        this.centerPadding = builder.centerPadding;
         this.textAlign = builder.textAlign;
         this.parser = builder.parser;
         this.borderStyle = builder.borderStyle;
         this.autoSize = builder.autoSize;
+        this.padding = builder.padding;
     }
 
     public static BoxConfigurationBuilder immutableBuilder() {
@@ -35,7 +37,10 @@ public class BoxConfiguration {
 
     public static BoxConfiguration fromBorderStyle(BorderStyle style) {
         assertStyleNotNull(style);
-        return BoxConfiguration.immutableBuilder().borderStyle(style).build();
+        return BoxConfiguration
+                .immutableBuilder()
+                .borderStyle(style)
+                .build();
     }
 
     public int getPadding() {
@@ -47,7 +52,7 @@ public class BoxConfiguration {
      */
     @Deprecated(forRemoval = true, since = "3.1")
     public int getCenterPadding() {
-        return this.padding;
+        return this.centerPadding;
     }
 
     public boolean getAutoSize() {
@@ -68,7 +73,7 @@ public class BoxConfiguration {
 
     public String toString() {
         return "BoxConfiguration[" +
-                "centerPadding=" + padding +
+                "centerPadding=" + centerPadding +
                 ", textAlign=" + textAlign +
                 ", parser=" + parser +
                 ", borderStyle=" + borderStyle +
@@ -81,31 +86,36 @@ public class BoxConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         BoxConfiguration that = (BoxConfiguration) object;
-        return padding == that.padding && autoSize == that.autoSize && textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
+        return centerPadding == that.centerPadding && autoSize == that.autoSize && textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(padding, autoSize, textAlign, parser, borderStyle);
+        return Objects.hash(centerPadding, autoSize, textAlign, parser, borderStyle);
     }
 
     public static class BoxConfigurationBuilder {
-        private int padding = 2;
+        private int centerPadding = 2;
         private TextAlign textAlign = TextAlign.CENTER;
         private AnsiStringParser parser = AnsiStringParser.DEFAULT;
         private BorderStyle borderStyle = null;
         private boolean autoSize = false;
+        private int padding = 2;
 
         /**
          * @deprecated As of 3.1, due to confusing/incorrect semantics. This will be removed in a future release.
          */
         @Deprecated(since = "3.1")
         public BoxConfigurationBuilder centerPadding(int padding) {
-            if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
-            this.padding = padding;
+            if (padding < 0) throw new IllegalArgumentException("Center padding cannot be negative");
+            this.centerPadding = padding;
             return this;
         }
 
+        public void padding(int padding) {
+            if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
+            this.padding = padding;
+        }
 
         public BoxConfigurationBuilder autoSize() {
             this.autoSize = true;

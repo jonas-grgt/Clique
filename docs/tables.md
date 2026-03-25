@@ -219,8 +219,10 @@ TableConfiguration config = TableConfiguration
         .borderStyle(style)
         .padding(1)
         .build();
+
 // Without configuration
 Clique.table(TableType.DEFAULT, config)
+    .headers("A", "B")
     .row("A", "B")
     .render();
 ```
