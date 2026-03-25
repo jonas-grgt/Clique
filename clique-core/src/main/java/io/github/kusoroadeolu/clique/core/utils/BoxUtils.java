@@ -5,8 +5,6 @@ import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.boxes.BoxWrapper;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TextAlign;
-import io.github.kusoroadeolu.clique.core.exceptions.ExceptionSupplier;
-import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
@@ -96,13 +94,6 @@ public class BoxUtils {
         sb.append(boxWrapper.bLeft()).append(hLines).append(boxWrapper.bRight());
     }
 
-    public static <T> T handleDimensionsEx(ExceptionSupplier<T> e) {
-        try {
-            return e.supply();
-        } catch (IllegalArgumentException | StringIndexOutOfBoundsException ex) {
-            throw new InvalidDimensionException("The dimensions of this box are too small to wrap around the given content. You can prevent this by using the `autoSize` box configuration", ex);
-        }
-    }
 
     public static void applyAnsiToBorders(BorderChars borderChar, BorderStyle borderStyle) {
         final StyleBuilder sb = borderStyle.styleBuilder();

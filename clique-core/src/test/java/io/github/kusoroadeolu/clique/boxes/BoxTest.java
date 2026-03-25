@@ -152,7 +152,6 @@ class BoxTest {
     }
 
 
-    //TESTS FOR API CHANGES
     @Test
     void alignTopRight_shouldBeShifted_toRight(){
         var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.immutableBuilder().parser(null).build())
@@ -162,5 +161,7 @@ class BoxTest {
         String second  = lines.get(1);
         String firstChar = second.substring(second.length() - 7, second.length() - 6);
         assertEquals("T", firstChar);
+        //NORMALLY these will be cramped at their respective positions
+
     }
 }
