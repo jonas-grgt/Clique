@@ -20,12 +20,10 @@ public class BorderStyle {
     private final AnsiCode[] verticalStyle;
     private final AnsiCode[] horizontalStyle;
     private final AnsiCode[] edgeStyle;
-    private final StyleBuilder styleBuilder;
     private final char cornerChar;
     private final char verticalChar;
     private final char horizontalChar;
     private final boolean modifiedChar;
-
 
     private BorderStyle() {
         this(new BorderStyleBuilder());
@@ -39,7 +37,6 @@ public class BorderStyle {
         this.cornerChar = builder.cornerChar;
         this.verticalChar = builder.verticalChar;
         this.horizontalChar = builder.horizontalChar;
-        this.styleBuilder = Clique.styleBuilder();
         this.modifiedChar = builder.modifiedChar;
     }
 
@@ -48,7 +45,7 @@ public class BorderStyle {
     }
 
     public StyleBuilder styleBuilder() {
-        return this.styleBuilder;
+        return Clique.styleBuilder();
     }
 
     public boolean hasModifiedChar(){
@@ -105,7 +102,7 @@ public class BorderStyle {
         if (object == null || getClass() != object.getClass()) return false;
 
         BorderStyle that = (BorderStyle) object;
-        return cornerChar == that.cornerChar && verticalChar == that.verticalChar && horizontalChar == that.horizontalChar && Arrays.equals(verticalStyle, that.verticalStyle) && Arrays.equals(horizontalStyle, that.horizontalStyle) && Arrays.equals(edgeStyle, that.edgeStyle) && Objects.equals(styleBuilder, that.styleBuilder);
+        return cornerChar == that.cornerChar && verticalChar == that.verticalChar && horizontalChar == that.horizontalChar && Arrays.equals(verticalStyle, that.verticalStyle) && Arrays.equals(horizontalStyle, that.horizontalStyle) && Arrays.equals(edgeStyle, that.edgeStyle);
     }
 
     @Override
