@@ -70,8 +70,9 @@ public class DefaultFrame implements  Frame {
 
     @Override
     public DefaultFrame width(int width) {
-        if (width <= 0) throw new InvalidDimensionException("Width cannot be zero or negative");
-        this.width = width;
+        if (width <= 0) throw new InvalidDimensionException(
+                "Frame width must be greater than zero, got: %d".formatted(width)
+        );        this.width = width;
         return this;
     }
 
@@ -111,8 +112,9 @@ public class DefaultFrame implements  Frame {
 
         var parsedTitle = parseToCell(appendedTitle, configuration.getParser());
         int titleWidth = parsedTitle.width() + 2;
+        int nodesMaxWidth = findNodesMaxWidth(); //Max content width
 
-        int givenWidth = (noWidthSet() ? findNodesMaxWidth() + (configuration.getPadding() * 2) : this.width);
+        int givenWidth = (noWidthSet() ? nodesMaxWidth + (configuration.getPadding() * 2) : this.width);
 
         if (noWidthSet() && !parsedTitle.isBlank()) {
             givenWidth = Math.max(givenWidth, titleWidth);
@@ -121,11 +123,18 @@ public class DefaultFrame implements  Frame {
         int availableWidth = givenWidth - (configuration.getPadding() * 2);
         if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, givenWidth);
 
+        if (nodesMaxWidth > availableWidth) {
+            throw new InvalidDimensionException(
+                    "Content width (%d) exceeds available frame width (%d). Either increase frame width to at least %d or reduce content size."
+                            .formatted(nodesMaxWidth, availableWidth, nodesMaxWidth + (configuration.getPadding() * 2))
+            );
+        }
+
         var sb = new StringBuilder();
         appendTitleToBox(parsedTitle, givenWidth, titleWidth, sb); //Using given width, not available width here, since avail width is meant for content not title
 
         for (FrameNode node : nodes) {
-            align(node, givenWidth , availableWidth , sb);
+            align(node, givenWidth  , sb);
         }
 
         sb.append(borderChars.bottomLeft())
@@ -137,13 +146,10 @@ public class DefaultFrame implements  Frame {
     }
 
     //Given width = well the given width, avail width = width - (padding * 2), in the case of no width set, the avail width = max node width, given width = (width) + (padding * 2)
-    void align(FrameNode node, int givenWidth ,int availableWidth, StringBuilder sb) {
+    void align(FrameNode node ,int availableWidth, StringBuilder sb) {
         var borderChar = this.borderChars;
         var padding = configuration.getPadding();
         int contentWidth = node.maxWidth();
-        if (contentWidth > availableWidth) {
-            throw new InvalidDimensionException("String with width %s is greater than frame width %s".formatted(contentWidth, givenWidth));
-        }
 
         String fixed = BLANK.repeat(padding);
         int rem = availableWidth - contentWidth; //Given avail width = 6, content width = 5, we should append fixed, then the remainder = avail width
@@ -219,7 +225,10 @@ public class DefaultFrame implements  Frame {
 
     void validateTitleWidth(int titleWidth, int resolvedWidth) {
         if (titleWidth > resolvedWidth)
-            throw new IllegalArgumentException("Title of width %s is greater than DefaultFrame of width %s".formatted(titleWidth, resolvedWidth));
+            throw new InvalidDimensionException(
+                    "Title width (%d) exceeds frame width (%d). Increase frame width to at least %d or shorten the title."
+                            .formatted(titleWidth, resolvedWidth, titleWidth)
+            );
     }
 
 
