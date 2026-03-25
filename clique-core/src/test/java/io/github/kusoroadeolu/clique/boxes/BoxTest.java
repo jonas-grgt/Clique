@@ -154,7 +154,7 @@ class BoxTest {
 
     @Test
     void alignTopRight_shouldBeShifted_toRight(){
-        var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.immutableBuilder().parser(null).build())
+        var box = Clique.box(BoxType.ROUNDED)
                 .withDimensions(50, 9)
                 .content("Test", TextAlign.TOP_RIGHT);
         var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
@@ -164,4 +164,48 @@ class BoxTest {
         //NORMALLY these will be cramped at their respective positions
 
     }
+
+    @Test
+    void textAlign_whenNull_shouldUseBoxConfigAlign(){
+        var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.immutableBuilder().textAlign(TextAlign.TOP_RIGHT).build())
+                .withDimensions(50, 9)
+                .content("Test");
+        var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        String second  = lines.get(1);
+        String firstChar = second.substring(second.length() - 7, second.length() - 6);
+        assertEquals("T", firstChar);
+    }
+
+    @Test
+    void textAlign_whenSet_shouldUseGivenAlign(){
+        var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.immutableBuilder().textAlign(TextAlign.TOP_LEFT).build())
+                .withDimensions(50, 9)
+                .content("Test", TextAlign.TOP_RIGHT);
+        var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        String second  = lines.get(1);
+        String firstChar = second.substring(second.length() - 7, second.length() - 6);
+        assertEquals("T", firstChar);  //Should be top right
+    }
+
+
+    @Test
+    void textAlign_shouldBeReassigned_onSubsequentAlignCalls(){
+        var box = Clique.box(BoxType.ROUNDED)
+                .withDimensions(50, 9)
+                .content("Test", TextAlign.TOP_RIGHT);
+        var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        String second  = lines.get(1);
+        String firstChar = second.substring(second.length() - 7, second.length() - 6);
+        assertEquals("T", firstChar);  //Should be top right
+
+        box.content("Test", TextAlign.TOP_LEFT);
+
+        // Assert Top left
+        var lines1 = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        String second1  = lines1.get(1); //So it should be border + padding(2), so 3 substring before we get our content
+        String firstChar1 = second1.substring(3, 4);
+        assertEquals("T", firstChar1);
+
+    }
+
 }
