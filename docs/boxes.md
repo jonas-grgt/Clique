@@ -177,18 +177,14 @@ Box box = Clique.box(BoxType.DOUBLE_LINE, config)
 All box types support border customization, which returns a `Box` for fluent chaining:
 ```java
 BorderStyle style = BorderStyle.immutableBuilder()
-        .uniformStyle(blue)
+        .uniformStyle("blue")
         .cornerChar('*')
         .horizontalChar('~')
         .verticalChar('I')
         .build();
 
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
-    .autoSize()
-    .build();
-
-Clique.box(config)
-    .noDimensions()
+Clique.box(style)
+    .withDimensions(10, 20)
     .content("[red]This is my custom box :)[/]")
     .render();
 ```

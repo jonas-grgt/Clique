@@ -28,4 +28,13 @@ public final class Cell {
     public boolean isBlank() {
         return width() == 0;
     }
+
+    @Override
+    public String toString() {
+        return "Cell[" +
+                "styledText='" + styledText + '\'' +
+                ", text='" + text + '\'' +
+                ", width=" + width +
+                ']';
+    }
 }

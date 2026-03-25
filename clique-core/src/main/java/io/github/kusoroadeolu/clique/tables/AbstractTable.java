@@ -15,7 +15,7 @@ import static io.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 import static java.util.Objects.isNull;
 
 public abstract class AbstractTable implements Table {
-    final List<WidthAwareList> columns; //This is used to track the max length in that column
+    final List<WidthAwareList> columns; //This is used to track the max height in that column
     final List<WidthAwareList> rows;
     final TableConfiguration tableConfiguration;
     String cachedTable = null;

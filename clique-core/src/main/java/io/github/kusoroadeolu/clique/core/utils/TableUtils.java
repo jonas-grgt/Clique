@@ -17,7 +17,7 @@ public class TableUtils {
             case LEFT -> sb.append(cell).append(spaces).append(vLine).toString();
             case RIGHT -> sb.append(spaces).append(cell).append(vLine).toString();
             case CENTER -> {
-                final int len = spaces.length(); //Get the length of the spaces
+                final int len = spaces.length(); //Get the height of the spaces
                 final int rem = len % 2;
                 final int leftOffset = (len - rem) - (len / 2);
                 final int rightOffset = len - leftOffset;

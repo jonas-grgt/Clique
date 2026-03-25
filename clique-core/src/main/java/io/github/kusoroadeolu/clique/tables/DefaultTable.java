@@ -49,7 +49,7 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
                 final String styledCell = list.getStyledText(j);
                 final int displayWidth = list.get(j).width();
                 final WidthAwareList cl = this.columns.get(j);
-                final int longest = cl.longest(); //Longest str length in each column
+                final int longest = cl.longest(); //Longest str height in each column
 
                 final int offset = (longest - displayWidth) + padding;
 

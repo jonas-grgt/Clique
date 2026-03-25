@@ -2,15 +2,16 @@ package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
+import io.github.kusoroadeolu.clique.config.TextAlign;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.*;
 
-//TODO fix BoxConfig#padding to apply padding at both sides r
 class DefaultBox extends AbstractBox implements CustomizableBox {
     private final BorderChars borderChars;
+
 
     DefaultBox(BorderChars borderChars, BoxConfiguration configuration) {
         super();
@@ -21,23 +22,21 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
 
     public String get() {
         if (cachedString != null) return cachedString;
+        this.cells = resolveLines();
+        this.resolveDimensions(this.cells);
+        TextAlign ta = this.align == null ? boxConfiguration.getTextAlign() : this.align;
 
-        return (cachedString = handleDimensionsEx(() -> {
-            this.wrapWord();
-            if (this.height <= this.contentWrap.size()) {
-                throw new IllegalArgumentException();
-            }
-            final var contentLs = this.contentWrap;
-            final var chars = this.borderChars;
-            final StringBuilder sb = new StringBuilder();
-            final BoxWrapper wrapper = new BoxWrapper(
-                    this.width, this.height, this.boxConfiguration,
-                    contentLs, chars.hLine(), chars.vLine(),
-                    chars.topLeft(), chars.topRight(), chars.bottomRight(), chars.bottomLeft()
-            );
-            drawBox(sb, wrapper);
-            return sb.toString();
-        }));
+
+        final var contentLs = this.cells;
+        final var chars = this.borderChars;
+        final StringBuilder sb = new StringBuilder();
+        final BoxWrapper wrapper = new BoxWrapper(
+                this.width, this.height, this.boxConfiguration,
+                contentLs.cells(), chars.hLine(), chars.vLine(),
+                chars.topLeft(), chars.topRight(), chars.bottomRight(), chars.bottomLeft()
+        );
+        drawBox(sb, wrapper, ta);
+        return (cachedString = sb.toString());
     }
 
     void customizeCorner(char corner) {

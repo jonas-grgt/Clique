@@ -12,8 +12,9 @@ public class WidthAwareList {
     }
 
     public WidthAwareList(List<Cell> list) {
-        this.longest = 0;
         this.list = list;
+        if (list.isEmpty()) longest = 0;
+        else longest = calculateLongest();
     }
 
 
@@ -54,11 +55,8 @@ public class WidthAwareList {
 
         if (this.list.isEmpty()) {
             this.longest = 0;
-            return;
-        }
-
-        if (len == this.longest) {
-            this.longest = this.recalculateLongest();
+        } else if(len == this.longest) {
+            this.longest = this.calculateLongest();
         }
 
     }
@@ -74,11 +72,15 @@ public class WidthAwareList {
                 .toList();
     }
 
+    public List<Cell> cells() {
+        return new ArrayList<>(list);
+    }
+
     public int size() {
         return this.list.size();
     }
 
-    private int recalculateLongest() {
+    private int calculateLongest() {
         return this.list.stream()
                 .mapToInt(Cell::width)
                 .max()

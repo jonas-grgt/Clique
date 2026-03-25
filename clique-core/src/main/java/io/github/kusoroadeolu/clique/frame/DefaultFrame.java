@@ -5,6 +5,7 @@ import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.config.FrameConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Component;
+import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 
@@ -69,7 +70,7 @@ public class DefaultFrame implements  Frame {
 
     @Override
     public DefaultFrame width(int width) {
-        if (width <= 0) throw new IllegalArgumentException("Width cannot be zero or negative");
+        if (width <= 0) throw new InvalidDimensionException("Width cannot be zero or negative");
         this.width = width;
         return this;
     }
@@ -116,6 +117,7 @@ public class DefaultFrame implements  Frame {
         if (this.width == NO_WIDTH_SET && !parsedTitle.isBlank()) {
             resolvedWidth = Math.max(resolvedWidth, titleWidth);
         }
+
         int paddedWidth = resolvedWidth + configuration.getPadding();
         if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, resolvedWidth);
 
@@ -150,10 +152,6 @@ public class DefaultFrame implements  Frame {
                     .append(borderChars.topRight())
                     .append(NEWLINE);
         }
-    }
-
-    public void render() {
-        System.out.print(get());
     }
 
     int findNodesMaxWidth() {
