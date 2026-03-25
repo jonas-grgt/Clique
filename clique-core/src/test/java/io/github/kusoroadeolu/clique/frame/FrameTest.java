@@ -6,6 +6,7 @@ import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.config.FrameConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Component;
+import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ class FrameTest {
 
     @Test
     void throwsWhenNodeContentWiderThanExplicitWidth() {
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(InvalidDimensionException.class, () ->
                 frame.width(3)
                         .nest("this string is too wide")
                         .get()
@@ -62,7 +63,7 @@ class FrameTest {
 
     @Test
     void throwsWhenWidthIsNegative() {
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(InvalidDimensionException.class, () ->
                 frame.width(-1)
         );
     }
@@ -220,5 +221,13 @@ class FrameTest {
         var lines2_1 = lines2.getFirst();
         assertFalse(lines2_1.contains(" "));
         assertTrue(lines2_1.contains("+"));
+    }
+
+    @Test
+    void test_frameHeight(){
+        String str = Clique.frame()
+                .nest("Hello")
+                .get();
+        assertEquals(3, str.lines().toList().size());
     }
 }

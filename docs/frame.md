@@ -25,9 +25,9 @@ Clique.frame()
 Frames are designed to wrap existing Clique components:
 ```java
 Table table = Clique.table(TableType.BOX_DRAW)
-    .addHeaders("Name", "Age")
-    .addRows("Alice", "25")
-    .addRows("Bob", "30");
+    .headers("Name", "Age")
+    .row("Alice", "25")
+    .row("Bob", "30");
 
 ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.BLOCKS);
 bar.tick(70);
