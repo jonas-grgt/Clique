@@ -130,9 +130,9 @@ public class TableConfiguration {
             return this;
         }
 
-        public TableConfigurationBuilder borderStyle(BorderSpec style) {
-            Objects.requireNonNull(borderStyle, "Border style cannot be null");
-            this.borderStyle = BorderStyle.fromSpec(style);
+        public TableConfigurationBuilder borderStyle(BorderSpec spec) {
+            Objects.requireNonNull(spec, "Border style cannot be null");
+            this.borderStyle = BorderStyle.fromSpec(spec);
             return this;
         }
 

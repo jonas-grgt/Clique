@@ -129,9 +129,9 @@ public class BoxConfiguration {
             return this;
         }
 
-        public BoxConfigurationBuilder borderStyle(BorderSpec style) {
-            Objects.requireNonNull(borderStyle, "Border style cannot be null");
-            this.borderStyle = BorderStyle.fromSpec(style);
+        public BoxConfigurationBuilder borderStyle(BorderSpec spec) {
+            Objects.requireNonNull(spec, "Border style cannot be null");
+            this.borderStyle = BorderStyle.fromSpec(spec);
             return this;
         }
 
