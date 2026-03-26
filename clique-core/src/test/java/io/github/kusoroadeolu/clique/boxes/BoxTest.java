@@ -14,7 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoxTest {
     @Test
     void testBoxWidth() {
-        var config = BoxConfiguration.immutableBuilder().textAlign(TextAlign.TOP_CENTER).build();
+        var config = BoxConfiguration
+                .builder()
+                .textAlign(TextAlign.TOP_CENTER)
+                .build();
         var box = Clique.box(BoxType.ROUNDED, config)
                 .withDimensions(50, 9)
                 .content("Test");
@@ -69,7 +72,7 @@ class BoxTest {
 
     @Test
     void assertDoesNotThrow_onNoDimensions_ifAutoSizeConfigIsAbsent(){
-        assertDoesNotThrow(() -> Clique.box(BoxConfiguration.immutableBuilder().autoSize().build())
+        assertDoesNotThrow(() -> Clique.box(BoxConfiguration.builder().autoSize().build())
                         .noDimensions());
     }
 
@@ -88,7 +91,7 @@ class BoxTest {
 
     @Test
     void borderStyleConfig_shouldApplyGivenChanges(){
-        var autosize = BoxConfiguration.immutableBuilder().autoSize().build();
+        var autosize = BoxConfiguration.builder().autoSize().build();
         var frame = Clique.box(BoxType.DEFAULT, autosize)
                 .noDimensions()
                 .content("Hello"); //ASCII //ASCII Box
@@ -100,12 +103,12 @@ class BoxTest {
         assertTrue(line2.contains("|")); //Assert line2 contains the vlines
 
         BorderStyle style = BorderStyle
-                .immutableBuilder()
+                .builder()
                 .cornerChar('o')
                 .horizontalChar('~')
                 .verticalChar('/')
                 .build();
-        var config = BoxConfiguration.immutableBuilder().autoSize().borderStyle(style).build();
+        var config = BoxConfiguration.builder().autoSize().borderStyle(style).build();
 
 
         var frame2 = Clique.box(BoxType.DEFAULT, config)
@@ -122,12 +125,12 @@ class BoxTest {
     @Test
     void borderStyleConfig_shouldNotApplyChanges_onBlankChars(){
         BorderStyle style = BorderStyle
-                .immutableBuilder()
+                .builder()
                 .cornerChar(' ')
                 .build();
 
         var config = BoxConfiguration
-                .immutableBuilder()
+                .builder()
                 .autoSize()
                 .borderStyle(style)
                 .build();
@@ -170,7 +173,7 @@ class BoxTest {
 
     @Test
     void textAlign_whenNull_shouldUseBoxConfigAlign(){
-        var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.immutableBuilder().textAlign(TextAlign.TOP_RIGHT).build())
+        var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.builder().textAlign(TextAlign.TOP_RIGHT).build())
                 .withDimensions(50, 9)
                 .content("Test");
         var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
@@ -181,7 +184,7 @@ class BoxTest {
 
     @Test
     void textAlign_whenSet_shouldUseGivenAlign(){
-        var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.immutableBuilder().textAlign(TextAlign.TOP_LEFT).build())
+        var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.builder().textAlign(TextAlign.TOP_LEFT).build())
                 .withDimensions(50, 9)
                 .content("Test", TextAlign.TOP_RIGHT);
         var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
