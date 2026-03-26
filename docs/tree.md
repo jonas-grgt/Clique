@@ -87,7 +87,7 @@ Use `TreeConfiguration` to customize the guide connector style.
 
 ### Basic Configuration
 ```java
-TreeConfiguration config = TreeConfiguration.immutableBuilder()
+TreeConfiguration config = TreeConfiguration.builder()
     .guideStyle("cyan, bold")
     .build();
 
@@ -101,7 +101,7 @@ Tree tree = Clique.tree("project/", config);
 Controls the color and style of the connector characters (`├─`, `└─`, `│`). Accepts any valid markup style string:
 
 ```java
-TreeConfiguration config = TreeConfiguration.immutableBuilder()
+TreeConfiguration config = TreeConfiguration.builder()
     .guideStyle("*blue, bold")
     .build();
 ```
@@ -112,11 +112,11 @@ Provide a custom configured parser for markup processing in labels:
 
 ```java
 ParserConfiguration parserConfig = ParserConfiguration
-        .immutableBuilder()
+        .builder()
         .delimiter(' ')
         .build();
 
-TreeConfiguration config = TreeConfiguration.immutableBuilder()
+TreeConfiguration config = TreeConfiguration.builder()
         .parser(Clique.parser(parserConfig))
         .build();
 ```
@@ -124,7 +124,7 @@ TreeConfiguration config = TreeConfiguration.immutableBuilder()
 ### Full Configuration Example
 
 ```java
-TreeConfiguration config = TreeConfiguration.immutableBuilder()
+TreeConfiguration config = TreeConfiguration.builder()
     .guideStyle("*cyan, bold") //Do not add the markup tag borders i.e [*cyan, bold]
     .build();
 

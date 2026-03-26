@@ -28,7 +28,7 @@ String original = parser.getOriginalString("[red, bold]Hello[/] World"); // Retu
 Customize how the parser behaves using `ParserConfiguration`:
 ```java
 ParserConfiguration configuration = ParserConfiguration
-        .immutableBuilder()
+        .builder()
         .enableAutoCloseTags()  // Automatically close unclosed tags
         .delimiter(' ')          // Use space instead of comma as delimiter
         .build();
@@ -52,7 +52,7 @@ When strict parsing is enabled, the parser can throw exceptions for invalid tags
 
 Thrown when you use a style that doesn't exist:
 ```java
-ParserConfiguration config = ParserConfiguration.immutableBuilder()
+ParserConfiguration config = ParserConfiguration.builder()
     .enableStrictParsing()
     .build();
     

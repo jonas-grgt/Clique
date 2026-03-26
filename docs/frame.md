@@ -126,7 +126,7 @@ Use `FrameConfiguration` to customize frame appearance and behavior.
 
 ### Basic Configuration
 ```java
-FrameConfiguration config = FrameConfiguration.immutableBuilder()
+FrameConfiguration config = FrameConfiguration.builder()
     .frameAlign(FrameAlign.LEFT)  // Default alignment for all children
     .padding(1)
     .build();
@@ -143,7 +143,7 @@ Clique.frame(config)
 
 Set the default alignment for all nested children. Individual `.nest()` calls can still override this per node:
 ```java
-FrameConfiguration config = FrameConfiguration.immutableBuilder()
+FrameConfiguration config = FrameConfiguration.builder()
     .frameAlign(FrameAlign.CENTER)
     .build();
 ```
@@ -152,7 +152,7 @@ FrameConfiguration config = FrameConfiguration.immutableBuilder()
 
 Set the horizontal padding inside the frame:
 ```java
-FrameConfiguration config = FrameConfiguration.immutableBuilder()
+FrameConfiguration config = FrameConfiguration.builder()
     .padding(4)
     .build();
 ```
@@ -161,11 +161,11 @@ FrameConfiguration config = FrameConfiguration.immutableBuilder()
 
 Style frame borders with different colors:
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
     .uniformStyle("red")
     .build();
 
-FrameConfiguration config = FrameConfiguration.immutableBuilder()
+FrameConfiguration config = FrameConfiguration.builder()
     .borderStyle(style)
     .build();
 
@@ -179,11 +179,11 @@ Clique.frame(BoxType.CLASSIC, config)
 Provide a custom configured parser for markup processing in string nodes and titles:
 ```java
 ParserConfiguration parserConfig = ParserConfiguration
-    .immutableBuilder()
+    .builder()
     .delimiter(' ')
     .build();
 
-FrameConfiguration config = FrameConfiguration.immutableBuilder()
+FrameConfiguration config = FrameConfiguration.builder()
     .parser(Clique.parser(parserConfig))
     .build();
 ```
@@ -192,13 +192,13 @@ FrameConfiguration config = FrameConfiguration.immutableBuilder()
 
 All frame types support border char customization via `BorderStyle`
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
         .horizontalStyle("cyan")
         .verticalStyle("magenta")
         .cornerStyle("yellow") 
         .build();
 
-FrameConfiguration config = FrameConfiguration.immutableBuilder()
+FrameConfiguration config = FrameConfiguration.builder()
         .borderStyle(style)
         .build();
 
@@ -214,11 +214,11 @@ Clique.frame(BoxType.ROUNDED)
 
 ### Full Configuration Example
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
     .uniformStyle("blue")
     .build();
 
-FrameConfiguration config = FrameConfiguration.immutableBuilder()
+FrameConfiguration config = FrameConfiguration.builder()
     .frameAlign(FrameAlign.CENTER)
     .padding(3)
     .borderStyle(style)

@@ -89,7 +89,7 @@ ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.DOTS);
 Build your own progress bar style using `ProgressBarConfiguration`:
 
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .length(60)
     .complete('▓')
     .incomplete('░')
@@ -139,7 +139,7 @@ Use a custom parser for markup processing:
 Change the format based on progress percentage:
 
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .styleRange(0, 30, "[red]:bar[/] :percent% [red]Starting...[/]")
     .styleRange(30, 70, "[yellow]:bar[/] :percent% [yellow]In Progress...[/]")
     .styleRange(70, 100, "[green]:bar[/] :percent% [green]Almost Done![/]")
@@ -152,7 +152,7 @@ ProgressBar bar = Clique.progressBar(100, config);
 
 Use `styleWhen()` for custom conditions:
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .styleWhen(p -> p < 50, "[red]:bar[/] :percent%")
     .styleWhen(p -> p >= 50 && p < 90, "[yellow]:bar[/] :percent%")
     .styleWhen(p -> p >= 90, "[green]:bar[/] :percent%")
@@ -210,7 +210,7 @@ System.out.println(barText);
 
 ### File Processing
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .format("[blue]:bar[/] :progress/:total files [:elapsed/:remaining]")
     .build();
 
@@ -225,7 +225,7 @@ for (File file : files) {
 
 ### Downloading a File
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .length(50)
     .complete('▓')
     .incomplete('░')
@@ -245,7 +245,7 @@ while (downloading) {
 
 ### Batch Processing with Status
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .styleRange(0, 50, "[red]:bar[/] :percent% [dim]Processing...[/]")
     .styleRange(50, 90, "[yellow]:bar[/] :percent% [dim]Finalizing...[/]")
     .styleRange(90, 100, "[green]:bar[/] :percent% [bold]Complete![/]")
