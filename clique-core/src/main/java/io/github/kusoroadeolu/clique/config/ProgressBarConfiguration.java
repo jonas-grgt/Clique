@@ -31,8 +31,16 @@ public class ProgressBarConfiguration {
         this.easingConfiguration = builder.easing;
     }
 
-    public static ProgressBarConfigurationBuilder immutableBuilder() {
+    public static ProgressBarConfigurationBuilder builder() {
         return new ProgressBarConfigurationBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link ProgressBarConfiguration#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static ProgressBarConfigurationBuilder immutableBuilder() {
+        return builder();
     }
 
     public static ProgressBarConfigurationBuilder fromPreset(ProgressBarPreset preset) {

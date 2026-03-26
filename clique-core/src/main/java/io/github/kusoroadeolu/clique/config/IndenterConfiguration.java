@@ -27,9 +27,16 @@ public class IndenterConfiguration {
         this.defaultFlag = builder.defaultFlag;
     }
 
-
-    public static IndenterConfigurationBuilder immutableBuilder() {
+    public static IndenterConfigurationBuilder builder() {
         return new IndenterConfigurationBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link IndenterConfiguration#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static IndenterConfigurationBuilder immutableBuilder() {
+        return builder();
     }
 
     public String toString() {

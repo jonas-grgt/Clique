@@ -33,8 +33,16 @@ public class TableConfiguration {
         this.borderStyle = builder.borderStyle;
     }
 
-    public static TableConfigurationBuilder immutableBuilder() {
+    public static TableConfigurationBuilder builder() {
         return new TableConfigurationBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link TableConfiguration#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static TableConfigurationBuilder immutableBuilder() {
+        return builder();
     }
 
     public static TableConfiguration fromBorderStyle(BorderStyle style) {

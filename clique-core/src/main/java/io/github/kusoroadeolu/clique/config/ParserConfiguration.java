@@ -21,8 +21,16 @@ public class ParserConfiguration {
         this.enableAutoCloseTags = builder.enableAutoCloseTags;
     }
 
-    public static ParserConfigurationBuilder immutableBuilder() {
+    public static ParserConfigurationBuilder builder() {
         return new ParserConfigurationBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link ParserConfiguration#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static ParserConfigurationBuilder immutableBuilder() {
+        return builder();
     }
 
     public boolean getEnableStrictParsing() {

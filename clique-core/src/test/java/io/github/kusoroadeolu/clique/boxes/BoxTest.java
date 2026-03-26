@@ -80,7 +80,10 @@ class BoxTest {
                 .content("Test");
 
         String output = box.get();
-        assertSame(output, box.get());
+        assertNotNull(output);
+        var output1 = box.get();
+        assertNotNull(output1);
+        assertSame(output1, output);
     }
 
     @Test

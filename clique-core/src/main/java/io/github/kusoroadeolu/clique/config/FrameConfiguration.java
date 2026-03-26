@@ -27,8 +27,16 @@ public class FrameConfiguration {
         this.borderStyle = builder.borderStyle;
     }
 
-    public static FrameConfigurationBuilder immutableBuilder() {
+    public static FrameConfigurationBuilder builder() {
         return new FrameConfigurationBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link FrameConfiguration#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static FrameConfigurationBuilder immutableBuilder() {
+        return builder();
     }
 
     public static FrameConfiguration fromBorderStyle(BorderStyle style) {
