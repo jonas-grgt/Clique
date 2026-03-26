@@ -46,16 +46,17 @@ final class CliqueComponents {
         return TableFactory.getTableBuilder(type);
     }
 
-    public static TableHeaderBuilder table(BorderStyle style) {
-        return table(TableConfiguration.fromBorderStyle(style));
+    public static TableHeaderBuilder table(BorderSpec style) {
+        var borderStyle = BorderStyle.fromSpec(style);
+        return table(TableConfiguration.fromBorderStyle(borderStyle));
     }
 
-    public static TableHeaderBuilder table(TableType type, BorderStyle style) {
-        return table(type, TableConfiguration.fromBorderStyle(style));
+    public static TableHeaderBuilder table(TableType type, BorderSpec style) {
+        var borderStyle = BorderStyle.fromSpec(style);
+        return table(type, TableConfiguration.fromBorderStyle(borderStyle));
     }
 
     // BOX
-
     public static BoxDimensionBuilder box() {
         return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED);
     }
@@ -72,12 +73,14 @@ final class CliqueComponents {
         return BoxFactory.getBoxDimensionBuilder(type);
     }
 
-    public static BoxDimensionBuilder box(BorderStyle style) {
-        return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED, BoxConfiguration.fromBorderStyle(style));
+    public static BoxDimensionBuilder box(BorderSpec style) {
+        var borderStyle = BorderStyle.fromSpec(style);
+        return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED, BoxConfiguration.fromBorderStyle(borderStyle));
     }
 
-    public static BoxDimensionBuilder box(BoxType type, BorderStyle style) {
-        return BoxFactory.getBoxDimensionBuilder(type, BoxConfiguration.fromBorderStyle(style));
+    public static BoxDimensionBuilder box(BoxType type, BorderSpec style) {
+        var borderStyle = BorderStyle.fromSpec(style);
+        return BoxFactory.getBoxDimensionBuilder(type, BoxConfiguration.fromBorderStyle(borderStyle));
     }
 
 
@@ -127,12 +130,14 @@ final class CliqueComponents {
         return new DefaultFrame(configuration, type);
     }
 
-    public static Frame frame(BorderStyle style) {
-        return new DefaultFrame(FrameConfiguration.fromBorderStyle(style));
+    public static Frame frame(BorderSpec style) {
+        var borderStyle = BorderStyle.fromSpec(style);
+        return new DefaultFrame(FrameConfiguration.fromBorderStyle(borderStyle));
     }
 
-    public static Frame frame(BoxType type, BorderStyle style) {
-        return new DefaultFrame(FrameConfiguration.fromBorderStyle(style), type);
+    public static Frame frame(BoxType type, BorderSpec style) {
+        var borderStyle = BorderStyle.fromSpec(style);
+        return new DefaultFrame(FrameConfiguration.fromBorderStyle(borderStyle), type);
     }
 
 
@@ -145,6 +150,9 @@ final class CliqueComponents {
     public static Tree tree(String label, TreeConfiguration configuration) {
         return new Tree(label, configuration);
     }
+
+
+
 
 
     // DEPRECATED BOX METHODS

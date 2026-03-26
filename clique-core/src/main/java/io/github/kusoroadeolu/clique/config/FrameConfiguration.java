@@ -94,9 +94,9 @@ public class FrameConfiguration {
             return this;
         }
 
-        public FrameConfigurationBuilder borderStyle(BorderStyle borderStyle) {
+        public FrameConfigurationBuilder borderStyle(BorderSpec style) {
             Objects.requireNonNull(borderStyle, "Border style cannot be null");
-            this.borderStyle = borderStyle;
+            this.borderStyle = BorderStyle.fromSpec(style);
             return this;
         }
 

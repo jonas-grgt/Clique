@@ -6,16 +6,14 @@ import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
-import io.github.kusoroadeolu.clique.tables.TableType;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
  * A class for styling table borders
- *
  */
-public class BorderStyle {
+public class BorderStyle implements BorderSpec{
     public final static BorderStyle DEFAULT = new BorderStyle();
 
     private final AnsiCode[] verticalStyle;
@@ -59,6 +57,21 @@ public class BorderStyle {
 
     public boolean hasModifiedChar(){
         return modifiedChar;
+    }
+
+    public static BorderStyle fromSpec(BorderSpec spec){
+        return switch (spec){
+            case BorderStyle b -> b;
+            default -> BorderStyle.builder().uniformStyle(spec.value()).build();
+        };
+    }
+
+    /**
+     * This method doesn't do anything, do not call it
+     * @throws UnsupportedOperationException
+     * */
+    public String value() {
+        throw new UnsupportedOperationException();
     }
 
     /** @deprecated Use {@link #getHorizontalStyle()} instead */
@@ -145,6 +158,7 @@ public class BorderStyle {
         }
 
         public BorderStyleBuilder verticalStyle(String style) {
+            Objects.requireNonNull(style, "Vertical style cannot be null");
             return this.verticalStyle(getAnsiCodes(style));
         }
 
@@ -161,6 +175,7 @@ public class BorderStyle {
         }
 
         public BorderStyleBuilder horizontalStyle(String style) {
+            Objects.requireNonNull(style, "Horizontal style cannot be null");
             return this.horizontalStyle(getAnsiCodes(style));
         }
 
@@ -177,6 +192,7 @@ public class BorderStyle {
         }
 
         public BorderStyleBuilder cornerStyle(String style) {
+            Objects.requireNonNull(style, "Corner style cannot be null");
             return this.cornerStyle(getAnsiCodes(style));
         }
 
@@ -187,6 +203,7 @@ public class BorderStyle {
         }
 
         public BorderStyleBuilder uniformStyle(String style) {
+            Objects.requireNonNull(style, "Uniform style cannot be null");
             return this.uniformStyle(getAnsiCodes(style));
         }
 

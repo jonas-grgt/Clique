@@ -42,7 +42,6 @@ public class BoxConfiguration {
         return builder();
     }
 
-
     public static BoxConfiguration fromBorderStyle(BorderStyle style) {
         assertStyleNotNull(style);
         return BoxConfiguration
@@ -130,9 +129,9 @@ public class BoxConfiguration {
             return this;
         }
 
-        public BoxConfigurationBuilder borderStyle(BorderStyle borderStyle) {
+        public BoxConfigurationBuilder borderStyle(BorderSpec style) {
             Objects.requireNonNull(borderStyle, "Border style cannot be null");
-            this.borderStyle = borderStyle;
+            this.borderStyle = BorderStyle.fromSpec(style);
             return this;
         }
 
