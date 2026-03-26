@@ -7,7 +7,9 @@ import io.github.kusoroadeolu.clique.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -66,12 +68,9 @@ public class BorderStyle implements BorderSpec{
         };
     }
 
-    /**
-     * @apiNote  This method will throw an unsupported ex when called. This method implements border spec for backward compatability.
-     * @throws UnsupportedOperationException an unsupported ex when called
-     * */
+
     public String style() {
-        throw new UnsupportedOperationException();
+        return "";
     }
 
     /** @deprecated Use {@link #getHorizontalStyle()} instead */
