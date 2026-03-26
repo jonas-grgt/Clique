@@ -67,8 +67,8 @@ public class BorderStyle implements BorderSpec{
     }
 
     /**
-     * This method doesn't do anything, do not call it
-     * @throws UnsupportedOperationException
+     * @apiNote  This method will throw an unsupported ex when called. This method implements border spec for backward compatability.
+     * @throws UnsupportedOperationException an unsupported ex when called
      * */
     public String style() {
         throw new UnsupportedOperationException();

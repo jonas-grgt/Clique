@@ -1,7 +1,6 @@
 package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.config.BorderSpec;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.config.TextAlign;
@@ -93,7 +92,7 @@ class BoxTest {
     @Test
     void borderStyleConfig_shouldApplyGivenChanges(){
         var autosize = BoxConfiguration.builder().autoSize().build();
-        var box = Clique.box(BoxType.DEFAULT, BorderSpec.of("blue"))
+        var box = Clique.box(BoxType.DEFAULT, autosize)
                 .noDimensions()
                 .content("Hello"); //ASCII //ASCII Box
         List<String> lines = box.get().lines().toList();
