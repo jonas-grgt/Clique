@@ -62,7 +62,7 @@ public class BorderStyle implements BorderSpec{
     public static BorderStyle fromSpec(BorderSpec spec){
         return switch (spec){
             case BorderStyle b -> b;
-            default -> BorderStyle.builder().uniformStyle(spec.value()).build();
+            default -> BorderStyle.builder().uniformStyle(spec.style()).build();
         };
     }
 
@@ -70,7 +70,7 @@ public class BorderStyle implements BorderSpec{
      * This method doesn't do anything, do not call it
      * @throws UnsupportedOperationException
      * */
-    public String value() {
+    public String style() {
         throw new UnsupportedOperationException();
     }
 

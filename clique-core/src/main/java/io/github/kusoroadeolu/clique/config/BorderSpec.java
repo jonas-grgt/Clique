@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 @FunctionalInterface
 public interface BorderSpec {
-    String value();
+    String style();
 
     static BorderSpec of(String value){
         return () -> value;
