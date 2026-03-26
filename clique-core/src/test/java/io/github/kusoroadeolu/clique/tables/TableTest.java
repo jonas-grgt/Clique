@@ -39,7 +39,7 @@ class TableTest {
 
     @Test
     void testTableCellRemove() {
-        var config = TableConfiguration.immutableBuilder().nullReplacement("N/A").build();
+        var config = TableConfiguration.builder().nullReplacement("N/A").build();
         Table table = Clique.table(config)
                 .headers("A", "B")
                 .row("1", "2");
@@ -54,7 +54,7 @@ class TableTest {
 
     @Test
     void assertThrows_onHeaderRemoval() {
-        var config = TableConfiguration.immutableBuilder().nullReplacement("N/A").build();
+        var config = TableConfiguration.builder().nullReplacement("N/A").build();
         Table table = Clique.table(config)
                 .headers("A", "B")
                 .row("1", "2");
@@ -79,7 +79,7 @@ class TableTest {
 
     @Test
     void assertPadding_shouldHaveThreeSpaces_whenLeftAligned(){
-        var config = TableConfiguration.immutableBuilder().padding(3).build();
+        var config = TableConfiguration.builder().padding(3).build();
         Table table = Clique.table(TableType.DEFAULT, config)
                 .headers("A", "B")
                 .row("1", "2");
@@ -93,7 +93,7 @@ class TableTest {
 
     @Test
     void assertPadding_shouldHaveThreeSpaces_whenRightAligned(){
-        var config = TableConfiguration.immutableBuilder()
+        var config = TableConfiguration.builder()
                 .columnAlignment(Map.of(0, CellAlign.RIGHT, 1, CellAlign.RIGHT))
                 .padding(3)
                 .build();
@@ -167,12 +167,12 @@ class TableTest {
         assertTrue(line2.contains("|")); //Assert line2 contains the vlines
 
         BorderStyle style = BorderStyle
-                .immutableBuilder()
+                .builder()
                 .cornerChar('o')
                 .horizontalChar('~')
                 .verticalChar('/')
                 .build();
-        var config = TableConfiguration.immutableBuilder().borderStyle(style).build();
+        var config = TableConfiguration.builder().borderStyle(style).build();
 
 
         var table2 = Clique.table(TableType.DEFAULT, config)
@@ -189,10 +189,10 @@ class TableTest {
     @Test
     void borderStyleConfig_shouldNotApplyChanges_onBlankChars(){
         BorderStyle style = BorderStyle
-                .immutableBuilder()
+                .builder()
                 .cornerChar(' ')
                 .build();
-        var config = TableConfiguration.immutableBuilder().borderStyle(style).build();
+        var config = TableConfiguration.builder().borderStyle(style).build();
 
 
         var table = Clique.table(TableType.DEFAULT, config)
@@ -208,10 +208,10 @@ class TableTest {
     @Test
     void borderStyleConfig_assertThrows_onNonDefaultTableType(){
         BorderStyle style = BorderStyle
-                .immutableBuilder()
+                .builder()
                 .cornerChar('"')
                 .build();
-        var config = TableConfiguration.immutableBuilder().borderStyle(style).build();
+        var config = TableConfiguration.builder().borderStyle(style).build();
 
 
         assertThrows(IllegalArgumentException.class, () ->  Clique.table(TableType.ROUNDED_BOX_DRAW, config));

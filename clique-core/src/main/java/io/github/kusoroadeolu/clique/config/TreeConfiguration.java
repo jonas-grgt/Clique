@@ -20,9 +20,16 @@ public class TreeConfiguration {
         this.guideStyle = builder.guideStyle;
     }
 
-
-    public static TreeConfigurationBuilder immutableBuilder() {
+    public static TreeConfigurationBuilder builder() {
         return new TreeConfigurationBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link TreeConfiguration#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static TreeConfigurationBuilder immutableBuilder() {
+        return builder();
     }
 
     public AnsiStringParser getParser() {

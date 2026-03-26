@@ -19,7 +19,7 @@ class AnsiStringParserImplTest {
     @Disabled("Fails in Maven Surefire due to unknown JVM fork issue - works in integration tests")
     void testCustomDelimiter() {
         ParserConfiguration config = ParserConfiguration
-                .immutableBuilder()
+                .builder()
                 .delimiter(' ')
                 .build();
         AnsiStringParser parser = new AnsiStringParserImpl(config);
@@ -54,7 +54,7 @@ class AnsiStringParserImplTest {
     @Test
     void testStrictParsingThrows() {
         ParserConfiguration config = ParserConfiguration
-                .immutableBuilder()
+                .builder()
                 .enableStrictParsing()
                 .build();
         AnsiStringParser parser = new AnsiStringParserImpl(config);
@@ -65,7 +65,7 @@ class AnsiStringParserImplTest {
     @Test
     void testAutoCloseTags() {
         ParserConfiguration config = ParserConfiguration
-                .immutableBuilder()
+                .builder()
                 .enableAutoCloseTags()
                 .build();
         AnsiStringParser parser = new AnsiStringParserImpl(config);
@@ -81,7 +81,7 @@ class AnsiStringParserImplTest {
     @Test
     void testStrictParsing() {
         ParserConfiguration config = ParserConfiguration
-                .immutableBuilder()
+                .builder()
                 .enableStrictParsing()
                 .build();
         assertThrows(ParseProblemException.class,

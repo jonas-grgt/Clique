@@ -36,9 +36,16 @@ public class EasingConfiguration {
         this.frames = easingConfigurationBuilder.frames;
         this.threshold = easingConfigurationBuilder.threshold;
     }
-
-    public static EasingConfigurationBuilder immutableBuilder() {
+    public static EasingConfigurationBuilder builder() {
         return new EasingConfigurationBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link EasingConfiguration#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static EasingConfigurationBuilder immutableBuilder() {
+        return builder();
     }
 
     public EasingFunction getFunction() {

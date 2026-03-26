@@ -66,7 +66,7 @@ class ProgressBarTest {
 
     @Test
     void testFormatTokenReplacement() {
-        ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+        ProgressBarConfiguration config = ProgressBarConfiguration.builder()
                 .format(":progress/:total (:percent%)")
                 .build();
 
@@ -80,7 +80,7 @@ class ProgressBarTest {
 
     @Test
     void testCustomCompleteAndIncomplete() {
-        ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+        ProgressBarConfiguration config = ProgressBarConfiguration.builder()
                 .complete('=')
                 .incomplete('-')
                 .length(10)
@@ -97,7 +97,7 @@ class ProgressBarTest {
 
     @Test
     void testStyleRanges() {
-        ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+        ProgressBarConfiguration config = ProgressBarConfiguration.builder()
                 .styleRange(0, 30, "LOW :percent%")
                 .styleRange(30, 70, "MID :percent%")
                 .styleRange(70, 100, "HIGH :percent%")
@@ -117,7 +117,7 @@ class ProgressBarTest {
 
     @Test
     void testStylePredicates() {
-        ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+        ProgressBarConfiguration config = ProgressBarConfiguration.builder()
                 .styleWhen(p -> p == 100, "COMPLETE!")
                 .styleWhen(p -> p < 100, "LOADING :percent%")
                 .build();
@@ -134,7 +134,7 @@ class ProgressBarTest {
     @Test
     void testStylePredicateOrderMatters() {
         // First matching predicate wins
-        ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+        ProgressBarConfiguration config = ProgressBarConfiguration.builder()
                 .styleWhen(p -> p >= 50, "FIRST")
                 .styleWhen(p -> p >= 50, "SECOND")  // This won't match even at 50%
                 .build();
@@ -148,7 +148,7 @@ class ProgressBarTest {
 
     @Test
     void testFallbackToDefaultFormat() {
-        ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+        ProgressBarConfiguration config = ProgressBarConfiguration.builder()
                 .format("DEFAULT :percent%")
                 .styleWhen(p -> p > 200, "IMPOSSIBLE")  // Will never match
                 .build();
@@ -177,7 +177,7 @@ class ProgressBarTest {
 
     @Test
     void testMarkupParsingInFormat() {
-        ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+        ProgressBarConfiguration config = ProgressBarConfiguration.builder()
                 .format("[red]:percent%[/]")
                 .build();
 

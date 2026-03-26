@@ -92,7 +92,7 @@ Use `TableConfiguration` to customize table appearance and behavior.
 ### Basic Configuration
 ```java
 TableConfiguration config = TableConfiguration
-    .immutableBuilder()
+    .builder()
     .alignment(CellAlign.CENTER)  // Center all cells
     .padding(2)                    // Add 2 spaces padding
     .build();
@@ -110,7 +110,7 @@ Clique.table(TableType.DEFAULT, config)
 Control how content is aligned within cells:
 ```java
 TableConfiguration config = TableConfiguration
-    .immutableBuilder()
+    .builder()
     .alignment(CellAlign.CENTER)           // Center everything
     .columnAlignment(0, CellAlign.LEFT)    // Column 0 left-aligned
     .columnAlignment(2, CellAlign.RIGHT)   // Column 2 right-aligned
@@ -129,7 +129,7 @@ Available alignments:
 Add whitespace around cell content to prevent cramping:
 ```java
 TableConfiguration config = TableConfiguration
-    .immutableBuilder()
+    .builder()
     .padding(3)  // 3 spaces on the left/right side, halved on each side if cell is centered
     .build();
 ```
@@ -138,7 +138,7 @@ TableConfiguration config = TableConfiguration
 
 When cells are null or removed, Clique replaces them with a configurable value:
 ```java
-TableConfiguration config = TableConfiguration.immutableBuilder()
+TableConfiguration config = TableConfiguration.builder()
     .nullReplacement("N/A")  // Default is empty string
     .build();
 
@@ -154,12 +154,12 @@ table.render();
 Style table borders with uniform colors:
 **NOTE:** Uniform styling is recommended for tables, due to having more complex layouts than boxes, hence, horizontal/vertical styling might not fully align with each other
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
     .uniformStyle("blue")
     .build();
 
 TableConfiguration config = TableConfiguration
-    .immutableBuilder()
+    .builder()
     .borderStyle(style)
     .build();
 
@@ -171,24 +171,24 @@ Table table = Clique.table(TableType.BOX_DRAW, config);
 Provide a custom configured parser for markup processing:
 ```java
 ParserConfiguration parserConfig = ParserConfiguration
-    .immutableBuilder()
+    .builder()
     .delimiter(' ')
     .build();
 
 TableConfiguration config = TableConfiguration
-    .immutableBuilder()
+    .builder()
     .parser(Clique.parser().configuration(parserConfig))
     .build();
 ```
 
 ### Full Configuration Example
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
     .uniformStyle("red")
     .build();
 
 TableConfiguration config = TableConfiguration
-    .immutableBuilder()
+    .builder()
     .columnAlignment(0, CellAlign.LEFT) //Overrides table wide alignment
     .borderStyle(style)
     .alignment(CellAlign.CENTER)  //Table Wide alignment
@@ -207,14 +207,14 @@ This is especially useful when you have incomplete data or when using `removeCel
 
 ### Basic Customization
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
         .horizontalChar('=')
         .verticalChar('|')
         .cornerChar('+')
         .build();
 
 TableConfiguration config = TableConfiguration
-        .immutableBuilder()
+        .builder()
         .columnAlignment(0, CellAlign.LEFT) //Overrides table wide alignment
         .borderStyle(style)
         .padding(1)

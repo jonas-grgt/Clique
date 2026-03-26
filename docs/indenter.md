@@ -97,7 +97,7 @@ Available flags:
 ## Configuration
 
 ```java
-IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
+IndenterConfiguration config = IndenterConfiguration.builder()
     .indentLevel(4)            // spaces per indent level (default: 2)
     .defaultFlag("→")          // flag used when none is specified
     .parser(Clique.parser())   // markup parsing is on by default
@@ -114,11 +114,11 @@ Clique.indenter(config)
 ### Custom Parser
 
 ```java
-ParserConfiguration parserConfig = ParserConfiguration.immutableBuilder()
+ParserConfiguration parserConfig = ParserConfiguration.builder()
     .delimiter(' ')
     .build();
 
-IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
+IndenterConfiguration config = IndenterConfiguration.builder()
     .parser(Clique.parser().configuration(parserConfig))
     .build();
 ```
@@ -172,7 +172,7 @@ Clique.indenter()
 Nested menus where each level has a consistent but distinct visual treatment:
 
 ```java
-IndenterConfiguration config = IndenterConfiguration.immutableBuilder()
+IndenterConfiguration config = IndenterConfiguration.builder()
     .indentLevel(3)
     .defaultFlag("▸ ")
     .build();

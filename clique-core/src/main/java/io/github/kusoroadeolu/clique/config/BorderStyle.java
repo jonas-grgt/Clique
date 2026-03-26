@@ -6,6 +6,7 @@ import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
+import io.github.kusoroadeolu.clique.tables.TableType;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -40,8 +41,16 @@ public class BorderStyle {
         this.modifiedChar = builder.modifiedChar;
     }
 
-    public static BorderStyleBuilder immutableBuilder() {
+    public static BorderStyleBuilder builder(){
         return new BorderStyleBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link BorderStyle#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static BorderStyleBuilder immutableBuilder() {
+        return builder();
     }
 
     public StyleBuilder styleBuilder() {

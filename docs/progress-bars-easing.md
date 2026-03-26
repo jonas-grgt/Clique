@@ -11,7 +11,7 @@ It's opt-in, lightweight, and takes about ten lines to set up.
 `EasingConfiguration.DEFAULT` gives you a ready-to-use animation with sensible values — `EASE_OUT_QUAD`, 500ms duration, 20 frames, and a threshold of 5. Good for most cases without any configuration:
 
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .easing(EasingConfiguration.DEFAULT)
     .build();
 
@@ -21,7 +21,7 @@ ProgressBar bar = Clique.progressBar(100, config);
 `EasingConfiguration.DISABLED` is an explicit no-op. Pass it anywhere an `EasingConfiguration` is accepted to opt out of animation entirely:
 
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .easing(EasingConfiguration.DISABLED)
     .build();
 ```
@@ -33,14 +33,14 @@ ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
 Easing is configured separately from the progress bar itself, then attached via `ProgressBarConfiguration`. Once wired up, you use `tickAnimated()` instead of `tick()` for the updates you want animated.
 
 ```java
-EasingConfiguration easing = EasingConfiguration.immutableBuilder()
+EasingConfiguration easing = EasingConfiguration.builder()
     .function(EasingFunction.EASE_OUT_CUBIC)
     .duration(500)
     .frames(30)
     .threshold(10)
     .build();
 
-ProgressBarConfiguration config = ProgressBarConfiguration.immutableBuilder()
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .easing(easing)
     .build();
 

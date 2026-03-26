@@ -91,7 +91,7 @@ Use `BoxConfiguration` to customize box appearance and behavior.
 
 ### Basic Configuration
 ```java
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
+BoxConfiguration config = BoxConfiguration.builder()
         .textAlign(TextAlign.CENTER)
         .autoSize()
         .build();
@@ -108,7 +108,7 @@ Box box = Clique.box(BoxType.DOUBLE_LINE, config)
 
 Control how content is aligned within the box:
 ```java
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
+BoxConfiguration config = BoxConfiguration.builder()
     .textAlign(TextAlign.CENTER)
     .build();
 ```
@@ -117,7 +117,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
 Pads both sides of the box with the given number
 
 ```java
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
+BoxConfiguration config = BoxConfiguration.builder()
     .padding(3)  // Shrinks drawable area by 3 characters on each side
     .build();
 ```
@@ -126,7 +126,7 @@ BoxConfiguration config = BoxConfiguration.immutableBuilder()
 
 Let the box automatically resize to fit its content:
 ```java
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
+BoxConfiguration config = BoxConfiguration.builder()
     .autoSize()
     .build();
 
@@ -142,13 +142,13 @@ When `autoSize` is enabled, the box will automatically adjust dimensions even if
 
 Style box borders with different colors:
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
     .horizontalStyle(ColorCode.CYAN)
     .verticalStyle(ColorCode.MAGENTA)
     .cornerStyle(ColorCode.YELLOW)
     .build();
 
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
+BoxConfiguration config = BoxConfiguration.builder()
     .borderStyle(style)
     .build();
 
@@ -163,22 +163,22 @@ Clique.box(BoxType.CLASSIC, config)
 Provide a custom configured parser for markup processing:
 ```java
 ParserConfiguration parserConfig = ParserConfiguration
-    .immutableBuilder()
+    .builder()
     .delimiter(' ')
     .build();
 
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
+BoxConfiguration config = BoxConfiguration.builder()
     .parser(Clique.parser(parserConfig))
     .build();
 ```
 
 ### Full Configuration Example
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
         .uniformStyle(blue)
         .build();
 
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
+BoxConfiguration config = BoxConfiguration.builder()
     .borderStyle(style)
     .textAlign(TextAlign.CENTER)
     .autoSize()
@@ -195,7 +195,7 @@ Box box = Clique.box(BoxType.DOUBLE_LINE, config)
 
 All box types support border customization, which returns a `Box` for fluent chaining:
 ```java
-BorderStyle style = BorderStyle.immutableBuilder()
+BorderStyle style = BorderStyle.builder()
         .uniformStyle("blue")
         .cornerChar('*')
         .horizontalChar('~')
@@ -212,7 +212,7 @@ Clique.box(style)
 
 ### Alert Box
 ```java
-BoxConfiguration config = BoxConfiguration.immutableBuilder()
+BoxConfiguration config = BoxConfiguration.builder()
     .textAlign(TextAlign.CENTER)
     .autoSize()
     .build();

@@ -30,8 +30,16 @@ public class BoxConfiguration {
         this.padding = builder.padding;
     }
 
-    public static BoxConfigurationBuilder immutableBuilder() {
+    public static BoxConfigurationBuilder builder() {
         return new BoxConfigurationBuilder();
+    }
+
+    /**
+     * @deprecated As of 3.1.3, use {@link BoxConfiguration#builder()} instead. This will be removed in a future release.
+     * */
+    @Deprecated(since = "3.1.3", forRemoval = true)
+    public static BoxConfigurationBuilder immutableBuilder() {
+        return builder();
     }
 
 

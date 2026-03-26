@@ -189,12 +189,12 @@ class FrameTest {
         assertTrue(line2.contains("|")); //Assert line2 contains the vlines
 
         BorderStyle style = BorderStyle
-                .immutableBuilder()
+                .builder()
                 .cornerChar('o')
                 .horizontalChar('~')
                 .verticalChar('/')
                 .build();
-        var config = FrameConfiguration.immutableBuilder().borderStyle(style).build();
+        var config = FrameConfiguration.builder().borderStyle(style).build();
 
 
         var frame2 = Clique.frame(BoxType.DEFAULT, config).nest("Hello"); //ASCII
@@ -210,10 +210,10 @@ class FrameTest {
     @Test
     void borderStyleConfig_shouldNotApplyChanges_onBlankChars(){
         BorderStyle style = BorderStyle
-                .immutableBuilder()
+                .builder()
                 .cornerChar(' ')
                 .build();
-        var config = FrameConfiguration.immutableBuilder().borderStyle(style).build();
+        var config = FrameConfiguration.builder().borderStyle(style).build();
 
 
         var frame2 = Clique.frame(BoxType.DEFAULT, config).nest("Hello"); //ASCII
