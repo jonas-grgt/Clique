@@ -103,12 +103,13 @@ The parser is integrated into tables, boxes, and indenters. By default, markup p
 ```java
 // Tables with markup
 Clique.table(TableType.DEFAULT)
-    .addHeaders("[green, bold]Name[/]", "[green, bold]Age[/]")
-    .addRows("[red]John[/]", "25")
+    .headers("[green, bold]Name[/]", "[green, bold]Age[/]")
+    .row("[red]John[/]", "25")
     .render();
 
 // Boxes with markup
 Clique.box(BoxType.ROUNDED)
+    .withDimensions(10, 10)
     .content("[bold, blue]This is a configured box[/]")
     .render();
 

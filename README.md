@@ -18,7 +18,7 @@ A dependency free, lightweight and extensible CLI library for beautifying Java t
 <dependency>
       <groupId>io.github.kusoroadeolu</groupId>
       <artifactId>clique-core</artifactId>
-      <version>3.1.1</version>
+      <version>3.1.2</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@ A dependency free, lightweight and extensible CLI library for beautifying Java t
 
 ```gradle
 dependencies {
-    implementation 'io.github.kusoroadeolu:clique-core:3.1.1'
+    implementation 'io.github.kusoroadeolu:clique-core:3.1.2'
 }
 ```
 
@@ -53,9 +53,9 @@ Clique.parser().print("[ctp_mauve]Styled with Catppuccin![/]");
 Build beautiful tables with multiple styles:
 ```java
 Clique.table(TableType.DEFAULT)
-    .addHeaders("Name", "Age", "Status")
-    .addRows("Alice", "25", "Active")
-    .addRows("Bob", "30", "Inactive")
+    .headers("Name", "Age", "Status")
+    .row("Alice", "25", "Active")
+    .row("Bob", "30", "Inactive")
     .render();
 ```
 ![Sample Table](images/sample-table.png)

@@ -16,10 +16,14 @@ public interface CliqueTheme {
     /**
      * @return The author of the theme
      * */
-    String author();
+    default String author(){
+        return "";
+    }
 
     /**
      * @return The repository url of the theme
      * */
-    String url();
+    default String url(){
+        return "";
+    }
 }

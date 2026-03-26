@@ -1,6 +1,6 @@
 # Themes
 
-Clique ships with seven handpicked terminal color schemes. Drop one in, and every color in that palette becomes available in your markup tags — no ANSI codes, no manual wiring.
+Clique ships with seven handpicked terminal color schemes. Drop one in, and every color in that palette becomes available in your markup tags, no ANSI codes, no manual wiring.
 
 ---
 
@@ -14,7 +14,7 @@ Themes live in a separate package from core. You need both:
     <dependency>
         <groupId>io.github.kusoroadeolu</groupId>
         <artifactId>clique-core</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.2</version>
     </dependency>
     <dependency>
         <groupId>io.github.kusoroadeolu</groupId>
@@ -26,7 +26,7 @@ Themes live in a separate package from core. You need both:
 
 ```gradle
 // Gradle
-implementation 'io.github.kusoroadeolu:clique-core:3.0.0'
+implementation 'io.github.kusoroadeolu:clique-core:3.1.2'
 implementation 'io.github.kusoroadeolu:clique-themes:1.0.0'
 ```
 
@@ -196,7 +196,7 @@ Clique.findTheme("tokyo-night").ifPresentOrElse(
 
 ## Terminal requirements
 
-Themes use 24-bit RGB color. Most modern terminals handle this without any setup — iTerm2, Alacritty, Kitty, Windows Terminal, and recent GNOME Terminal all support it out of the box. If colors look off, make sure `COLORTERM=truecolor` is set in your shell profile.
+Themes use 24-bit RGB color. Most modern terminals handle this without any setup. iTerm2, Alacritty, Kitty, Windows Terminal, and recent GNOME Terminal all support it out of the box. If colors look off, make sure `COLORTERM=truecolor` is set in your shell profile.
 
 ---
 

@@ -92,4 +92,7 @@ Changes to the SPI module in this release.
 - `resolveDimensions()` -> validates explicit dimensions or computes them for `autoSize`
 - `Box#content(String, TextAlign)` and `Box#content(Object, TextAlign)` -> convenience overloads for setting content and alignment inline
 
+## clique-spi [1.0.4] - 2026-03-24
+- Updated `author()` and `url()` metadata in CliqueTheme interface to be optional in the interface (i.e it is no longer mandatory for those metadata to be filled). Instead they default to an EMPTY string
+ 
 Report issues at: https://github.com/kusoroadeolu/Clique/issues**
