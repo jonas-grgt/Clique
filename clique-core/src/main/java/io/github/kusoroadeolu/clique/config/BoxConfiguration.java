@@ -78,13 +78,14 @@ public class BoxConfiguration {
         return this.parser;
     }
 
+    @Override
     public String toString() {
         return "BoxConfiguration[" +
-                "centerPadding=" + centerPadding +
-                ", textAlign=" + textAlign +
+                "textAlign=" + textAlign +
                 ", parser=" + parser +
                 ", borderStyle=" + borderStyle +
                 ", autoSize=" + autoSize +
+                ", padding=" + padding +
                 ']';
     }
 
@@ -93,12 +94,12 @@ public class BoxConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         BoxConfiguration that = (BoxConfiguration) object;
-        return centerPadding == that.centerPadding && autoSize == that.autoSize && textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle);
+        return centerPadding == that.centerPadding && autoSize == that.autoSize && textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle) && padding == that.padding;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(centerPadding, autoSize, textAlign, parser, borderStyle);
+        return Objects.hash(padding, autoSize, textAlign, parser, borderStyle);
     }
 
     public static class BoxConfigurationBuilder {
@@ -119,9 +120,10 @@ public class BoxConfiguration {
             return this;
         }
 
-        public void padding(int padding) {
+        public BoxConfigurationBuilder padding(int padding) {
             if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
             this.padding = padding;
+            return this;
         }
 
         public BoxConfigurationBuilder autoSize() {
