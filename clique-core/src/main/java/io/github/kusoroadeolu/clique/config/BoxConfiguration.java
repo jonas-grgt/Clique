@@ -119,9 +119,10 @@ public class BoxConfiguration {
             return this;
         }
 
-        public void padding(int padding) {
+        public BoxConfigurationBuilder padding(int padding) {
             if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
             this.padding = padding;
+            return this;
         }
 
         public BoxConfigurationBuilder autoSize() {
