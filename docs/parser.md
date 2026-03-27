@@ -109,7 +109,7 @@ Clique.table(TableType.DEFAULT)
 
 // Boxes with markup
 Clique.box(BoxType.ROUNDED)
-    .withDimensions(10, 10)
+    .autosize()
     .content("[bold, blue]This is a configured box[/]")
     .render();
 

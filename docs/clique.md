@@ -57,7 +57,7 @@ Clique.table()
 - `table(TableType, BorderSpec)` - Create table with specific type and uniform border styling
 
 **Available Types:**
-`DEFAULT`, `COMPACT`/`MINIMAL`, `BOX_DRAW`, `ROUNDED_BOX_DRAW`, `MARKDOWN`
+`DEFAULT`, `COMPACT`, `BOX_DRAW`, `ROUNDED_BOX_DRAW`, `MARKDOWN`
 
 > **Note:** `customizableTable()` and its overloads are deprecated as of 3.1. Use the `table()` methods above instead. They will be removed in a future release.
 
@@ -67,7 +67,7 @@ Single-cell containers for displaying text with borders.
 
 ```java
 Clique.box()
-    .withDimensions(40, 10)
+    .autosize()
     .content("Your message here")
     .render();
 ```
