@@ -12,8 +12,8 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 
 public abstract class AbstractBox implements Box {
-    int width;
-    int height;
+    int width = 0;
+    int height = 0; //If width and height == 0
     String boxContent;
     String cachedString = null;
     WidthAwareList cells;
@@ -25,7 +25,7 @@ public abstract class AbstractBox implements Box {
     private static final String TEXT_ALIGN_NOT_NULL = "Text align cannot be null";
 
 
-    public AbstractBox() {
+    AbstractBox() {
         this(ZERO, ZERO);
     }
 
@@ -71,7 +71,7 @@ public abstract class AbstractBox implements Box {
         var config = this.boxConfiguration;
         int padding = config.getPadding();
 
-        if (config.getAutoSize()) {
+        if (config.getAutoSize() || (width == 0 && height == 0)) { //if width and height == 0 autosize() was called
             this.width = cells.longest() + (padding * 2);
             this.height = cells.size(); //Taking into account the top and bottom border
         } else {
@@ -84,6 +84,7 @@ public abstract class AbstractBox implements Box {
         }
     }
 
+    //Splits the box content per newline, maps each chunk to a cell and encompasses them in a list
     WidthAwareList resolveLines(){
         var parser = boxConfiguration.getParser();
         var cellList = boxContent.lines()
@@ -92,7 +93,6 @@ public abstract class AbstractBox implements Box {
         return new WidthAwareList(cellList);
     }
 
-    //Splits the box content per newline, maps each chunk to a cell and encompasses them in a list
 
 
     @Override
@@ -118,7 +118,7 @@ public abstract class AbstractBox implements Box {
         public Box withDimensions(int width, int height) {
             if (width <= 0 || height <= 0) {
                 throw new IllegalArgumentException(
-                        "Width and height must be greater than 0. To skip dimensions, enable autoSize() in BoxConfiguration and call noDimensions()."
+                        "Width and height must be greater than 0. To skip dimensions, use the autosize() method instead."
                 );
             }
 
@@ -127,11 +127,15 @@ public abstract class AbstractBox implements Box {
             return box;
         }
 
+        /**
+         * @deprecated in favor of {@link BoxDimensionBuilder#autosize()} method . This will be removed in a future release
+         * */
+        @Deprecated(since = "3.1.3", forRemoval = true)
         public Box noDimensions() {
-            if (!this.box.boxConfiguration.getAutoSize())
-                throw new IllegalStateException(
-                        "noDimensions() requires autoSize to be enabled in BoxConfiguration"
-                );
+           return autosize();
+        }
+
+        public Box autosize(){
             this.box.width = 0;
             this.box.height = 0;
             return this.box;

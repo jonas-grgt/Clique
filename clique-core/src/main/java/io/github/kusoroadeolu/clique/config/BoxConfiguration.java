@@ -1,6 +1,7 @@
 package io.github.kusoroadeolu.clique.config;
 
 
+import io.github.kusoroadeolu.clique.boxes.AbstractBox;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
@@ -55,13 +56,17 @@ public class BoxConfiguration {
     }
 
     /**
-     * @deprecated As of 3.1, due to confusing/incorrect semantics. This will be removed in a future release.
+     * @deprecated As of 3.1.0, due to confusing/incorrect semantics. This will be removed in a future release.
      */
     @Deprecated(forRemoval = true, since = "3.1")
     public int getCenterPadding() {
         return this.centerPadding;
     }
 
+    /**
+     * @deprecated As of 3.1.3, in favor of {@link AbstractBox.BoxDimensionBuilder#autosize()}. This will be removed in a future release.
+     */
+    @Deprecated(forRemoval = true, since = "3.1.3")
     public boolean getAutoSize() {
         return this.autoSize;
     }
@@ -126,6 +131,10 @@ public class BoxConfiguration {
             return this;
         }
 
+        /**
+         * @deprecated As of 3.1.3, in favor of {@link AbstractBox.BoxDimensionBuilder#autosize()}. This will be removed in a future release.
+         */
+        @Deprecated(since = "3.1.3", forRemoval = true)
         public BoxConfigurationBuilder autoSize() {
             this.autoSize = true;
             return this;

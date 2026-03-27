@@ -94,5 +94,16 @@ Changes to the SPI module in this release.
 
 ## clique-spi [1.0.4] - 2026-03-24
 - Updated `author()` and `url()` metadata in CliqueTheme interface to be optional in the interface (i.e it is no longer mandatory for those metadata to be filled). Instead they default to an EMPTY string
- 
+
+
+# Changelog
+
+## Clique [3.1.3] - 2026-03-26
+### Changed
+- `Box` auto-sizing is now implicit when no dimensions are provided, matching `Frame`'s behaviour
+
+### Deprecated
+- `BoxConfigurationBuilder#autoSize()`, `BoxConfiguration#getAutoSize()` — auto-sizing is now the default; configure dimensions directly on the builder
+- `Box#noDimensions()` in favor of `Box#autoSize()` on the builder
+
 Report issues at: https://github.com/kusoroadeolu/Clique/issues**

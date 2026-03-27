@@ -29,9 +29,17 @@ box.render(); // Print the box to terminal
 - **Width** - The horizontal size of the box (in characters)
 - **Height** - The vertical size of the box (in lines)
 ```java
-Clique.box(BoxType.DEFAULT)
+Clique.box()
     .withDimensions(50, 5)  // Width, height
     .content("A wider, shorter box")
+    .render();
+```
+
+**AutoSized boxes**
+```java
+Clique.box()
+    .autosize() //Autosizes the box
+    .content("An autosized box")
     .render();
 ```
 
@@ -66,7 +74,7 @@ Clique.box(BoxType.CLASSIC)
 Boxes support a range of text alignments, with the default being centered:
 ```java
 Clique.box(BoxType.CLASSIC)
-    .withDimensions(40, 10)
+    .autosize()
     .content(
         """
             [green, bold]Success![/]
@@ -121,7 +129,7 @@ BoxConfiguration config = builder.build();
 
 #### Auto Size
 
-Let the box automatically resize to fit its content:
+Let the box automatically resize to fit its content. This is deprecated in favor of `Clique.box#autosize()`
 ```java
 BoxConfiguration config = BoxConfiguration.builder()
     .autoSize()

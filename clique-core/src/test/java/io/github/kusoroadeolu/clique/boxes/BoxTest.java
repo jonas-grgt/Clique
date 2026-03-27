@@ -63,17 +63,12 @@ class BoxTest {
                         .withDimensions(10, 0));
     }
 
-    @Test
-    void assertThrows_onNoDimensions_ifAutoSizeConfigIsAbsent(){
-        assertThrows(IllegalStateException.class,
-                () -> Clique.box()
-                        .noDimensions());
-    }
 
+    //Simple regression test
     @Test
-    void assertDoesNotThrow_onNoDimensions_ifAutoSizeConfigIsAbsent(){
-        assertDoesNotThrow(() -> Clique.box(BoxConfiguration.builder().autoSize().build())
-                        .noDimensions());
+    void assertDoesNotThrow_onAutoSize(){
+        assertDoesNotThrow(() -> Clique.box()
+                        .autosize());
     }
 
     @Test
@@ -91,9 +86,8 @@ class BoxTest {
 
     @Test
     void borderStyleConfig_shouldApplyGivenChanges(){
-        var autosize = BoxConfiguration.builder().autoSize().build();
-        var box = Clique.box(BoxType.DEFAULT, autosize)
-                .noDimensions()
+        var box = Clique.box(BoxType.DEFAULT)
+                .autosize()
                 .content("Hello"); //ASCII //ASCII Box
         List<String> lines = box.get().lines().toList();
         var line1 = lines.getFirst();
@@ -108,11 +102,10 @@ class BoxTest {
                 .horizontalChar('~')
                 .verticalChar('/')
                 .build();
-        var config = BoxConfiguration.builder().autoSize().borderStyle(style).build();
 
 
-        var frame2 = Clique.box(BoxType.DEFAULT, config)
-                .noDimensions()
+        var frame2 = Clique.box(BoxType.DEFAULT, style)
+                .autosize()
                 .content("Hello"); //ASCII
         List<String> lines2 = frame2.get().lines().toList();
         var lines2_1 = lines2.getFirst();
@@ -131,12 +124,11 @@ class BoxTest {
 
         var config = BoxConfiguration
                 .builder()
-                .autoSize()
                 .borderStyle(style)
                 .build();
 
         var frame2 = Clique.box(BoxType.DEFAULT, config)
-                .noDimensions()
+                .autosize()
                 .content("Hello"); //ASCII
         List<String> lines2 = frame2.get().lines().toList();
         var lines2_1 = lines2.getFirst();
