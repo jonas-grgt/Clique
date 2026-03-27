@@ -43,9 +43,17 @@ public class BorderStyle implements BorderSpec{
 
     public static BorderStyle fromSpec(BorderSpec spec){
         return switch (spec){
-            case BorderStyle b -> b;
+            case BorderStyle bs -> bs;
+            case BorderColor bc -> fromBorderColor(bc);
             default -> builder().uniformStyle(spec.styles()).build();
         };
+    }
+
+    static BorderStyle fromBorderColor(BorderColor color){
+        return builder().verticalStyle(color.getVerticalStyle())
+                .horizontalStyle(color.getHorizontalStyle())
+                .cornerStyle(color.getCornerStyle())
+                .build();
     }
 
     /**
