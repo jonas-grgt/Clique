@@ -43,8 +43,8 @@ Create formatted tables with headers and rows.
 
 ```java
 Clique.table()
-    .addHeaders("Name", "Age", "Status")
-    .addRows("Alice", "25", "Active")
+    .headers("Name", "Age", "Status")
+    .row("Alice", "25", "Active")
     .render();
 ```
 
@@ -205,10 +205,10 @@ Clique.registerStyles(styles);
 
 Enable or disable ANSI color output.
 ```java
-// Disable colors for CI/CD environments
+//Force disable colors 
 Clique.enableCliqueColors(false);
 
-// Re-enable colors
+// Re enable colors
 Clique.enableCliqueColors(true);
 
 // Enable colors (no-arg shorthand)

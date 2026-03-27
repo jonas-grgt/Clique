@@ -162,24 +162,20 @@ FrameConfiguration config = FrameConfiguration.builder()
 For quick uniform border coloring, pass a `BorderSpec` directly to the factory method — no configuration object needed:
 ```java
 // Static factory
-Clique.frame(BorderSpec.of("red"))
-    .nest(table)
-    .render();
-
-// Lambda
-Clique.frame(() -> "red")
+Clique.frame(BorderColor.of("red"))
     .nest(table)
     .render();
 
 // With a specific frame type
-Clique.frame(BoxType.CLASSIC, BorderSpec.of("red"))
+Clique.frame(BoxType.CLASSIC, BorderColor.of("red"))
     .nest(table)
     .render();
 ```
 
-For per-edge or more manual color control, use `BorderStyle` via `FrameConfiguration`:
+
+For per-edge or more manual color control, you can use `BorderColor` via `FrameConfiguration`:
 ```java
-BorderStyle style = BorderStyle.builder()
+BorderColor style = BorderColor.builder()
     .horizontalStyle("cyan")
     .verticalStyle("magenta")
     .cornerStyle("yellow")
@@ -297,7 +293,7 @@ tests.add("[dim, strike]TreeTest.java       skipped");
 tree.add("[white]README.md");
 tree.add("[dim].gitignore");
 
-Clique.frame(BoxType.CLASSIC)
+Clique.frame(BoxType.CLASSIC, BorderColor.of("blue"))
     .title("Project Structure", FrameAlign.LEFT)
     .nest(tree)
     .render();

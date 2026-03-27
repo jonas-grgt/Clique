@@ -8,7 +8,7 @@ Clique provides 4 built-in box styles:
 
 1. **DEFAULT** - Standard box with ASCII borders
 2. **CLASSIC** - Classic box style
-3. **ROUNDED** - Box with rounded corners
+3. **ROUNDED** - Box with rounded corners (default)
 4. **DOUBLE_LINE** - Box with double-line borders
 
 ![Boxes Output](../images/boxes.png)
@@ -112,11 +112,11 @@ BoxConfiguration config = BoxConfiguration.builder()
 
 #### Padding
 
-Shrinks the drawable area by the given number of characters on each side:
+Adds padding to each side of the box, this padding is taken from the given width of the box, and is not added to the box
 ```java
-BoxConfiguration config = BoxConfiguration.builder()
-    .padding(3)
-    .build();
+BoxConfigurationBuilder builder = BoxConfiguration.builder();
+builder.padding(3);
+BoxConfiguration config = builder.build();
 ```
 
 #### Auto Size
@@ -137,30 +137,24 @@ When `autoSize` is enabled, the box will automatically adjust dimensions even if
 
 #### Border Styling
 
-For quick uniform border coloring, pass a `BorderSpec` directly to the factory method — no configuration object needed:
+For quick uniform border coloring, pass a `BorderColor` directly to the factory method — no configuration object needed:
 ```java
 // Static factory
-Clique.box(BorderSpec.of("blue"))
-    .withDimensions(40, 10)
-    .content("Blue border box")
-    .render();
-
-// Lambda
-Clique.box(() -> "blue")
+Clique.box(BorderColor.of(ColorCode.BLUE))
     .withDimensions(40, 10)
     .content("Blue border box")
     .render();
 
 // With a specific box type
-Clique.box(BoxType.CLASSIC, BorderSpec.of("blue"))
+Clique.box(BoxType.CLASSIC, BorderColor.of("blue"))
     .withDimensions(40, 10)
     .content("Blue border box")
     .render();
 ```
 
-For per-edge color control, use `BorderStyle` via `BoxConfiguration`:
+For per-edge color control, you can use `BorderColor` via `BoxConfiguration`:
 ```java
-BorderStyle style = BorderStyle.builder()
+BorderColor style = BorderColor.builder()
     .horizontalStyle("cyan")
     .verticalStyle("magenta")
     .cornerStyle("yellow")
@@ -200,12 +194,13 @@ BoxConfiguration config = BoxConfiguration.builder()
 
 ### Full Configuration Example
 ```java
-BoxConfiguration config = BoxConfiguration.builder()
-    .borderStyle(BorderSpec.of("blue"))
+BoxConfigurationBuilder builder = BoxConfiguration.builder()
+    .borderStyle(BorderColor.of("blue"))
     .textAlign(TextAlign.CENTER)
     .autoSize()
-    .parser(Clique.parser())
-    .build();
+    .parser(Clique.parser());
+builder.padding(3);
+BoxConfiguration config = builder.build();
 
 Clique.box(BoxType.DOUBLE_LINE, config)
     .noDimensions()
@@ -259,11 +254,13 @@ Clique.box(BoxType.ROUNDED)
 
 ## Things to Watch Out For
 
+- `Clique.box()` defaults to `BoxType.ROUNDED`
 - When using `autoSize`, you don't need to specify dimensions — just use `noDimensions()`
 - Using `noDimensions()` without an `autoSize` config throws an `IllegalStateException`
 - Blank chars for customization are not applied; the previous default char of the `BoxType` is used instead
+- `padding()` on `BoxConfigurationBuilder` returns `void` and cannot be chained
 
 ## See Also
 
 - [Markup Reference](markup-reference.md) - Styling options for box content
-- [Parser Documentation](parser.md) - How markup parsing works                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+- [Parser Documentation](parser.md) - How markup parsing works

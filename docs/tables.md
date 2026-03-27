@@ -150,33 +150,28 @@ Clique.table(TableType.DEFAULT, config)
 
 #### Border Styling
 
-For quick uniform border coloring, pass a `BorderSpec` directly to the factory method — no configuration object needed:
+For quick uniform border coloring, pass a `BorderColor` directly to the factory method — no configuration object needed:
 
 > **Note:** Uniform styling is recommended for tables. Due to their more complex layout, per-edge color control (horizontal/vertical) may not fully align visually.
 
 ```java
 // Static factory
-Clique.table(BorderSpec.of("blue"))
+Clique.table(BorderColor.of(ColorCode.BLUE))
     .headers("Name", "Age")
     .row("Alice", "25")
     .render();
 
-// Lambda
-Clique.table(() -> "blue")
-    .headers("Name", "Age")
-    .row("Alice", "25")
-    .render();
 
 // With a specific table type
-Clique.table(TableType.BOX_DRAW, BorderSpec.of("blue"))
+Clique.table(TableType.BOX_DRAW, BorderColor.of("blue")) //Uniform styling
     .headers("Name", "Age")
     .row("Alice", "25")
     .render();
 ```
 
-For per-edge color control, use `BorderStyle` via `TableConfiguration`:
+For per-edge color control, you can use `BorderColor` via `TableConfiguration`:
 ```java
-BorderStyle style = BorderStyle.builder()
+BorderColor color = BorderColor.builder()
     .horizontalStyle("cyan")
     .verticalStyle("magenta")
     .cornerStyle("yellow")
@@ -184,7 +179,7 @@ BorderStyle style = BorderStyle.builder()
 
 TableConfiguration config = TableConfiguration
     .builder()
-    .borderStyle(style)
+    .borderStyle(color)
     .build();
 
 Clique.table(TableType.BOX_DRAW, config)
