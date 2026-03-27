@@ -45,7 +45,7 @@ public class TableConfiguration {
         return builder();
     }
 
-    public static TableConfiguration fromBorderStyle(BorderStyle style) {
+    public static TableConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
         return TableConfiguration.immutableBuilder().borderStyle(style).build();
     }

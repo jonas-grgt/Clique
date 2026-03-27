@@ -39,7 +39,7 @@ public class FrameConfiguration {
         return builder();
     }
 
-    public static FrameConfiguration fromBorderStyle(BorderStyle style) {
+    public static FrameConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
         return FrameConfiguration.immutableBuilder().borderStyle(style).build();
     }

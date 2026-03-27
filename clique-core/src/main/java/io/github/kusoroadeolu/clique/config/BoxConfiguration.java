@@ -42,7 +42,7 @@ public class BoxConfiguration {
         return builder();
     }
 
-    public static BoxConfiguration fromBorderStyle(BorderStyle style) {
+    public static BoxConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
         return BoxConfiguration
                 .immutableBuilder()
