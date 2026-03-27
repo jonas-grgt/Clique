@@ -1,10 +1,7 @@
 package io.github.kusoroadeolu.clique.config;
 
-@FunctionalInterface
-public interface BorderSpec {
-    String style();
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
-    static BorderSpec of(String value){
-        return () -> value;
-    }
+public interface BorderSpec {
+    AnsiCode[] styles();
 }

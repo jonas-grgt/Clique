@@ -181,6 +181,7 @@ class TableTest {
         List<String> lines2 = table2.get().lines().toList();
         var lines2_1 = lines2.getFirst();
         var lines2_2 = lines2.get(1);
+        System.out.println(table2.get());
         assertTrue(lines2_1.contains("o"));
         assertTrue(lines2_1.contains("~")); //Asserting line 1 contains both the corners and horizontal chars
         assertTrue(lines2_2.contains("/")); //Assert line2 contains the vlines
