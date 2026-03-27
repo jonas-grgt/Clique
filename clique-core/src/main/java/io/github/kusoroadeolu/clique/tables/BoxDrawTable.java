@@ -5,6 +5,7 @@ import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.Objects;
@@ -133,7 +134,7 @@ class BoxDrawTable extends AbstractTable {
             );
         }
 
-        final StyleBuilder sb = borderStyle.styleBuilder();
+        final StyleBuilder sb = new DefaultStyleBuilder();
         final AnsiCode[] horizontalStyles = borderStyle.getHorizontalStyle();
         final AnsiCode[] verticalStyles = borderStyle.getVerticalStyle();
         final AnsiCode[] cornerStyle = borderStyle.getCornerStyle();

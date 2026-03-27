@@ -45,7 +45,7 @@ public class TableConfiguration {
         return builder();
     }
 
-    public static TableConfiguration fromBorderStyle(BorderStyle style) {
+    public static TableConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
         return TableConfiguration.immutableBuilder().borderStyle(style).build();
     }
@@ -130,9 +130,9 @@ public class TableConfiguration {
             return this;
         }
 
-        public TableConfigurationBuilder borderStyle(BorderStyle borderStyle) {
-            Objects.requireNonNull(borderStyle, "Border style cannot be null");
-            this.borderStyle = borderStyle;
+        public TableConfigurationBuilder borderStyle(BorderSpec spec) {
+            Objects.requireNonNull(spec, "Border style cannot be null");
+            this.borderStyle = BorderStyle.fromSpec(spec);
             return this;
         }
 

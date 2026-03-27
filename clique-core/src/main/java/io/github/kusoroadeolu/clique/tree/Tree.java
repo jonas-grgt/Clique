@@ -106,6 +106,6 @@ public class Tree implements Borderless {
     }
 
     void assertNotSelf(Tree tree){
-        if (tree == this) throw new UnsupportedOperationException("Cannot a tree within itself");
+        if (tree == this) throw new UnsupportedOperationException("Cannot nest a tree within itself");
     }
 }

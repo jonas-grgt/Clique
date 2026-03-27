@@ -269,7 +269,6 @@ public final class CharWidth {
         int width = 0;
         int i = 0;
         int lastSafeBreak = 0;
-        int lastSafeWidth = 0;
         boolean inZwjSequence = false;
 
         while (i < s.length()) {
@@ -296,7 +295,6 @@ public final class CharWidth {
                     inZwjSequence = false;
                     // After exiting ZWJ sequence, this is a safe break point
                     lastSafeBreak = i;
-                    lastSafeWidth = width;
                 }
                 continue;
             }
@@ -326,12 +324,11 @@ public final class CharWidth {
             // Update safe break point for non-ZWJ characters
             if (!inZwjSequence) {
                 lastSafeBreak = i;
-                lastSafeWidth = width;
             }
         }
 
         // If we broke inside a ZWJ sequence, use the last safe break
-        if (inZwjSequence && lastSafeBreak < i) {
+        if (inZwjSequence) {
             return s.substring(0, lastSafeBreak);
         }
 

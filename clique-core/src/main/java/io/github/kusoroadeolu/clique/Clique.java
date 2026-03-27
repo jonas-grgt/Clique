@@ -47,9 +47,9 @@ public final class Clique {
     public static TableHeaderBuilder table(TableType type) { return CliqueComponents.table(type); }
     public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) { return CliqueComponents.table(type, configuration); }
 
-    public static TableHeaderBuilder table(TableType type, BorderStyle style){return CliqueComponents.table(type, style);}
+    public static TableHeaderBuilder table(TableType type, BorderSpec style){return CliqueComponents.table(type, style);}
 
-    public static TableHeaderBuilder table(BorderStyle style){return CliqueComponents.table(style);}
+    public static TableHeaderBuilder table(BorderSpec style){return CliqueComponents.table(style);}
 
 
     // BOX
@@ -58,9 +58,9 @@ public final class Clique {
     public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) { return CliqueComponents.box(type, configuration); }
     public static BoxDimensionBuilder box(BoxType type) { return CliqueComponents.box(type); }
 
-    public static BoxDimensionBuilder box(BoxType type, BorderStyle style){ return CliqueComponents.box(type, style);}
+    public static BoxDimensionBuilder box(BoxType type, BorderSpec style){ return CliqueComponents.box(type, style);}
 
-    public static BoxDimensionBuilder box(BorderStyle style){return CliqueComponents.box(style);}
+    public static BoxDimensionBuilder box(BorderSpec style){return CliqueComponents.box(style);}
 
     // INDENTER
     public static Indenter indenter() { return CliqueComponents.indenter(); }
@@ -81,9 +81,9 @@ public final class Clique {
     public static Frame frame(BoxType type) { return CliqueComponents.frame(type); }
     public static Frame frame(BoxType type, FrameConfiguration configuration) { return CliqueComponents.frame(type, configuration); }
 
-    public static Frame frame(BoxType type, BorderStyle style){return CliqueComponents.frame(type, style);}
+    public static Frame frame(BoxType type, BorderSpec style){return CliqueComponents.frame(type, style);}
 
-    public static Frame frame(BorderStyle style){return CliqueComponents.frame(style);}
+    public static Frame frame(BorderSpec style){return CliqueComponents.frame(style);}
 
     // TREE
     public static Tree tree(String label) { return CliqueComponents.tree(label); }

@@ -39,7 +39,7 @@ public class FrameConfiguration {
         return builder();
     }
 
-    public static FrameConfiguration fromBorderStyle(BorderStyle style) {
+    public static FrameConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
         return FrameConfiguration.immutableBuilder().borderStyle(style).build();
     }
@@ -94,9 +94,9 @@ public class FrameConfiguration {
             return this;
         }
 
-        public FrameConfigurationBuilder borderStyle(BorderStyle borderStyle) {
-            Objects.requireNonNull(borderStyle, "Border style cannot be null");
-            this.borderStyle = borderStyle;
+        public FrameConfigurationBuilder borderStyle(BorderSpec spec) {
+            Objects.requireNonNull(spec, "Border style cannot be null");
+            this.borderStyle = BorderStyle.fromSpec(spec);
             return this;
         }
 

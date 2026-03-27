@@ -43,8 +43,8 @@ Create formatted tables with headers and rows.
 
 ```java
 Clique.table()
-    .addHeaders("Name", "Age", "Status")
-    .addRows("Alice", "25", "Active")
+    .headers("Name", "Age", "Status")
+    .row("Alice", "25", "Active")
     .render();
 ```
 
@@ -53,6 +53,8 @@ Clique.table()
 - `table(TableType)` - Create table with specific type
 - `table(TableConfiguration)` - Create table with custom configuration
 - `table(TableType, TableConfiguration)` - Full customization
+- `table(BorderSpec)` - Create table with uniform border styling
+- `table(TableType, BorderSpec)` - Create table with specific type and uniform border styling
 
 **Available Types:**
 `DEFAULT`, `COMPACT`/`MINIMAL`, `BOX_DRAW`, `ROUNDED_BOX_DRAW`, `MARKDOWN`
@@ -75,6 +77,8 @@ Clique.box()
 - `box(BoxType)` - Create box with specific type
 - `box(BoxConfiguration)` - Create box with custom configuration
 - `box(BoxType, BoxConfiguration)` - Full customization
+- `box(BorderSpec)` - Create box with uniform border styling
+- `box(BoxType, BorderSpec)` - Create box with specific type and uniform border styling
 
 **Available Types:**
 `DEFAULT`, `CLASSIC`, `ROUNDED`, `DOUBLE_LINE`
@@ -87,7 +91,8 @@ A frame is a box-based container for displaying multi-line or structured content
 
 ```java
 Clique.frame()
-    .content("Line one", "Line two")
+    .nest("Line one")
+    .nest("Line two")
     .render();
 ```
 
@@ -96,16 +101,18 @@ Clique.frame()
 - `frame(BoxType)` - Create frame with specific box type
 - `frame(FrameConfiguration)` - Create frame with custom configuration
 - `frame(BoxType, FrameConfiguration)` - Full customization
+- `frame(BorderSpec)` - Create frame with uniform border styling
+- `frame(BoxType, BorderSpec)` - Create frame with specific type and uniform border styling
 
 ## Trees
 
-Render hierarchical data as an indented tree structure(favored over tree)
+Render hierarchical data as an indented tree structure.
 
 ```java
 Clique.tree("root")
-    .branch("child one")
-    .branch("child two")
-    .render();
+    .add("child one")
+    .add("child two")
+    .print();
 ```
 
 **Methods:**
@@ -114,7 +121,7 @@ Clique.tree("root")
 
 ## Indenter
 
-Create hierarchical text structures with nested indentation
+Create hierarchical text structures with nested indentation.
 ```java
 Clique.indenter()
     .indent("→")
@@ -146,6 +153,7 @@ while (!bar.isDone()) {
 - `progressBar(int total)` - Create with default style
 - `progressBar(int total, ProgressBarConfiguration)` - Custom configuration
 - `progressBar(int total, ProgressBarPreset)` - Use predefined preset
+- `progressBar(int total, EasingConfiguration)` - Create with easing animation
 
 **Predefined Styles:**
 `BLOCKS`, `LINES`, `BOLD`, `CLASSIC`, `DOTS`
@@ -179,12 +187,12 @@ Register custom color codes for use in markup.
 ```java
 // Register single style
 Clique.registerStyle("error", new RGBColor(255, 0, 0, false));
-Clique.parser().print("[error]Custom error color[/]");
+        Clique.parser().print("[error]Custom error color[/]");
 
 // Register multiple styles
 Map<String, AnsiCode> styles = Map.of(
-    "success", new RGBColor(0, 255, 0, false),
-    "warning", new RGBColor(255, 255, 0, false)
+        "success", new RGBColor(0, 255, 0, false),
+        "warning", new RGBColor(255, 255, 0, false)
 );
 Clique.registerStyles(styles);
 ```
@@ -197,10 +205,10 @@ Clique.registerStyles(styles);
 
 Enable or disable ANSI color output.
 ```java
-// Disable colors for CI/CD environments
+//Force disable colors 
 Clique.enableCliqueColors(false);
 
-// Re-enable colors
+// Re enable colors
 Clique.enableCliqueColors(true);
 
 // Enable colors (no-arg shorthand)

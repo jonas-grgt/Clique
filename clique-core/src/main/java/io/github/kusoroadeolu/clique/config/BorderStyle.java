@@ -6,21 +6,19 @@ import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
-import io.github.kusoroadeolu.clique.tables.TableType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * A class for styling table borders
- *
  */
-public class BorderStyle {
+public class BorderStyle implements BorderSpec{
     public final static BorderStyle DEFAULT = new BorderStyle();
 
-    private final AnsiCode[] verticalStyle;
-    private final AnsiCode[] horizontalStyle;
-    private final AnsiCode[] edgeStyle;
+    private final BorderColor borderColor;
     private final char cornerChar;
     private final char verticalChar;
     private final char horizontalChar;
@@ -32,9 +30,7 @@ public class BorderStyle {
 
 
     private BorderStyle(BorderStyleBuilder builder) {
-        this.verticalStyle = builder.verticalStyle;
-        this.horizontalStyle = builder.horizontalStyle;
-        this.edgeStyle = builder.edgeStyle;
+        borderColor = builder.borderColor;
         this.cornerChar = builder.cornerChar;
         this.verticalChar = builder.verticalChar;
         this.horizontalChar = builder.horizontalChar;
@@ -45,6 +41,21 @@ public class BorderStyle {
         return new BorderStyleBuilder();
     }
 
+    public static BorderStyle fromSpec(BorderSpec spec){
+        return switch (spec){
+            case BorderStyle bs -> bs;
+            case BorderColor bc -> fromBorderColor(bc);
+            default -> builder().uniformStyle(spec.styles()).build();
+        };
+    }
+
+    static BorderStyle fromBorderColor(BorderColor color){
+        return builder().verticalStyle(color.getVerticalStyle())
+                .horizontalStyle(color.getHorizontalStyle())
+                .cornerStyle(color.getCornerStyle())
+                .build();
+    }
+
     /**
      * @deprecated As of 3.1.3, use {@link BorderStyle#builder()} instead. This will be removed in a future release.
      * */
@@ -53,12 +64,15 @@ public class BorderStyle {
         return builder();
     }
 
-    public StyleBuilder styleBuilder() {
-        return Clique.styleBuilder();
-    }
-
     public boolean hasModifiedChar(){
         return modifiedChar;
+    }
+
+    /**
+     * @return An empty string
+     * */
+    public AnsiCode[] styles() {
+        return borderColor.styles();
     }
 
     /** @deprecated Use {@link #getHorizontalStyle()} instead */
@@ -68,7 +82,7 @@ public class BorderStyle {
     }
 
     public AnsiCode[] getHorizontalStyle() {
-        return this.horizontalStyle.clone();
+        return borderColor.getHorizontalStyle();
     }
 
 
@@ -91,7 +105,7 @@ public class BorderStyle {
     }
 
     public AnsiCode[] getCornerStyle() {
-        return this.edgeStyle.clone();
+        return borderColor.getCornerStyle();
     }
 
 
@@ -102,7 +116,7 @@ public class BorderStyle {
     }
 
     public AnsiCode[] getVerticalStyle() {
-        return this.verticalStyle.clone();
+        return borderColor.getVerticalStyle();
     }
 
 
@@ -111,22 +125,27 @@ public class BorderStyle {
         if (object == null || getClass() != object.getClass()) return false;
 
         BorderStyle that = (BorderStyle) object;
-        return cornerChar == that.cornerChar && verticalChar == that.verticalChar && horizontalChar == that.horizontalChar && Arrays.equals(verticalStyle, that.verticalStyle) && Arrays.equals(horizontalStyle, that.horizontalStyle) && Arrays.equals(edgeStyle, that.edgeStyle);
+        return cornerChar == that.cornerChar && verticalChar == that.verticalChar && horizontalChar == that.horizontalChar && borderColor.equals(that.borderColor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cornerChar, verticalChar, horizontalChar, Arrays.hashCode(verticalStyle), Arrays.hashCode(horizontalStyle), Arrays.hashCode(edgeStyle));
+        return Objects.hash(cornerChar, verticalChar, horizontalChar, borderColor);
+    }
 
+    @Override
+    public String toString() {
+        return "BorderStyle[" +
+                "borderColor=" + borderColor +
+                ", cornerChar=" + cornerChar +
+                ", verticalChar=" + verticalChar +
+                ", horizontalChar=" + horizontalChar +
+                ']';
     }
 
     public static class BorderStyleBuilder {
-        private final static String NULL_ANSI_CODE_WARNING = "Ansi codes cannot be null";
-        private final static AnsiCode[] NONE = new AnsiCode[0];
-
-        private AnsiCode[] verticalStyle = NONE;
-        private AnsiCode[] horizontalStyle = NONE;
-        private AnsiCode[] edgeStyle = NONE;
+        private BorderColor.BorderColorBuilder builder = BorderColor.builder();
+        private BorderColor borderColor;
         private boolean modifiedChar =  false;
         private char cornerChar = Constants.BLANK_CHAR;
         private char verticalChar = Constants.BLANK_CHAR;
@@ -139,13 +158,13 @@ public class BorderStyle {
         }
 
         public BorderStyleBuilder verticalStyle(AnsiCode... styles) {
-            Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
-            this.verticalStyle = styles;
+            builder.verticalStyle(styles);
             return this;
         }
 
         public BorderStyleBuilder verticalStyle(String style) {
-            return this.verticalStyle(getAnsiCodes(style));
+            builder.verticalStyle(style);
+            return this;
         }
 
         /** @deprecated Use {@link #horizontalStyle(AnsiCode...)} instead */
@@ -155,13 +174,13 @@ public class BorderStyle {
         }
 
         public BorderStyleBuilder horizontalStyle(AnsiCode... styles) {
-            Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
-            this.horizontalStyle = styles;
+            builder.horizontalStyle(styles);
             return this;
         }
 
         public BorderStyleBuilder horizontalStyle(String style) {
-            return this.horizontalStyle(getAnsiCodes(style));
+            builder.horizontalStyle(style);
+            return this;
         }
 
         /** @deprecated Use {@link #cornerStyle(AnsiCode...)} instead */
@@ -171,23 +190,23 @@ public class BorderStyle {
         }
 
         public BorderStyleBuilder cornerStyle(AnsiCode... styles) {
-            Objects.requireNonNull(styles, NULL_ANSI_CODE_WARNING);
-            this.edgeStyle = styles;
+            builder.cornerStyle(styles);
             return this;
         }
 
         public BorderStyleBuilder cornerStyle(String style) {
-            return this.cornerStyle(getAnsiCodes(style));
+            builder.cornerStyle(style);
+            return this;
         }
 
         public BorderStyleBuilder uniformStyle(AnsiCode... styles) {
-            this.cornerStyle(styles);
-            this.horizontalStyle(styles);
-            return this.verticalStyle(styles);
+            builder.uniformStyle(styles);
+            return this;
         }
 
         public BorderStyleBuilder uniformStyle(String style) {
-            return this.uniformStyle(getAnsiCodes(style));
+            builder.uniformStyle(style);
+            return this;
         }
 
         public BorderStyleBuilder cornerChar(char cornerChar){
@@ -208,11 +227,8 @@ public class BorderStyle {
             return this;
         }
 
-        AnsiCode[] getAnsiCodes(String styles){
-            return ParserUtils.getAnsiCodes(styles).toArray(AnsiCode[]::new);  //Uses default delimiter
-        }
-
         public BorderStyle build() {
+            borderColor = builder.build();
             return new BorderStyle(this);
         }
     }

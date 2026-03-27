@@ -8,6 +8,7 @@ import io.github.kusoroadeolu.clique.config.TextAlign;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.List;
@@ -96,7 +97,7 @@ public class BoxUtils {
 
 
     public static void applyAnsiToBorders(BorderChars borderChar, BorderStyle borderStyle) {
-        final StyleBuilder sb = borderStyle.styleBuilder();
+        final StyleBuilder sb = new DefaultStyleBuilder();
         final AnsiCode[] horizontalStyle = borderStyle.getHorizontalStyle();
         final AnsiCode[] verticalStyle = borderStyle.getVerticalStyle();
         final AnsiCode[] cornerStyle = borderStyle.getCornerStyle();

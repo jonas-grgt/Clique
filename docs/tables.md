@@ -1,6 +1,6 @@
 # Tables
 
-Tables help you display structured data in a clean, formatted way. Clique supports multiple table styles with extensive customization options. Tables don't support multi line content
+Tables help you display structured data in a clean, formatted way. Clique supports multiple table styles with extensive customization options. Tables don't support multi-line content.
 
 ## Table Types
 
@@ -142,28 +142,58 @@ TableConfiguration config = TableConfiguration.builder()
     .nullReplacement("N/A")  // Default is empty string
     .build();
 
-TableHeaderBuilder builder = Clique.table(TableType.DEFAULT, config);
-builder.headers("Name", "Age", "City")
-    .row("Alice", null, "NYC");  // null becomes "N/A"
-
-table.render();
+Clique.table(TableType.DEFAULT, config)
+    .headers("Name", "Age", "City")
+    .row("Alice", null, "NYC")  // null becomes "N/A"
+    .render();
 ```
 
 #### Border Styling
 
-Style table borders with uniform colors:
-**NOTE:** Uniform styling is recommended for tables, due to having more complex layouts than boxes, hence, horizontal/vertical styling might not fully align with each other
+For quick uniform border coloring, pass a `BorderColor` directly to the factory method — no configuration object needed:
+
+> **Note:** Uniform styling is recommended for tables. Due to their more complex layout, per-edge color control (horizontal/vertical) may not fully align visually.
+
 ```java
-BorderStyle style = BorderStyle.builder()
-    .uniformStyle("blue")
+// Static factory
+Clique.table(BorderColor.of(ColorCode.BLUE))
+    .headers("Name", "Age")
+    .row("Alice", "25")
+    .render();
+
+
+// With a specific table type
+Clique.table(TableType.BOX_DRAW, BorderColor.of("blue")) //Uniform styling
+    .headers("Name", "Age")
+    .row("Alice", "25")
+    .render();
+```
+
+For per-edge color control, you can use `BorderColor` via `TableConfiguration`:
+```java
+BorderColor color = BorderColor.builder()
+    .horizontalStyle("cyan")
+    .verticalStyle("magenta")
+    .cornerStyle("yellow")
     .build();
 
 TableConfiguration config = TableConfiguration
     .builder()
-    .borderStyle(style)
+    .borderStyle(color)
     .build();
 
-Table table = Clique.table(TableType.BOX_DRAW, config);
+Clique.table(TableType.BOX_DRAW, config)
+    .headers("Name", "Age")
+    .row("Alice", "25")
+    .render();
+```
+
+`BorderStyle` also works directly as a `BorderSpec` for backward compatibility:
+```java
+Clique.table(BorderStyle.builder().uniformStyle("blue").build())
+    .headers("Name", "Age")
+    .row("Alice", "25")
+    .render();
 ```
 
 #### Custom Parser
@@ -177,61 +207,53 @@ ParserConfiguration parserConfig = ParserConfiguration
 
 TableConfiguration config = TableConfiguration
     .builder()
-    .parser(Clique.parser().configuration(parserConfig))
+    .parser(Clique.parser(parserConfig))
     .build();
 ```
 
 ### Full Configuration Example
 ```java
+TableConfiguration config = TableConfiguration
+    .builder()
+    .columnAlignment(0, CellAlign.LEFT)  // Overrides table-wide alignment
+    .borderStyle(BorderSpec.of("red"))
+    .alignment(CellAlign.CENTER)          // Table-wide alignment
+    .padding(1)
+    .build();
+
+Clique.table(TableType.MARKDOWN, config)
+    .headers("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]")
+    .row("[red]John[/]", "25", "Class A")
+    .row("[red]Doe[/]", "26", "Class B")
+    .render();
+```
+
+### Border Char Customization
+
+Only the `DEFAULT` table type supports custom border characters:
+```java
 BorderStyle style = BorderStyle.builder()
-    .uniformStyle("red")
+    .horizontalChar('=')
+    .verticalChar('|')
+    .cornerChar('+')
     .build();
 
 TableConfiguration config = TableConfiguration
     .builder()
-    .columnAlignment(0, CellAlign.LEFT) //Overrides table wide alignment
     .borderStyle(style)
-    .alignment(CellAlign.CENTER)  //Table Wide alignment
     .padding(1)
     .build();
 
-Table table = Clique.table(TableType.MARKDOWN, config)
-    .headers("[green, bold]Name[/]", "[green, bold]Age[/]", "[green, bold]Class[/]")
-    .row("[red]John[/]", "25", "Class A")
-    .row("[red]Doe[/]", "26", "Class B");
-
-table.render();
-```
-
-This is especially useful when you have incomplete data or when using `removeCell()`.
-
-### Basic Customization
-```java
-BorderStyle style = BorderStyle.builder()
-        .horizontalChar('=')
-        .verticalChar('|')
-        .cornerChar('+')
-        .build();
-
-TableConfiguration config = TableConfiguration
-        .builder()
-        .columnAlignment(0, CellAlign.LEFT) //Overrides table wide alignment
-        .borderStyle(style)
-        .padding(1)
-        .build();
-
-// Without configuration
 Clique.table(TableType.DEFAULT, config)
     .headers("A", "B")
-    .row("A", "B")
+    .row("1", "2")
     .render();
 ```
 
 ## Things to Watch Out For
 - **Column alignment** always overrides table-wide alignment settings.
-- **Customization** Currently, only the `DEFAULT` table type supports customization. Other table types will throw during construction if `BorderStyle#horizontalChar()`, `BorderStyle#verticalChar()`, `BorderStyle#cornerChar()` is passed as a config option.
-- Blank chars for customization are not applied, and the previous default char of the `TableType` is used instead
-
+- **Customization** — only the `DEFAULT` table type supports border char customization. Other types will throw during construction if `horizontalChar()`, `verticalChar()`, or `cornerChar()` is set on the `BorderStyle`.
+- Blank chars for customization are not applied; the previous default char of the `TableType` is used instead.
 
 ## See Also
 - [Markup Reference](markup-reference.md) - Styling options for table content

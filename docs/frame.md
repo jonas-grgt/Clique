@@ -25,9 +25,9 @@ Clique.frame()
 Frames are designed to wrap existing Clique components:
 ```java
 Table table = Clique.table(TableType.BOX_DRAW)
-    .headers("Name", "Age")
-    .row("Alice", "25")
-    .row("Bob", "30");
+        .headers("Name", "Age")
+        .row("Alice", "25")
+        .row("Bob", "30");
 
 ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.BLOCKS);
 bar.tick(70);
@@ -118,7 +118,7 @@ Clique.frame()
     .render();
 ```
 
-If you don't call `.width()`, the frame measures all nested children and sizes itself to the widest one. Also, width cannot be set to zero or a negative value
+If you don't call `.width()`, the frame measures all nested children and sizes itself to the widest one. Width cannot be set to zero or a negative value.
 
 ## Frame Configuration
 
@@ -159,10 +159,26 @@ FrameConfiguration config = FrameConfiguration.builder()
 
 #### Border Styling
 
-Style frame borders with different colors:
+For quick uniform border coloring, pass a `BorderSpec` directly to the factory method — no configuration object needed:
 ```java
-BorderStyle style = BorderStyle.builder()
-    .uniformStyle("red")
+// Static factory
+Clique.frame(BorderColor.of("red"))
+    .nest(table)
+    .render();
+
+// With a specific frame type
+Clique.frame(BoxType.CLASSIC, BorderColor.of("red"))
+    .nest(table)
+    .render();
+```
+
+
+For per-edge or more manual color control, you can use `BorderColor` via `FrameConfiguration`:
+```java
+BorderColor style = BorderColor.builder()
+    .horizontalStyle("cyan")
+    .verticalStyle("magenta")
+    .cornerStyle("yellow")
     .build();
 
 FrameConfiguration config = FrameConfiguration.builder()
@@ -170,6 +186,13 @@ FrameConfiguration config = FrameConfiguration.builder()
     .build();
 
 Clique.frame(BoxType.CLASSIC, config)
+    .nest(table)
+    .render();
+```
+
+`BorderStyle` also works directly as a `BorderSpec` for backward compatibility:
+```java
+Clique.frame(BorderStyle.builder().uniformStyle("red").build())
     .nest(table)
     .render();
 ```
@@ -190,38 +213,29 @@ FrameConfiguration config = FrameConfiguration.builder()
 
 ### Customizing Frames
 
-All frame types support border char customization via `BorderStyle`
+All frame types support border char customization via `BorderStyle`:
 ```java
 BorderStyle style = BorderStyle.builder()
-        .horizontalStyle("cyan")
-        .verticalStyle("magenta")
-        .cornerStyle("yellow") 
-        .build();
+    .horizontalStyle("cyan")
+    .verticalStyle("magenta")
+    .cornerStyle("yellow")
+    .build();
 
 FrameConfiguration config = FrameConfiguration.builder()
-        .borderStyle(style)
-        .build();
+    .borderStyle(style)
+    .build();
 
-Clique.frame(BoxType.ROUNDED)
-    .customize()
-    .customizeEdge('*')
-    .customizeHorizontalLine('=')
-    .customizeVerticalLine('!')
+Clique.frame(BoxType.ROUNDED, config)
     .nest(table)
     .render();
 ```
 
-
 ### Full Configuration Example
 ```java
-BorderStyle style = BorderStyle.builder()
-    .uniformStyle("blue")
-    .build();
-
 FrameConfiguration config = FrameConfiguration.builder()
     .frameAlign(FrameAlign.CENTER)
     .padding(3)
-    .borderStyle(style)
+    .borderStyle(BorderSpec.of("blue"))
     .build();
 
 Clique.frame(BoxType.DOUBLE_LINE, config)
@@ -259,7 +273,6 @@ String frameString = Clique.frame()
 System.out.println(frameString);
 ```
 
-
 ## Examples
 
 ### Nested Tree
@@ -280,7 +293,7 @@ tests.add("[dim, strike]TreeTest.java       skipped");
 tree.add("[white]README.md");
 tree.add("[dim].gitignore");
 
-Clique.frame(BoxType.CLASSIC)
+Clique.frame(BoxType.CLASSIC, BorderColor.of("blue"))
     .title("Project Structure", FrameAlign.LEFT)
     .nest(tree)
     .render();
@@ -291,7 +304,7 @@ Clique.frame(BoxType.CLASSIC)
 - A nested component's content width **cannot exceed the frame's width**. If it does, an exception is thrown.
 - The **title width cannot exceed the frame width**. Keep titles shorter than the frame's content.
 - Frame width is derived from the **widest child** automatically, so you generally don't need to set it manually.
-- Blank chars for customization are not applied, and the previous default char of the `BoxType` is used instead
+- Blank chars for customization are not applied, and the previous default char of the `BoxType` is used instead.
 
 ## See Also
 

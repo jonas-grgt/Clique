@@ -5,6 +5,7 @@ import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
+import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.Objects;
@@ -104,7 +105,7 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
     protected void styleTableBorders() {
         final BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
         if (borderStyle != null){
-            final StyleBuilder sb = borderStyle.styleBuilder();
+            final StyleBuilder sb = new DefaultStyleBuilder();
             this.hLine = sb.formatAndReset(this.hLine, borderStyle.getHorizontalStyle());
             this.vLine = sb.formatAndReset(this.vLine, borderStyle.getVerticalStyle());
             this.corner = sb.formatAndReset(this.corner, borderStyle.getCornerStyle());

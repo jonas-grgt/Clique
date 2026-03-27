@@ -92,10 +92,10 @@ class BoxTest {
     @Test
     void borderStyleConfig_shouldApplyGivenChanges(){
         var autosize = BoxConfiguration.builder().autoSize().build();
-        var frame = Clique.box(BoxType.DEFAULT, autosize)
+        var box = Clique.box(BoxType.DEFAULT, autosize)
                 .noDimensions()
                 .content("Hello"); //ASCII //ASCII Box
-        List<String> lines = frame.get().lines().toList();
+        List<String> lines = box.get().lines().toList();
         var line1 = lines.getFirst();
         var line2 = lines.get(1);
         assertTrue(line1.contains("+"));
