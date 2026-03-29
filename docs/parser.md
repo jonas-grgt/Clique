@@ -18,10 +18,20 @@ System.out.println(styled);
 After parsing, you can retrieve the original text without markup tags:
 ```java
 AnsiStringParser parser = Clique.parser();
-parser.parse("[red, bold]Hello[/] World");
 String original = parser.getOriginalString("[red, bold]Hello[/] World"); // Returns "Hello World"
 ```
 
+## Parser Rules
+
+The parser follows a simple, predictable set of rules:
+
+- `[red]` — valid, will be parsed and styled
+- `[notastyle]` — valid syntax, but unrecognized style; passed through as-is
+- `[nested[nested]]` — nested tags are not supported; passed through as-is
+- `[not closed [red, blue] hello` — if a `[` is encountered before the current tag closes, the whole thing is ignored
+- `\\[red]` — escaped bracket; rendered as literal `[red]`
+
+The parser follows an **all or nothing** rule per tag — if a tag can't be cleanly parsed, it is left entirely untouched.
 
 ## Parser Configuration
 
@@ -29,7 +39,7 @@ Customize how the parser behaves using `ParserConfiguration`:
 ```java
 ParserConfiguration configuration = ParserConfiguration
         .builder()
-        .enableAutoCloseTags()  // Automatically close unclosed tags
+        .enableAutoCloseTags()  // Automatically reset styles between tags to prevent leaking
         .delimiter(' ')          // Use space instead of comma as delimiter
         .build();
 
@@ -42,15 +52,15 @@ configuredParser.print("[red bold]Hello[blue] World");
 ### Configuration Options
 
 - **`delimiter(char)`** - Set the delimiter between style attributes (default: `,`)
-- **`enableAutoCloseTags()`** - Automatically close tags that aren't explicitly closed
-- **`enableStrictParsing()`** - Throw exceptions for invalid styles or malformed tags
+- **`enableAutoCloseTags()`** - Automatically resets styles when a new tag is encountered, preventing styles from leaking into subsequent tags
+- **`enableStrictParsing()`** - Throw exceptions for unrecognized styles on otherwise valid tags
 
 ## Parser Exceptions
-When strict parsing is enabled, the parser can throw exceptions for invalid tags:
+When strict parsing is enabled, the parser throws exceptions for unrecognized styles on valid tags:
 
 ### UnidentifiedStyleException
 
-Thrown when you use a style that doesn't exist:
+Thrown when a valid tag contains a style that doesn't exist:
 ```java
 ParserConfiguration config = ParserConfiguration.builder()
     .enableStrictParsing()
@@ -58,44 +68,32 @@ ParserConfiguration config = ParserConfiguration.builder()
     
 AnsiStringParser parser = Clique.parser(config);
 
-// This throws UnidentifiedStyleException because "bol" doesn't exist
+// Throws UnidentifiedStyleException because "bol" is not a recognized style
 parser.parse("[red, bol]Text[/]");
 ```
 
-### ParseProblemException
-
-Thrown when tags are malformed:
-```java
-// Nested brackets cause parsing issues
-parser.parse("[[[red]]]Text[/]");
-```
-
-**Note:** Without strict parsing enabled, invalid styles are simply ignored and printed as is
+**Note:** Without strict parsing enabled, unrecognized styles are ignored and the text is passed through as-is. Malformed or structurally invalid tags are always passed through regardless of strict mode.
 
 ## Escaping Special Characters
 
-Since `[]` brackets are used for markup tags, you need to escape them when displaying literal brackets.
+Since `[]` brackets are used for markup tags, you can escape them with a backslash to display literal brackets.
 
 ### Escaping Brackets
-
-To display literal brackets, use `[/]` to close the tag interpretation:
 ```java
-// Display literal [123, 456]
-Clique.parser().print("[123, 456[/]]");
+// Display literal [red]
+Clique.parser().print("\\[red]");
 ```
-
-**Pattern:** `[your text with brackets[/]]`
 
 **Examples:**
 ```java
-"[red, bold[/]]"        // Displays: [red, bold]
-"[x, y, z[/]]"          // Displays: [x, y, z]
-"Coords: [10, 20[/]]"   // Displays: Coords: [10, 20]
+"\\[red]"               // Displays: [red]
+"\\[red, bold]"         // Displays: [red, bold]
+"Coords: \\[10, 20]"    // Displays: Coords: [10, 20]
 ```
 
 ## Markup Syntax Reference
 
-See [markup-reference.md](markup-reference.md) for a complete list of supported colors, background colors, and text styles.
+See [markup-reference.md](markup-reference.md) for a complete list of default supported colors, background colors, and text styles.
 
 ## Using Parser with Other Features
 

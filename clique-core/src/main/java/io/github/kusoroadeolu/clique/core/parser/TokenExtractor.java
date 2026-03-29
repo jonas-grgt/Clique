@@ -43,7 +43,7 @@ public final class TokenExtractor {
 
             if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
                 //If we're still tracking, this means we have nested tag, just skip it
-                fcDepth = 0; //Next form start, reset fc depth
+                fcDepth = 0; //Next form start, reset fc depth. Basically means we had something like this ]some_string[
                 idx = i;
                 ++fsDepth;
             }
@@ -59,7 +59,8 @@ public final class TokenExtractor {
                         formTags.add(fullTag);
                     }
                 }
-                --fsDepth;
+
+                fsDepth = Math.max(0, --fsDepth);
             }
         }
 
