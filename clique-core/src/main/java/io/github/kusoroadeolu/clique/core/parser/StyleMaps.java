@@ -1,8 +1,9 @@
-package io.github.kusoroadeolu.clique.parser;
+package io.github.kusoroadeolu.clique.core.parser;
 
 import io.github.kusoroadeolu.clique.ansi.BackgroundCode;
 import io.github.kusoroadeolu.clique.ansi.ColorCode;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Map;
@@ -10,7 +11,8 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 //A simple class which holds the maps of the syntax
-final class StyleMaps {
+@InternalApi(since = "3.1.3")
+public final class StyleMaps {
 
     /**
      * A static, unmodifiable map that associates lowercase color names (keys)

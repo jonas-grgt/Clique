@@ -2,6 +2,8 @@ package io.github.kusoroadeolu.clique.parser;
 
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.ansi.ColorCode;
+import io.github.kusoroadeolu.clique.core.parser.ParseResult;
+import io.github.kusoroadeolu.clique.core.parser.TokenExtractor;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

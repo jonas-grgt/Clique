@@ -7,7 +7,8 @@ import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 
 import java.util.Objects;
 
-import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.*;
+import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.applyAnsiToBorders;
+import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.drawBox;
 
 class DefaultBox extends AbstractBox implements CustomizableBox {
     private final BorderChars borderChars;

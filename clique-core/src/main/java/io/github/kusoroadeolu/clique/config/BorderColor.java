@@ -1,6 +1,6 @@
 package io.github.kusoroadeolu.clique.config;
 
-import io.github.kusoroadeolu.clique.parser.ParserUtils;
+import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.ArrayList;

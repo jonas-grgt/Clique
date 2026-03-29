@@ -2,9 +2,9 @@ package io.github.kusoroadeolu.clique;
 
 import io.github.kusoroadeolu.clique.ansi.RGBAnsiColor;
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
+import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
-import io.github.kusoroadeolu.clique.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;

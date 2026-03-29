@@ -1,11 +1,16 @@
 package io.github.kusoroadeolu.clique.config;
 
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 
+/**
+ * @since 3.1.0
+ * */
+@Stable(since = "3.1.3")
 public class TreeConfiguration {
     private final AnsiStringParser parser;
     private final String guideStyle;

@@ -2,6 +2,7 @@ package io.github.kusoroadeolu.clique.frame;
 
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.core.display.Component;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
@@ -11,6 +12,7 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.parser.AnsiStringParser.DEFAULT;
 
+@InternalApi(since = "3.1.3")
 sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode {
     List<Cell> lines();
     int maxWidth();

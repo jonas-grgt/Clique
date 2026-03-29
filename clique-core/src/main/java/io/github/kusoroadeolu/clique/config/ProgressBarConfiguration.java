@@ -1,5 +1,6 @@
 package io.github.kusoroadeolu.clique.config;
 
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPredicate;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
@@ -9,6 +10,10 @@ import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * @since 3.0.0
+ * */
+@Stable(since = "3.1.3")
 public class ProgressBarConfiguration {
     public static final ProgressBarConfiguration DEFAULT = ProgressBarPreset.BLOCKS.getConfiguration();
 

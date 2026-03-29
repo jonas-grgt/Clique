@@ -1,7 +1,9 @@
 package io.github.kusoroadeolu.clique.core.structures;
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.utils.CharWidth;
 
+@InternalApi(since = "3.1.3")
 public final class Cell {
     private final String text;
     private final String styledText;

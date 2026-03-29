@@ -1,5 +1,6 @@
-package io.github.kusoroadeolu.clique.parser;
+package io.github.kusoroadeolu.clique.core.parser;
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.ParseProblemException;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
@@ -9,14 +10,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
-import static io.github.kusoroadeolu.clique.parser.StyleMaps.*;
-
 /**
  * This class extracts valid token forms from the given string
  * Note that this class will ignore malformed tags and print them as is
  *
  */
+@InternalApi(since = "3.1.3")
 public final class TokenExtractor {
     private static final char FORM_START = '[';
     private static final char FORM_CLOSE = ']';
@@ -35,25 +34,26 @@ public final class TokenExtractor {
         if (stringToParse == null || stringToParse.isEmpty()) return new ParseResult(List.of(), List.of());
 
         final int len = stringToParse.length();
-        int fs = 0; //The start of the tag
+        int idx = 0; //The start of the tag
         boolean isTracking = false; //Tracking boolean to keep track of if we're currently tracking a style or not
 
         for (int i = 0; i < len; i++) {
             final char c = stringToParse.charAt(i);
             if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
-                if (isTracking && enableStrictParsing) { //If we're still tracking, this means we have nested form starts
+                if (isTracking && enableStrictParsing) { //If we're still tracking, this means we have nested form start
                     throw new ParseProblemException("Nested tag detected at index: " + i);
                 }
 
-                fs = i;
+
+                idx = i;
                 isTracking = true;
             }
 
             if (c == FORM_CLOSE && isTracking) { //Only parse the string if we're still tracking the valid tag
-                final String fullTag = stringToParse.substring(fs, i + 1); //Parse the extracted string and skip the braces
+                final String fullTag = stringToParse.substring(idx, i + 1); //Parse the extracted string and skip the braces
                 final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiter, enableStrictParsing);
                 if (validStyles != null && !validStyles.isEmpty()) {
-                    tokens.add(new ParserToken(fs, i, validStyles));
+                    tokens.add(new ParserToken(idx, i, validStyles));
                     formTags.add(fullTag);
                     isTracking = false;
                 }
@@ -65,8 +65,9 @@ public final class TokenExtractor {
 
 
     //Check if there are valid styles in the extracted string
+    //ESP -> Enable strict parsing
     private List<AnsiCode> getValidStyles(String extractedStr, String delimiter, boolean esp) {
-        if (extractedStr.length() <= 2) return null;  //Check if the extracted string is probably empty braces
+        if (extractedStr.length() <= 2) return null;  //Check if the extracted string is just empty braces
         extractedStr = this.cleanString(extractedStr); //Clean the string
 
         final String[] styles = extractedStr.split(Pattern.quote(delimiter));
@@ -82,31 +83,30 @@ public final class TokenExtractor {
 
     //Replaces forms with empty strings
     private String cleanString(String s) {
-        return s.replace(String.valueOf(FORM_START), EMPTY)
-                .replace(String.valueOf(FORM_CLOSE), EMPTY);
+        return s.substring(1, s.length() - 1);
     }
 
     // A helper method that checks if each map contains a key of the given string
     private void addValidStyles(String s, List<AnsiCode> validStyles, boolean enableStrictParsing) {
-        AnsiCode code = CUSTOM_STYLE_CODES.get(s);
+        AnsiCode code = StyleMaps.CUSTOM_STYLE_CODES.get(s);
         if (code != null) {
             validStyles.add(code);
             return;
         }
 
-        code = COLOR_CODES.get(s);
+        code = StyleMaps.COLOR_CODES.get(s);
         if (code != null) {
             validStyles.add(code);
             return;
         }
 
-        code = BACKGROUND_CODES.get(s);
+        code = StyleMaps.BACKGROUND_CODES.get(s);
         if (code != null) {
             validStyles.add(code);
             return;
         }
 
-        code = STYLE_CODES.get(s);
+        code = StyleMaps.STYLE_CODES.get(s);
         if (code != null) {
             validStyles.add(code);
             return;

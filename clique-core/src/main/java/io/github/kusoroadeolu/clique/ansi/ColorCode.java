@@ -1,10 +1,14 @@
 package io.github.kusoroadeolu.clique.ansi;
 
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 /**
  * Represents ANSI escape codes for basic text colors.
- */
+ * @since 1.0.0
+ * */
+@Stable(since = "3.1.3")
+
 public enum ColorCode implements AnsiCode {
     // Enum constants with their corresponding ANSI codes
     BLACK("\u001B[30m"),

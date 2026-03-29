@@ -1,6 +1,7 @@
 package io.github.kusoroadeolu.clique.core.utils;
 
 import io.github.kusoroadeolu.clique.config.CellAlign;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 
+@InternalApi(since = "3.1.3")
 public class TableUtils {
 
     public static String align(CellAlign cellAlign, StringBuilder sb, int offset, String cell, String vLine) {

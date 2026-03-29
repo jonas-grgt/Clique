@@ -1,13 +1,15 @@
-package io.github.kusoroadeolu.clique.parser;
+package io.github.kusoroadeolu.clique.core.parser;
 
 
 import io.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.ParseProblemException;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.List;
 
+@InternalApi(since = "3.1.3")
 public final class StyleApplicator {
 
     //Restyle the extracted string with the given colors

@@ -1,11 +1,13 @@
 package io.github.kusoroadeolu.clique.tables;
 
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 
 import java.util.Objects;
 
+@InternalApi(since = "3.1.3")
 public class TableFactory {
 
     private TableFactory() {

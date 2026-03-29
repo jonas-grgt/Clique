@@ -2,12 +2,19 @@ package io.github.kusoroadeolu.clique.config;
 
 
 import io.github.kusoroadeolu.clique.boxes.AbstractBox;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotNull;
 
+/**
+ * A class for styling table borders
+ * @since 1.1.0
+ * */
+@Stable(since = "3.1.3")
 public class BoxConfiguration {
     public static final BoxConfiguration DEFAULT = new BoxConfiguration();
 
@@ -43,6 +50,7 @@ public class BoxConfiguration {
         return builder();
     }
 
+    @InternalApi(since = "3.1.3")
     public static BoxConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
         return BoxConfiguration

@@ -1,7 +1,13 @@
 package io.github.kusoroadeolu.clique.config;
 
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
+
 import java.util.Objects;
 
+/**
+ * @since 1.0.0
+ * */
+@Stable(since = "3.1.3")
 public class ParserConfiguration {
     public static final ParserConfiguration DEFAULT = new ParserConfiguration();
 

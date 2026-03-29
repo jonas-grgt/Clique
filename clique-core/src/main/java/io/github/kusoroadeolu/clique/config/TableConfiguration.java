@@ -1,6 +1,8 @@
 package io.github.kusoroadeolu.clique.config;
 
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import java.util.HashMap;
@@ -9,6 +11,10 @@ import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotNull;
 
+/**
+ * @since 1.0.0
+ * */
+@Stable(since = "3.1.3")
 public class TableConfiguration {
     public static final TableConfiguration DEFAULT = new TableConfiguration();
 
@@ -45,6 +51,7 @@ public class TableConfiguration {
         return builder();
     }
 
+    @InternalApi(since = "3.1.3")
     public static TableConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
         return TableConfiguration.immutableBuilder().borderStyle(style).build();

@@ -1,10 +1,11 @@
 package io.github.kusoroadeolu.clique.core.utils;
 
 import io.github.kusoroadeolu.clique.config.BorderSpec;
-import io.github.kusoroadeolu.clique.config.BorderStyle;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 
 import java.util.Objects;
 
+@InternalApi(since = "3.1.3")
 public class MiscUtils {
     private MiscUtils(){throw new AssertionError();}
 

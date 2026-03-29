@@ -2,10 +2,15 @@ package io.github.kusoroadeolu.clique.style;
 
 
 import io.github.kusoroadeolu.clique.core.display.Borderless;
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.io.PrintStream;
 
+/**
+ * @since 1.0.0
+ * */
+@Stable(since = "3.1.3")
 public sealed interface StyleBuilder extends Borderless permits DefaultStyleBuilder {
     /**
      * Applies multiple ANSI codes to this text

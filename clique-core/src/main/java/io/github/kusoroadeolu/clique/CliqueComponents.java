@@ -17,8 +17,6 @@ import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.tree.Tree;
 
-import static io.github.kusoroadeolu.clique.config.ProgressBarConfiguration.fromEasing;
-
 /**
  * Sub-facade for all rendering components: boxes, tables, frames, trees, indenters, and progress bars.
  */

@@ -1,7 +1,9 @@
 package io.github.kusoroadeolu.clique.ansi;
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
 
+@InternalApi(since = "3.1.3")
 public record RGBAnsiColor(int red, int green, int blue, boolean isBackground) implements RGBAnsiCode {
     
     public RGBAnsiColor {
