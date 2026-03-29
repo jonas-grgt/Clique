@@ -28,49 +28,61 @@ public final class TokenExtractor {
      *
      */
     public ParseResult getParseResult(String stringToParse, String delimiter, boolean enableStrictParsing) {
-        final List<ParserToken> tokens = new ArrayList<>(); //List to store the tokens gotten from this string
+        final List<ParseToken> tokens = new ArrayList<>(); //List to store the tokens gotten from this string
         final List<String> formTags = new ArrayList<>(); //Tracks the form tags extracted from this string
+        final String delimiterPattern = Pattern.quote(delimiter);
 
         if (stringToParse == null || stringToParse.isEmpty()) return new ParseResult(List.of(), List.of());
 
         final int len = stringToParse.length();
         int idx = 0; //The start of the tag
-        boolean isTracking = false; //Tracking boolean to keep track of if we're currently tracking a style or not
+        int fsDepth = 0; //Tracking boolean to keep track of the number of form starts we've seen
+        int fcDepth = 0;
 
         for (int i = 0; i < len; i++) {
             final char c = stringToParse.charAt(i);
+
             if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
-                if (isTracking && enableStrictParsing) { //If we're still tracking, this means we have nested form start
-                    throw new ParseProblemException("Nested tag detected at index: " + i);
-                }
-
-
+                //If we're still tracking, this means we have nested tag, just skip it
+                fcDepth = 0; //Next form start, reset fc depth. Basically means we had something like this ]some_string[
                 idx = i;
-                isTracking = true;
+                ++fsDepth;
             }
 
-            if (c == FORM_CLOSE && isTracking) { //Only parse the string if we're still tracking the valid tag
-                final String fullTag = stringToParse.substring(idx, i + 1); //Parse the extracted string and skip the braces
-                final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiter, enableStrictParsing);
-                if (validStyles != null && !validStyles.isEmpty()) {
-                    tokens.add(new ParserToken(idx, i, validStyles));
-                    formTags.add(fullTag);
-                    isTracking = false;
+            if (c == FORM_CLOSE) { //Only parse the string if we're still tracking the valid tag
+                ++fcDepth;
+
+                if (fsDepth == 1 && fcDepth == 1){ //Only if we dont have nested tags, with both open and closed tags
+                    final String fullTag = stringToParse.substring(idx, i + 1); //Parse the extracted string and skip the braces
+                    final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiterPattern, enableStrictParsing);
+                    if (!validStyles.isEmpty()) {
+                        tokens.add(new ParseToken(idx, i, validStyles));
+                        formTags.add(fullTag);
+                    }
                 }
+
+                fsDepth = Math.max(0, --fsDepth);
             }
         }
 
         return new ParseResult(tokens, formTags);
     }
 
+    /*
+    * [red] valid, will get parsed
+    * [notastyle] valid, won't get parsed
+    * [nested[nested]] won't get parsed
+    * [not closed [red, blue] hello    //Read nor blue will get parsed
+    * */
+
 
     //Check if there are valid styles in the extracted string
     //ESP -> Enable strict parsing
-    private List<AnsiCode> getValidStyles(String extractedStr, String delimiter, boolean esp) {
-        if (extractedStr.length() <= 2) return null;  //Check if the extracted string is just empty braces
+    private List<AnsiCode> getValidStyles(String extractedStr, String delimiterPattern, boolean esp) {
+        if (extractedStr.length() <= 2) return List.of();  //Check if the extracted string is just empty braces, or a malformed tag
         extractedStr = this.cleanString(extractedStr); //Clean the string
 
-        final String[] styles = extractedStr.split(Pattern.quote(delimiter));
+        final String[] styles = extractedStr.split(delimiterPattern);
         final List<AnsiCode> validStyles = new ArrayList<>();
         for (String s : styles) {
             s = s.toLowerCase(Locale.ROOT).trim();

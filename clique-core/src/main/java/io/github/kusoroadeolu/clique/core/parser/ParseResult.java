@@ -6,10 +6,10 @@ import java.util.List;
 
 @InternalApi(since = "3.1.3")
 public record ParseResult(
-        List<ParserToken> tokens,
+        List<ParseToken> tokens,
         List<String> extractedFormTags
 ) {
     public boolean isPresent(){
-        return !tokens.isEmpty() && !extractedFormTags.isEmpty();
+        return !tokens.isEmpty();
     }
 }
