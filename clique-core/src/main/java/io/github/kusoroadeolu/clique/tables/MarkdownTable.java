@@ -27,7 +27,7 @@ class MarkdownTable extends AbstractTable {
     }
 
     public String get() {
-        if (cachedTable != null) return cachedTable;
+        if (cachedString != null) return cachedString;
         final var tableBuilder = new StringBuilder();
         final var sb = new StringBuilder();
 
@@ -56,7 +56,7 @@ class MarkdownTable extends AbstractTable {
             tableBuilder.append(Constants.NEWLINE);
         }
 
-        return (cachedTable = tableBuilder.toString());
+        return (cachedString = tableBuilder.toString());
     }
 
     //Dynamically calculate the header for the table

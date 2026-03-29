@@ -14,7 +14,7 @@ Themes live in a separate package from core. You need both:
     <dependency>
         <groupId>io.github.kusoroadeolu</groupId>
         <artifactId>clique-core</artifactId>
-        <version>3.1.2</version>
+        <version>3.2.0</version>
     </dependency>
     <dependency>
         <groupId>io.github.kusoroadeolu</groupId>
@@ -26,7 +26,7 @@ Themes live in a separate package from core. You need both:
 
 ```gradle
 // Gradle
-implementation 'io.github.kusoroadeolu:clique-core:3.1.2'
+implementation 'io.github.kusoroadeolu:clique-core:3.2.0'
 implementation 'io.github.kusoroadeolu:clique-themes:1.0.0'
 ```
 
@@ -34,14 +34,14 @@ implementation 'io.github.kusoroadeolu:clique-themes:1.0.0'
 
 ## Available themes
 
-| Name | Description |
-|------|-------------|
-| `catppuccin-mocha` | Pastel dark — warm, soothing, easy on the eyes |
-| `catppuccin-latte` | Pastel light — the mocha palette in daylight |
-| `dracula` | High-contrast dark with punchy purples |
-| `gruvbox-dark` | Retro warm darks and earthy accents |
-| `gruvbox-light` | The gruvbox palette flipped light |
-| `nord` | Cool, arctic blues and muted greens |
+| Name | Description                                     |
+|------|-------------------------------------------------|
+| `catppuccin-mocha` | Pastel dark, warm, soothing, easy on the eyes   |
+| `catppuccin-latte` | Pastel light, the mocha palette in daylight     |
+| `dracula` | High-contrast dark with punchy purples          |
+| `gruvbox-dark` | Retro warm darks and earthy accents             |
+| `gruvbox-light` | The gruvbox palette flipped light               |
+| `nord` | Cool, arctic blues and muted greens             |
 | `tokyo-night` | Deep purples and electric blues, very cyberpunk |
 
 ---

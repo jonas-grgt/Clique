@@ -5,6 +5,7 @@ import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionB
 import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import io.github.kusoroadeolu.clique.frame.Frame;
 import io.github.kusoroadeolu.clique.indent.Indenter;
@@ -28,6 +29,7 @@ import java.util.Optional;
 /**
  * Main facade that delegates to CliqueStyles and CliqueComponents.
  */
+@Stable(since = "3.1.3")
 public final class Clique {
 
     private Clique() {

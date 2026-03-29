@@ -44,7 +44,7 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
         var str = String.valueOf(corner);
         if (!str.isBlank()){
             borderChars.setCorners(str);
-            cachedString = null;
+            nullCachedString();
         }
     }
 
@@ -52,7 +52,7 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
         var str = Character.toString(vLine);
         if (!str.isBlank()){
             borderChars.setVLine(str);
-            cachedString = null;
+            nullCachedString();
         }
     }
 
@@ -60,7 +60,7 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
         var str = Character.toString(hLine);
         if (!str.isBlank()){
             borderChars.setHLine(str);
-            cachedString = null;
+            nullCachedString();
         }
     }
 
@@ -82,6 +82,8 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
         DefaultBox that = (DefaultBox) object;
         return Objects.equals(borderChars, that.borderChars);
     }
+
+
 
     @Override
     public int hashCode() {

@@ -12,8 +12,8 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 
 public abstract class AbstractBox implements Box {
-    int width = 0;
-    int height = 0; //If width and height == 0
+    int width;
+    int height; //If width and height == 0
     String boxContent;
     String cachedString = null;
     WidthAwareList cells;
@@ -40,7 +40,7 @@ public abstract class AbstractBox implements Box {
     public Box content(String content) {
         Objects.requireNonNull(content, BOX_CONTENT_NOT_NULL);
         this.boxContent = content;
-        cachedString = null;
+        nullCachedString();
         return this;
     }
 
@@ -56,7 +56,7 @@ public abstract class AbstractBox implements Box {
         Objects.requireNonNull(align, TEXT_ALIGN_NOT_NULL);
         this.boxContent = content;
         this.align = align;
-        cachedString = null;
+        nullCachedString();
         return this;
     }
 
@@ -101,6 +101,10 @@ public abstract class AbstractBox implements Box {
 
         AbstractBox that = (AbstractBox) object;
         return width == that.width && height == that.height && Objects.equals(boxContent, that.boxContent) && Objects.equals(cachedString, that.cachedString) && Objects.equals(cells, that.cells) && Objects.equals(boxConfiguration, that.boxConfiguration) && align == that.align;
+    }
+
+    void nullCachedString(){
+        cachedString = null;
     }
 
     @Override

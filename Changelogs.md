@@ -98,7 +98,7 @@ Changes to the SPI module in this release.
 
 # Changelog
 
-## Clique [3.1.3] - 2026-03-26
+## Clique [3.2.0] - 2026-03-30
 
 ### Added
 - `BorderSpec` interface — common abstraction over border styling types
@@ -128,5 +128,7 @@ Changes to the SPI module in this release.
 - `BoxConfiguration#autoSize()` — auto-sizing is now the default; configure dimensions directly on the builder
 - `Box#noDimensions()` in favor of `Box#autoSize()` - no longer throws, delegates to `autoSize()` internally
 - `immutableBuilder()` across all configuration classes in favor of `builder()` - marked for removal in a future major version
+
+## clique-spi [1.0.5] - 2026-03-30
 
 Report issues at: https://github.com/kusoroadeolu/Clique/issues**

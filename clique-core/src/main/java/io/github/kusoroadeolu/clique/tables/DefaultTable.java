@@ -29,7 +29,7 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
     }
 
     public String get() {
-        if (cachedTable != null) return cachedTable;
+        if (cachedString != null) return cachedString;
 
         //Declarations
         final var tableBuilder = new StringBuilder();
@@ -63,7 +63,7 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
             tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
         }
 
-        return (cachedTable = tableBuilder.toString());
+        return (cachedString = tableBuilder.toString());
     }
 
     //Dynamically calculate the header and footer for the table
@@ -80,7 +80,7 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
         var str = Character.toString(corner);
         if (!str.isBlank()){
             this.corner = str;
-            nullCachedTable();
+            nullCachedString();
         }
 
     }
@@ -89,7 +89,7 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
         var str = Character.toString(vLine);
         if (!str.isBlank()){
             this.vLine = str;
-            nullCachedTable();
+            nullCachedString();
         }
     }
 
@@ -97,7 +97,7 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
         var str = Character.toString(hLine);
         if (!str.isBlank()){
             this.hLine = str;
-            nullCachedTable();
+            nullCachedString();
         }
     }
 

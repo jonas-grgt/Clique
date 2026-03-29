@@ -20,7 +20,7 @@ public abstract class AbstractTable implements Table {
     final List<WidthAwareList> columns; //This is used to track the max height in that column
     final List<WidthAwareList> rows;
     final TableConfiguration tableConfiguration;
-    String cachedTable = null;
+    String cachedString = null;
 
      AbstractTable(TableConfiguration configuration) {
         this.columns = new ArrayList<>();
@@ -57,7 +57,7 @@ public abstract class AbstractTable implements Table {
             final WidthAwareList colList = this.columns.get(i);
             colList.add(c);
         }
-        nullCachedTable();
+        nullCachedString();
         return this;
     }
 
@@ -69,7 +69,7 @@ public abstract class AbstractTable implements Table {
         for (WidthAwareList cl : this.columns) {
             cl.remove(cl.get(index));
         }
-        nullCachedTable();
+        nullCachedString();
         return this;
     }
 
@@ -88,12 +88,12 @@ public abstract class AbstractTable implements Table {
         final Cell c = parseToCell(text, this.tableConfiguration.getParser());
         rl.update(col, c);
         cl.update(row, c);
-        nullCachedTable();
+        nullCachedString();
         return this;
     }
 
-    void nullCachedTable(){
-        cachedTable = null;
+    void nullCachedString(){
+        cachedString = null;
     }
 
     abstract void styleTableBorders();
@@ -160,6 +160,10 @@ public abstract class AbstractTable implements Table {
         }
     }
 
+    /**
+     * @deprecated in favor of {@link io.github.kusoroadeolu.clique.config.BorderStyle} customization methods. This will be removed in the future.
+     * */
+    @Deprecated(since = "3.1.3")
     public static class CustomizableTableHeaderBuilder {
         private final AbstractTable table;
 

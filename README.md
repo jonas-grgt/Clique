@@ -18,7 +18,7 @@ A dependency free, lightweight and extensible CLI library for beautifying Java t
 <dependency>
       <groupId>io.github.kusoroadeolu</groupId>
       <artifactId>clique-core</artifactId>
-      <version>3.1.2</version>
+      <version>3.2.0</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@ A dependency free, lightweight and extensible CLI library for beautifying Java t
 
 ```gradle
 dependencies {
-    implementation 'io.github.kusoroadeolu:clique-core:3.1.2'
+    implementation 'io.github.kusoroadeolu:clique-core:3.2.0'
 }
 ```
 

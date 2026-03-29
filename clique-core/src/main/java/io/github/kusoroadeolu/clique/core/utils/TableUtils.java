@@ -12,10 +12,10 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 @InternalApi(since = "3.1.3")
 public class TableUtils {
 
-    public static String align(CellAlign cellAlign, StringBuilder sb, int offset, String cell, String vLine) {
+    public static String align(CellAlign align, StringBuilder sb, int offset, String cell, String vLine) {
 
         final String spaces = BLANK.repeat(offset);
-        return switch (cellAlign) {
+        return switch (align) {
             case LEFT -> sb.append(cell).append(spaces).append(vLine).toString();
             case RIGHT -> sb.append(spaces).append(cell).append(vLine).toString();
             case CENTER -> {
