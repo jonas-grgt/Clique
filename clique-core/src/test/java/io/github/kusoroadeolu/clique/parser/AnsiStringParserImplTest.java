@@ -90,7 +90,6 @@ class AnsiStringParserImplTest {
     }
 
 
-
     @Test
     void testInvalidStyleIgnored() {
         String output = Clique.parser().parse("[notacolor]Text");
@@ -111,7 +110,6 @@ class AnsiStringParserImplTest {
 
     @Test
     void assertThrowEx_onUnidentifiedStyle(){
-        var parser = AnsiStringParser.DEFAULT;
         assertThrows(UnidentifiedStyleException.class, () -> ParserUtils.getAnsiCodes("notastyle"));
     }
 
@@ -132,10 +130,10 @@ class AnsiStringParserImplTest {
     }
 
     @Test
-    void onNullString_returnsBlankString(){
+    void onNullString_returnsEmptyString(){
         var parser = AnsiStringParser.DEFAULT;
         var string = parser.parse(null);
-        assertTrue(string.isBlank());
+        assertTrue(string.isEmpty());
     }
 
 }

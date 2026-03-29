@@ -3,7 +3,7 @@ package io.github.kusoroadeolu.clique.core.documentation;
 import java.lang.annotation.*;
 
 /**
- * Marks a public API as experimental. Stronger signal than {@link Unstable} —
+ * Marks a public API as experimental. Stronger signal than {@link Unstable}
  * this API exists for early feedback and may be removed entirely if the
  * approach does not pan out.
  *

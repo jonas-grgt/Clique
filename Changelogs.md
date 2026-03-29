@@ -104,6 +104,10 @@ Changes to the SPI module in this release.
 - `BorderSpec` interface — common abstraction over border styling types
 - `BorderColor` class implementing `BorderSpec` — applies a uniform color across all border axes
 - Helper method in `BorderStyle` to convert a `BorderSpec` to a full `BorderStyle`
+- `@InternalApi` annotation — marks types, constructors, and methods internal to Clique not intended for API consumers
+- `@Stable` annotation — marks public APIs considered frozen and safe to depend on across minor releases
+- `@Unstable` annotation — marks public APIs that are available but may change shape between minor versions
+- `@Experimental` annotation — stronger signal than `@Unstable`; marks APIs that exist for early feedback and may be removed entirely
 
 ### Changed
 - `Box` auto-sizing is now implicit when no dimensions are provided, matching `Frame`'s behaviour
@@ -116,7 +120,7 @@ Changes to the SPI module in this release.
 
 ### Deprecated
 - `BoxConfiguration#autoSize()` — auto-sizing is now the default; configure dimensions directly on the builder
-- `Box#noDimensions()` in favor of `Box#autoSize()` — no longer throws, delegates to `autoSize()` internally
-- `immutableBuilder()` across all configuration classes in favor of `builder()` — marked for removal in a future major version
+- `Box#noDimensions()` in favor of `Box#autoSize()` - no longer throws, delegates to `autoSize()` internally
+- `immutableBuilder()` across all configuration classes in favor of `builder()` - marked for removal in a future major version
 
 Report issues at: https://github.com/kusoroadeolu/Clique/issues**

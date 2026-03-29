@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
-
 /**
  * This class extracts valid token forms from the given string
  * Note that this class will ignore malformed tags and print them as is
@@ -36,25 +34,26 @@ public final class TokenExtractor {
         if (stringToParse == null || stringToParse.isEmpty()) return new ParseResult(List.of(), List.of());
 
         final int len = stringToParse.length();
-        int fs = 0; //The start of the tag
+        int idx = 0; //The start of the tag
         boolean isTracking = false; //Tracking boolean to keep track of if we're currently tracking a style or not
 
         for (int i = 0; i < len; i++) {
             final char c = stringToParse.charAt(i);
             if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
-                if (isTracking && enableStrictParsing) { //If we're still tracking, this means we have nested form starts
+                if (isTracking && enableStrictParsing) { //If we're still tracking, this means we have nested form start
                     throw new ParseProblemException("Nested tag detected at index: " + i);
                 }
 
-                fs = i;
+
+                idx = i;
                 isTracking = true;
             }
 
             if (c == FORM_CLOSE && isTracking) { //Only parse the string if we're still tracking the valid tag
-                final String fullTag = stringToParse.substring(fs, i + 1); //Parse the extracted string and skip the braces
+                final String fullTag = stringToParse.substring(idx, i + 1); //Parse the extracted string and skip the braces
                 final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiter, enableStrictParsing);
                 if (validStyles != null && !validStyles.isEmpty()) {
-                    tokens.add(new ParserToken(fs, i, validStyles));
+                    tokens.add(new ParserToken(idx, i, validStyles));
                     formTags.add(fullTag);
                     isTracking = false;
                 }
@@ -66,8 +65,9 @@ public final class TokenExtractor {
 
 
     //Check if there are valid styles in the extracted string
+    //ESP -> Enable strict parsing
     private List<AnsiCode> getValidStyles(String extractedStr, String delimiter, boolean esp) {
-        if (extractedStr.length() <= 2) return null;  //Check if the extracted string is probably empty braces
+        if (extractedStr.length() <= 2) return null;  //Check if the extracted string is just empty braces
         extractedStr = this.cleanString(extractedStr); //Clean the string
 
         final String[] styles = extractedStr.split(Pattern.quote(delimiter));
