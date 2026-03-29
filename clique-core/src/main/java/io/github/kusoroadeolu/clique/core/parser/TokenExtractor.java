@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 public final class TokenExtractor {
     private static final char FORM_START = '[';
     private static final char FORM_CLOSE = ']';
-    private static final String MARKUP_ESCAPE = "[/]";
 
     /**
      * Extracts valid tokens and form tags from the given string
@@ -35,44 +34,50 @@ public final class TokenExtractor {
         if (stringToParse == null || stringToParse.isEmpty()) return new ParseResult(List.of(), List.of());
 
         final int len = stringToParse.length();
-        int tagStart = 0; //The start of the tag
-        boolean inMarkupTag = false; //Tracking boolean to keep track of if we're currently tracking a style or not
+        int idx = 0; //The start of the tag
+        int fsDepth = 0; //Tracking boolean to keep track of the number of form starts we've seen
+        int fcDepth = 0;
 
         for (int i = 0; i < len; i++) {
             final char c = stringToParse.charAt(i);
+
             if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
-                if (inMarkupTag && enableStrictParsing) { //If we're still tracking, this means we have nested form start
-                    int j = i + 3;
-                    if (j < len){
-                        String shorthand = stringToParse.substring(i,  i + 3);
-                        if (!shorthand.equals(MARKUP_ESCAPE)){
-                            throw new ParseProblemException("Nested tag detected at index: " + i);
-                        }
-                    }
-                }
-                tagStart = i;
-                inMarkupTag = true;
+                //If we're still tracking, this means we have nested tag, just skip it
+                fcDepth = 0; //Next form start, reset fc depth
+                idx = i;
+                ++fsDepth;
             }
 
-            if (c == FORM_CLOSE && inMarkupTag) { //Only parse the string if we're still tracking the valid tag
-                final String markupTag = stringToParse.substring(tagStart, i + 1); //Parse the extracted string and skip the braces
-                final List<AnsiCode> validStyles = this.getValidStyles(markupTag, delimiter, enableStrictParsing);
-                if (validStyles != null && !validStyles.isEmpty()) {
-                    tokens.add(new ParseToken(tagStart, i, validStyles));
-                    formTags.add(markupTag);
-                    inMarkupTag = false;
+            if (c == FORM_CLOSE) { //Only parse the string if we're still tracking the valid tag
+                ++fcDepth;
+
+                if (fsDepth == 1 && fcDepth == 1){ //Only if we dont have nested tags, with both open and closed tags
+                    final String fullTag = stringToParse.substring(idx, i + 1); //Parse the extracted string and skip the braces
+                    final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiter, enableStrictParsing);
+                    if (!validStyles.isEmpty()) {
+                        tokens.add(new ParseToken(idx, i, validStyles));
+                        formTags.add(fullTag);
+                    }
                 }
+                --fsDepth;
             }
         }
 
         return new ParseResult(tokens, formTags);
     }
 
+    /*
+    * [red] valid, will get parsed
+    * [notastyle] valid, won't get parsed
+    * [nested[nested]] won't get parsed
+    * [not closed [red, blue] hello    //Read nor blue will get parsed
+    * */
+
 
     //Check if there are valid styles in the extracted string
     //ESP -> Enable strict parsing
     private List<AnsiCode> getValidStyles(String extractedStr, String delimiter, boolean esp) {
-        if (extractedStr.length() <= 2) return null;  //Check if the extracted string is just empty braces
+        if (extractedStr.length() <= 2) return List.of();  //Check if the extracted string is just empty braces, or a malformed tag
         extractedStr = this.cleanString(extractedStr); //Clean the string
 
         final String[] styles = extractedStr.split(Pattern.quote(delimiter));

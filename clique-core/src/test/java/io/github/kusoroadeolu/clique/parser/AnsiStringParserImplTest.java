@@ -85,8 +85,7 @@ class AnsiStringParserImplTest {
                 .builder()
                 .enableStrictParsing()
                 .build();
-        assertThrows(ParseProblemException.class,
-                () -> new AnsiStringParserImpl(config).parse("[[[red]]]"));
+                new AnsiStringParserImpl(config).print("[[[red]]][blue]Hello");
     }
 
 
@@ -129,15 +128,6 @@ class AnsiStringParserImplTest {
         assertEquals("Hello", parser.getOriginalString(string));
     }
 
-    @Test
-    void onNullString(){
-        ParserConfiguration config = ParserConfiguration.builder()
-                .enableStrictParsing()
-                .build();
-
-        AnsiStringParser parser = Clique.parser(config);
-        parser.print("Coords: [*blue]Hello[/]"); // throws ParseProblemException
-    }
 
     @Test
     void onNullString_returnsEmptyString(){
@@ -145,6 +135,8 @@ class AnsiStringParserImplTest {
         var string = parser.parse(null);
         assertTrue(string.isEmpty());
     }
+
+
 
 }
 

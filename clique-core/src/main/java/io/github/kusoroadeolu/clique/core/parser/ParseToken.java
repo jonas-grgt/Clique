@@ -10,6 +10,6 @@ import java.util.List;
 public record ParseToken(
         int start,
         int end,
-        List<AnsiCode> validStyles
+        List<AnsiCode> styles
 ) {
 }

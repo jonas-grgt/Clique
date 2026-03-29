@@ -36,7 +36,7 @@ public sealed interface StyleBuilder extends Borderless permits DefaultStyleBuil
      * Appends multiple ANSI Codes to this text
      *
      * @param text      The text we're appending to the style builder
-     * @param ansiCodes The ansiCodes we're applying to the text
+     * @param ansiCodes The styles we're applying to the text
      * @return The instance of this class
      *
      */
