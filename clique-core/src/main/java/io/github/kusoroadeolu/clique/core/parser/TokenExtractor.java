@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 public final class TokenExtractor {
     private static final char FORM_START = '[';
     private static final char FORM_CLOSE = ']';
+    private static final String MARKUP_ESCAPE = "[/]";
 
     /**
      * Extracts valid tokens and form tags from the given string
@@ -28,34 +29,38 @@ public final class TokenExtractor {
      *
      */
     public ParseResult getParseResult(String stringToParse, String delimiter, boolean enableStrictParsing) {
-        final List<ParserToken> tokens = new ArrayList<>(); //List to store the tokens gotten from this string
+        final List<ParseToken> tokens = new ArrayList<>(); //List to store the tokens gotten from this string
         final List<String> formTags = new ArrayList<>(); //Tracks the form tags extracted from this string
 
         if (stringToParse == null || stringToParse.isEmpty()) return new ParseResult(List.of(), List.of());
 
         final int len = stringToParse.length();
-        int idx = 0; //The start of the tag
-        boolean isTracking = false; //Tracking boolean to keep track of if we're currently tracking a style or not
+        int tagStart = 0; //The start of the tag
+        boolean inMarkupTag = false; //Tracking boolean to keep track of if we're currently tracking a style or not
 
         for (int i = 0; i < len; i++) {
             final char c = stringToParse.charAt(i);
             if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
-                if (isTracking && enableStrictParsing) { //If we're still tracking, this means we have nested form start
-                    throw new ParseProblemException("Nested tag detected at index: " + i);
+                if (inMarkupTag && enableStrictParsing) { //If we're still tracking, this means we have nested form start
+                    int j = i + 3;
+                    if (j < len){
+                        String shorthand = stringToParse.substring(i,  i + 3);
+                        if (!shorthand.equals(MARKUP_ESCAPE)){
+                            throw new ParseProblemException("Nested tag detected at index: " + i);
+                        }
+                    }
                 }
-
-
-                idx = i;
-                isTracking = true;
+                tagStart = i;
+                inMarkupTag = true;
             }
 
-            if (c == FORM_CLOSE && isTracking) { //Only parse the string if we're still tracking the valid tag
-                final String fullTag = stringToParse.substring(idx, i + 1); //Parse the extracted string and skip the braces
-                final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiter, enableStrictParsing);
+            if (c == FORM_CLOSE && inMarkupTag) { //Only parse the string if we're still tracking the valid tag
+                final String markupTag = stringToParse.substring(tagStart, i + 1); //Parse the extracted string and skip the braces
+                final List<AnsiCode> validStyles = this.getValidStyles(markupTag, delimiter, enableStrictParsing);
                 if (validStyles != null && !validStyles.isEmpty()) {
-                    tokens.add(new ParserToken(idx, i, validStyles));
-                    formTags.add(fullTag);
-                    isTracking = false;
+                    tokens.add(new ParseToken(tagStart, i, validStyles));
+                    formTags.add(markupTag);
+                    inMarkupTag = false;
                 }
             }
         }

@@ -130,6 +130,16 @@ class AnsiStringParserImplTest {
     }
 
     @Test
+    void onNullString(){
+        ParserConfiguration config = ParserConfiguration.builder()
+                .enableStrictParsing()
+                .build();
+
+        AnsiStringParser parser = Clique.parser(config);
+        parser.print("Coords: [*blue]Hello[/]"); // throws ParseProblemException
+    }
+
+    @Test
     void onNullString_returnsEmptyString(){
         var parser = AnsiStringParser.DEFAULT;
         var string = parser.parse(null);

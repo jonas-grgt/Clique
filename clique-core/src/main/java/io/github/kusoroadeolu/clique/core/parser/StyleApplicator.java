@@ -13,7 +13,7 @@ import java.util.List;
 public final class StyleApplicator {
 
     //Restyle the extracted string with the given colors
-    public String restyleString(List<ParserToken> tokens, String extractedString, boolean enableAutoCloseTags) {
+    public String restyleString(List<ParseToken> tokens, String extractedString, boolean enableAutoCloseTags) {
         final StringBuilder sb = new StringBuilder();
         final StyleBuilder stb = Clique.styleBuilder();
         String val;
@@ -30,21 +30,17 @@ public final class StyleApplicator {
 
         try {
             for (int i = 0; i < size; i++) {
-                final ParserToken curr = tokens.get(i);
-                final ParserToken next = i != (size - 1) ? tokens.get(i + 1) :
-                        new ParserToken(extractedString.length(), 0, null); //if we're at the end of the loop, we apply the current style to the rem of the string
+                final ParseToken curr = tokens.get(i);
+                final ParseToken next = i != (size - 1) ? tokens.get(i + 1) :
+                        new ParseToken(extractedString.length(), 0, null); //if we're at the end of the loop, we apply the current style to the rem of the string
 
                 final AnsiCode[] codes = curr.validStyles().toArray(AnsiCode[]::new);
                 final int start = curr.end() + 1;
                 final int end = next.start();
                 val = extractedString.substring(start, end);
 
-                if (enableAutoCloseTags) {
-                    sb.append(stb.formatAndReset(val, codes));
-                    continue;
-                }
-
-                sb.append(stb.format(val, codes));
+                if (enableAutoCloseTags) sb.append(stb.formatAndReset(val, codes));
+                else sb.append(stb.format(val, codes));
             }
         } catch (StringIndexOutOfBoundsException e) {
             throw new ParseProblemException("Failed to parse string. This often happens when style tags have nested brackets like '[[red]]'.", e);
