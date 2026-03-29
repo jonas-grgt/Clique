@@ -7,6 +7,7 @@ import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.exceptions.ParseProblemException;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
+import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

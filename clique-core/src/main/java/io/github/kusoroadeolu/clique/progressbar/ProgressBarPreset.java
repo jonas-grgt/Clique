@@ -2,17 +2,21 @@ package io.github.kusoroadeolu.clique.progressbar;
 
 
 import io.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
+
 
 /**
- * Predefined progress bar configs with sensible defaults.
- */
+* Predefined progress bar configs with sensible defaults.
+ * @since 3.0.0
+ * */
+@Stable(since = "3.1.3")
 public enum ProgressBarPreset {
 
     BLOCKS {
         @Override
         public ProgressBarConfiguration getConfiguration() {
             return ProgressBarConfiguration
-                    .immutableBuilder()
+                    .builder()
                     .length(40)
                     .complete('█')
                     .incomplete('░')
@@ -25,7 +29,7 @@ public enum ProgressBarPreset {
     LINES {
         @Override
         public ProgressBarConfiguration getConfiguration() {
-            return ProgressBarConfiguration.immutableBuilder()
+            return ProgressBarConfiguration.builder()
                     .length(50)
                     .complete('▂')
                     .incomplete('▁')
@@ -38,7 +42,7 @@ public enum ProgressBarPreset {
     BOLD {
         @Override
         public ProgressBarConfiguration getConfiguration() {
-            return ProgressBarConfiguration.immutableBuilder()
+            return ProgressBarConfiguration.builder()
                     .length(40)
                     .complete('▰')
                     .incomplete('▱')
@@ -51,7 +55,7 @@ public enum ProgressBarPreset {
     CLASSIC {
         @Override
         public ProgressBarConfiguration getConfiguration() {
-            return ProgressBarConfiguration.immutableBuilder()
+            return ProgressBarConfiguration.builder()
                     .length(50)
                     .complete('#')
                     .incomplete('=')
@@ -63,7 +67,7 @@ public enum ProgressBarPreset {
     DOTS {
         @Override
         public ProgressBarConfiguration getConfiguration() {
-            return ProgressBarConfiguration.immutableBuilder()
+            return ProgressBarConfiguration.builder()
                     .length(50)
                     .complete('●')
                     .incomplete('○')

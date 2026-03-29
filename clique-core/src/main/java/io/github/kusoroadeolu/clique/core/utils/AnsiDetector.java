@@ -1,9 +1,12 @@
 package io.github.kusoroadeolu.clique.core.utils;
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 
+@InternalApi(since = "3.1.3")
 public class AnsiDetector {
 
     private AnsiDetector() {

@@ -1,9 +1,16 @@
 package io.github.kusoroadeolu.clique.config;
 
 
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
+
 import java.util.Objects;
 
 //Added docs here so I won't forget what each val does
+/**
+ * A class for styling table borders
+ * @since 3.0.0
+ * */
+@Stable(since = "3.1.3")
 public class EasingConfiguration {
     public static final EasingConfiguration DEFAULT = new EasingConfiguration();
     public static final EasingConfiguration DISABLED = disabledConfig();

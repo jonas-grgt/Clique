@@ -1,5 +1,6 @@
-package io.github.kusoroadeolu.clique.parser;
+package io.github.kusoroadeolu.clique.core.parser;
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.ParseProblemException;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
@@ -10,13 +11,13 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
-import static io.github.kusoroadeolu.clique.parser.StyleMaps.*;
 
 /**
  * This class extracts valid token forms from the given string
  * Note that this class will ignore malformed tags and print them as is
  *
  */
+@InternalApi(since = "3.1.3")
 public final class TokenExtractor {
     private static final char FORM_START = '[';
     private static final char FORM_CLOSE = ']';
@@ -88,25 +89,25 @@ public final class TokenExtractor {
 
     // A helper method that checks if each map contains a key of the given string
     private void addValidStyles(String s, List<AnsiCode> validStyles, boolean enableStrictParsing) {
-        AnsiCode code = CUSTOM_STYLE_CODES.get(s);
+        AnsiCode code = StyleMaps.CUSTOM_STYLE_CODES.get(s);
         if (code != null) {
             validStyles.add(code);
             return;
         }
 
-        code = COLOR_CODES.get(s);
+        code = StyleMaps.COLOR_CODES.get(s);
         if (code != null) {
             validStyles.add(code);
             return;
         }
 
-        code = BACKGROUND_CODES.get(s);
+        code = StyleMaps.BACKGROUND_CODES.get(s);
         if (code != null) {
             validStyles.add(code);
             return;
         }
 
-        code = STYLE_CODES.get(s);
+        code = StyleMaps.STYLE_CODES.get(s);
         if (code != null) {
             validStyles.add(code);
             return;

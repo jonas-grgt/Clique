@@ -1,11 +1,15 @@
-package io.github.kusoroadeolu.clique.parser;
+package io.github.kusoroadeolu.clique.core.parser;
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
+import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.AnsiStringParserImpl;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
 import java.util.List;
 
+@InternalApi(since = "3.1.3")
 public class ParserUtils {
     public static List<AnsiCode> getAnsiCodes(String string) {
         var parser = (AnsiStringParserImpl) AnsiStringParser.DEFAULT;

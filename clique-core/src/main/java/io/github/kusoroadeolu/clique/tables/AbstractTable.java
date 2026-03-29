@@ -2,6 +2,7 @@ package io.github.kusoroadeolu.clique.tables;
 
 
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 
@@ -14,6 +15,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 import static java.util.Objects.isNull;
 
+@InternalApi(since = "3.1.3")
 public abstract class AbstractTable implements Table {
     final List<WidthAwareList> columns; //This is used to track the max height in that column
     final List<WidthAwareList> rows;

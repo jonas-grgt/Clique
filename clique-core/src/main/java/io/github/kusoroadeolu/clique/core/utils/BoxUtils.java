@@ -5,6 +5,7 @@ import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.boxes.BoxWrapper;
 import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TextAlign;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
@@ -17,6 +18,7 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
+@InternalApi(since = "3.1.3")
 public class BoxUtils {
 
     private final static String RESET = StyleCode.RESET.toString();

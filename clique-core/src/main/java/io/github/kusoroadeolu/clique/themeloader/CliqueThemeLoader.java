@@ -1,12 +1,14 @@
 package io.github.kusoroadeolu.clique.themeloader;
 
 import io.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 
 import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 
+@InternalApi(since = "3.1.3")
 public class CliqueThemeLoader {
     private final static Map<String, CliqueTheme> THEMES = new HashMap<>();
 

@@ -5,6 +5,7 @@ import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.config.FrameConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Component;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
@@ -18,6 +19,7 @@ import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.applyAnsiToBorde
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 
+@InternalApi(since = "3.1.3")
 public class DefaultFrame implements  Frame {
     private final List<FrameNode> nodes;
     private final FrameConfiguration configuration;

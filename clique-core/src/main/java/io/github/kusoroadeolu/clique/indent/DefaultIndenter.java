@@ -1,14 +1,19 @@
 package io.github.kusoroadeolu.clique.indent;
 
 import io.github.kusoroadeolu.clique.config.IndenterConfiguration;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 
+@InternalApi(since = "3.1.3")
 public class DefaultIndenter implements Indenter {
     private final Deque<Indent> indents;
     private final StringBuilder sb;

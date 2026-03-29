@@ -2,6 +2,7 @@ package io.github.kusoroadeolu.clique.style;
 
 
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.io.PrintStream;
@@ -10,6 +11,7 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.AnsiDetector.ansiEnabled;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
+@InternalApi(since = "3.1.3")
 public non-sealed class DefaultStyleBuilder implements StyleBuilder {
 
     private static final AnsiCode RESET = StyleCode.RESET;

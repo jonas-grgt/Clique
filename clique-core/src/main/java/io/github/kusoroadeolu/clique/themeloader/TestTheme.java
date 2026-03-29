@@ -1,10 +1,12 @@
 package io.github.kusoroadeolu.clique.themeloader;
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 
 import java.util.Map;
 
+@InternalApi(since = "3.1.3")
 public class TestTheme implements CliqueTheme {
     public String themeName() {
         return "test";
@@ -19,7 +21,7 @@ public class TestTheme implements CliqueTheme {
 
     @Override
     public String author() {
-        return "Kusoro Adeolu";
+        return "Kush V";
     }
 
     @Override

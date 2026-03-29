@@ -1,20 +1,19 @@
 package io.github.kusoroadeolu.clique.config;
 
 
-import io.github.kusoroadeolu.clique.Clique;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
-import io.github.kusoroadeolu.clique.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
+
 
 /**
  * A class for styling table borders
- */
+ * @since 1.0.0
+ * */
+@Stable(since = "3.1.3")
 public class BorderStyle implements BorderSpec{
     public final static BorderStyle DEFAULT = new BorderStyle();
 
@@ -41,7 +40,9 @@ public class BorderStyle implements BorderSpec{
         return new BorderStyleBuilder();
     }
 
+    @InternalApi(since = "3.1.3")
     public static BorderStyle fromSpec(BorderSpec spec){
+        Objects.requireNonNull(spec, "Spec cannot be null");
         return switch (spec){
             case BorderStyle bs -> bs;
             case BorderColor bc -> fromBorderColor(bc);
