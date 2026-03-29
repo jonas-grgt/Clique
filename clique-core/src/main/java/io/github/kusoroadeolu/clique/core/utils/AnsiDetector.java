@@ -1,14 +1,16 @@
 package io.github.kusoroadeolu.clique.core.utils;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 
-public final class AnsiDetector {
+public class AnsiDetector {
 
     private AnsiDetector() {
         throw new AssertionError("Cannot instantiate this");
     }
 
-    private static boolean ansiEnabled = autoDetect();
+    private final static AtomicBoolean ANSI_ENABLED = new AtomicBoolean(autoDetect());
 
 
     //FOR TESTS
@@ -20,17 +22,17 @@ public final class AnsiDetector {
     }
 
     public static boolean ansiEnabled() {
-        return ansiEnabled;
+        return ANSI_ENABLED.get();
     }
 
     public static void enableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, ALWAYS);
-        ansiEnabled = true;
+        ANSI_ENABLED.set(true);
     }
 
     public static void disableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, NEVER);
-        ansiEnabled = false;
+        ANSI_ENABLED.set(false);
     }
 
     private static boolean autoDetect() {
