@@ -30,6 +30,7 @@ public final class TokenExtractor {
     public ParseResult getParseResult(String stringToParse, String delimiter, boolean enableStrictParsing) {
         final List<ParseToken> tokens = new ArrayList<>(); //List to store the tokens gotten from this string
         final List<String> formTags = new ArrayList<>(); //Tracks the form tags extracted from this string
+        final String delimiterPattern = Pattern.quote(delimiter);
 
         if (stringToParse == null || stringToParse.isEmpty()) return new ParseResult(List.of(), List.of());
 
@@ -53,7 +54,7 @@ public final class TokenExtractor {
 
                 if (fsDepth == 1 && fcDepth == 1){ //Only if we dont have nested tags, with both open and closed tags
                     final String fullTag = stringToParse.substring(idx, i + 1); //Parse the extracted string and skip the braces
-                    final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiter, enableStrictParsing);
+                    final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiterPattern, enableStrictParsing);
                     if (!validStyles.isEmpty()) {
                         tokens.add(new ParseToken(idx, i, validStyles));
                         formTags.add(fullTag);
@@ -77,11 +78,11 @@ public final class TokenExtractor {
 
     //Check if there are valid styles in the extracted string
     //ESP -> Enable strict parsing
-    private List<AnsiCode> getValidStyles(String extractedStr, String delimiter, boolean esp) {
+    private List<AnsiCode> getValidStyles(String extractedStr, String delimiterPattern, boolean esp) {
         if (extractedStr.length() <= 2) return List.of();  //Check if the extracted string is just empty braces, or a malformed tag
         extractedStr = this.cleanString(extractedStr); //Clean the string
 
-        final String[] styles = extractedStr.split(Pattern.quote(delimiter));
+        final String[] styles = extractedStr.split(delimiterPattern);
         final List<AnsiCode> validStyles = new ArrayList<>();
         for (String s : styles) {
             s = s.toLowerCase(Locale.ROOT).trim();

@@ -10,6 +10,6 @@ public record ParseResult(
         List<String> extractedFormTags
 ) {
     public boolean isPresent(){
-        return !tokens.isEmpty() && !extractedFormTags.isEmpty();
+        return !tokens.isEmpty();
     }
 }

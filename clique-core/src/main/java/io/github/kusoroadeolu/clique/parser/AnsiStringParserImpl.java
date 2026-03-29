@@ -3,10 +3,9 @@ package io.github.kusoroadeolu.clique.parser;
 
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.parser.MarkupPreProcessor;
-import io.github.kusoroadeolu.clique.core.parser.ParseResult;
-import io.github.kusoroadeolu.clique.core.parser.StyleApplicator;
-import io.github.kusoroadeolu.clique.core.parser.TokenExtractor;
+import io.github.kusoroadeolu.clique.core.parser.*;
+
+import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;
@@ -40,14 +39,19 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         String processed = PROCESSOR.preProcess(tokenedString);
         ParseResult result = this.getParseResult(processed);
 
-        String piped;
-        if (result.isPresent()){
-            piped = result.extractedFormTags().stream().reduce(processed, (s, tag) -> s.replace(tag, EMPTY));
-        }else {
-            piped = tokenedString;
-        }
+        if (!result.isPresent()) return stripAnsi(PROCESSOR.postProcess(tokenedString));
 
-        return stripAnsi(PROCESSOR.postProcess(piped));
+        final List<ParseToken> tokens = result.tokens();
+        final StringBuilder sb = new StringBuilder(processed.length());
+        int cursor = 0;
+
+        for (ParseToken token : tokens) {
+            sb.append(processed, cursor, token.start());
+            cursor = token.end() + 1;
+        }
+        sb.append(processed, cursor, processed.length());
+
+        return stripAnsi(PROCESSOR.postProcess(sb.toString()));
     }
 
     ParseResult getParseResult(String input) {
