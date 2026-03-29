@@ -83,8 +83,7 @@ public final class TokenExtractor {
 
     //Replaces forms with empty strings
     private String cleanString(String s) {
-        return s.replace(String.valueOf(FORM_START), EMPTY)
-                .replace(String.valueOf(FORM_CLOSE), EMPTY);
+        return s.substring(1, s.length() - 1);
     }
 
     // A helper method that checks if each map contains a key of the given string
