@@ -7,7 +7,6 @@ import io.github.kusoroadeolu.clique.core.parser.*;
 
 import java.util.List;
 
-import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;
 
 @InternalApi(since = "3.1.3")
@@ -25,7 +24,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         if (stringToParse == null || stringToParse.isBlank()) return stringToParse;
         String processed = PROCESSOR.preProcess(stringToParse);
         final ParseResult result = this.getParseResult(processed);
-        String styled = STYLE_APPLICATOR.restyleString(result.tokens(), processed, this.parserConfiguration.getEnableAutoCloseTags());
+        String styled = STYLE_APPLICATOR.styleString(result.tokens(), processed, this.parserConfiguration.getEnableAutoCloseTags());
         return PROCESSOR.postProcess(styled);
 
     }

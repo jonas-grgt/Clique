@@ -12,7 +12,7 @@ import java.util.List;
 public final class StyleApplicator {
 
     //Restyle the extracted string with the given colors
-    public String restyleString(List<ParseToken> tokens, String extractedString, boolean enableAutoCloseTags) {
+    public String styleString(List<ParseToken> tokens, String extractedString, boolean enableAutoCloseTags) {
         final StringBuilder sb = new StringBuilder();
         final StyleBuilder stb = Clique.styleBuilder();
         String val;

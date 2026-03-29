@@ -108,6 +108,7 @@ Changes to the SPI module in this release.
 - `@Stable` annotation — marks public APIs considered frozen and safe to depend on across minor releases
 - `@Unstable` annotation — marks public APIs that are available but may change shape between minor versions
 - `@Experimental` annotation — stronger signal than `@Unstable`; marks APIs that exist for early feedback and may be removed entirely
+- `MarkupPreProcessor` — preprocessing step in the parse pipeline handling backslash escape sequences before tokenization
 
 ### Changed
 - `Box` auto-sizing is now implicit when no dimensions are provided, matching `Frame`'s behaviour
@@ -116,7 +117,12 @@ Changes to the SPI module in this release.
 - `BorderStyle` now holds a `BorderColor` internally instead of raw `AnsiCode` arrays
 - `Clique` facade overloads now accept `BorderSpec` instead of `AnsiCode` arrays directly
 - `builder()` is now the standard entry point for all configuration classes
+- Parser escape syntax replaced — `[content[/]]` is removed in favor of `\[` (e.g. `\[red]` renders as `[red]`)
+- `enableAutoCloseTags` now correctly described as style leak prevention — resets styles when a new tag is encountered rather than forgiving malformed tags
+- `enableStrictParsing` no longer throws on unrecognized or structurally unusual brackets — only throws `UnidentifiedStyleException` when a valid tag contains an unrecognized style
 
+### Fixed
+- Strict parsing throwing `ParseProblemException` aggressively on plain brackets and the old escape syntax even when content was not a valid markup tag
 
 ### Deprecated
 - `BoxConfiguration#autoSize()` — auto-sizing is now the default; configure dimensions directly on the builder
