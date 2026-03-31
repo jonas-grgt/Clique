@@ -115,7 +115,7 @@ Changes to the SPI module in this release.
 - `BoxConfigurationBuilder#padding()` now returns the builder reference for fluent chaining
 - `BoxConfiguration` `equals()`, `hashCode()`, and `toString()` now include `padding`
 - `BorderStyle` now holds a `BorderColor` internally instead of raw `AnsiCode` arrays
-- `Clique` facade overloads now accept `BorderSpec` instead of `AnsiCode` arrays directly
+- `Clique` facade overloads now accept `BorderSpec` instead of a `BorderStyle`
 - `builder()` is now the standard entry point for all configuration classes
 - Parser escape syntax replaced — `[content[/]]` is removed in favor of `\[` (e.g. `\[red]` renders as `[red]`)
 - `enableAutoCloseTags` now correctly described as style leak prevention — resets styles when a new tag is encountered rather than forgiving malformed tags
