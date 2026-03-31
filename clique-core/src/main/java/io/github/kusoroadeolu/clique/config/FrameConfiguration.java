@@ -13,7 +13,7 @@ import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotN
 /**
  * @since 3.1.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public class FrameConfiguration {
     public static final FrameConfiguration DEFAULT = new FrameConfiguration();
 

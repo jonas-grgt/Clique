@@ -7,7 +7,7 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public final class StringUtils {
 
     public static void clearStringBuilder(StringBuilder sb) {

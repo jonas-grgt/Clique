@@ -10,7 +10,7 @@ import java.io.PrintStream;
 /**
  * @since 1.0.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public sealed interface StyleBuilder extends Borderless permits DefaultStyleBuilder {
     /**
      * Applies multiple ANSI codes to this text

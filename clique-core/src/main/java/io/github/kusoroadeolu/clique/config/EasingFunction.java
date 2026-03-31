@@ -1,9 +1,12 @@
 package io.github.kusoroadeolu.clique.config;
 
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
+
 /**
  * Easing functions for progress bar animations.
  * Based on easing equations from easings.net
  */
+@Stable(since = "3.2.0")
 public enum EasingFunction {
     /**
      * No easing, instant jump to target value

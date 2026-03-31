@@ -8,7 +8,7 @@ import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class CliqueThemeLoader {
     private final static Map<String, CliqueTheme> THEMES = new HashMap<>();
 

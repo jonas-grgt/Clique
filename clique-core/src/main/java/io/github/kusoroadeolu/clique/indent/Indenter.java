@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * @since 1.1.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public interface Indenter extends Borderless {
 
     Indenter indent(int level, String flag);

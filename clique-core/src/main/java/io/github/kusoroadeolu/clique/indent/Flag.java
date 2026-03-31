@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.indent;
 
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 
-@Stable(since = "1.1.0")
+@Stable(since = "3.2.0")
 public enum Flag {
     HYPHEN("-"),
     BULLET("•"),

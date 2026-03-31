@@ -13,7 +13,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBu
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class DefaultIndenter implements Indenter {
     private final Deque<Indent> indents;
     private final StringBuilder sb;

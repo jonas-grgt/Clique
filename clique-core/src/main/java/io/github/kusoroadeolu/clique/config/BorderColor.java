@@ -1,5 +1,6 @@
 package io.github.kusoroadeolu.clique.config;
 
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
@@ -8,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@Stable(since = "3.2.1")
 public class BorderColor implements BorderSpec{
     private final AnsiCode[] verticalStyle;
     private final AnsiCode[] horizontalStyle;

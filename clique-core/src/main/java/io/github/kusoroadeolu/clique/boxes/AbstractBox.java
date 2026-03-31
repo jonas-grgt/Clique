@@ -3,6 +3,7 @@ package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.config.TextAlign;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 
+@InternalApi(since = "3.2.1")
 public abstract class AbstractBox implements Box {
     int width;
     int height; //If width and height == 0

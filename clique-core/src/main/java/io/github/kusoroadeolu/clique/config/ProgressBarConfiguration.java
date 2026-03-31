@@ -1,5 +1,6 @@
 package io.github.kusoroadeolu.clique.config;
 
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPredicate;
@@ -13,7 +14,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * @since 3.0.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public class ProgressBarConfiguration {
     public static final ProgressBarConfiguration DEFAULT = ProgressBarPreset.BLOCKS.getConfiguration();
 
@@ -41,9 +42,9 @@ public class ProgressBarConfiguration {
     }
 
     /**
-     * @deprecated As of 3.1.3, use {@link ProgressBarConfiguration#builder()} instead. This will be removed in a future release.
+     * @deprecated As of 3.2.0, use {@link ProgressBarConfiguration#builder()} instead. This will be removed in a future release.
      * */
-    @Deprecated(since = "3.1.3", forRemoval = true)
+    @Deprecated(since = "3.2.0", forRemoval = true)
     public static ProgressBarConfigurationBuilder immutableBuilder() {
         return builder();
     }
@@ -59,6 +60,7 @@ public class ProgressBarConfiguration {
                 .format(config.format);
     }
 
+    @InternalApi(since = "3.2.1")
     public static ProgressBarConfiguration fromEasing(EasingConfiguration easing) {
         Objects.requireNonNull(easing, "Easing config cannot be null");
         return ProgressBarConfiguration

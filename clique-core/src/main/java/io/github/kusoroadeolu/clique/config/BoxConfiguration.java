@@ -14,7 +14,7 @@ import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotN
  * A class for styling table borders
  * @since 1.1.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public class BoxConfiguration {
     public static final BoxConfiguration DEFAULT = new BoxConfiguration();
 

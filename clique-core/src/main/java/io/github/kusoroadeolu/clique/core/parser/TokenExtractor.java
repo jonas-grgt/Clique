@@ -13,9 +13,8 @@ import java.util.regex.Pattern;
 /**
  * This class extracts valid token forms from the given string
  * Note that this class will ignore malformed tags and print them as is
- *
  */
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public final class TokenExtractor {
     private static final char FORM_START = '[';
     private static final char FORM_CLOSE = ']';

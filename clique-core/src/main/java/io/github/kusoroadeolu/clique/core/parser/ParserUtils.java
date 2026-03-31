@@ -9,7 +9,7 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import java.util.Arrays;
 import java.util.List;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class ParserUtils {
     public static List<AnsiCode> getAnsiCodes(String string) {
         var parser = (AnsiStringParserImpl) AnsiStringParser.DEFAULT;

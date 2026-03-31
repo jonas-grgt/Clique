@@ -18,7 +18,7 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class BoxUtils {
 
     private final static String RESET = StyleCode.RESET.toString();

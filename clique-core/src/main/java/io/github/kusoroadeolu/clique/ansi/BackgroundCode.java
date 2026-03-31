@@ -6,7 +6,7 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 /**
  * @since 1.0.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public enum BackgroundCode implements AnsiCode {
     // Enum constants with their corresponding ANSI codes
     BLACK("\u001B[40m"),

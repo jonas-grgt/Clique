@@ -5,7 +5,7 @@ import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import java.util.ArrayList;
 import java.util.List;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class WidthAwareList {
     private final List<Cell> list;
     private int longest;

@@ -19,7 +19,7 @@ import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.applyAnsiToBorde
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class DefaultFrame implements  Frame {
     private final List<FrameNode> nodes;
     private final FrameConfiguration configuration;

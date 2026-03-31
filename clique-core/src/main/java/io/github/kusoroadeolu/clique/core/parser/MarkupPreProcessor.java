@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.core.parser;
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class MarkupPreProcessor {
     private static final char ESCAPE_CHAR = '\\';
     private static final char BRACKET = '[';

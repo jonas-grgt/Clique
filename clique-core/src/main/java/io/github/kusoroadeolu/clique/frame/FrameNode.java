@@ -12,7 +12,7 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.parser.AnsiStringParser.DEFAULT;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode {
     List<Cell> lines();
     int maxWidth();
