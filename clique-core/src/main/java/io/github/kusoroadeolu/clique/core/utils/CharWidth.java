@@ -8,7 +8,7 @@ import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 
 import java.util.Arrays;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public final class CharWidth {
 
     // Pre-computed width lookup for BMP characters (0x0000-0xFFFF).

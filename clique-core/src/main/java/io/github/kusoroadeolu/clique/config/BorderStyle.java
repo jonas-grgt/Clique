@@ -13,7 +13,7 @@ import java.util.Objects;
  * A class for styling table borders
  * @since 1.0.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public class BorderStyle implements BorderSpec{
     public final static BorderStyle DEFAULT = new BorderStyle();
 

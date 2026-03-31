@@ -10,7 +10,7 @@ import java.util.Objects;
  * A class for styling table borders
  * @since 3.0.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public class EasingConfiguration {
     public static final EasingConfiguration DEFAULT = new EasingConfiguration();
     public static final EasingConfiguration DISABLED = disabledConfig();

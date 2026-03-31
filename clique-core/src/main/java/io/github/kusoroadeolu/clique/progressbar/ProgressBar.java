@@ -4,6 +4,7 @@ package io.github.kusoroadeolu.clique.progressbar;
 import io.github.kusoroadeolu.clique.config.EasingConfiguration;
 import io.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Bordered;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 
 import java.io.PrintStream;
@@ -16,7 +17,7 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 /**
  * @since 3.0.0
  * */
-@Stable(since = "3.1.3")
+@InternalApi(since = "3.2.1")
 public final class ProgressBar implements Bordered {
     final int total;
     final long creationTime;

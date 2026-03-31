@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * Main facade that delegates to CliqueStyles and CliqueComponents.
  */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public final class Clique {
 
     private Clique() {

@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @since 1.0.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public class ParserConfiguration {
     public static final ParserConfiguration DEFAULT = new ParserConfiguration();
 
@@ -32,9 +32,9 @@ public class ParserConfiguration {
     }
 
     /**
-     * @deprecated As of 3.1.3, use {@link ParserConfiguration#builder()} instead. This will be removed in a future release.
+     * @deprecated As of 3.2.0, use {@link ParserConfiguration#builder()} instead. This will be removed in a future release.
      * */
-    @Deprecated(since = "3.1.3", forRemoval = true)
+    @Deprecated(since = "3.2.0", forRemoval = true)
     public static ParserConfigurationBuilder immutableBuilder() {
         return builder();
     }

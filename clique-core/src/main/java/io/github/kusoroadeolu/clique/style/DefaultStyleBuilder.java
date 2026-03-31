@@ -11,7 +11,7 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.AnsiDetector.ansiEnabled;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public non-sealed class DefaultStyleBuilder implements StyleBuilder {
 
     private static final AnsiCode RESET = StyleCode.RESET;

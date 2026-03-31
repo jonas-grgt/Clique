@@ -15,7 +15,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 import static java.util.Objects.isNull;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public abstract class AbstractTable implements Table {
     final List<WidthAwareList> columns; //This is used to track the max height in that column
     final List<WidthAwareList> rows;

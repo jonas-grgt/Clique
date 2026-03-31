@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * @since 3.1.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public interface Bordered extends Component {
     default void render() {
         this.render(System.out);

@@ -3,7 +3,7 @@ package io.github.kusoroadeolu.clique.core.structures;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class BorderChars {
     private String hLine;
     private String vLine;

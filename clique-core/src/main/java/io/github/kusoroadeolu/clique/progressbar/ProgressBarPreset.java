@@ -9,7 +9,7 @@ import io.github.kusoroadeolu.clique.core.documentation.Stable;
 * Predefined progress bar configs with sensible defaults.
  * @since 3.0.0
  * */
-@Stable(since = "3.1.3")
+@Stable(since = "3.2.0")
 public enum ProgressBarPreset {
 
     BLOCKS {

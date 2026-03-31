@@ -8,7 +8,7 @@ import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.List;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public final class StyleApplicator {
 
     //Restyle the extracted string with the given colors

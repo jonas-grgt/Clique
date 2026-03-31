@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class TableUtils {
 
     public static String align(CellAlign align, StringBuilder sb, int offset, String cell, String vLine) {

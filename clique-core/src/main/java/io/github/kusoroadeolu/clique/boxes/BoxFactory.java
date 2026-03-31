@@ -3,10 +3,12 @@ package io.github.kusoroadeolu.clique.boxes;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 
 import static java.util.Objects.requireNonNull;
 
+@InternalApi(since = "3.2.0")
 public class BoxFactory {
     private BoxFactory() {
         throw new AssertionError();

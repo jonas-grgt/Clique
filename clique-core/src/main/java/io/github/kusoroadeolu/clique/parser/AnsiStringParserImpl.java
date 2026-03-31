@@ -3,13 +3,14 @@ package io.github.kusoroadeolu.clique.parser;
 
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
+import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.*;
 
 import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) implements AnsiStringParser {
     private static final StyleApplicator STYLE_APPLICATOR = new StyleApplicator();
     private static final TokenExtractor TOKEN_EXTRACTOR = new TokenExtractor();

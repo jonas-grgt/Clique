@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 //A simple class which holds the maps of the syntax
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public final class StyleMaps {
 
     /**

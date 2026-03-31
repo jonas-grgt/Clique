@@ -8,7 +8,8 @@ import io.github.kusoroadeolu.clique.core.documentation.Stable;
 /**
  * @since 3.1.0
  * */
-@Stable(since = "3.1.3")public interface Frame extends Bordered{
+@Stable(since = "3.2.0")
+public interface Frame extends Bordered{
     DefaultFrame title(String title, FrameAlign titleAlign);
 
     DefaultFrame title(String title);

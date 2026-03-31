@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.core.utils;
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 
-@InternalApi(since = "3.1.3")
+@InternalApi(since = "3.2.0")
 public class Constants {
     public static final String NEWLINE = "\n";
     public static final String EMPTY = "";
