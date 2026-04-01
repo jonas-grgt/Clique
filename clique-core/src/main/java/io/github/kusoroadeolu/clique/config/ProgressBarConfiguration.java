@@ -49,6 +49,7 @@ public class ProgressBarConfiguration {
         return builder();
     }
 
+    @Stable(since = "3.2.1")
     public static ProgressBarConfigurationBuilder fromPreset(ProgressBarPreset preset) {
         Objects.requireNonNull(preset, "Preset cannot be null");
         var config = preset.getConfiguration();
@@ -70,6 +71,7 @@ public class ProgressBarConfiguration {
     }
 
     // Get the format based on current percent
+    @InternalApi(since = "3.2.1")
     public String getFormatForPercent(int percent) {
         return styles.stream()
                 .filter(style -> style.matches(percent))
@@ -174,7 +176,7 @@ public class ProgressBarConfiguration {
         public ProgressBarConfigurationBuilder styleRange(int min, int max, String format) {
             requireNonNull(format, "Format cannot be null");
             if (min < 0) throw new IllegalArgumentException("Min must be positive");
-            return this.styleWhen(p -> p >= min && p < max, format);
+            return this.styleWhen(p -> p >= min && p <= max, format);
         }
 
         public ProgressBarConfigurationBuilder styles(Collection<ProgressBarPredicate> styles) {

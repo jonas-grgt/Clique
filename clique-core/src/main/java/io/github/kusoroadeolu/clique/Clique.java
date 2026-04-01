@@ -10,6 +10,7 @@ import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import io.github.kusoroadeolu.clique.frame.Frame;
 import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.progressbar.IterableProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
@@ -76,6 +77,19 @@ public final class Clique {
     public static ProgressBar progressBar(int total, EasingConfiguration easing){
         return CliqueComponents.progressBar(total, easing);
     }
+
+    public static <T> IterableProgressBar<T> progressBar(Collection<T> collection) {
+        return CliqueComponents.progressBar(collection);
+    }
+
+    public static <T>IterableProgressBar<T> progressBar(Collection<T> collection, ProgressBarConfiguration configuration) {
+        return CliqueComponents.progressBar(collection, configuration);
+    }
+
+    public static  <T>IterableProgressBar<T> progressBar(Collection<T> collection, ProgressBarPreset preset) {
+        return CliqueComponents.progressBar(collection, preset.getConfiguration());
+    }
+
 
     // FRAME
     public static Frame frame() { return CliqueComponents.frame(); }

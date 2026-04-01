@@ -3,6 +3,7 @@ package io.github.kusoroadeolu.clique.indent;
 import io.github.kusoroadeolu.clique.config.IndenterConfiguration;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
+import io.github.kusoroadeolu.clique.core.utils.StringUtils;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
@@ -122,11 +123,7 @@ public class DefaultIndenter implements Indenter {
     }
 
     private String parseString(String str) {
-        if (this.configuration.getParser() != null) {
-            str = this.configuration.getParser().parse(str);
-        }
-
-        return str;
+        return StringUtils.parseString(str, this.configuration.getParser());
     }
 
     public Indenter resetLevel() {

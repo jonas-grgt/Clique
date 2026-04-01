@@ -19,6 +19,11 @@ public final class StringUtils {
         else return new Cell(text, text);
     }
 
+    public static String parseString(String text, AnsiStringParser parser) {
+        if (parser != null) return parser.parse(text);
+        else return text;
+    }
+
     public static String stripAnsi(String styled) {
         int i = 0;
         boolean inAnsi = false;

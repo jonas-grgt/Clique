@@ -1,6 +1,6 @@
 package io.github.kusoroadeolu.clique;
 
-import io.github.kusoroadeolu.clique.ansi.RGBAnsiColor;
+import io.github.kusoroadeolu.clique.ansi.RGBColor;
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
@@ -45,11 +45,11 @@ final class CliqueStyles {
     // RGB
 
     public static RGBAnsiCode rgb(int r, int g, int b) {
-        return new RGBAnsiColor(r, g, b, false);
+        return new RGBColor(r, g, b, false);
     }
 
     public static RGBAnsiCode rgb(int r, int g, int b, boolean background) {
-        return new RGBAnsiColor(r, g, b, background);
+        return new RGBColor(r, g, b, background);
     }
 
     // STYLE REGISTRATION

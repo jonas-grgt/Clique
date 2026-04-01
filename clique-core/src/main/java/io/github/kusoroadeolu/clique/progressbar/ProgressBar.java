@@ -5,7 +5,6 @@ import io.github.kusoroadeolu.clique.config.EasingConfiguration;
 import io.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Bordered;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.documentation.Stable;
 
 import java.io.PrintStream;
 import java.util.Objects;
@@ -13,12 +12,13 @@ import java.util.concurrent.TimeUnit;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseString;
 
 /**
  * @since 3.0.0
  * */
 @InternalApi(since = "3.2.1")
-public final class ProgressBar implements Bordered {
+public class ProgressBar implements Bordered {
     final int total;
     final long creationTime;
     final ProgressBarConfiguration progressBarConfiguration;
@@ -51,10 +51,12 @@ public final class ProgressBar implements Bordered {
         return this.tick(1);
     }
 
+
     public ProgressBar tick(int amount) {
         if (amount < 1) throw new IllegalArgumentException("Tick amount cannot be less than 1");
         currentTick = Math.clamp(currentTick + amount, ZERO, total);
         if (currentTick >= total && !isDone) isDone = true;
+        this.render();
         return this;
     }
 
@@ -103,8 +105,10 @@ public final class ProgressBar implements Bordered {
         return isDone;
     }
 
+
+    //Modified this to first check if we can tick by an actual valid value
     public ProgressBar complete() {
-        return this.tick(total - currentTick);
+        return this.tick(Math.max(1, total - currentTick));
     }
 
     private int percent() {
@@ -174,7 +178,7 @@ public final class ProgressBar implements Bordered {
         var remaining = interval(remainingTime());
         format = format.replace(":remaining", remaining);
 
-        return this.progressBarConfiguration.parser().parse(format);
+        return parseString(format, this.progressBarConfiguration.parser());
     }
 
 

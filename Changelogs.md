@@ -1,4 +1,4 @@
-**# Changelog
+# Changelog
 
 ## Clique [3.1.0] - 2026-03-21
 
@@ -115,7 +115,7 @@ Changes to the SPI module in this release.
 - `BoxConfigurationBuilder#padding()` now returns the builder reference for fluent chaining
 - `BoxConfiguration` `equals()`, `hashCode()`, and `toString()` now include `padding`
 - `BorderStyle` now holds a `BorderColor` internally instead of raw `AnsiCode` arrays
-- `Clique` facade overloads now accept `BorderSpec` instead of `AnsiCode` arrays directly
+- `Clique` facade overloads now accept `BorderSpec` instead of a `BorderStyle`
 - `builder()` is now the standard entry point for all configuration classes
 - Parser escape syntax replaced — `[content[/]]` is removed in favor of `\[` (e.g. `\[red]` renders as `[red]`)
 - `enableAutoCloseTags` now correctly described as style leak prevention — resets styles when a new tag is encountered rather than forgiving malformed tags
@@ -131,4 +131,25 @@ Changes to the SPI module in this release.
 
 ## clique-spi [1.0.5] - 2026-03-30
 
-Report issues at: https://github.com/kusoroadeolu/Clique/issues**
+
+# Changelogs
+
+## Clique [3.2.1] - 2026-04-01
+
+### Added
+- `IterableProgressBar<T>` — wraps a `Collection<T>` and implements `Iterable<T>`, ticking and rendering automatically on each iteration. Single-use; throws `IllegalStateException` if iterated more than once
+- New `Clique#progressBar(Collection<T>)` factory overloads:
+    - `progressBar(Collection<T>)` — default configuration
+    - `progressBar(Collection<T>, ProgressBarConfiguration)` — custom configuration
+    - `progressBar(Collection<T>, ProgressBarPreset)` — predefined preset
+
+### Changed
+- `ProgressBar#tick()` now calls `render` on each tick call
+- `ProgressBarConfiguration#styleRange(min, max)`, max now includes the max range as part of the style range
+
+### Fixed
+- `ProgressBar#complete()` no longer throws an exception when called on an already-completed bar
+- Passing a null parser no longer causes a NullPointerException during style resolution
+- 
+Report issues at: https://github.com/kusoroadeolu/Clique/issues
+

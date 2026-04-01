@@ -9,6 +9,7 @@ import io.github.kusoroadeolu.clique.frame.DefaultFrame;
 import io.github.kusoroadeolu.clique.frame.Frame;
 import io.github.kusoroadeolu.clique.indent.DefaultIndenter;
 import io.github.kusoroadeolu.clique.indent.Indenter;
+import io.github.kusoroadeolu.clique.progressbar.IterableProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
@@ -16,6 +17,8 @@ import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.tree.Tree;
+
+import java.util.Collection;
 
 /**
  * Sub-facade for all rendering components: boxes, tables, frames, trees, indenters, and progress bars.
@@ -109,6 +112,17 @@ final class CliqueComponents {
     public static ProgressBar progressBar(int total, EasingConfiguration easing) {
         return new ProgressBar(total, ProgressBarConfiguration.fromEasing(easing));
     }
+
+    public static <T>IterableProgressBar<T> progressBar(Collection<T> collection) {
+        return new IterableProgressBar<>(collection);
+    }
+
+    public static <T>IterableProgressBar<T> progressBar(Collection<T> collection, ProgressBarConfiguration configuration) {
+        return new IterableProgressBar<>(collection, configuration);
+    }
+
+
+
 
 
     // FRAME

@@ -57,7 +57,7 @@ public class DefaultFrame implements  Frame {
     }
 
     @Override
-    public DefaultFrame title(String title, FrameAlign titleAlign) {
+    public Frame title(String title, FrameAlign titleAlign) {
         Objects.requireNonNull(title, "Title cannot be null");
         Objects.requireNonNull(titleAlign, NULL_FRAME_ALIGN);
         this.title = title;
@@ -66,12 +66,12 @@ public class DefaultFrame implements  Frame {
     }
 
     @Override
-    public DefaultFrame title(String title) {
+    public Frame title(String title) {
         return title(title, FrameAlign.CENTER);
     }
 
     @Override
-    public DefaultFrame width(int width) {
+    public Frame width(int width) {
         if (width <= 0) throw new InvalidDimensionException(
                 "Frame width must be greater than zero, got: %d".formatted(width)
         );        this.width = width;
@@ -79,12 +79,12 @@ public class DefaultFrame implements  Frame {
     }
 
     @Override
-    public DefaultFrame nest(String str) {
+    public Frame nest(String str) {
         return nest(str, configuration.getFrameAlign());
     }
 
     @Override
-    public DefaultFrame nest(String str, FrameAlign align) {
+    public Frame nest(String str, FrameAlign align) {
         Objects.requireNonNull(str, "String cannot be null");
         Objects.requireNonNull(align, NULL_FRAME_ALIGN);
         if (configuration.getParser() != null) str = str + RESET;
@@ -93,12 +93,12 @@ public class DefaultFrame implements  Frame {
     }
 
     @Override
-    public DefaultFrame nest(Component component) {
+    public Frame nest(Component component) {
         return nest(component, configuration.getFrameAlign());
     }
 
     @Override
-    public DefaultFrame nest(Component component, FrameAlign align) {
+    public Frame nest(Component component, FrameAlign align) {
         Objects.requireNonNull(component, "Component cannot be null");
         Objects.requireNonNull(align, NULL_FRAME_ALIGN);
         nodes.add(new FrameNode.ComponentNode(component, align));
