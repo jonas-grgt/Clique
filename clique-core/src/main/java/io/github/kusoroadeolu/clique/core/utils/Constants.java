@@ -10,7 +10,7 @@ public class Constants {
     public static final char BLANK_CHAR = ' ';
     public static final int ZERO = 0;
     public static final char ANSI_END = 'm';
-    public static final char ANSI_BEGIN = '\u001b';
+    public static final char ESC = '\u001b';
 
     //FOR ANSI DETECTOR
     public static final String TERM = "TERM";

@@ -5,14 +5,15 @@ import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.parser.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;
 
 @InternalApi(since = "3.2.0")
 public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) implements AnsiStringParser {
-    private static final StyleApplicator STYLE_APPLICATOR = new StyleApplicator();
-    private static final TokenExtractor TOKEN_EXTRACTOR = new TokenExtractor();
+    private static final StyleResolver RESOLVER = new StyleResolver();
+    private static final Tokenizer TOKENIZER = new Tokenizer();
     private static final MarkupPreProcessor PROCESSOR = new MarkupPreProcessor();
 
 
@@ -24,7 +25,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         if (stringToParse == null || stringToParse.isBlank()) return stringToParse;
         String processed = PROCESSOR.preProcess(stringToParse);
         final ParseResult result = this.getParseResult(processed);
-        String styled = STYLE_APPLICATOR.styleString(result.tokens(), processed, this.parserConfiguration.getEnableAutoCloseTags());
+        String styled = RESOLVER.resolve(result.tokens(), processed, this.parserConfiguration.getEnableAutoCloseTags());
         return PROCESSOR.postProcess(styled);
 
     }
@@ -54,7 +55,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
     }
 
     ParseResult getParseResult(String input) {
-        return TOKEN_EXTRACTOR.getParseResult(
+        return TOKENIZER.tokenize(
                 input,
                 parserConfiguration.getDelimiter(),
                 parserConfiguration.getEnableStrictParsing()

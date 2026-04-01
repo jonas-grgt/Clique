@@ -9,36 +9,39 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+
 /**
  * This class extracts valid token forms from the given string
  * Note that this class will ignore malformed tags and print them as is
  */
 @InternalApi(since = "3.2.0")
-public final class TokenExtractor {
+public final class Tokenizer {
     private static final char FORM_START = '[';
     private static final char FORM_CLOSE = ']';
+
+    public ParseResult tokenize(String input, String delimiter, boolean enableStrictParsing){
+        return tokenize(input, delimiter, enableStrictParsing, new ArrayList<>());
+    }
 
     /**
      * Extracts valid tokens and form tags from the given string
      *
-     * @param stringToParse The string to parse
+     * @param input The string to parse
      * @return A parse result containing the form tags and the parser tokens
      *
      */
-    public ParseResult getParseResult(String stringToParse, String delimiter, boolean enableStrictParsing) {
-        final List<ParseToken> tokens = new ArrayList<>(); //List to store the tokens gotten from this string
-        final List<String> formTags = new ArrayList<>(); //Tracks the form tags extracted from this string
+    public ParseResult tokenize(String input, String delimiter, boolean enableStrictParsing, List<ParseToken> tokens) {
         final String delimiterPattern = Pattern.quote(delimiter);
 
-        if (stringToParse == null || stringToParse.isEmpty()) return new ParseResult(List.of(), List.of());
+        if (input == null || input.isEmpty()) return new ParseResult(List.of());
 
-        final int len = stringToParse.length();
-        int idx = 0; //The start of the tag
+        final int len = input.length();
+        int idx = 0;
         int fsDepth = 0; //Tracking boolean to keep track of the number of form starts we've seen
         int fcDepth = 0;
 
         for (int i = 0; i < len; i++) {
-            final char c = stringToParse.charAt(i);
+            final char c = input.charAt(i);
 
             if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
                 //If we're still tracking, this means we have nested tag, just skip it
@@ -47,15 +50,14 @@ public final class TokenExtractor {
                 ++fsDepth;
             }
 
-            if (c == FORM_CLOSE) { //Only parse the string if we're still tracking the valid tag
+            if (c == FORM_CLOSE) { //Only parse the input if we're still tracking the valid tag
                 ++fcDepth;
 
                 if (fsDepth == 1 && fcDepth == 1){ //Only if we dont have nested tags, with both open and closed tags
-                    final String fullTag = stringToParse.substring(idx, i + 1); //Parse the extracted string and skip the braces
+                    final String fullTag = input.substring(idx, i + 1); //Parse the extracted input, something like this[tag]
                     final List<AnsiCode> validStyles = this.getValidStyles(fullTag, delimiterPattern, enableStrictParsing);
                     if (!validStyles.isEmpty()) {
                         tokens.add(new ParseToken(idx, i, validStyles));
-                        formTags.add(fullTag);
                     }
                 }
 
@@ -63,7 +65,7 @@ public final class TokenExtractor {
             }
         }
 
-        return new ParseResult(tokens, formTags);
+        return new ParseResult(tokens);
     }
 
     /*
@@ -76,11 +78,11 @@ public final class TokenExtractor {
 
     //Check if there are valid styles in the extracted string
     //ESP -> Enable strict parsing
-    private List<AnsiCode> getValidStyles(String extractedStr, String delimiterPattern, boolean esp) {
-        if (extractedStr.length() <= 2) return List.of();  //Check if the extracted string is just empty braces, or a malformed tag
-        extractedStr = this.cleanString(extractedStr); //Clean the string
+    private List<AnsiCode> getValidStyles(String tag, String delimiterPattern, boolean esp) {
+        if (tag.length() <= 2) return List.of();  //Check if the extracted string is just empty braces, or a malformed tag
+        tag = this.removeForms(tag); //Clean the string
 
-        final String[] styles = extractedStr.split(delimiterPattern);
+        final String[] styles = tag.split(delimiterPattern);
         final List<AnsiCode> validStyles = new ArrayList<>();
         for (String s : styles) {
             s = s.toLowerCase(Locale.ROOT).trim();
@@ -92,7 +94,7 @@ public final class TokenExtractor {
 
 
     //Replaces forms with empty strings
-    private String cleanString(String s) {
+    private String removeForms(String s) {
         return s.substring(1, s.length() - 1);
     }
 
@@ -126,4 +128,5 @@ public final class TokenExtractor {
             throw new UnidentifiedStyleException("Failed to find style: `%s` in given string".formatted(s));
         }
     }
+
 }
