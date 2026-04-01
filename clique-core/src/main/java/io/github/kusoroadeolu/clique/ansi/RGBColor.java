@@ -4,9 +4,9 @@ import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
 
 @InternalApi(since = "3.2.0")
-public record RGBAnsiColor(int red, int green, int blue, boolean isBackground) implements RGBAnsiCode {
+public record RGBColor(int red, int green, int blue, boolean isBackground) implements RGBAnsiCode {
     
-    public RGBAnsiColor {
+    public RGBColor {
         if (red < 0 || red > 255) throw new IllegalArgumentException("Red must be 0-255");
         if (green < 0 || green > 255) throw new IllegalArgumentException("Green must be 0-255");
         if (blue < 0 || blue > 255) throw new IllegalArgumentException("Blue must be 0-255");

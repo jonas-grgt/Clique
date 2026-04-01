@@ -10,17 +10,17 @@ import io.github.kusoroadeolu.clique.core.documentation.Stable;
  * */
 @Stable(since = "3.2.0")
 public interface Frame extends Bordered{
-    DefaultFrame title(String title, FrameAlign titleAlign);
+    Frame title(String title, FrameAlign titleAlign);
 
-    DefaultFrame title(String title);
+    Frame title(String title);
 
-    DefaultFrame width(int width);
+    Frame width(int width);
 
-    DefaultFrame nest(String str);
+    Frame nest(String str);
 
-    DefaultFrame nest(String str, FrameAlign align);
+    Frame nest(String str, FrameAlign align);
 
-    DefaultFrame nest(Component component);
+    Frame nest(Component component);
 
-    DefaultFrame nest(Component component, FrameAlign align);
+    Frame nest(Component component, FrameAlign align);
 }

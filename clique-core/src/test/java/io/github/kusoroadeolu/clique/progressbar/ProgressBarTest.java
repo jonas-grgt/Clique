@@ -48,6 +48,14 @@ class ProgressBarTest {
         assertTrue(bar.isDone);
     }
 
+
+    @Test
+    void testComplete_whenComplete_completeCallShouldNotThrow(){
+        ProgressBar bar = new ProgressBar(100);
+        bar.tick(100);
+        assertDoesNotThrow(bar::complete);
+    }
+
     @Test
     void testPercentCalculation() {
         ProgressBar bar = new ProgressBar(100);

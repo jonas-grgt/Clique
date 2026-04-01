@@ -5,13 +5,11 @@ Progress bars provide visual feedback for long-running operations. Clique includ
 ## Quick Start
 
 ### Basic Progress Bar
-
 ```java
 ProgressBar bar = Clique.progressBar(100);
 
 while (!bar.isDone()) {
     bar.tick();
-    bar.render();
     Thread.sleep(50);
 }
 ```
@@ -19,7 +17,6 @@ while (!bar.isDone()) {
 ### Using Predefined Presets
 
 Clique provides several built-in presets:
-
 ```java
 // Blocks style (default)
 ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.BLOCKS);
@@ -36,6 +33,34 @@ ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.CLASSIC);
 // Dots style
 ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.DOTS);
 ```
+
+### Iterating Over a Collection
+
+When processing a collection, use `progressBar(collection)` to skip the boilerplate entirely. The total is inferred from the collection size, and the bar ticks and renders automatically on each iteration:
+```java
+for (var file : Clique.progressBar(files)) {
+    process(file);
+}
+```
+
+Presets and custom configuration are supported too:
+```java
+// With a preset
+for (var file : Clique.progressBar(files, ProgressBarPreset.DOTS)) {
+    process(file);
+}
+
+// With custom configuration
+ProgressBarConfiguration config = ProgressBarConfiguration.builder()
+    .format("[blue]:bar[/] :progress/:total files [:elapsed/:remaining]")
+    .build();
+
+for (var file : Clique.progressBar(files, config)) {
+    process(file);
+}
+```
+
+> **Note:** `IterableProgressBar` is single-use. Iterating over the same instance twice will throw an `IllegalStateException`.
 
 ## Predefined Styles
 
@@ -87,7 +112,6 @@ ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.DOTS);
 ## Custom Configuration
 
 Build your own progress bar style using `ProgressBarConfiguration`:
-
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.builder()
     .length(60)
@@ -137,13 +161,12 @@ Use a custom parser for markup processing:
 ## Dynamic Styling
 
 Change the format based on progress percentage:
-
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.builder()
-    .styleRange(0, 30, "[red]:bar[/] :percent% [red]Starting...[/]")
-    .styleRange(30, 70, "[yellow]:bar[/] :percent% [yellow]In Progress...[/]")
-    .styleRange(70, 100, "[green]:bar[/] :percent% [green]Almost Done![/]")
-    .build();
+        .styleRange(0, 30, "[red]:bar[/] :percent% [red]Starting...[/]")
+        .styleRange(30, 70, "[yellow]:bar[/] :percent% [yellow]In Progress...[/]")
+        .styleRange(70, 100, "[green]:bar[/] :percent% [green]Almost Done![/]")
+        .build();
 
 ProgressBar bar = Clique.progressBar(100, config);
 ```
@@ -153,22 +176,22 @@ ProgressBar bar = Clique.progressBar(100, config);
 Use `styleWhen()` for custom conditions:
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.builder()
-    .styleWhen(p -> p < 50, "[red]:bar[/] :percent%")
-    .styleWhen(p -> p >= 50 && p < 90, "[yellow]:bar[/] :percent%")
-    .styleWhen(p -> p >= 90, "[green]:bar[/] :percent%")
-    .build();
+        .styleWhen(p -> p < 50, "[red]:bar[/] :percent%")
+        .styleWhen(p -> p >= 50 && p < 90, "[yellow]:bar[/] :percent%")
+        .styleWhen(p -> p >= 90, "[green]:bar[/] :percent%")
+        .build();
 ```
 
 ## Progress Bar Methods
 
 ### tick()
-Increment progress by 1:
+Increment progress by 1 and render:
 ```java
 bar.tick();
 ```
 
 ### tick(amount)
-Increment progress by a specific amount:
+Increment progress by a specific amount and render:
 ```java
 bar.tick(10);
 ```
@@ -189,7 +212,7 @@ bar.complete();
 Check if progress is complete:
 ```java
 if (bar.isDone()) {
-    System.out.println("Finished!");
+        System.out.println("Finished!");
 }
 ```
 
@@ -208,37 +231,21 @@ System.out.println(barText);
 
 ## Quick Examples
 
-### File Processing
-```java
-ProgressBarConfiguration config = ProgressBarConfiguration.builder()
-    .format("[blue]:bar[/] :progress/:total files [:elapsed/:remaining]")
-    .build();
-
-ProgressBar bar = Clique.progressBar(files.size(), config);
-
-for (File file : files) {
-    processFile(file);
-    bar.tick();
-    bar.render();
-}
-```
-
 ### Downloading a File
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.builder()
-    .length(50)
-    .complete('▓')
-    .incomplete('░')
-    .format("[cyan]↓[/] :bar :percent% | :progress/:total MB")
-    .styleRange(0, 100, "[cyan]:bar[/] :percent% | :progress/:total MB")
-    .build();
+        .length(50)
+        .complete('▓')
+        .incomplete('░')
+        .format("[cyan]↓[/] :bar :percent% | :progress/:total MB")
+        .styleRange(0, 100, "[cyan]:bar[/] :percent% | :progress/:total MB")
+        .build();
 
 ProgressBar bar = Clique.progressBar(totalMB, config);
 
 while (downloading) {
-    int downloaded = getDownloadedMB();
+int downloaded = getDownloadedMB();
     bar.tick(downloaded);
-    bar.render();
     Thread.sleep(100);
 }
 ```
@@ -246,10 +253,10 @@ while (downloading) {
 ### Batch Processing with Status
 ```java
 ProgressBarConfiguration config = ProgressBarConfiguration.builder()
-    .styleRange(0, 50, "[red]:bar[/] :percent% [dim]Processing...[/]")
-    .styleRange(50, 90, "[yellow]:bar[/] :percent% [dim]Finalizing...[/]")
-    .styleRange(90, 100, "[green]:bar[/] :percent% [bold]Complete![/]")
-    .build();
+        .styleRange(0, 50, "[red]:bar[/] :percent% [dim]Processing...[/]")
+        .styleRange(50, 90, "[yellow]:bar[/] :percent% [dim]Finalizing...[/]")
+        .styleRange(90, 100, "[green]:bar[/] :percent% [bold]Complete![/]")
+        .build();
 
 ProgressBar bar = Clique.progressBar(1000, config);
 
@@ -258,7 +265,7 @@ for (int i = 0; i < 1000; i++) {
     bar.tick();
     if (i % 10 == 0) bar.render();
 }
-bar.complete();
+        bar.complete();
 ```
 
 ## See Also
