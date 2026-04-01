@@ -4,9 +4,11 @@ import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.core.parser.TokenExtractor;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TokenExtractorTest {

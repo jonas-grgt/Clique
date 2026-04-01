@@ -11,7 +11,6 @@ import java.util.Deque;
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseString;
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 

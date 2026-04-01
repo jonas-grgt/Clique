@@ -1,7 +1,6 @@
 package io.github.kusoroadeolu.clique.core.parser;
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.exceptions.ParseProblemException;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 

@@ -5,8 +5,6 @@ import io.github.kusoroadeolu.clique.config.EasingConfiguration;
 import io.github.kusoroadeolu.clique.config.ProgressBarConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Bordered;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.documentation.Stable;
-import io.github.kusoroadeolu.clique.core.utils.StringUtils;
 
 import java.io.PrintStream;
 import java.util.Objects;
@@ -15,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseString;
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 
 /**
  * @since 3.0.0

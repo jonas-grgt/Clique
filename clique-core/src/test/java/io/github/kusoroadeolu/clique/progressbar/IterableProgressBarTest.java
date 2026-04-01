@@ -12,7 +12,9 @@ class IterableProgressBarTest {
     @Test
     void test_whenIteratedOver_shouldBeDone(){
         IterableProgressBar<Integer> iterable = Clique.progressBar(List.of(1,2,3,4,5));
-        for (int i : iterable){}
+        for (int i : iterable){
+            //Do Nothing
+        }
         assertTrue(iterable.isDone());
 
     }
@@ -21,12 +23,17 @@ class IterableProgressBarTest {
     @Test
     void test_whenIteratedOverOnce_throwsOnSubsequentIterations(){
         IterableProgressBar<Integer> iterable = Clique.progressBar(List.of(1,2,3,4,5));
-        for (int i : iterable){}
+        for (int i : iterable){
+            //Do Nothing
+
+        }
 
         assertTrue(iterable.isDone());
 
         assertThrows(IllegalStateException.class, () -> {
-            for (int i : iterable){}
+            for (int i : iterable){
+                //Do Nothing
+            }
         });
     }
 

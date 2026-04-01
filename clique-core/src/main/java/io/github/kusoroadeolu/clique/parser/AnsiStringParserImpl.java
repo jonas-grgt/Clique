@@ -3,7 +3,6 @@ package io.github.kusoroadeolu.clique.parser;
 
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.*;
 
 import java.util.List;

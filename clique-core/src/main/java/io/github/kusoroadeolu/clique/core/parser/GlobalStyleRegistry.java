@@ -2,7 +2,6 @@ package io.github.kusoroadeolu.clique.core.parser;
 
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Map;

@@ -3,7 +3,6 @@ package io.github.kusoroadeolu.clique.tables;
 
 import io.github.kusoroadeolu.clique.core.display.Bordered;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.documentation.Stable;
 
 import java.util.Collection;
 
