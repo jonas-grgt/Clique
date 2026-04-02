@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseString;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseIfPresent;
 
 /**
  * @since 3.0.0
@@ -178,7 +178,7 @@ public class ProgressBar implements Bordered {
         var remaining = interval(remainingTime());
         format = format.replace(":remaining", remaining);
 
-        return parseString(format, this.progressBarConfiguration.parser());
+        return parseIfPresent(format, this.progressBarConfiguration.parser());
     }
 
 

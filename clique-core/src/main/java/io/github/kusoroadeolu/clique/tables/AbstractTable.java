@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCellIfPresent;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 import static java.util.Objects.isNull;
 
@@ -52,7 +52,7 @@ public abstract class AbstractTable implements Table {
                 row = handleNulls(row, this.tableConfiguration.getNullReplacement());
             }
 
-            final Cell c = parseToCell(row, this.tableConfiguration.getParser());
+            final Cell c = parseToCellIfPresent(row, this.tableConfiguration.getParser());
             rowList.add(c);
             final WidthAwareList colList = this.columns.get(i);
             colList.add(c);
@@ -85,7 +85,7 @@ public abstract class AbstractTable implements Table {
 
         final WidthAwareList rl = this.rows.get(row);
         final WidthAwareList cl = this.columns.get(col);
-        final Cell c = parseToCell(text, this.tableConfiguration.getParser());
+        final Cell c = parseToCellIfPresent(text, this.tableConfiguration.getParser());
         rl.update(col, c);
         cl.update(row, c);
         nullCachedString();
@@ -145,7 +145,7 @@ public abstract class AbstractTable implements Table {
             for (int i = 0; i < headers.length; i++) {
                 String header = headers[i];
                 header = handleNulls(header, table.tableConfiguration.getNullReplacement());
-                final var cell = parseToCell(header, table.tableConfiguration.getParser());
+                final var cell = parseToCellIfPresent(header, table.tableConfiguration.getParser());
                 rowList.add(cell);
                 final var colList = new WidthAwareList(); //To keep track of all values in this column
                 colList.add(cell);

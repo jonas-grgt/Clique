@@ -80,7 +80,7 @@ public class TreeConfiguration {
 
         public TreeConfigurationBuilder guideStyle(String guideStyle){
             Objects.requireNonNull(guideStyle, "Guide style cannot be null");
-            if (!guideStyle.isBlank()) this.guideStyle = "[%s]".formatted(guideStyle);
+            this.guideStyle = guideStyle;
             return this;
         }
 

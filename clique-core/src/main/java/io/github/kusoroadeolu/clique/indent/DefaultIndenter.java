@@ -123,7 +123,7 @@ public class DefaultIndenter implements Indenter {
     }
 
     private String parseString(String str) {
-        return StringUtils.parseString(str, this.configuration.getParser());
+        return StringUtils.parseIfPresent(str, this.configuration.getParser());
     }
 
     public Indenter resetLevel() {
@@ -136,7 +136,7 @@ public class DefaultIndenter implements Indenter {
         if (object == null || getClass() != object.getClass()) return false;
 
         DefaultIndenter indenter = (DefaultIndenter) object;
-        return currentLevel == indenter.currentLevel && indents.equals(indenter.indents) && currentFlag.equals(indenter.currentFlag) && sb.equals(indenter.sb) && configuration.equals(indenter.configuration);
+        return currentLevel == indenter.currentLevel && indents.equals(indenter.indents) && currentFlag.equals(indenter.currentFlag) && (sb.compareTo(indenter.sb) == 0) && configuration.equals(indenter.configuration);
     }
 
     public int hashCode() {
@@ -149,7 +149,7 @@ public class DefaultIndenter implements Indenter {
                 "indents=" + indents +
                 ", currentFlag='" + currentFlag + '\'' +
                 ", currentLevel=" + currentLevel +
-                ", sb=" + sb +
+                ", text=" + sb +
                 ", configuration=" + configuration +
                 ']';
     }

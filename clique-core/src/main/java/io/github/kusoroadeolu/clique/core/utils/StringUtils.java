@@ -14,12 +14,12 @@ public final class StringUtils {
         sb.setLength(ZERO);
     }
 
-    public static Cell parseToCell(String text, AnsiStringParser parser) {
+    public static Cell parseToCellIfPresent(String text, AnsiStringParser parser) {
         if (parser != null) return new Cell(parser.getOriginalString(text), parser.parse(text));
         else return new Cell(text, text);
     }
 
-    public static String parseString(String text, AnsiStringParser parser) {
+    public static String parseIfPresent(String text, AnsiStringParser parser) {
         if (parser != null) return parser.parse(text);
         else return text;
     }
@@ -30,21 +30,17 @@ public final class StringUtils {
         var clean = new StringBuilder();
 
         while (i < styled.length()) {
-            char c;
-            if ((c = styled.charAt(i)) == ESC && nextCharEquals(styled, i + 1, '[')) {
+            char c = styled.charAt(i);
+            if (c == ESC && nextCharEquals(styled, i + 1, LBRACKET)) {
                 inAnsi = true;
                 i++;
-                continue;
             } else if (inAnsi && (c = styled.charAt(i)) == ANSI_END) {
                 inAnsi = false;
                 i++;
-                continue;
-            }
-
-            if (!inAnsi){
+            }else if (!inAnsi){
                 clean.append(c);
+                i++;
             }
-            i++;
         }
 
         return clean.toString();

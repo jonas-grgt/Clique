@@ -17,7 +17,7 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.ansi.StyleCode.RESET;
 import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.applyAnsiToBorders;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCellIfPresent;
 
 @InternalApi(since = "3.2.0")
 public class DefaultFrame implements  Frame {
@@ -112,7 +112,7 @@ public class DefaultFrame implements  Frame {
         if (configuration.getParser() != null && !title.isEmpty()) appendedTitle = title + RESET; //Add a reset flag to prevent title colors from bleeding
 
 
-        var parsedTitle = parseToCell(appendedTitle, configuration.getParser());
+        var parsedTitle = parseToCellIfPresent(appendedTitle, configuration.getParser());
         int titleWidth = parsedTitle.width() + 2;
         int nodesMaxWidth = findNodesMaxWidth(); //Max content width
 

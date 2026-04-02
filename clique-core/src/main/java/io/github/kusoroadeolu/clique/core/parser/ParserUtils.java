@@ -12,6 +12,7 @@ import java.util.List;
 @InternalApi(since = "3.2.0")
 public class ParserUtils {
     public static List<AnsiCode> getAnsiCodes(String string) {
+        if (string.isBlank()) return List.of();
         var parser = (AnsiStringParserImpl) AnsiStringParser.DEFAULT;
         return Arrays.stream(string.split(parser.parserConfiguration().getDelimiter()))
                 .map(s -> StyleMaps.findStyle(s.trim())
