@@ -90,7 +90,7 @@ public abstract class AbstractBox implements Box {
     WidthAwareList resolveLines(){
         var parser = boxConfiguration.getParser();
         var cellList = boxContent.lines()
-                .map(s -> StringUtils.parseToCell(s, parser))
+                .map(s -> StringUtils.parseToCellIfPresent(s, parser))
                 .toList();
         return new WidthAwareList(cellList);
     }

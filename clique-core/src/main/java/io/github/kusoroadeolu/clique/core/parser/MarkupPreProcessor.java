@@ -8,9 +8,12 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.nextCharEqual
 @InternalApi(since = "3.2.0")
 public class MarkupPreProcessor {
     private static final char ESCAPE_CHAR = '\\';
-    private static final char OPENING_BRACKET = '[';
-    private static final String PLACEHOLDER = "\uE000";
-    private static final String ANSI_SENTINEL = "\uFFFF";
+    private static final String ESCAPE_PLACEHOLDER = "\uE000";
+
+
+    private static final String ANSI_SENTINEL = "]\uFFFF";
+    //uFFFF is an invalid UNICODE char meaning it can never appear in any valid strings hence, why it's our placeholder here. Also, we use the ] to close the ansi code, so other tags after it are not treated as invalid/nested tags by the parser
+
 
     public String preProcess(String input) {
         if (input == null || input.isEmpty()) return input;
@@ -24,7 +27,7 @@ public class MarkupPreProcessor {
         while (i < sb.length()) {
             char c = sb.charAt(i);
 
-            if (c == ESC && nextCharEquals(sb, i + 1, OPENING_BRACKET)) {
+            if (c == ESC && nextCharEquals(sb, i + 1, LBRACKET)) {
                 inAnsi = true;
                 processed.append(c);
                 processed.append(sb.charAt(i + 1));
@@ -48,8 +51,7 @@ public class MarkupPreProcessor {
 
     public String postProcess(String input) {
         if (input == null || input.isEmpty()) return input;
-        return input
-                .replace(PLACEHOLDER, String.valueOf(OPENING_BRACKET))
+        return input.replace(ESCAPE_PLACEHOLDER, String.valueOf(LBRACKET))
                 .replace(ANSI_SENTINEL, EMPTY);
     }
 
@@ -59,8 +61,8 @@ public class MarkupPreProcessor {
 
         for (int i = 0; i < len; i++) {
             final char c = input.charAt(i);
-            if (c == ESCAPE_CHAR && (i + 1) < len && input.charAt(i + 1) == OPENING_BRACKET) {
-                sb.append(PLACEHOLDER);
+            if (c == ESCAPE_CHAR && (i + 1) < len && input.charAt(i + 1) == LBRACKET) {
+                sb.append(ESCAPE_PLACEHOLDER);
                 i++;
             } else {
                 sb.append(c);

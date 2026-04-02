@@ -148,9 +148,12 @@ Changes to the SPI module in this release.
 - **`ProgressBarConfiguration#styleRange(min, max)`** — `max` is now inclusive
 - **`StyleResolver`** previously `StyleApplicator` now uses `StyleBuilder` directly for result accumulation, removing the redundant parallel `StringBuilder`
 - **`DefaultStyleBuilder#style()`** now accepts a `StringBuilder` parameter, allowing `stack()` to write in-place and `format()` to use an isolated builder — eliminates unnecessary object allocation and intermediate `toString()` calls
+- **`Tree`** — `buildTree` now uses `StyleBuilder` instead of a raw `StringBuilder`, with guide style resolved eagerly to `AnsiCode[]` at construction time via `ParserUtils.getAnsiCodes()` rather than inlining markup tags into the output string
+- **`TreeConfigurationBuilder#guideStyle()`** no longer wraps the value in `[%s]` markup — raw style strings are now passed through as-is, with ANSI resolution handled downstream by `Tree`
+
 
 ### Fixed
-- **`MarkupPreProcessor`** — pre-parsed ANSI escape sequences in concatenated strings no longer interfere with markup tag detection; ANSI sequences are now tracked and sentineled during pre-processing to prevent `[` in escape codes from corrupting bracket depth tracking in the tokenizer
+- **`MarkupPreProcessor`** — pre-parsed ANSI escape sequences in concatenated strings no longer interfere with markup tag detection; ANSI sequences are now tracked and sentinel during pre-processing to prevent `[` in escape codes from corrupting bracket depth tracking in the tokenizer
 - **`AnsiStringParserImpl#getOriginalString()`** — escaped brackets (`\[`) no longer cause width miscalculations; `postProcess` is now called on the pre-processed string instead of the original input, ensuring `\[` is correctly collapsed to a single character before width is measured
 - **`ProgressBar#complete()`** no longer throws when called on an already-completed bar
 - Passing a null parser into `ProgressBarConfiguration` no longer causes a `NullPointerException` during style resolution

@@ -125,8 +125,8 @@ TreeConfiguration config = TreeConfiguration.builder()
 
 ```java
 TreeConfiguration config = TreeConfiguration.builder()
-    .guideStyle("*cyan, bold") //Do not add the markup tag borders i.e [*cyan, bold]
-    .build();
+        .guideStyle("*cyan, bold") //Do not add the markup tag borders i.e [*cyan, bold]
+        .build();
 
 Tree tree = Clique.tree("[*magenta, bold]clique-lib/", config);
 

@@ -2,6 +2,11 @@ package io.github.kusoroadeolu.clique.tree;
 
 import io.github.kusoroadeolu.clique.config.TreeConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Borderless;
+import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
+import io.github.kusoroadeolu.clique.core.utils.StringUtils;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
+import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +23,7 @@ public class Tree implements Borderless {
     static final String END_CONNECTOR = "└─ ";
     static final String SPACE = "   ";
     static final String CONNECTING_LINE = "│  ";
-    private static final String RESET = "[/]";
+    private final AnsiCode[] guideStyle;
     private Tree parent;
 
     public Tree(String label) {
@@ -36,6 +41,7 @@ public class Tree implements Borderless {
         this.children = new ArrayList<>();
         this.treeConfiguration = treeConfiguration;
         this.parent = parent;
+        this.guideStyle = ParserUtils.getAnsiCodes(treeConfiguration.getGuideStyle()).toArray(AnsiCode[]::new);
     }
 
     public Tree add(String label) {
@@ -57,15 +63,11 @@ public class Tree implements Borderless {
         return parent;
     }
 
-    private void buildTree(Tree node, String prefix, boolean isLast, StringBuilder sb) {
+    private void buildTree(Tree node, String prefix, boolean isLast, StyleBuilder sb) {
         String connector = isLast ? END_CONNECTOR : CONNECTOR;
-        String guideStyle = treeConfiguration.getGuideStyle();
-        sb.append(guideStyle)
-                .append(prefix)
+        sb.stack(prefix, this.guideStyle)
                 .append(connector)
-                .append(RESET)
                 .append(node.label)
-                .append(RESET)
                 .append(NEWLINE);
 
         var childPrefix = prefix + (isLast ? SPACE : CONNECTING_LINE);
@@ -88,16 +90,14 @@ public class Tree implements Borderless {
 
     @Override
     public String get() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(label)
-                .append(RESET)
-                .append(NEWLINE);
+        var sb = new DefaultStyleBuilder();
+        sb.append(label).append(NEWLINE);
         for (int i = 0; i < children.size(); i++) {
             buildTree(children.get(i), EMPTY, i == children.size() - 1, sb);
         }
 
         var parser = treeConfiguration.getParser();
-        return parser != null ? parser.parse(sb.toString()) : sb.toString();
+        return StringUtils.parseIfPresent(sb.get(), parser);
     }
 
     //For Tests
