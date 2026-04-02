@@ -79,7 +79,7 @@ public class IndenterConfiguration {
 
     public static class IndenterConfigurationBuilder {
         private int indentLevel = 1;
-        private AnsiStringParser parser = Clique.parser(ParserConfiguration.immutableBuilder().enableAutoCloseTags().build());
+        private AnsiStringParser parser = Clique.parser(ParserConfiguration.builder().enableAutoCloseTags().build());
         private String defaultFlag = BLANK;
 
         public IndenterConfigurationBuilder indentLevel(int indentLevel) {
@@ -93,16 +93,14 @@ public class IndenterConfiguration {
             return this;
         }
 
-        public IndenterConfigurationBuilder defaultFlag(String defaultFlag) {
+        public IndenterConfigurationBuilder defaultFlag(String flag) {
             Objects.requireNonNull(defaultFlag, "Default flag cannot be null");
-            this.defaultFlag = defaultFlag;
+            this.defaultFlag = flag;
             return this;
         }
 
-        public IndenterConfigurationBuilder defaultFlag(Flag defaultFlag) {
-            Objects.requireNonNull(defaultFlag, "Default flag cannot be null");
-            this.defaultFlag = defaultFlag.flag();
-            return this;
+        public IndenterConfigurationBuilder defaultFlag(Flag flag) {
+            return defaultFlag(flag.flag());
         }
 
         public IndenterConfiguration build() {

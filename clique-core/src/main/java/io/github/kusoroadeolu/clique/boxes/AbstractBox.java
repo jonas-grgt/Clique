@@ -102,7 +102,7 @@ public abstract class AbstractBox implements Box {
         if (object == null || getClass() != object.getClass()) return false;
 
         AbstractBox that = (AbstractBox) object;
-        return width == that.width && height == that.height && Objects.equals(boxContent, that.boxContent) && Objects.equals(cachedString, that.cachedString) && Objects.equals(cells, that.cells) && Objects.equals(boxConfiguration, that.boxConfiguration) && align == that.align;
+        return width == that.width && height == that.height && Objects.equals(boxContent, that.boxContent) && Objects.equals(cells, that.cells) && Objects.equals(boxConfiguration, that.boxConfiguration) && align == that.align;
     }
 
     void nullCachedString(){
@@ -111,10 +111,10 @@ public abstract class AbstractBox implements Box {
 
     @Override
     public int hashCode() {
-        return Objects.hash(width, height, boxContent, cachedString, cells, boxConfiguration, align);
+        return Objects.hash(width, height, boxContent, cells, boxConfiguration, align);
     }
 
-    public static class BoxDimensionBuilder {
+    public static class BoxDimensionBuilder{
         private final AbstractBox box;
 
         public BoxDimensionBuilder(Box box) {

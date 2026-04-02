@@ -26,11 +26,11 @@ public class MarkupPreProcessor {
 
         while (i < sb.length()) {
             char c = sb.charAt(i);
-
-            if (c == ESC && nextCharEquals(sb, i + 1, LBRACKET)) {
+            int nextIdx = i + 1;
+            if (c == ESC && nextCharEquals(sb, nextIdx, LBRACKET)) {
                 inAnsi = true;
                 processed.append(c);
-                processed.append(sb.charAt(i + 1));
+                processed.append(sb.charAt(nextIdx));
                 i += 2;
                 continue;
             }
@@ -61,7 +61,8 @@ public class MarkupPreProcessor {
 
         for (int i = 0; i < len; i++) {
             final char c = input.charAt(i);
-            if (c == ESCAPE_CHAR && (i + 1) < len && input.charAt(i + 1) == LBRACKET) {
+            int nextIdx =  i + 1;
+            if (c == ESCAPE_CHAR && nextCharEquals(input, nextIdx, LBRACKET)) {
                 sb.append(ESCAPE_PLACEHOLDER);
                 i++;
             } else {

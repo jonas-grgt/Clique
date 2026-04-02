@@ -250,7 +250,7 @@ Clique.box(BoxType.DOUBLE_LINE, config)
 
 ### Info Box
 ```java
-Clique.box(BoxType.ROUNDED)
+Clique.box()
     .withDimensions(60, 10)
     .content(
         "[blue, bold]ℹ Information[/]\n\n" +
@@ -261,12 +261,8 @@ Clique.box(BoxType.ROUNDED)
 ```
 
 ## Things to Watch Out For
-
 - `Clique.box()` defaults to `BoxType.ROUNDED`
-- When using `autoSize`, you don't need to specify dimensions — just use `noDimensions()`
-- Using `noDimensions()` without an `autoSize` config throws an `IllegalStateException`
 - Blank chars for customization are not applied; the previous default char of the `BoxType` is used instead
-- `padding()` on `BoxConfigurationBuilder` returns `void` and cannot be chained
 
 ## See Also
 

@@ -28,19 +28,17 @@ public final class StringUtils {
         int i = 0;
         boolean inAnsi = false;
         var clean = new StringBuilder();
-
         while (i < styled.length()) {
             char c = styled.charAt(i);
             if (c == ESC && nextCharEquals(styled, i + 1, LBRACKET)) {
                 inAnsi = true;
-                i++;
             } else if (inAnsi && (c = styled.charAt(i)) == ANSI_END) {
                 inAnsi = false;
-                i++;
             }else if (!inAnsi){
                 clean.append(c);
-                i++;
             }
+
+            i++;
         }
 
         return clean.toString();

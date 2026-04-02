@@ -118,7 +118,8 @@ public abstract class AbstractTable implements Table {
     }
 
 
-    public static class TableHeaderBuilder {
+
+    public static class TableHeaderBuilder{
         private final AbstractTable table;
 
         public TableHeaderBuilder(Table table) {

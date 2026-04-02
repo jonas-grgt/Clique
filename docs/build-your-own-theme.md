@@ -15,7 +15,7 @@ Just the SPI module:
 <dependency>
     <groupId>io.github.kusoroadeolu</groupId>
     <artifactId>clique-spi</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 </dependency>
 ```
 

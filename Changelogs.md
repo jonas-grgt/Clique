@@ -134,7 +134,7 @@ Changes to the SPI module in this release.
 
 # Changelog
 
-## Clique [3.2.1] - 2026-04-01
+## Clique [3.2.1] - 2026-04-02
 
 ### Added
 - **`IterableProgressBar<T>`** — wraps a `Collection<T>` and implements `Iterable<T>`, ticking and rendering automatically on each iteration. Single-use; throws `IllegalStateException` if iterated more than once
@@ -157,3 +157,5 @@ Changes to the SPI module in this release.
 - **`AnsiStringParserImpl#getOriginalString()`** — escaped brackets (`\[`) no longer cause width miscalculations; `postProcess` is now called on the pre-processed string instead of the original input, ensuring `\[` is correctly collapsed to a single character before width is measured
 - **`ProgressBar#complete()`** no longer throws when called on an already-completed bar
 - Passing a null parser into `ProgressBarConfiguration` no longer causes a `NullPointerException` during style resolution
+
+## clique-spi [1.0.6] - 2026-04-02

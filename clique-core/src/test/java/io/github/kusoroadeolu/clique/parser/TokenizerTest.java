@@ -216,15 +216,4 @@ class TokenizerTest {
         var result = extractor.tokenize(input, DELIMITER, false);
         assertFalse(result.tokens().isEmpty(), "Expected token for style: " + style);
     }
-
-
-
-
-    // TOKENIZE ANSI
-
-
-
-
-
-
 }
