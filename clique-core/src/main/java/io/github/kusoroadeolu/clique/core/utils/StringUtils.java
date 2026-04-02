@@ -31,8 +31,10 @@ public final class StringUtils {
 
         while (i < styled.length()) {
             char c;
-            if ((c = styled.charAt(i)) == ANSI_BEGIN) {
+            if ((c = styled.charAt(i)) == ESC && nextCharEquals(styled, i + 1, '[')) {
                 inAnsi = true;
+                i++;
+                continue;
             } else if (inAnsi && (c = styled.charAt(i)) == ANSI_END) {
                 inAnsi = false;
                 i++;
@@ -46,5 +48,13 @@ public final class StringUtils {
         }
 
         return clean.toString();
+    }
+
+    public static boolean nextCharEquals(String s, int pos, char isEqualTo){
+        return pos < s.length() && s.charAt(pos) == isEqualTo;
+    }
+
+    public static boolean nextCharEquals(StringBuilder s, int pos, char isEqualTo){
+        return pos < s.length() && s.charAt(pos) == isEqualTo;
     }
 }

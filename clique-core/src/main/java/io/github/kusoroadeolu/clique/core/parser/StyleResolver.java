@@ -1,45 +1,47 @@
 package io.github.kusoroadeolu.clique.core.parser;
 
 
-import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.List;
 
+import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
+
 @InternalApi(since = "3.2.0")
-public final class StyleApplicator {
+public final class StyleResolver {
 
     //Restyle the extracted string with the given colors
-    public String styleString(List<ParseToken> tokens, String extractedString, boolean enableAutoCloseTags) {
-        final StringBuilder sb = new StringBuilder();
-        final StyleBuilder stb = Clique.styleBuilder();
+    public String resolve(List<ParseToken> tokens, String string, boolean autoReset) {
+        final StyleBuilder sb = new DefaultStyleBuilder();
         String val;
         final int size = tokens.size();
 
         if (tokens.isEmpty()) {
-            return extractedString;
+            return string;
         }
 
         //Check if the styling starts from the beginning of the string
         if (tokens.getFirst().start() != 0) {
-            sb.append(extractedString, 0, tokens.getFirst().start());
+            sb.stack(string.substring(ZERO, tokens.getFirst().start()));
         }
+
          for (int i = 0; i < size; i++) {
                 final ParseToken curr = tokens.get(i);
                 final ParseToken next = i != (size - 1) ? tokens.get(i + 1) :
-                        new ParseToken(extractedString.length(), 0, null); //if we're at the end of the loop, we apply the current style to the rem of the string
+                        new ParseToken(string.length(), ZERO, null); //if we're at the end of the loop, we apply the current style to the rem of the string
 
                 final AnsiCode[] codes = curr.styles().toArray(AnsiCode[]::new);
                 final int start = curr.end() + 1;
                 final int end = next.start();
-                val = extractedString.substring(start, end);
+                val = string.substring(start, end);
 
-                if (enableAutoCloseTags) sb.append(stb.formatAndReset(val, codes));
-                else sb.append(stb.format(val, codes));
+                if (autoReset) sb.append(val, codes);
+                else sb.stack(val, codes);
             }
 
-        return sb.toString();
+        return sb.get();
     }
 }

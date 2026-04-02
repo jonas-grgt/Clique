@@ -88,7 +88,6 @@ public final class StyleMaps {
 
     static Optional<AnsiCode> findStyle(String s){
         AnsiCode code = CUSTOM_STYLE_CODES.get(s);
-
         if (code != null) {
             return Optional.of(code);
         }

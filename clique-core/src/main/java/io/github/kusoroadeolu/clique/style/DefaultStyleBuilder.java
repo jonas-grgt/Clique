@@ -24,7 +24,7 @@ public non-sealed class DefaultStyleBuilder implements StyleBuilder {
 
     @Override
     public String format(String text, AnsiCode... ansiCodes) {
-        return this.style(text, ansiCodes).toString();
+        return this.style(text, new StringBuilder() ,ansiCodes).toString();
     }
 
 
@@ -37,7 +37,7 @@ public non-sealed class DefaultStyleBuilder implements StyleBuilder {
 
     @Override
     public StyleBuilder stack(String text, AnsiCode... ansiCodes) {
-        this.textBuilder.append(this.style(text, ansiCodes));
+        this.style(text, textBuilder ,ansiCodes);
         return this;
     }
 
@@ -64,17 +64,15 @@ public non-sealed class DefaultStyleBuilder implements StyleBuilder {
     }
 
     //A helper method to style text with the given codes
-    private StringBuilder style(String text, AnsiCode... ansiCodes) {
+    private StringBuilder style(String text,StringBuilder sb ,AnsiCode... ansiCodes) {
         Objects.requireNonNull(text, "Text cannot be null");
         Objects.requireNonNull(ansiCodes, "Ansi codes cannot be null");
-        final StringBuilder sb = new StringBuilder();
 
         //Check if ansi is enabled
-        if (!ansiEnabled()) return sb.append(text);
+        if (ansiEnabled()) {
+            for (AnsiCode code : ansiCodes) {
+                if (code != null) sb.append(code);
 
-        for (AnsiCode code : ansiCodes) {
-            if (code != null){
-                sb.append(code);
             }
         }
 

@@ -11,8 +11,8 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;
 
 @InternalApi(since = "3.2.0")
 public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) implements AnsiStringParser {
-    private static final StyleApplicator STYLE_APPLICATOR = new StyleApplicator();
-    private static final TokenExtractor TOKEN_EXTRACTOR = new TokenExtractor();
+    private static final StyleResolver RESOLVER = new StyleResolver();
+    private static final Tokenizer TOKENIZER = new Tokenizer();
     private static final MarkupPreProcessor PROCESSOR = new MarkupPreProcessor();
 
 
@@ -24,7 +24,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         if (stringToParse == null || stringToParse.isBlank()) return stringToParse;
         String processed = PROCESSOR.preProcess(stringToParse);
         final ParseResult result = this.getParseResult(processed);
-        String styled = STYLE_APPLICATOR.styleString(result.tokens(), processed, this.parserConfiguration.getEnableAutoCloseTags());
+        String styled = RESOLVER.resolve(result.tokens(), processed, this.parserConfiguration.getEnableAutoCloseTags());
         return PROCESSOR.postProcess(styled);
 
     }
@@ -38,7 +38,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         String processed = PROCESSOR.preProcess(tokenedString);
         ParseResult result = this.getParseResult(processed);
 
-        if (!result.isPresent()) return stripAnsi(PROCESSOR.postProcess(tokenedString));
+        if (!result.isPresent()) return stripAnsi(PROCESSOR.postProcess(processed));
 
         final List<ParseToken> tokens = result.tokens();
         final StringBuilder sb = new StringBuilder(processed.length());
@@ -54,7 +54,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
     }
 
     ParseResult getParseResult(String input) {
-        return TOKEN_EXTRACTOR.getParseResult(
+        return TOKENIZER.tokenize(
                 input,
                 parserConfiguration.getDelimiter(),
                 parserConfiguration.getEnableStrictParsing()
