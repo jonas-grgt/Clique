@@ -39,7 +39,7 @@ public record AnsiStringParserImpl(ParserConfiguration parserConfiguration) impl
         String processed = PROCESSOR.preProcess(tokenedString);
         ParseResult result = this.getParseResult(processed);
 
-        if (!result.isPresent()) return stripAnsi(PROCESSOR.postProcess(tokenedString));
+        if (!result.isPresent()) return stripAnsi(PROCESSOR.postProcess(processed));
 
         final List<ParseToken> tokens = result.tokens();
         final StringBuilder sb = new StringBuilder(processed.length());
