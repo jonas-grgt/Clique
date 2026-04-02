@@ -5,7 +5,6 @@ import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.parser.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;

@@ -1,9 +1,6 @@
 package io.github.kusoroadeolu.clique;
 
 import io.github.kusoroadeolu.clique.boxes.BoxType;
-import io.github.kusoroadeolu.clique.core.structures.Cell;
-
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCell;
 
 public class Main {
     public static void main(String[] args) {
