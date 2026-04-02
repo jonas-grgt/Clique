@@ -29,7 +29,7 @@ public class EasingConfiguration {
 
     private static EasingConfiguration disabledConfig(){
         return EasingConfiguration
-                .immutableBuilder()
+                .builder()
                 .function(EasingFunction.LINEAR)
                 .duration(0)
                 .threshold(DISABLED_THRESHOLD)

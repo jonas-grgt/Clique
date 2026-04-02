@@ -48,7 +48,7 @@ public class FrameConfiguration {
     @InternalApi(since = "3.1.3")
     public static FrameConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
-        return FrameConfiguration.immutableBuilder().borderStyle(style).build();
+        return FrameConfiguration.builder().borderStyle(style).build();
     }
 
     public int getPadding() {

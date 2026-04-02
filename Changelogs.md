@@ -71,7 +71,7 @@ Changes to the SPI module in this release.
 - Fixed an issue with `Indenter` where, if an empty(not blank) flag was passed as the current flag, it'd take precedence over the default configuration flag
 
 ## clique-spi [1.0.3] - 2026-03-24
-
+_(no changes noted)_
 ---
 ...
 
@@ -130,7 +130,7 @@ Changes to the SPI module in this release.
 - `immutableBuilder()` across all configuration classes in favor of `builder()` - marked for removal in a future major version
 
 ## clique-spi [1.0.5] - 2026-03-30
-
+_(no changes noted)_
 
 # Changelog
 
@@ -159,3 +159,4 @@ Changes to the SPI module in this release.
 - Passing a null parser into `ProgressBarConfiguration` no longer causes a `NullPointerException` during style resolution
 
 ## clique-spi [1.0.6] - 2026-04-02
+_(no changes noted)_

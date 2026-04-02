@@ -54,7 +54,7 @@ public class TableConfiguration {
     @InternalApi(since = "3.1.3")
     public static TableConfiguration fromBorderStyle(BorderSpec style) {
         assertStyleNotNull(style);
-        return TableConfiguration.immutableBuilder().borderStyle(style).build();
+        return TableConfiguration.builder().borderStyle(style).build();
     }
 
     public int getPadding() {

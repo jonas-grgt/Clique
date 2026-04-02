@@ -50,6 +50,7 @@ public class BorderStyle implements BorderSpec{
         };
     }
 
+    @InternalApi(since = "3.2.1")
     static BorderStyle fromBorderColor(BorderColor color){
         return builder().verticalStyle(color.getVerticalStyle())
                 .horizontalStyle(color.getHorizontalStyle())

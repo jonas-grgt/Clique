@@ -25,7 +25,6 @@ public class IterableProgressBar<T>  implements Iterable<T>{
     }
 
 
-
     public IterableProgressBar(Collection<T> collection){
         this(collection, ProgressBarConfiguration.DEFAULT);
     }
@@ -43,7 +42,6 @@ public class IterableProgressBar<T>  implements Iterable<T>{
     }
 
 
-    
     private record ProgressBarIterator<T>(IterableProgressBar<T> iterableProgressBar) implements Iterator<T> {
 
         @Override

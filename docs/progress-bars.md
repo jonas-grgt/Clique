@@ -34,6 +34,20 @@ ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.CLASSIC);
 ProgressBar bar = Clique.progressBar(100, ProgressBarPreset.DOTS);
 ```
 
+### Starting from a Preset
+`fromPreset()` lets you use a preset as a starting point and customize from there. Useful when a preset is close to what you want but needs a tweak — different format, different length, extra styling:
+```java
+ProgressBarConfiguration config = ProgressBarConfiguration
+.fromPreset(ProgressBarPreset.BLOCKS)
+.format("[green]:bar[/] :percent% | :progress/:total")
+.length(60)
+.build();
+
+ProgressBar bar = Clique.progressBar(100, config);
+```
+
+All preset values (characters, length, format) are copied into the builder, and anything you chain after overrides them.
+
 ### Iterating Over a Collection
 
 When processing a collection, use `progressBar(collection)` to skip the boilerplate entirely. The total is inferred from the collection size, and the bar ticks and renders automatically on each iteration:
@@ -237,8 +251,7 @@ ProgressBarConfiguration config = ProgressBarConfiguration.builder()
         .length(50)
         .complete('▓')
         .incomplete('░')
-        .format("[cyan]↓[/] :bar :percent% | :progress/:total MB")
-        .styleRange(0, 100, "[cyan]:bar[/] :percent% | :progress/:total MB")
+        .format("[cyan]:bar[/] :percent% | :progress/:total MB")
         .build();
 
 ProgressBar bar = Clique.progressBar(totalMB, config);
@@ -250,22 +263,27 @@ int downloaded = getDownloadedMB();
 }
 ```
 
-### Batch Processing with Status
+### Processing a File List
 ```java
-ProgressBarConfiguration config = ProgressBarConfiguration.builder()
+for (var file : Clique.progressBar(files)) {
+    process(file);
+}
+```
+
+Simple as that — the bar ticks and renders automatically on each iteration.
+
+### Processing with Custom Styling
+```java
+ProgressBarConfiguration config = ProgressBarConfiguration
+        .fromPreset(ProgressBarPreset.DOTS)
         .styleRange(0, 50, "[red]:bar[/] :percent% [dim]Processing...[/]")
         .styleRange(50, 90, "[yellow]:bar[/] :percent% [dim]Finalizing...[/]")
         .styleRange(90, 100, "[green]:bar[/] :percent% [bold]Complete![/]")
         .build();
 
-ProgressBar bar = Clique.progressBar(1000, config);
-
-for (int i = 0; i < 1000; i++) {
-    processBatch(i);
-    bar.tick();
-    if (i % 10 == 0) bar.render();
+for (var file : Clique.progressBar(files, config)) {
+    process(file);
 }
-        bar.complete();
 ```
 
 ## See Also

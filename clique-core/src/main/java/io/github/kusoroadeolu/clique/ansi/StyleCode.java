@@ -25,7 +25,7 @@ public enum StyleCode implements AnsiCode {
     private final String code;
 
     /**
-     * Constructs a FontStyleCode enum value.
+     * Constructs a StyleCode enum value.
      *
      * @param code The ANSI escape code string.
      */

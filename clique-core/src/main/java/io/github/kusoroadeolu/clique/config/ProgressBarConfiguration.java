@@ -54,7 +54,7 @@ public class ProgressBarConfiguration {
         Objects.requireNonNull(preset, "Preset cannot be null");
         var config = preset.getConfiguration();
         return ProgressBarConfiguration
-                .immutableBuilder()
+                .builder()
                 .length(config.length)
                 .complete(config.complete)
                 .incomplete(config.incomplete)
@@ -65,7 +65,7 @@ public class ProgressBarConfiguration {
     public static ProgressBarConfiguration fromEasing(EasingConfiguration easing) {
         Objects.requireNonNull(easing, "Easing config cannot be null");
         return ProgressBarConfiguration
-                .immutableBuilder()
+                .builder()
                 .easing(easing)
                 .build();
     }
