@@ -18,7 +18,7 @@ A dependency free, lightweight and extensible CLI library for beautifying Java t
 <dependency>
       <groupId>io.github.kusoroadeolu</groupId>
       <artifactId>clique-core</artifactId>
-      <version>3.2.1</version>
+      <version>3.2.2</version>
 </dependency>
 ```
 
@@ -26,7 +26,7 @@ A dependency free, lightweight and extensible CLI library for beautifying Java t
 
 ```gradle
 dependencies {
-    implementation 'io.github.kusoroadeolu:clique-core:3.2.1'
+    implementation 'io.github.kusoroadeolu:clique-core:3.2.2'
 }
 ```
 
@@ -65,7 +65,7 @@ Clique.table(TableType.DEFAULT)
 Single-cell boxes with text wrapping:
 ```java
 Clique.box(BoxType.ROUNDED)
-    .withDimensions(40, 10) //Width, length
+    .withDimensions(40, 10) //Width, Height
     .content("Your message here")
     .render();
 ```

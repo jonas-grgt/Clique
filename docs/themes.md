@@ -14,7 +14,7 @@ Themes live in a separate package from core. You need both:
     <dependency>
         <groupId>io.github.kusoroadeolu</groupId>
         <artifactId>clique-core</artifactId>
-        <version>3.2.1</version>
+        <version>3.2.2</version>
     </dependency>
     <dependency>
         <groupId>io.github.kusoroadeolu</groupId>
@@ -26,7 +26,7 @@ Themes live in a separate package from core. You need both:
 
 ```gradle
 // Gradle
-implementation 'io.github.kusoroadeolu:clique-core:3.2.1'
+implementation 'io.github.kusoroadeolu:clique-core:3.2.2'
 implementation 'io.github.kusoroadeolu:clique-themes:1.0.0'
 ```
 

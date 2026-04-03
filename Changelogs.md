@@ -164,7 +164,7 @@ _(no changes noted)_
 
 # Changelog
 
-## Clique [3.2.2] - [UNRELEASED]
+## Clique [3.2.2] - 2026-04-03
 
 
 ### Removed
@@ -178,5 +178,8 @@ _(no changes noted)_
 - **`StyleResolver`** — all methods made static, private constructor added; no behavioral changes
 
 ### Fixed
-- **`Frame`** - Each line of each node in `Frame` now takes into account its line width, to fill it's remaining space , preventing broken lines 
+- **`Frame`** - Each line in each node in `Frame` now takes into account its line width, to fill it's remaining space across all 3 `FrameAlign` options, preventing broken lines 
 - **`Box`** - Does not throw an NPE, during `resolveLines` if no content is set 
+
+## clique-spi [1.0.7] - 2026-04-03
+_(no changes noted)_
