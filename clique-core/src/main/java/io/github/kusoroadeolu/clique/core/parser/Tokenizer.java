@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import static io.github.kusoroadeolu.clique.core.utils.Constants.ESC;
+
 
 /**
  * This class extracts valid token forms from the given string
@@ -43,7 +45,7 @@ public final class Tokenizer {
         for (int i = 0; i < len; i++) {
             final char c = input.charAt(i);
 
-            if (c == FORM_START) { //This will always switch the form start, if it finds another [ after this
+            if (c == FORM_START && prevCharIsNotESC(input, i - 1)) { //This will always switch the form start, if it finds another [ after this
                 //If we're still tracking, this means we have nested tag, just skip it
                 fcDepth = 0; //Next form start, reset fc depth. Basically means we had something like this ]some_string[
                 idx = i;
@@ -66,6 +68,11 @@ public final class Tokenizer {
         }
 
         return new ParseResult(tokens);
+    }
+
+    private boolean prevCharIsNotESC(String input, int i) {
+        if (i < 0) return true;
+        return input.charAt(i) != ESC;
     }
 
     /*

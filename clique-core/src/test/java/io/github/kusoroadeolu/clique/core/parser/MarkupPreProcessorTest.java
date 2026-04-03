@@ -47,40 +47,6 @@ class MarkupPreProcessorTest {
     }
 
     @Test
-    void preProcess_ansiCode_appendsSentinel() {
-        // ESC + [ + ... + m  -->  sentinel appended after 'm'
-        String input = ESC + "[31m";
-        String result = processor.preProcess(input);
-        assertTrue(result.contains(ANSI_SENTINEL),
-                "ANSI end char should be followed by sentinel");
-    }
-
-    @Test
-    void preProcess_unclosedAnsiCode() {
-        // ESC + [ + ... + next text, ansi code doesn't contain an 'm'
-        String input = ESC + "[31";
-        String result = processor.preProcess(input);
-        assertFalse(result.contains(ANSI_SENTINEL),
-                "ANSI end char should be followed by sentinel");
-    }
-
-    @Test
-    void preProcess_multipleAnsiCodes_allGetSentinel() {
-        String input = ESC + "[31m" + ESC + "[0m";
-        String result = processor.preProcess(input);
-        long sentinelCount = countOccurrences(result);
-        assertEquals(2, sentinelCount, "Each ANSI code should get its own sentinel");
-    }
-
-    @Test
-    void preProcess_ansiCodeWithEscapedBracket_bothHandled() {
-        String input = ESC + "[32m" + "\\[notATag]";
-        String result = processor.preProcess(input);
-        assertTrue(result.contains(ANSI_SENTINEL));
-        assertTrue(result.contains(ESCAPE_PLACEHOLDER));
-    }
-
-    @Test
     void preProcess_noAnsiNoEscape_returnsOriginal() {
         String input = "Just some [normal] text";
         assertEquals(input, processor.preProcess(input));
@@ -93,7 +59,6 @@ class MarkupPreProcessorTest {
         assertTrue(result.contains("\\"), "Lone backslash should remain");
     }
 
-    // --- postProcess ---
 
     @ParameterizedTest
     @NullAndEmptySource
@@ -108,20 +73,6 @@ class MarkupPreProcessorTest {
         assertEquals("[tag]", result);
     }
 
-    @Test
-    void postProcess_ansiSentinel_removed() {
-        String input = "text" + ANSI_SENTINEL + "more";
-        String result = processor.postProcess(input);
-        assertFalse(result.contains(ANSI_SENTINEL));
-        assertEquals("textmore", result);
-    }
-
-    @Test
-    void postProcess_bothPlaceholderAndSentinel_bothCleaned() {
-        String input = ESCAPE_PLACEHOLDER + "bold]" + ANSI_SENTINEL;
-        String result = processor.postProcess(input);
-        assertEquals("[bold]", result);
-    }
 
     @Test
     void postProcess_plainText_unchanged() {
@@ -158,14 +109,4 @@ class MarkupPreProcessorTest {
         assertTrue(result.startsWith("[tag]"));
     }
 
-    // --- helpers ---
-
-    private long countOccurrences(String text) {
-        int count = 0, idx = 0;
-        while ((idx = text.indexOf(MarkupPreProcessorTest.ANSI_SENTINEL, idx)) != -1) {
-            count++;
-            idx += MarkupPreProcessorTest.ANSI_SENTINEL.length();
-        }
-        return count;
-    }
 }

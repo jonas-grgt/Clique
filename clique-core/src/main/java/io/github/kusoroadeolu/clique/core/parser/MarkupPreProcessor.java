@@ -18,41 +18,12 @@ public class MarkupPreProcessor {
     public String preProcess(String input) {
         if (input == null || input.isEmpty()) return input;
 
-        StringBuilder sb = replaceEscapeTags(input);
-
-        int i = 0;
-        boolean inAnsi = false;
-        var processed = new StringBuilder();
-
-        while (i < sb.length()) {
-            char c = sb.charAt(i);
-            int nextIdx = i + 1;
-            if (c == ESC && nextCharEquals(sb, nextIdx, LBRACKET)) {
-                inAnsi = true;
-                processed.append(c);
-                processed.append(sb.charAt(nextIdx));
-                i += 2;
-                continue;
-            }
-
-            if (inAnsi && c == ANSI_END) {
-                inAnsi = false;
-                processed.append(c).append(ANSI_SENTINEL);
-                i++;
-                continue;
-            }
-
-            processed.append(c);
-            i++;
-        }
-
-        return processed.toString();
+        return replaceEscapeTags(input).toString();
     }
 
     public String postProcess(String input) {
         if (input == null || input.isEmpty()) return input;
-        return input.replace(ESCAPE_PLACEHOLDER, String.valueOf(LBRACKET))
-                .replace(ANSI_SENTINEL, EMPTY);
+        return input.replace(ESCAPE_PLACEHOLDER, String.valueOf(LBRACKET));
     }
 
     private StringBuilder replaceEscapeTags(String input){
