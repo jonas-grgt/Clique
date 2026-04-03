@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MarkupPreProcessorTest {
 
-    private MarkupPreProcessor processor;
+    private MarkupPostProcessor processor;
 
     // Mirror the constants used internally
     private static final String ANSI_SENTINEL = "]\uFFFF";
@@ -18,7 +18,7 @@ class MarkupPreProcessorTest {
 
     @BeforeEach
     void setUp() {
-        processor = new MarkupPreProcessor();
+        processor = new MarkupPostProcessor();
     }
 
     // --- preProcess ---

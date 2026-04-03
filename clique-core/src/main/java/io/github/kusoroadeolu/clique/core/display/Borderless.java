@@ -1,7 +1,6 @@
 package io.github.kusoroadeolu.clique.core.display;
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.documentation.Stable;
 
 import java.io.PrintStream;
 

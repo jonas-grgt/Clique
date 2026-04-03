@@ -13,8 +13,10 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 @InternalApi(since = "3.2.0")
 public final class StyleResolver {
 
+    private StyleResolver(){}
+
     //Restyle the extracted string with the given colors
-    public String resolve(List<ParseToken> tokens, String string, boolean autoReset) {
+    public static String resolve(List<ParseToken> tokens, String string, boolean autoReset) {
         final StyleBuilder sb = new DefaultStyleBuilder();
         String val;
         final int size = tokens.size();
