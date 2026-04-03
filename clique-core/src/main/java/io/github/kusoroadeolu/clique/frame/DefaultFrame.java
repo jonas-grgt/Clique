@@ -101,8 +101,13 @@ public class DefaultFrame implements  Frame {
     public Frame nest(Component component, FrameAlign align) {
         Objects.requireNonNull(component, "Component cannot be null");
         Objects.requireNonNull(align, NULL_FRAME_ALIGN);
+        assertNotSelf(component);
         nodes.add(new FrameNode.ComponentNode(component, align));
         return this;
+    }
+
+    void assertNotSelf(Component component){
+        if (component == this) throw new IllegalArgumentException("Cannot nest a Frame in itself");
     }
 
     public String get() {
@@ -123,6 +128,7 @@ public class DefaultFrame implements  Frame {
         }
 
         int availableWidth = givenWidth - (configuration.getPadding() * 2);
+
         if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, givenWidth);
 
         if (nodesMaxWidth > availableWidth) {
@@ -136,7 +142,7 @@ public class DefaultFrame implements  Frame {
         appendTitleToBox(parsedTitle, givenWidth, titleWidth, sb); //Using given width, not available width here, since avail width is meant for content not title
 
         for (FrameNode node : nodes) {
-            align(node, availableWidth  , sb);
+            align(node, availableWidth, sb);
         }
 
         sb.append(borderChars.bottomLeft())
@@ -151,38 +157,41 @@ public class DefaultFrame implements  Frame {
     void align(FrameNode node ,int availableWidth, StringBuilder sb) {
         var borderChar = this.borderChars;
         var padding = configuration.getPadding();
-        int contentWidth = node.maxWidth();
+        int rem = Math.max(ZERO, availableWidth - node.maxWidth());
 
         String fixed = BLANK.repeat(padding);
-
-        int rem = availableWidth - contentWidth; //Given avail width = 6, content width = 5, we should append fixed, then the remainder = avail width
         for (var line : node.lines()) {
+            int lineWidth = line.width();
             String content = line.styledText();
             switch (node.align()){
                 case RIGHT -> sb.append(borderChar.vLine())
                         .append(fixed)
-                        .append(BLANK.repeat(rem))
+                        .repeat(BLANK,  rem) //We append the remaining width to align right
                         .append(content)
                         .append(fixed)
+                        .repeat(BLANK, Math.max(ZERO, availableWidth - lineWidth - rem))
                         .append(borderChar.vLine())
                         .append(NEWLINE);
 
-                case LEFT -> sb.append(borderChar.vLine())
+                case LEFT -> {
+                    sb.append(borderChar.vLine())
                         .append(fixed)
                         .append(content)
-                        .append(BLANK.repeat(rem))
+                        .repeat(BLANK, Math.max(ZERO, availableWidth - lineWidth)) //Just append the remaining space here, we don't need rem here
                         .append(fixed)
                         .append(borderChar.vLine())
                         .append(NEWLINE);
+                }
 
                 case CENTER -> {
                     int leftPad = rem / 2;
-                    int rightPad = rem - leftPad;
+                    int rightPad = (availableWidth - lineWidth) - leftPad;
+
                     sb.append(borderChar.vLine())
                             .append(fixed)
-                            .append(BLANK.repeat(leftPad))
+                            .repeat(BLANK, leftPad) //We need to align everything at a common place
                             .append(content)
-                            .append(BLANK.repeat(rightPad))
+                            .repeat(BLANK, rightPad)
                             .append(fixed)
                             .append(borderChar.vLine())
                             .append(NEWLINE);

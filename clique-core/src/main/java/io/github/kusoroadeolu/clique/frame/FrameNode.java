@@ -47,7 +47,7 @@ sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode
 
         @Override
         public List<Cell> lines() {
-            return splitComponentLines(component.get()); // resolved at render time
+            return splitComponentLines(component.get());
         }
 
         @Override

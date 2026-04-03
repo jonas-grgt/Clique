@@ -88,6 +88,7 @@ public abstract class AbstractBox implements Box {
 
     //Splits the box content per newline, maps each chunk to a cell and encompasses them in a list
     WidthAwareList resolveLines(){
+        if (boxContent == null || boxContent.isEmpty()) return new WidthAwareList();
         var parser = boxConfiguration.getParser();
         var cellList = boxContent.lines()
                 .map(s -> StringUtils.parseToCellIfPresent(s, parser))

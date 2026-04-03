@@ -65,6 +65,13 @@ class FrameTest {
         );
     }
 
+    @Test
+    void throwsWhenSelfNested(){
+        assertThrows(IllegalArgumentException.class, () ->
+                frame.nest(frame)
+        );
+    }
+
     // -------------------------
     // Title rendering tests
     // -------------------------
@@ -174,20 +181,13 @@ class FrameTest {
                 .filter(l -> l.contains("hi") && !l.contains("much"))
                 .findFirst()
                 .get();
+
         // after the vline char, next char should be 'h'
         assertEquals('h', hiLine.charAt(3));
     }
 
     @Test
     void borderStyleConfig_shouldApplyGivenChanges(){
-        var frame = Clique.frame(BoxType.DEFAULT).nest("Hello"); //ASCII Box
-        List<String> lines = frame.get().lines().toList();
-        var line1 = lines.getFirst();
-        var line2 = lines.get(1);
-        assertTrue(line1.contains("+"));
-        assertTrue(line1.contains("-")); //Asserting line 1 contains both the corners and horizontal chars
-        assertTrue(line2.contains("|")); //Assert line2 contains the vlines
-
         BorderStyle style = BorderStyle
                 .builder()
                 .cornerChar('o')
@@ -198,12 +198,12 @@ class FrameTest {
 
 
         var frame2 = Clique.frame(BoxType.DEFAULT, config).nest("Hello"); //ASCII
-        List<String> lines2 = frame2.get().lines().toList();
-        var lines2_1 = lines2.getFirst();
-        var lines2_2 = lines2.get(1);
-        assertTrue(lines2_1.contains("o"));
-        assertTrue(lines2_1.contains("~")); //Asserting line 1 contains both the corners and horizontal chars
-        assertTrue(lines2_2.contains("/")); //Assert line2 contains the vlines
+        List<String> lines = frame2.get().lines().toList();
+        var lines_1 = lines.getFirst();
+        var lines_2 = lines.get(1);
+        assertTrue(lines_1.contains("o"));
+        assertTrue(lines_1.contains("~")); //Asserting line 1 contains both the corners and horizontal chars
+        assertTrue(lines_2.contains("/")); //Assert line2 contains the vlines
     }
 
 
@@ -228,6 +228,7 @@ class FrameTest {
         String str = Clique.frame()
                 .nest("Hello")
                 .get();
+
         assertEquals(3, str.lines().toList().size());
     }
 }

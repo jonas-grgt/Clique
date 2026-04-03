@@ -160,3 +160,23 @@ _(no changes noted)_
 
 ## clique-spi [1.0.6] - 2026-04-02
 _(no changes noted)_
+
+
+# Changelog
+
+## Clique [3.2.2] - [UNRELEASED]
+
+
+### Removed
+- **`MarkupPreProcessor`** — class deleted entirely; previously handled escape sequences and ANSI codes via a two-pass state machine using Unicode sentinel/placeholder characters (`\uFFFF`, `\uE000`) to mark positions for later cleanup
+
+### Added
+- **`MarkupPostProcessor`** — trimmed to a single static utility method; now only handles one concern: replacing escaped brackets (`\[`) with literal `[` in the final output. ANSI sentinel cleanup removed along with the pre-processor
+
+### Changed
+- **`Tokenizer`** — all methods are now static; class is no longer meant to be instantiated (private constructor added). Escape sequence handling (`\[`) is now done inline — when a `[` is encountered, the preceding character is checked, and if it's a backslash, the bracket is skipped. A `charNotEquals` helper was added to support this
+- **`StyleResolver`** — all methods made static, private constructor added; no behavioral changes
+
+### Fixed
+- **`Frame`** - Each line of each node in `Frame` now takes into account its line width, to fill it's remaining space , preventing broken lines 
+- **`Box`** - Does not throw an NPE, during `resolveLines` if no content is set 
