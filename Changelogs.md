@@ -183,3 +183,10 @@ _(no changes noted)_
 
 ## clique-spi [1.0.7] - 2026-04-03
 _(no changes noted)_
+
+
+# Changelog
+
+## Clique [3.2.3] - [UNRELEASED]
+### Fixed
+- An off by one error in `Frame` when a title wider than the frame's content was aligned left or right.
