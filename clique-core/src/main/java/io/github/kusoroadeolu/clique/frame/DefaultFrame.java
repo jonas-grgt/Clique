@@ -118,13 +118,15 @@ public class DefaultFrame implements  Frame {
 
 
         var parsedTitle = parseToCellIfPresent(appendedTitle, configuration.getParser());
+
+        //Note that we align the title width by +1 or -1 based on if the frame align is left or right, so to prevent an issue where the title width is left and the frame size = title size, we add one to the width to make up for the by one offset
         int titleWidth = parsedTitle.width() + 2;
         int nodesMaxWidth = findNodesMaxWidth(); //Max content width
 
         int givenWidth = (noWidthSet() ? nodesMaxWidth + (configuration.getPadding() * 2) : this.width);
 
         if (noWidthSet() && !parsedTitle.isBlank()) {
-            givenWidth = Math.max(givenWidth, titleWidth);
+            givenWidth = Math.max(givenWidth, titleWidth + 1);
         }
 
         int availableWidth = givenWidth - (configuration.getPadding() * 2);
@@ -206,6 +208,9 @@ public class DefaultFrame implements  Frame {
             sb.append(borderChars.topLeft())
                     .append(borderChars.hLine().repeat(leftWidth))
                     .append(BLANK).append(parsedTitle.styledText()).append(BLANK)
+                    //20 - 20 - 1, Gives - 1 For left width
+                    //20 - 20
+
                     .append(borderChars.hLine().repeat(givenWidth - titleWidth - leftWidth))
                     .append(borderChars.topRight())
                     .append(NEWLINE);
@@ -224,11 +229,11 @@ public class DefaultFrame implements  Frame {
                 .orElse(ZERO);
     }
 
-    static int findTitleBlockOffset(int innerWidth, int contentWidth, FrameAlign align) {
+    static int findTitleBlockOffset(int givenWidth, int titleWidth, FrameAlign align) {
         return switch (align) {
             case LEFT -> 1;
-            case RIGHT -> (innerWidth - contentWidth) - 1; //Just
-            case CENTER -> (innerWidth - contentWidth) / 2;
+            case RIGHT -> (givenWidth - titleWidth) - 1; //20 - 20 - 1, Gives  -1, By adding 1 to the title width, we get
+            case CENTER -> (givenWidth - titleWidth) / 2;
         };
     }
 

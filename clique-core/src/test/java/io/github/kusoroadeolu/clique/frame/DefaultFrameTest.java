@@ -17,7 +17,7 @@ import java.util.List;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static org.junit.jupiter.api.Assertions.*;
 
-class FrameTest {
+class DefaultFrameTest {
 
     private DefaultFrame frame;
 
@@ -134,7 +134,6 @@ class FrameTest {
         System.out.println(rendered);
         String[] ls = lines(rendered);
         int expectedWidth = ls[0].length();
-        System.out.println("Width: " + expectedWidth);
         for (String line : ls) {
             assertEquals(expectedWidth, line.length(), "Line width mismatch: [" + line + "]");
         }
@@ -213,10 +212,13 @@ class FrameTest {
                 .builder()
                 .cornerChar(' ')
                 .build();
-        var config = FrameConfiguration.builder().borderStyle(style).build();
+        var config = FrameConfiguration
+                .builder()
+                .borderStyle(style)
+                .build();
 
 
-        var frame2 = Clique.frame(BoxType.DEFAULT, config).nest("Hello"); //ASCII
+        var frame2 = new DefaultFrame(config, BoxType.DEFAULT).nest("Hello"); //ASCII
         List<String> lines2 = frame2.get().lines().toList();
         var lines2_1 = lines2.getFirst();
         assertFalse(lines2_1.contains(" "));
@@ -225,10 +227,35 @@ class FrameTest {
 
     @Test
     void test_frameHeight(){
-        String str = Clique.frame()
+        String str = new DefaultFrame()
                 .nest("Hello")
                 .get();
 
         assertEquals(3, str.lines().toList().size());
+    }
+
+
+    @Test
+    void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedLeft(){
+        Frame frame = new DefaultFrame();
+        assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.LEFT).get());
+    }
+
+    @Test
+    void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedRight(){
+        Frame frame = new DefaultFrame();
+        assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.RIGHT).get());
+    }
+
+    @Test
+    void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedCenter(){
+        Frame frame = new DefaultFrame();
+        assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.CENTER).get());
+    }
+
+    @Test
+    void test_givenWidthFrame_whenTitleWidth_equalToContent_andAlignedLeft(){
+        Frame frame = new DefaultFrame();
+        assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(5), FrameAlign.LEFT).width(9).get());
     }
 }
