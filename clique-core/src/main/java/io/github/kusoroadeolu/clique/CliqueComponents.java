@@ -171,4 +171,12 @@ final class CliqueComponents {
         return new Tree(label, configuration);
     }
 
+    public static Tree tree(String label, String connectorColor) {
+        return new Tree(label, TreeConfiguration.builder().connectorColor(connectorColor).build());
+    }
+
+    public static Tree tree(String label, AnsiCode... connectorColor) {
+        return new Tree(label, TreeConfiguration.builder().connectorColor(connectorColor).build());
+    }
+
 }

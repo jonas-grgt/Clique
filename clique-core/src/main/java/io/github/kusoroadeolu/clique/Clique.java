@@ -114,6 +114,9 @@ public final class Clique {
     public static Tree tree(String label) { return CliqueComponents.tree(label); }
     public static Tree tree(String label, TreeConfiguration configuration) { return CliqueComponents.tree(label, configuration); }
 
+    public static Tree tree(String label, String connectorColor) { return CliqueComponents.tree(label, connectorColor); }
+    public static Tree tree(String label, String connectorColor) { return CliqueComponents.tree(label, connectorColor); }
+
     // CLIQUE CONFIG
     public static void enableCliqueColors(boolean enable) {
         if (enable) AnsiDetector.enableCliqueColors();

@@ -53,13 +53,13 @@ Clique.table()
 - `table(TableType)` - Create table with specific type
 - `table(TableConfiguration)` - Create table with custom configuration
 - `table(TableType, TableConfiguration)` - Full customization
-- `table(BorderSpec)` - Create table with uniform border styling
-- `table(TableType, BorderSpec)` - Create table with specific type and uniform border styling
+- `table(AnsiCode...)` - Create table with border color
+- `table(TableType, AnsiCode...)` - Create table with specific type and border color
+- `table(String)` - Create table with named border color
+- `table(TableType, String)` - Create table with specific type and named border color
 
 **Available Types:**
 `DEFAULT`, `COMPACT`, `BOX_DRAW`, `ROUNDED_BOX_DRAW`, `MARKDOWN`
-
-> **Note:** `customizableTable()` and its overloads are deprecated as of 3.1. Use the `table()` methods above instead. They will be removed in a future release.
 
 ## Boxes
 
@@ -67,7 +67,6 @@ Single-cell containers for displaying text with borders.
 
 ```java
 Clique.box()
-    .autosize()
     .content("Your message here")
     .render();
 ```
@@ -77,13 +76,13 @@ Clique.box()
 - `box(BoxType)` - Create box with specific type
 - `box(BoxConfiguration)` - Create box with custom configuration
 - `box(BoxType, BoxConfiguration)` - Full customization
-- `box(BorderSpec)` - Create box with uniform border styling
-- `box(BoxType, BorderSpec)` - Create box with specific type and uniform border styling
+- `box(AnsiCode...)` - Create box with border color
+- `box(BoxType, AnsiCode...)` - Create box with specific type and border color
+- `box(String)` - Create box with named border color
+- `box(BoxType, String)` - Create box with specific type and named border color
 
 **Available Types:**
 `DEFAULT`, `CLASSIC`, `ROUNDED`, `DOUBLE_LINE`
-
-> **Note:** `customizableBox()` and its overloads are deprecated as of 3.1. Use the `box()` methods above instead. They will be removed in a future release.
 
 ## Frames
 
@@ -101,8 +100,10 @@ Clique.frame()
 - `frame(BoxType)` - Create frame with specific box type
 - `frame(FrameConfiguration)` - Create frame with custom configuration
 - `frame(BoxType, FrameConfiguration)` - Full customization
-- `frame(BorderSpec)` - Create frame with uniform border styling
-- `frame(BoxType, BorderSpec)` - Create frame with specific type and uniform border styling
+- `frame(AnsiCode...)` - Create frame with border color
+- `frame(BoxType, AnsiCode...)` - Create frame with specific type and border color
+- `frame(String)` - Create frame with named border color
+- `frame(BoxType, String)` - Create frame with specific type and named border color
 
 ## Trees
 
@@ -118,6 +119,8 @@ Clique.tree("root")
 **Methods:**
 - `tree(String label)` - Create a tree with the given root label
 - `tree(String label, TreeConfiguration)` - Create a tree with custom configuration
+- `tree(String label, String connectorColor)` - Create a tree with the given root label and connector color
+- `tree(String label, AnsiCode... connectorColor)` - Create a tree with the given root label and connector color
 
 ## Indenter
 
@@ -140,13 +143,19 @@ Clique.indenter()
 ## Progress Bars
 
 Visual feedback for long-running operations.
+
 ```java
+// Basic usage
 ProgressBar bar = Clique.progressBar(100);
 while (!bar.isDone()) {
     bar.tick();
     bar.render();
     Thread.sleep(50);
 }
+
+// Iterable collection
+IterableProgressBar<String> bar = Clique.progressBar(myList);
+bar.forEach(item -> process(item));
 ```
 
 **Methods:**
@@ -154,6 +163,9 @@ while (!bar.isDone()) {
 - `progressBar(int total, ProgressBarConfiguration)` - Custom configuration
 - `progressBar(int total, ProgressBarPreset)` - Use predefined preset
 - `progressBar(int total, EasingConfiguration)` - Create with easing animation
+- `progressBar(Collection<T>)` - Create an iterable progress bar from a collection
+- `progressBar(Collection<T>, ProgressBarConfiguration)` - Iterable progress bar with custom configuration
+- `progressBar(Collection<T>, ProgressBarPreset)` - Iterable progress bar with a preset
 
 **Predefined Styles:**
 `BLOCKS`, `LINES`, `BOLD`, `CLASSIC`, `DOTS`
@@ -176,7 +188,7 @@ Clique.registerAllThemes();
 - `registerThemes(Collection<String>)` - Register from collection
 - `registerAllThemes()` - Register all available themes
 - `discoverThemes()` - List all available themes
-- `findTheme(String name)` - Find a specific theme
+- `findTheme(String name)` - Find a specific theme by name, returns `Optional<CliqueTheme>`
 
 **Available Themes:**
 `catppuccin-mocha`, `catppuccin-latte`, `dracula`, `gruvbox-dark`, `gruvbox-light`, `nord`, `tokyo-night`
@@ -187,12 +199,12 @@ Register custom color codes for use in markup.
 ```java
 // Register single style
 Clique.registerStyle("error", new RGBColor(255, 0, 0, false));
-        Clique.parser().print("[error]Custom error color[/]");
+Clique.parser().print("[error]Custom error color[/]");
 
 // Register multiple styles
 Map<String, AnsiCode> styles = Map.of(
-        "success", new RGBColor(0, 255, 0, false),
-        "warning", new RGBColor(255, 255, 0, false)
+    "success", new RGBColor(0, 255, 0, false),
+    "warning", new RGBColor(255, 255, 0, false)
 );
 Clique.registerStyles(styles);
 ```
@@ -205,10 +217,10 @@ Clique.registerStyles(styles);
 
 Enable or disable ANSI color output.
 ```java
-//Force disable colors 
+// Force disable colors
 Clique.enableCliqueColors(false);
 
-// Re enable colors
+// Re-enable colors
 Clique.enableCliqueColors(true);
 
 // Enable colors (no-arg shorthand)
