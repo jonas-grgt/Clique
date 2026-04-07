@@ -148,30 +148,5 @@ public abstract class AbstractBox implements Box {
             return this.box;
         }
 
-
-    }
-
-    /**
-     * @deprecated in favor of {@link io.github.kusoroadeolu.clique.config.BorderStyle} customization methods. This will be removed in the future.
-     * */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static class CustomizableBoxDimensionBuilder {
-        private final AbstractBox box;
-
-        public CustomizableBoxDimensionBuilder(Box box) {
-            this.box = (AbstractBox) box;
-        }
-
-        CustomizableBox withDimensions(int width, int height) {
-            var bdb = new BoxDimensionBuilder(box);
-            bdb.withDimensions(width, height);
-            return (CustomizableBox) box;
-        }
-
-        CustomizableBox noDimensions() {
-            var bdb = new BoxDimensionBuilder(box);
-            bdb.noDimensions();
-            return (CustomizableBox) box;
-        }
     }
 }

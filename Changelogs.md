@@ -187,6 +187,10 @@ _(no changes noted)_
 
 # Changelog
 
-## Clique [3.2.3] - [UNRELEASED]
+## Clique [4.0.0] - [UNRELEASED]
 ### Fixed
 - An off by one error in `Frame` when a title wider than the frame's content was aligned left or right.
+
+
+### Removed
+- Deprecated customizable variants of `Table` and `Box` and the `Customizable` interface

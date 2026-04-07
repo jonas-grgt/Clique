@@ -1,8 +1,6 @@
 package io.github.kusoroadeolu.clique;
 
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
-import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
-import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
@@ -17,7 +15,6 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
-import io.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.tree.Tree;
@@ -126,54 +123,4 @@ public final class Clique {
     public static List<CliqueTheme> discoverThemes() { return CliqueStyles.discoverThemes(); }
     public static Optional<CliqueTheme> findTheme(String name) { return CliqueStyles.findTheme(name); }
 
-    // DEPRECATED
-
-    /**
-     * @deprecated As of 3.1, use {@link #table(TableType)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableTableHeaderBuilder customizableTable(TableType type) { return CliqueComponents.customizableTable(type); }
-    /**
-     * @deprecated As of 3.1, use {@link #table(TableType, TableConfiguration)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration) { return CliqueComponents.customizableTable(type, configuration); }
-
-    /**
-     * @deprecated As of 3.1, use {@link #table()} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableTableHeaderBuilder customizableTable() { return CliqueComponents.customizableTable(); }
-    /**
-     * @deprecated As of 3.1, use {@link #table(TableConfiguration)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration) { return CliqueComponents.customizableTable(configuration); }
-
-    /**
-     * @deprecated As of 3.1, use {@link #box(BoxType)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type) {
-        return BoxFactory.getCustomizableBoxDimensionBuilder(type);
-    }
-
-    /**
-     * @deprecated As of 3.1, use {@link #box(BoxType, BoxConfiguration)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration) { return CliqueComponents.customizableBox(type, configuration); }
-
-    /**
-     * @deprecated As of 3.1, use {@link #box()} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox() {
-        return CliqueComponents.customizableBox(); }
-
-    /**
-     * @deprecated As of 3.1, use {@link #box(BoxConfiguration)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration) { return CliqueComponents.customizableBox(configuration); }
 }

@@ -161,36 +161,4 @@ public abstract class AbstractTable implements Table {
         }
     }
 
-    /**
-     * @deprecated in favor of {@link io.github.kusoroadeolu.clique.config.BorderStyle} customization methods. This will be removed in the future.
-     * */
-    @Deprecated(since = "3.1.3")
-    public static class CustomizableTableHeaderBuilder {
-        private final AbstractTable table;
-
-        public CustomizableTableHeaderBuilder(Table table) {
-            this.table = (AbstractTable) table;
-        }
-
-        public CustomizableTable headers(String... headers) {
-            var builder = new TableHeaderBuilder(table);
-            builder.headers(headers);
-            return (CustomizableTable) table;
-        }
-
-        public CustomizableTable headers(Collection<String> headers) {
-            return this.headers(headers.toArray(String[]::new));
-        }
-
-        @Deprecated(forRemoval = true, since = "3.1")
-        public Table addHeaders(String... headers){
-            return headers(headers);
-        }
-
-        @Deprecated(forRemoval = true, since = "3.1")
-        public Table addHeaders(Collection<String> headers){
-            return headers(headers);
-        }
-    }
-
 }

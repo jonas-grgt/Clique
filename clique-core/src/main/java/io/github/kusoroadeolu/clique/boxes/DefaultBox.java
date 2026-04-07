@@ -10,7 +10,7 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.applyAnsiToBorders;
 import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.drawBox;
 
-class DefaultBox extends AbstractBox implements CustomizableBox {
+class DefaultBox extends AbstractBox {
     private final BorderChars borderChars;
 
 
@@ -97,24 +97,6 @@ class DefaultBox extends AbstractBox implements CustomizableBox {
         return "DefaultBox[" +
                 "borderChars=" + borderChars +
                 ']';
-    }
-
-    @Override
-    public CustomizableBox customizeEdge(char edge) {
-        customizeCorner(edge);
-        return this;
-    }
-
-    @Override
-    public CustomizableBox customizeVerticalLine(char vLine) {
-        customizeVLine(vLine);
-        return this;
-    }
-
-    @Override
-    public CustomizableBox customizeHorizontalLine(char hLine) {
-        customizeHLine(hLine);
-        return this;
     }
 }
 
