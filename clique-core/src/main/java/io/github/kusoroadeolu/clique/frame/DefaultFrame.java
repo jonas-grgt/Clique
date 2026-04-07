@@ -293,4 +293,17 @@ public class DefaultFrame implements  Frame {
     public int hashCode() {
         return Objects.hash(width, nodes, configuration, type, title, titleAlign, borderChars);
     }
+
+    @Override
+    public String toString() {
+        return "Frame[" +
+                "borderChars=" + borderChars +
+                ", width=" + width +
+                ", titleAlign=" + titleAlign +
+                ", title='" + title + '\'' +
+                ", type=" + type +
+                ", configuration=" + configuration +
+                ", nodes=" + nodes +
+                ']';
+    }
 }

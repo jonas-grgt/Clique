@@ -19,7 +19,7 @@ class BoxTest {
                 .textAlign(TextAlign.TOP_CENTER)
                 .build();
         var box = Clique.box(BoxType.ROUNDED, config)
-                .withDimensions(50, 9)
+                .dimensions(50, 9)
                 .content("Test");
         var output = box.get();
         var lines = output.lines().toList();
@@ -29,7 +29,7 @@ class BoxTest {
     @Test
     void testBoxHeight(){
         var box = Clique.box(BoxType.ROUNDED)
-                .withDimensions(50, 9)
+                .dimensions(50, 9)
                 .content("Test");
         var content = box.get();
         assertEquals(11, content.lines().toList().size()); //9 plus 2 borders
@@ -39,42 +39,41 @@ class BoxTest {
     void assertThrows_whenWidthIsZero(){
         assertThrows(IllegalArgumentException.class,
                 () -> Clique.box()
-                .withDimensions(0, 10));
+                .dimensions(0, 10));
     }
 
     @Test
     void assertThrows_whenWidthIsNegative(){
         assertThrows(IllegalArgumentException.class,
                 () -> Clique.box()
-                        .withDimensions(-1, 10));
+                        .dimensions(-1, 10));
     }
 
     @Test
     void assertThrows_whenHeightIsNegative(){
         assertThrows(IllegalArgumentException.class,
                 () -> Clique.box()
-                        .withDimensions(10, -1));
+                        .dimensions(10, -1));
     }
 
     @Test
     void assertThrows_whenHeightIsZero(){
         assertThrows(IllegalArgumentException.class,
                 () -> Clique.box()
-                        .withDimensions(10, 0));
+                        .dimensions(10, 0));
     }
 
 
     //Simple regression test
     @Test
-    void assertDoesNotThrow_onAutoSize(){
-        assertDoesNotThrow(() -> Clique.box()
-                        .autosize());
+    void assertDoesNotThrow_whenNoWidthSet(){
+        assertDoesNotThrow(() -> Clique.box());
     }
 
     @Test
     void assertSame_onSubsequentGets_withoutModification(){
         var box = Clique.box(BoxType.ROUNDED)
-                .withDimensions(50, 9)
+                .dimensions(50, 9)
                 .content("Test");
 
         String output = box.get();
@@ -87,7 +86,6 @@ class BoxTest {
     @Test
     void borderStyleConfig_shouldApplyGivenChanges(){
         var box = Clique.box(BoxType.DEFAULT)
-                .autosize()
                 .content("Hello"); //ASCII //ASCII Box
         List<String> lines = box.get().lines().toList();
         var line1 = lines.getFirst();
@@ -105,7 +103,6 @@ class BoxTest {
 
 
         var frame2 = Clique.box(BoxType.DEFAULT, style)
-                .autosize()
                 .content("Hello"); //ASCII
         List<String> lines2 = frame2.get().lines().toList();
         var lines2_1 = lines2.getFirst();
@@ -128,7 +125,6 @@ class BoxTest {
                 .build();
 
         var frame2 = Clique.box(BoxType.DEFAULT, config)
-                .autosize()
                 .content("Hello"); //ASCII
         List<String> lines2 = frame2.get().lines().toList();
         var lines2_1 = lines2.getFirst();
@@ -141,7 +137,7 @@ class BoxTest {
     @Test
     void alignTopLeft_shouldBeShifted_toLeft(){
         var box = Clique.box(BoxType.ROUNDED)
-                .withDimensions(50, 9)
+                .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_LEFT);
         var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1); //So it should be border + padding(2), so 3 substring before we get our content
@@ -153,7 +149,7 @@ class BoxTest {
     @Test
     void alignTopRight_shouldBeShifted_toRight(){
         var box = Clique.box(BoxType.ROUNDED)
-                .withDimensions(50, 9)
+                .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_RIGHT);
         var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1);
@@ -166,7 +162,7 @@ class BoxTest {
     @Test
     void textAlign_whenNull_shouldUseBoxConfigAlign(){
         var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.builder().textAlign(TextAlign.TOP_RIGHT).build())
-                .withDimensions(50, 9)
+                .dimensions(50, 9)
                 .content("Test");
         var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1);
@@ -177,7 +173,7 @@ class BoxTest {
     @Test
     void textAlign_whenSet_shouldUseGivenAlign(){
         var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.builder().textAlign(TextAlign.TOP_LEFT).build())
-                .withDimensions(50, 9)
+                .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_RIGHT);
         var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1);
@@ -189,7 +185,7 @@ class BoxTest {
     @Test
     void textAlign_shouldBeReassigned_onSubsequentAlignCalls(){
         var box = Clique.box(BoxType.ROUNDED)
-                .withDimensions(50, 9)
+                .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_RIGHT);
         var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1);

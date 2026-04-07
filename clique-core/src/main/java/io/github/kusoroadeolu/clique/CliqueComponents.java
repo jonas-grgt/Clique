@@ -1,8 +1,8 @@
 package io.github.kusoroadeolu.clique;
 
-import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
-import io.github.kusoroadeolu.clique.boxes.BoxFactory;
+import io.github.kusoroadeolu.clique.boxes.Box;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
+import io.github.kusoroadeolu.clique.boxes.DefaultBox;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.frame.DefaultFrame;
 import io.github.kusoroadeolu.clique.frame.Frame;
@@ -56,35 +56,34 @@ final class CliqueComponents {
     }
 
     // BOX
-    public static BoxDimensionBuilder box() {
-        return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED);
+    public static Box box() {
+        return new DefaultBox();
     }
 
-    public static BoxDimensionBuilder box(BoxConfiguration configuration) {
-        return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED, configuration);
+    public static Box box(BoxConfiguration configuration) {
+        return new DefaultBox(configuration);
     }
 
-    public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) {
-        return BoxFactory.getBoxDimensionBuilder(type, configuration);
+    public static Box box(BoxType type, BoxConfiguration configuration) {
+        return new DefaultBox(type, configuration);
     }
 
-    public static BoxDimensionBuilder box(BoxType type) {
-        return BoxFactory.getBoxDimensionBuilder(type);
+    public static Box box(BoxType type) {
+        return new DefaultBox(type);
     }
 
-    public static BoxDimensionBuilder box(BorderSpec style) {
+    public static Box box(BorderSpec style) {
         var borderStyle = BorderStyle.fromSpec(style);
-        return BoxFactory.getBoxDimensionBuilder(BoxType.ROUNDED, BoxConfiguration.fromBorderStyle(borderStyle));
+        return new DefaultBox(BoxType.ROUNDED, BoxConfiguration.fromBorderStyle(borderStyle));
     }
 
-    public static BoxDimensionBuilder box(BoxType type, BorderSpec style) {
+    public static Box box(BoxType type, BorderSpec style) {
         var borderStyle = BorderStyle.fromSpec(style);
-        return BoxFactory.getBoxDimensionBuilder(type, BoxConfiguration.fromBorderStyle(borderStyle));
+        return new DefaultBox(type, BoxConfiguration.fromBorderStyle(borderStyle));
     }
 
 
     // INDENTER
-
     public static Indenter indenter() {
         return new DefaultIndenter();
     }

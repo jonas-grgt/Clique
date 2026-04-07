@@ -17,7 +17,7 @@
 
 ### Changed
 - `noDimensions()` now throws `IllegalStateException` if `autoSize` is not enabled in `BoxConfiguration`
-- `withDimensions()` now throws `IllegalArgumentException` for zero or negative values
+- `dimensions()` now throws `IllegalArgumentException` for zero or negative values
   For both **Box** and **CustomizableBox**
 - All box types (`DEFAULT`, `CLASSIC`, `ROUNDED`, `DOUBLE_LINE`) consolidated into a single `DefaultBox` implementation driven by `BorderChars`, eliminates the previous per-type subclass hierarchy
 - All box types now support border customization — previously restricted to `DEFAULT` only
@@ -194,3 +194,9 @@ _(no changes noted)_
 
 ### Removed
 - Deprecated customizable variants of `Table` and `Box` and the `Customizable` interface
+- `AbstractBox`, instead folding all pre-existing logic into `DefaultBox` 
+- `BoxDimensionBuilder`, taking along `autosize()` and `withDimensions()` build steps. Boxes now autosize if `dimensions()` is not called
+- Deprecated `autosize()`, `centerPadding()`, `getAutosize()` and `getCenterPadding()` methods from `BoxConfiguration`
+
+### Updated
+- `Box` and `BoxConfiguration` `equals()` and `hashcode()` contracts

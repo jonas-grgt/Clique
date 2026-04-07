@@ -1,6 +1,6 @@
 package io.github.kusoroadeolu.clique;
 
-import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
+import io.github.kusoroadeolu.clique.boxes.Box;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
@@ -53,14 +53,14 @@ public final class Clique {
 
 
     // BOX
-    public static BoxDimensionBuilder box() { return CliqueComponents.box(); }
-    public static BoxDimensionBuilder box(BoxConfiguration configuration) { return CliqueComponents.box(configuration); }
-    public static BoxDimensionBuilder box(BoxType type, BoxConfiguration configuration) { return CliqueComponents.box(type, configuration); }
-    public static BoxDimensionBuilder box(BoxType type) { return CliqueComponents.box(type); }
+    public static Box box() { return CliqueComponents.box(); }
+    public static Box box(BoxConfiguration configuration) { return CliqueComponents.box(configuration); }
+    public static Box box(BoxType type, BoxConfiguration configuration) { return CliqueComponents.box(type, configuration); }
+    public static Box box(BoxType type) { return CliqueComponents.box(type); }
 
-    public static BoxDimensionBuilder box(BoxType type, BorderSpec style){ return CliqueComponents.box(type, style);}
+    public static Box box(BoxType type, BorderSpec style){ return CliqueComponents.box(type, style);}
 
-    public static BoxDimensionBuilder box(BorderSpec style){return CliqueComponents.box(style);}
+    public static Box box(BorderSpec style){return CliqueComponents.box(style);}
 
     // INDENTER
     public static Indenter indenter() { return CliqueComponents.indenter(); }

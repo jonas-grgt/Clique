@@ -18,7 +18,7 @@ Clique provides 4 built-in box styles:
 ### Creating a Simple Box
 ```java
 Box box = Clique.box()
-    .withDimensions(10, 20)  // Width, height
+    .dimensions(10, 20)  // Width, height
     .content("This is my first box");
 
 box.render(); // Print the box to terminal
@@ -30,15 +30,15 @@ box.render(); // Print the box to terminal
 - **Height** - The vertical size of the box (in lines)
 ```java
 Clique.box()
-    .withDimensions(50, 5)  // Width, height
+    .dimensions(50, 5)  // Width, height
     .content("A wider, shorter box")
     .render();
 ```
 
 **AutoSized boxes**
+No dimension set, autosizes the box
 ```java
 Clique.box()
-    .autosize() //Autosizes the box
     .content("An autosized box")
     .render();
 ```
@@ -48,7 +48,7 @@ Clique.box()
 Boxes automatically parse markup tags in content:
 ```java
 Clique.box()
-    .withDimensions(40, 5)
+    .dimensions(40, 5)
     .content("[yellow, bold]Warning:[/] This is an important message that needs attention")
     .render();
 ```
@@ -58,7 +58,7 @@ Clique.box()
 Boxes handle newlines properly and will wrap text accordingly:
 ```java
 Clique.box(BoxType.CLASSIC)
-    .withDimensions(40, 10)
+    .dimensions(40, 10)
     .content(
         """
             [green, bold]Success![/]
@@ -90,19 +90,14 @@ Available alignments:
 - `TextAlign.CENTER_LEFT`, `TextAlign.CENTER`, `TextAlign.CENTER_RIGHT`
 - `TextAlign.BOTTOM_LEFT`, `TextAlign.BOTTOM_CENTER`, `TextAlign.BOTTOM_RIGHT`
 
+Default `TextAlign` is `CENTER`
 ## Box Configuration
 
 Use `BoxConfiguration` to customize box appearance and behavior.
 
 ### Basic Configuration
 ```java
-BoxConfiguration config = BoxConfiguration.builder()
-    .textAlign(TextAlign.CENTER)
-    .autoSize()
-    .build();
-
-Clique.box(BoxType.DOUBLE_LINE, config)
-    .noDimensions()
+Clique.box(BoxType.DOUBLE_LINE)
     .content("This box auto-sizes to fit content")
     .render();
 ```
@@ -122,9 +117,7 @@ BoxConfiguration config = BoxConfiguration.builder()
 
 Adds padding to each side of the box, this padding is taken from the given width of the box, and is not added to the box
 ```java
-BoxConfigurationBuilder builder = BoxConfiguration.builder();
-builder.padding(3);
-BoxConfiguration config = builder.build();
+BoxConfigurationBuilder builder = BoxConfiguration.builder().padding(3).build();
 ```
 
 #### Auto Size
@@ -132,11 +125,9 @@ BoxConfiguration config = builder.build();
 Let the box automatically resize to fit its content. This is deprecated in favor of `Clique.box#autosize()`
 ```java
 BoxConfiguration config = BoxConfiguration.builder()
-    .autoSize()
     .build();
 
 Clique.box(config)
-    .noDimensions()
     .content("This box will size itself")
     .render();
 ```
@@ -149,13 +140,13 @@ For quick uniform border coloring, pass a `BorderColor` directly to the factory 
 ```java
 // Static factory
 Clique.box(BorderColor.of(ColorCode.BLUE))
-    .withDimensions(40, 10)
+    .dimensions(40, 10)
     .content("Blue border box")
     .render();
 
 // With a specific box type
 Clique.box(BoxType.CLASSIC, BorderColor.of("blue"))
-    .withDimensions(40, 10)
+    .dimensions(40, 10)
     .content("Blue border box")
     .render();
 ```
@@ -173,7 +164,7 @@ BoxConfiguration config = BoxConfiguration.builder()
     .build();
 
 Clique.box(BoxType.CLASSIC, config)
-    .withDimensions(20, 10)
+    .dimensions(20, 10)
     .content("Styled Box")
     .render();
 ```
@@ -181,7 +172,7 @@ Clique.box(BoxType.CLASSIC, config)
 `BorderStyle` also works directly as a `BorderSpec` for backward compatibility:
 ```java
 Clique.box(BorderStyle.builder().uniformStyle("blue").build())
-    .withDimensions(40, 10)
+    .dimensions(40, 10)
     .content("Blue border box")
     .render();
 ```
@@ -205,13 +196,10 @@ BoxConfiguration config = BoxConfiguration.builder()
 BoxConfigurationBuilder builder = BoxConfiguration.builder()
     .borderStyle(BorderColor.of("blue"))
     .textAlign(TextAlign.CENTER)
-    .autoSize()
     .parser(Clique.parser());
-builder.padding(3);
 BoxConfiguration config = builder.build();
 
 Clique.box(BoxType.DOUBLE_LINE, config)
-    .noDimensions()
     .content("[bold, blue]This is a configured box[/]")
     .render();
 ```
@@ -228,7 +216,7 @@ BorderStyle style = BorderStyle.builder()
     .build();
 
 Clique.box(style)
-    .withDimensions(40, 10)
+    .dimensions(40, 10)
     .content("[red]This is my custom box :)[/]")
     .render();
 ```
@@ -237,13 +225,7 @@ Clique.box(style)
 
 ### Alert Box
 ```java
-BoxConfiguration config = BoxConfiguration.builder()
-    .textAlign(TextAlign.CENTER)
-    .autoSize()
-    .build();
-
 Clique.box(BoxType.DOUBLE_LINE, config)
-    .noDimensions()
     .content("[red, bold]⚠ ALERT ⚠[/]\n\nSystem maintenance in progress")
     .render();
 ```
@@ -251,7 +233,7 @@ Clique.box(BoxType.DOUBLE_LINE, config)
 ### Info Box
 ```java
 Clique.box()
-    .withDimensions(60, 10)
+    .dimensions(60, 10)
     .content(
         "[blue, bold]ℹ Information[/]\n\n" +
         "This feature is currently in beta. " +
