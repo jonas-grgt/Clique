@@ -1,19 +1,18 @@
 package io.github.kusoroadeolu.clique.config;
 
-
-import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
+import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotNull;
-
 /**
  * @since 1.0.0
- * */
+ */
 @Stable(since = "3.2.0")
 public class TableConfiguration {
     public static final TableConfiguration DEFAULT = new TableConfiguration();
@@ -23,8 +22,7 @@ public class TableConfiguration {
     private final AnsiStringParser parser;
     private final String nullReplacement;
     private final Map<Integer, CellAlign> columnAlignment;
-    private final BorderStyle borderStyle;
-
+    private final AnsiCode[] borderColor;
 
     private TableConfiguration() {
         this(new TableConfigurationBuilder());
@@ -36,7 +34,7 @@ public class TableConfiguration {
         this.parser = builder.parser;
         this.nullReplacement = builder.nullReplacement;
         this.columnAlignment = builder.columnAlignment;
-        this.borderStyle = builder.borderStyle;
+        this.borderColor = builder.borderColor;
     }
 
     public static TableConfigurationBuilder builder() {
@@ -45,16 +43,10 @@ public class TableConfiguration {
 
     /**
      * @deprecated As of 3.1.3, use {@link TableConfiguration#builder()} instead. This will be removed in a future release.
-     * */
+     */
     @Deprecated(since = "3.1.3", forRemoval = true)
     public static TableConfigurationBuilder immutableBuilder() {
         return builder();
-    }
-
-    @InternalApi(since = "3.1.3")
-    public static TableConfiguration fromBorderStyle(BorderSpec style) {
-        assertStyleNotNull(style);
-        return TableConfiguration.builder().borderStyle(style).build();
     }
 
     public int getPadding() {
@@ -73,25 +65,25 @@ public class TableConfiguration {
         return this.nullReplacement;
     }
 
-    public BorderStyle getBorderStyle() {
-        return this.borderStyle;
+    public AnsiCode[] getBorderColor() {
+        return this.borderColor;
     }
 
     public Map<Integer, CellAlign> getColumnAlignment() {
         return new HashMap<>(this.columnAlignment);
     }
 
-
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
         TableConfiguration that = (TableConfiguration) object;
-        return padding == that.padding && alignment == that.alignment && parser.equals(that.parser) && nullReplacement.equals(that.nullReplacement) && columnAlignment.equals(that.columnAlignment) && Objects.equals(borderStyle, that.borderStyle);
+        return padding == that.padding && alignment == that.alignment && parser.equals(that.parser)
+                && nullReplacement.equals(that.nullReplacement) && columnAlignment.equals(that.columnAlignment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(padding, alignment, parser, nullReplacement, columnAlignment, borderStyle);
+        return Objects.hash(padding, alignment, parser, nullReplacement, columnAlignment, Arrays.hashCode(borderColor));
     }
 
     @Override
@@ -102,7 +94,6 @@ public class TableConfiguration {
                 ", parser=" + parser +
                 ", nullReplacement='" + nullReplacement + '\'' +
                 ", columnAlignment=" + columnAlignment +
-                ", borderStyle=" + borderStyle +
                 ']';
     }
 
@@ -112,7 +103,7 @@ public class TableConfiguration {
         private AnsiStringParser parser = AnsiStringParser.DEFAULT;
         private String nullReplacement = "";
         private Map<Integer, CellAlign> columnAlignment = new HashMap<>();
-        private BorderStyle borderStyle = null;
+        private AnsiCode[] borderColor = new AnsiCode[0];
 
         public TableConfigurationBuilder padding(int padding) {
             if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative.");
@@ -137,9 +128,13 @@ public class TableConfiguration {
             return this;
         }
 
-        public TableConfigurationBuilder borderStyle(BorderSpec spec) {
-            Objects.requireNonNull(spec, "Border style cannot be null");
-            this.borderStyle = BorderStyle.fromSpec(spec);
+        public TableConfigurationBuilder borderColor(String borderColor) {
+            return borderColor(ParserUtils.getAnsiCodes(borderColor, parser).toArray(AnsiCode[]::new));
+        }
+
+        public TableConfigurationBuilder borderColor(AnsiCode... borderColor) {
+            Objects.requireNonNull(borderColor, "Border color cannot be null");
+            this.borderColor = borderColor;
             return this;
         }
 

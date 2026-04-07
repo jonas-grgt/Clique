@@ -3,20 +3,18 @@ package io.github.kusoroadeolu.clique.core.utils;
 
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.boxes.BoxWrapper;
-import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TextAlign;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
-import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
+import static io.github.kusoroadeolu.clique.style.StyleBuilder.formatAndReset;
 
 @InternalApi(since = "3.2.0")
 public class BoxUtils {
@@ -98,17 +96,13 @@ public class BoxUtils {
     }
 
 
-    public static void applyAnsiToBorders(BorderChars borderChar, BorderStyle borderStyle) {
-        final StyleBuilder sb = new DefaultStyleBuilder();
-        final AnsiCode[] horizontalStyle = borderStyle.getHorizontalStyle();
-        final AnsiCode[] verticalStyle = borderStyle.getVerticalStyle();
-        final AnsiCode[] cornerStyle = borderStyle.getCornerStyle();
-
-        borderChar.setHLine(sb.formatAndReset(borderChar.hLine(), horizontalStyle));
-        borderChar.setVLine(sb.formatAndReset(borderChar.vLine(), verticalStyle));
-        borderChar.setTopLeft(sb.formatAndReset(borderChar.topLeft(), cornerStyle));
-        borderChar.setTopRight(sb.formatAndReset(borderChar.topRight(), cornerStyle));
-        borderChar.setBottomLeft(sb.formatAndReset(borderChar.bottomLeft(), cornerStyle));
-        borderChar.setBottomRight(sb.formatAndReset(borderChar.bottomRight(), cornerStyle));
+    public static void applyAnsiToBorders(BorderChars borderChar, AnsiCode[] borderColor) {
+        final StringBuilder sb = new StringBuilder();
+        borderChar.setHLine(formatAndReset(sb, borderChar.hLine(), borderColor));
+        borderChar.setVLine(formatAndReset(sb, borderChar.vLine(), borderColor));
+        borderChar.setTopLeft(formatAndReset(sb, borderChar.topLeft(), borderColor));
+        borderChar.setTopRight(formatAndReset(sb, borderChar.topRight(), borderColor));
+        borderChar.setBottomLeft(formatAndReset(sb, borderChar.bottomLeft(), borderColor));
+        borderChar.setBottomRight(formatAndReset(sb, borderChar.bottomRight(), borderColor));
     }
 }

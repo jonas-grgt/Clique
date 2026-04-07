@@ -119,24 +119,9 @@ Adds padding to each side of the box, this padding is taken from the given width
 ```java
 BoxConfigurationBuilder builder = BoxConfiguration.builder().padding(3).build();
 ```
+#### Border Coloring
 
-#### Auto Size
-
-Let the box automatically resize to fit its content. This is deprecated in favor of `Clique.box#autosize()`
-```java
-BoxConfiguration config = BoxConfiguration.builder()
-    .build();
-
-Clique.box(config)
-    .content("This box will size itself")
-    .render();
-```
-
-When `autoSize` is enabled, the box will automatically adjust dimensions even if the content can't wrap properly.
-
-#### Border Styling
-
-For quick uniform border coloring, pass a `BorderColor` directly to the factory method — no configuration object needed:
+For quick uniform border coloring
 ```java
 // Static factory
 Clique.box(BorderColor.of(ColorCode.BLUE))
@@ -145,27 +130,9 @@ Clique.box(BorderColor.of(ColorCode.BLUE))
     .render();
 
 // With a specific box type
-Clique.box(BoxType.CLASSIC, BorderColor.of("blue"))
+Clique.box(BoxType.CLASSIC, "blue")
     .dimensions(40, 10)
     .content("Blue border box")
-    .render();
-```
-
-For per-edge color control, you can use `BorderColor` via `BoxConfiguration`:
-```java
-BorderColor style = BorderColor.builder()
-    .horizontalStyle("cyan")
-    .verticalStyle("magenta")
-    .cornerStyle("yellow")
-    .build();
-
-BoxConfiguration config = BoxConfiguration.builder()
-    .borderStyle(style)
-    .build();
-
-Clique.box(BoxType.CLASSIC, config)
-    .dimensions(20, 10)
-    .content("Styled Box")
     .render();
 ```
 

@@ -10,6 +10,6 @@ class RoundedBoxDrawTable extends BoxDrawTable {
         this.topRight = "╮";
         this.bottomLeft = "╰";
         this.bottomRight = "╯";
-        this.styleTableBorders();
+        this.colorTableBorders();
     }
 }

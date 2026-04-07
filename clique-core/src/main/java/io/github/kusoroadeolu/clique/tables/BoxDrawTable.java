@@ -1,18 +1,16 @@
 package io.github.kusoroadeolu.clique.tables;
 
-import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
-import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
+import static io.github.kusoroadeolu.clique.style.StyleBuilder.formatAndReset;
 
 
 class BoxDrawTable extends AbstractTable {
@@ -43,7 +41,7 @@ class BoxDrawTable extends AbstractTable {
         this.leftJoin = "├";
         this.rightJoin = "┤";
         this.cross = "┼";
-        this.styleTableBorders();
+        this.colorTableBorders();
     }
 
     public String get() {
@@ -57,7 +55,7 @@ class BoxDrawTable extends AbstractTable {
         clearStringBuilder(sb);
         final String headerEnd = this.drawHeaderEnd(sb);
         clearStringBuilder(sb);
-        final int padding = this.tableConfiguration.getPadding();
+        final int padding = this.configuration.getPadding();
 
         //Build
         tableBuilder.append(header).append(Constants.NEWLINE);
@@ -68,13 +66,13 @@ class BoxDrawTable extends AbstractTable {
             tableBuilder.append(vLine);
 
             for (int j = 0; j < list.size(); j++) {
-                var cellAlign = this.tableConfiguration.getAlignment();
+                var cellAlign = this.configuration.getAlignment();
                 final String styledCell = list.getStyledText(j);
                 final int displayWidth = list.get(j).width();
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str height in each column
                 final int offset = (longest - displayWidth) + padding; //Add padding to avoid cramping
-                cellAlign = chooseColAlignment(j, cellAlign, this.tableConfiguration.getColumnAlignment());
+                cellAlign = chooseColAlignment(j, cellAlign, this.configuration.getColumnAlignment());
                 tableBuilder.append(align(cellAlign, sb, offset, styledCell, vLine));
 
                 clearStringBuilder(sb);
@@ -106,7 +104,7 @@ class BoxDrawTable extends AbstractTable {
         sb.append(left);
         for (int i = 0; i < this.columns.size(); i++) {
             final WidthAwareList l = this.columns.get(i);
-            sb.repeat(hLine, l.longest() + this.tableConfiguration.getPadding());
+            sb.repeat(hLine, l.longest() + this.configuration.getPadding());
 
             if (i < this.columns.size() - 1) {
                 sb.append(join);
@@ -118,40 +116,23 @@ class BoxDrawTable extends AbstractTable {
     }
 
 
-    protected void styleTableBorders() {
-        final BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
-        if (borderStyle == null) return;
+    protected void colorTableBorders() {
+        final StringBuilder sb = new StringBuilder();
+        final AnsiCode[] borderColor = configuration.getBorderColor();
 
-        var tableType = switch (this){
-            case RoundedBoxDrawTable rb -> "RoundedBoxDraw";
-            case BoxDrawTable b -> "BoxDraw";
-        };
+        this.hLine = formatAndReset(sb, this.hLine, borderColor);
+        this.topJoin =  formatAndReset(sb, this.topJoin, borderColor);
+        this.bottomJoin =   formatAndReset(sb, this.bottomJoin, borderColor);
+        this.cross = formatAndReset(sb, this.cross, borderColor);
 
-        if (borderStyle.hasModifiedChar()) {
-            throw new IllegalArgumentException(
-                    "Border character customization is only supported for DEFAULT tables. " +
-                            "TableType.%s does not support character overrides.".formatted(tableType)
-            );
-        }
+        this.vLine = formatAndReset(sb, this.vLine, borderColor);
+        this.leftJoin = formatAndReset(sb, this.leftJoin, borderColor);
+        this.rightJoin = formatAndReset(sb, this.rightJoin, borderColor);
 
-        final StyleBuilder sb = new DefaultStyleBuilder();
-        final AnsiCode[] horizontalStyles = borderStyle.getHorizontalStyle();
-        final AnsiCode[] verticalStyles = borderStyle.getVerticalStyle();
-        final AnsiCode[] cornerStyle = borderStyle.getCornerStyle();
-
-        this.hLine = sb.formatAndReset(this.hLine, horizontalStyles);
-        this.topJoin = sb.formatAndReset(this.topJoin, horizontalStyles);
-        this.bottomJoin = sb.formatAndReset(this.bottomJoin, horizontalStyles);
-        this.cross = sb.formatAndReset(this.cross, horizontalStyles);
-
-        this.vLine = sb.formatAndReset(this.vLine, verticalStyles);
-        this.leftJoin = sb.formatAndReset(this.leftJoin, verticalStyles);
-        this.rightJoin = sb.formatAndReset(this.rightJoin, verticalStyles);
-
-        this.topLeft = sb.formatAndReset(this.topLeft, cornerStyle);
-        this.topRight = sb.formatAndReset(this.topRight, cornerStyle);
-        this.bottomLeft = sb.formatAndReset(this.bottomLeft, cornerStyle);
-        this.bottomRight = sb.formatAndReset(this.bottomRight, cornerStyle);
+        this.topLeft = formatAndReset(sb, this.topLeft, borderColor);
+        this.topRight = formatAndReset(sb, this.topRight, borderColor);
+        this.bottomLeft = formatAndReset(sb, this.bottomLeft, borderColor);
+        this.bottomRight = formatAndReset(sb, this.bottomRight, borderColor);
 
     }
 
@@ -199,7 +180,7 @@ class BoxDrawTable extends AbstractTable {
                 ", cross='" + cross + '\'' +
                 ", columns=" + columns +
                 ", rows=" + rows +
-                ", tableConfiguration=" + tableConfiguration +
+                ", tableConfiguration=" + configuration +
                 ']';
     }
 }

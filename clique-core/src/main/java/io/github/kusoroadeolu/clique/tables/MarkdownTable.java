@@ -1,18 +1,16 @@
 package io.github.kusoroadeolu.clique.tables;
 
 
-import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
-import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
-import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
+import static io.github.kusoroadeolu.clique.style.StyleBuilder.formatAndReset;
 
 class MarkdownTable extends AbstractTable {
     private String hLine;
@@ -22,7 +20,7 @@ class MarkdownTable extends AbstractTable {
         super(tableConfiguration);
         this.vLine = "|";
         this.hLine = "-";
-        this.styleTableBorders();
+        this.colorTableBorders();
 
     }
 
@@ -35,15 +33,15 @@ class MarkdownTable extends AbstractTable {
             final WidthAwareList list = this.rows.get(i);
             sb.append(this.vLine);
             for (int j = 0; j < list.size(); j++) {
-                var cellAlign = this.tableConfiguration.getAlignment();
+                var cellAlign = this.configuration.getAlignment();
                 final String styledCell = list.getStyledText(j);
                 final int displayWidth = list.get(j).width();
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str height in each column
 
-                final int offset = (longest - displayWidth) + this.tableConfiguration.getPadding();
+                final int offset = (longest - displayWidth) + this.configuration.getPadding();
 
-                cellAlign = chooseColAlignment(j, cellAlign, this.tableConfiguration.getColumnAlignment());
+                cellAlign = chooseColAlignment(j, cellAlign, this.configuration.getColumnAlignment());
                 tableBuilder.append(align(cellAlign, sb, offset, styledCell, this.vLine));
                 clearStringBuilder(sb);
             }
@@ -63,7 +61,7 @@ class MarkdownTable extends AbstractTable {
     private String appendHeader(StringBuilder sb) {
         sb.append(this.vLine);
         for (final WidthAwareList col : this.columns) {
-            sb.repeat(this.hLine, col.longest() + this.tableConfiguration.getPadding());
+            sb.repeat(this.hLine, col.longest() + this.configuration.getPadding());
             sb.append(this.vLine);
         }
 
@@ -71,18 +69,13 @@ class MarkdownTable extends AbstractTable {
     }
 
 
-    protected void styleTableBorders() {
-        BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
-        if (borderStyle == null) return;
-        if (borderStyle.hasModifiedChar()) {
-            throw new IllegalArgumentException(
-                    "Border character customization is only supported for DEFAULT tables. " +
-                            "TableType.Markdown" + " does not support character overrides."
-            );
+    protected void colorTableBorders() {
+        var color = configuration.getBorderColor();
+        if (color != null && color.length != 0){
+            final var sb = new StringBuilder();
+            this.hLine = formatAndReset(sb, this.hLine, color);
+            this.vLine = formatAndReset(sb, this.vLine, color);
         }
-        final StyleBuilder sb = new DefaultStyleBuilder();
-        this.hLine = sb.formatAndReset(this.hLine, borderStyle.getHorizontalStyle());
-        this.vLine = sb.formatAndReset(this.vLine, borderStyle.getVerticalStyle());
     }
 
     @Override
@@ -106,7 +99,7 @@ class MarkdownTable extends AbstractTable {
                 ", vLine='" + vLine + '\'' +
                 ", columns=" + columns +
                 ", rows=" + rows +
-                ", tableConfiguration=" + tableConfiguration +
+                ", tableConfiguration=" + configuration +
                 ']';
     }
 }

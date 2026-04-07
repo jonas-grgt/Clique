@@ -1,10 +1,6 @@
 package io.github.kusoroadeolu.clique.frame;
 
-import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.boxes.BoxType;
-import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
-import io.github.kusoroadeolu.clique.config.FrameConfiguration;
 import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
@@ -12,18 +8,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DefaultFrameTest {
 
-    private DefaultFrame frame;
+    private Frame frame;
 
     @BeforeEach
     public void setup(){
-        this.frame = new DefaultFrame();
+        this.frame = new Frame();
     }
 
     private static Component component(String output) {
@@ -186,48 +181,8 @@ class DefaultFrameTest {
     }
 
     @Test
-    void borderStyleConfig_shouldApplyGivenChanges(){
-        BorderStyle style = BorderStyle
-                .builder()
-                .cornerChar('o')
-                .horizontalChar('~')
-                .verticalChar('/')
-                .build();
-        var config = FrameConfiguration.builder().borderStyle(style).build();
-
-
-        var frame2 = Clique.frame(BoxType.DEFAULT, config).nest("Hello"); //ASCII
-        List<String> lines = frame2.get().lines().toList();
-        var lines_1 = lines.getFirst();
-        var lines_2 = lines.get(1);
-        assertTrue(lines_1.contains("o"));
-        assertTrue(lines_1.contains("~")); //Asserting line 1 contains both the corners and horizontal chars
-        assertTrue(lines_2.contains("/")); //Assert line2 contains the vlines
-    }
-
-
-    @Test
-    void borderStyleConfig_shouldNotApplyChanges_onBlankChars(){
-        BorderStyle style = BorderStyle
-                .builder()
-                .cornerChar(' ')
-                .build();
-        var config = FrameConfiguration
-                .builder()
-                .borderStyle(style)
-                .build();
-
-
-        var frame2 = new DefaultFrame(config, BoxType.DEFAULT).nest("Hello"); //ASCII
-        List<String> lines2 = frame2.get().lines().toList();
-        var lines2_1 = lines2.getFirst();
-        assertFalse(lines2_1.contains(" "));
-        assertTrue(lines2_1.contains("+"));
-    }
-
-    @Test
     void test_frameHeight(){
-        String str = new DefaultFrame()
+        String str = new Frame()
                 .nest("Hello")
                 .get();
 
@@ -237,25 +192,25 @@ class DefaultFrameTest {
 
     @Test
     void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedLeft(){
-        Frame frame = new DefaultFrame();
+        Frame frame = new Frame();
         assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.LEFT).get());
     }
 
     @Test
     void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedRight(){
-        Frame frame = new DefaultFrame();
+        Frame frame = new Frame();
         assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.RIGHT).get());
     }
 
     @Test
     void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedCenter(){
-        Frame frame = new DefaultFrame();
+        Frame frame = new Frame();
         assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.CENTER).get());
     }
 
     @Test
     void test_givenWidthFrame_whenTitleWidth_equalToContent_andAlignedLeft(){
-        Frame frame = new DefaultFrame();
+        Frame frame = new Frame();
         assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(5), FrameAlign.LEFT).width(9).get());
     }
 }
