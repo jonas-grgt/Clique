@@ -8,9 +8,7 @@ import io.github.kusoroadeolu.clique.core.documentation.Stable;
 public interface Box extends Bordered {
     Box content(String content);
 
-    Box content(Object object);
-
     Box content(String content, TextAlign align);
 
-    Box content(Object object, TextAlign align);
+    Box dimensions(int width, int height);
 }
