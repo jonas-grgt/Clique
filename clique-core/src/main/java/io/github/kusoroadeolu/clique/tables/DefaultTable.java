@@ -14,7 +14,7 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBu
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
 
-class DefaultTable extends AbstractTable implements CustomizableTable {
+class DefaultTable extends AbstractTable {
     private String corner;
     private String hLine;
     private String vLine;
@@ -140,23 +140,5 @@ class DefaultTable extends AbstractTable implements CustomizableTable {
                 ", rows=" + rows +
                 ", columns=" + columns +
                 ']';
-    }
-
-    @Override
-    public CustomizableTable customizeEdge(char edge) {
-        this.customizeCorner(edge);
-        return this;
-    }
-
-    @Override
-    public CustomizableTable customizeVerticalLine(char vLine) {
-        this.customizeVLine(vLine);
-        return this;
-    }
-
-    @Override
-    public CustomizableTable customizeHorizontalLine(char hLine) {
-        this.customizeHLine(hLine);
-        return this;
     }
 }

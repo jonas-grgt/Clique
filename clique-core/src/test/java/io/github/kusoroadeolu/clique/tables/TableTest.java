@@ -142,18 +142,6 @@ class TableTest {
         assertNotSame(str1, table.get());
     }
 
-    //Deprecated but here for backward compat
-    @Test
-    void assertNotSame_onSubsequentGetCalls_onCustomizeCall(){
-        CustomizableTable table = Clique.customizableTable(TableType.DEFAULT)
-                .headers("A", "B")
-                .customizeEdge('+');
-        var str1 = table.get();
-         table.customizeEdge('-');
-
-        assertNotSame(str1, table.get());
-    }
-
     @Test
     void borderStyleConfig_shouldApplyGivenChanges(){
         var table1 = Clique.table(TableType.DEFAULT)

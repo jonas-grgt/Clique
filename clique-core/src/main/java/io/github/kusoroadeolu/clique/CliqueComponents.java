@@ -1,7 +1,6 @@
 package io.github.kusoroadeolu.clique;
 
 import io.github.kusoroadeolu.clique.boxes.AbstractBox.BoxDimensionBuilder;
-import io.github.kusoroadeolu.clique.boxes.AbstractBox.CustomizableBoxDimensionBuilder;
 import io.github.kusoroadeolu.clique.boxes.BoxFactory;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.*;
@@ -12,7 +11,6 @@ import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.progressbar.IterableProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
-import io.github.kusoroadeolu.clique.tables.AbstractTable.CustomizableTableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
 import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
@@ -121,10 +119,6 @@ final class CliqueComponents {
         return new IterableProgressBar<>(collection, configuration);
     }
 
-
-
-
-
     // FRAME
     public static Frame frame() {
         return new DefaultFrame();
@@ -154,7 +148,6 @@ final class CliqueComponents {
 
 
     // TREE
-
     public static Tree tree(String label) {
         return new Tree(label);
     }
@@ -163,72 +156,4 @@ final class CliqueComponents {
         return new Tree(label, configuration);
     }
 
-
-
-
-
-    // DEPRECATED BOX METHODS
-    /**
-     * @deprecated As of 3.1, use {@link #table(TableType)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableTableHeaderBuilder customizableTable(TableType type) {
-        return TableFactory.getCustomizableTableBuilder(type);
-    }
-
-    /**
-     * @deprecated As of 3.1, use {@link #table(TableType, TableConfiguration)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableTableHeaderBuilder customizableTable(TableType type, TableConfiguration configuration) {
-        return TableFactory.getCustomizableTableBuilder(type, configuration);
-    }
-
-    /**
-     * @deprecated As of 3.1, use {@link #table()} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableTableHeaderBuilder customizableTable() {
-        return customizableTable(TableConfiguration.DEFAULT);
-    }
-
-    /**
-     * @deprecated As of 3.1, use {@link #table(TableConfiguration)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableTableHeaderBuilder customizableTable(TableConfiguration configuration) {
-        return customizableTable(TableType.BOX_DRAW, configuration);
-    }
-
-        /**
-         * @deprecated As of 3.1, use {@link #box(BoxType, BoxConfiguration)} instead. This will be removed in a future release.
-         */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type, BoxConfiguration configuration) {
-        return BoxFactory.getCustomizableBoxDimensionBuilder(type, configuration);
-    }
-
-    /**
-     * @deprecated As of 3.1, use {@link #box(BoxType)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxType type) {
-        return BoxFactory.getCustomizableBoxDimensionBuilder(type);
-    }
-
-    /**
-     * @deprecated As of 3.1, use {@link #box()} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox() {
-        return customizableBox(BoxType.ROUNDED);
-    }
-
-    /**
-     * @deprecated As of 3.1, use {@link #box(BoxConfiguration)} instead. This will be removed in a future release.
-     */
-    @Deprecated(forRemoval = true, since = "3.1")
-    public static CustomizableBoxDimensionBuilder customizableBox(BoxConfiguration configuration) {
-        return customizableBox(BoxType.ROUNDED, configuration);
-    }
 }

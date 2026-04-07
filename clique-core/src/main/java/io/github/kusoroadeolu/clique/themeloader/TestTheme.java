@@ -26,7 +26,7 @@ public class TestTheme implements CliqueTheme {
 
     @Override
     public String url() {
-        return "someurl";
+        return "";
     }
 
     private record TestAnsiCode(String code) implements AnsiCode {
