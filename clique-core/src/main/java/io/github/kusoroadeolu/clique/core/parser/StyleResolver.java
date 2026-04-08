@@ -43,6 +43,6 @@ public final class StyleResolver {
                 else sb.stack(val, codes);
             }
 
-        return sb.get();
+        return sb.toString();
     }
 }

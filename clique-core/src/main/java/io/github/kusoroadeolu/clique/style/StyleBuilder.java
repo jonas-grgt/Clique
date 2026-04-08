@@ -5,9 +5,6 @@ import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
-import java.io.PrintStream;
-import java.util.Objects;
-
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.style;
 
 @InternalApi(since = "3.2.0")
@@ -49,18 +46,9 @@ public class StyleBuilder {
     }
 
 
-    public String get() {
+    public String toString() {
         return this.textBuilder.toString();
     }
-
-
-    public void print(PrintStream stream) {
-        Objects.requireNonNull(stream, "Print stream cannot be null");
-        this.textBuilder.append(RESET); //Reset all styles
-        stream.println(this.textBuilder);
-    }
-
-
 
     @Override
     public boolean equals(Object object) {
@@ -75,10 +63,4 @@ public class StyleBuilder {
         return textBuilder.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "StyleBuilder[" +
-                "text" + textBuilder +
-                ']';
-    }
 }

@@ -1,13 +1,12 @@
 package io.github.kusoroadeolu.clique.core.parser;
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
 
-import static io.github.kusoroadeolu.clique.core.parser.PredefinedStyleContext.findStyle;
+import static io.github.kusoroadeolu.clique.core.parser.PredefinedStyleContext.getOrThrow;
 
 @InternalApi(since = "3.2.0")
 public class ParserUtils {
@@ -22,9 +21,7 @@ public class ParserUtils {
     public static AnsiCode[] getAnsiCodes(String string, MarkupParser parser) {
         if (string.isBlank()) return NONE;
         return Arrays.stream(string.split(parser.parserConfiguration().getDelimiter()))
-                .map(s -> findStyle(s.trim(), parser.parserConfiguration().getStyleContext())
-                        .orElseThrow(() -> new UnidentifiedStyleException("Failed to find ansi code mapped to style: %s".formatted(s)))
-                )
+                .map(s -> getOrThrow(s.trim(), parser.parserConfiguration().getStyleContext()))
                 .toArray(AnsiCode[]::new);
     }
 }

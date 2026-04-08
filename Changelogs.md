@@ -190,6 +190,8 @@ _(no changes noted)_
 - `AnsiCode` varargs and `String` overloads in `Clique` facade in place of `BorderSpec` types. These overloads provide uniform styling across each component's borders, removing the use of per edge control.
 - `connectorColor()` method to `TreeConfiguration` with `AnsiCode...` and `String` overloads
 - `StyleContext` support in `ParserConfiguration` via `styleContext(StyleContext)` and `addStyle(String, AnsiCode)` builder methods, allowing custom styles scoped to a specific parser instance
+- `Ink` — a lightweight, functional, chainable ANSI string builder accessible via `Clique.ink()` and `Clique.ink(StyleContext)`. Supports all predefined colors, bright variants, background colors, text styles, 24-bit RGB via `rgb()` and `bgRgb()`, and named style lookup via `of()`.
+
 
 ### Fixed
 - An off by one error in `Frame` when a title wider than the frame's content was aligned left or right.

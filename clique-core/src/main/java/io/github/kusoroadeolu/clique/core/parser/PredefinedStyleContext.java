@@ -4,11 +4,11 @@ import io.github.kusoroadeolu.clique.ansi.BackgroundCode;
 import io.github.kusoroadeolu.clique.ansi.ColorCode;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
+import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.parser.StyleContext;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 //A simple class which holds the maps of the syntax
@@ -116,7 +116,10 @@ public final class PredefinedStyleContext {
         throw new AssertionError();
     }
 
-    static Optional<AnsiCode> findStyle(String s, StyleContext ctx){
-        return Optional.ofNullable(get(s, ctx));
+
+    public static AnsiCode getOrThrow(String s, StyleContext ctx){
+        AnsiCode code = get(s, ctx);
+        if (code == null) throw new UnidentifiedStyleException("Failed to find ansi code mapped to style: %s".formatted(s));
+        return code;
     }
 }

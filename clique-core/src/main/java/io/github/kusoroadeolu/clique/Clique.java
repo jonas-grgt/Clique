@@ -8,12 +8,14 @@ import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
 import io.github.kusoroadeolu.clique.frame.Frame;
 import io.github.kusoroadeolu.clique.indent.Indenter;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
+import io.github.kusoroadeolu.clique.parser.StyleContext;
 import io.github.kusoroadeolu.clique.progressbar.IterableProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
+import io.github.kusoroadeolu.clique.style.Ink;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.tables.PendingTable;
 import io.github.kusoroadeolu.clique.tables.TableType;
@@ -40,6 +42,17 @@ public final class Clique {
     // PARSER
     public static MarkupParser parser() { return CliqueStyles.parser(); }
     public static MarkupParser parser(ParserConfiguration configuration) { return CliqueStyles.parser(configuration); }
+
+    //INK
+    public static Ink ink(){
+        return CliqueStyles.ink();
+    }
+
+    public static Ink ink(StyleContext context){
+        return CliqueStyles.ink(context);
+    }
+
+
 
     // TABLE
     public static PendingTable table() { return CliqueComponents.table(); }
