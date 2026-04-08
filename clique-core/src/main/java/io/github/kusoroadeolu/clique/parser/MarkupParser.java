@@ -17,10 +17,10 @@ import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;
  * @since 1.0.0
  * */
 @InternalApi(since = "3.2.0")
-public record AnsiStringParser(ParserConfiguration parserConfiguration) {
-    public static final AnsiStringParser DEFAULT = new AnsiStringParser();
+public record MarkupParser(ParserConfiguration parserConfiguration) {
+    public static final MarkupParser DEFAULT = new MarkupParser();
 
-    public AnsiStringParser() {
+    public MarkupParser() {
         this(ParserConfiguration.DEFAULT);
     }
 

@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class TableConfiguration {
 
     private final int padding;
     private final CellAlign alignment;
-    private final AnsiStringParser parser;
+    private final MarkupParser parser;
     private final String nullReplacement;
     private final Map<Integer, CellAlign> columnAlignment;
     private final AnsiCode[] borderColor;
@@ -49,7 +49,7 @@ public class TableConfiguration {
         return this.alignment;
     }
 
-    public AnsiStringParser getParser() {
+    public MarkupParser getParser() {
         return this.parser;
     }
 
@@ -93,7 +93,7 @@ public class TableConfiguration {
     public static class TableConfigurationBuilder {
         private int padding = 1;
         private CellAlign alignment = CellAlign.LEFT;
-        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
+        private MarkupParser parser = MarkupParser.DEFAULT;
         private String nullReplacement = "";
         private Map<Integer, CellAlign> columnAlignment = new HashMap<>();
         private AnsiCode[] borderColor = {};
@@ -110,7 +110,7 @@ public class TableConfiguration {
             return this;
         }
 
-        public TableConfigurationBuilder parser(AnsiStringParser parser) {
+        public TableConfigurationBuilder parser(MarkupParser parser) {
             this.parser = parser;
             return this;
         }

@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPredicate;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 
@@ -22,7 +22,7 @@ public class ProgressBarConfiguration {
     private final char complete;
     private final char incomplete;
     private final String format;
-    private final AnsiStringParser parser;
+    private final MarkupParser parser;
     private final List<ProgressBarPredicate> styles;
     private final EasingConfiguration easingConfiguration;
 
@@ -72,7 +72,7 @@ public class ProgressBarConfiguration {
                 .orElse(format);  // Fall back to default format
     }
 
-    public AnsiStringParser parser() {
+    public MarkupParser parser() {
         return parser;
     }
 
@@ -127,7 +127,7 @@ public class ProgressBarConfiguration {
         private char complete = '█';
         private char incomplete = '░';
         private String format = ":bar :percent% [:elapsed/:remaining]";
-        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
+        private MarkupParser parser = MarkupParser.DEFAULT;
         private List<ProgressBarPredicate> styles = new ArrayList<>();
         private EasingConfiguration easing = EasingConfiguration.DEFAULT;
 
@@ -153,7 +153,7 @@ public class ProgressBarConfiguration {
             return this;
         }
 
-        public ProgressBarConfigurationBuilder parser(AnsiStringParser parser) {
+        public ProgressBarConfigurationBuilder parser(MarkupParser parser) {
             this.parser = parser;
             return this;
         }

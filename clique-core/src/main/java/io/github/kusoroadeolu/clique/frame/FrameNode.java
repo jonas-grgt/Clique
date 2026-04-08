@@ -4,13 +4,13 @@ import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 
 import java.util.List;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCellIfPresent;
-import static io.github.kusoroadeolu.clique.parser.AnsiStringParser.DEFAULT;
+import static io.github.kusoroadeolu.clique.parser.MarkupParser.DEFAULT;
 
 @InternalApi(since = "3.2.0")
 sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode {
@@ -31,7 +31,7 @@ sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode
     }
 
     //For raw strings, we need to handle the case in which the string has markup, however for components, when we call the get method, they apply their markup so it's good
-    static List<Cell> splitLines(String str, AnsiStringParser parser){
+    static List<Cell> splitLines(String str, MarkupParser parser){
         return str.lines().map(s -> parseToCellIfPresent(s, parser)).toList();
     }
 
@@ -66,7 +66,7 @@ sealed interface FrameNode permits FrameNode.StringNode, FrameNode.ComponentNode
         private final int maxWidth;
         private final FrameAlign align;
 
-        public StringNode(String str, FrameAlign align, AnsiStringParser parser) {
+        public StringNode(String str, FrameAlign align, MarkupParser parser) {
             this.lines = FrameNode.splitLines(str, parser);
             this.maxWidth = findMaxWidth(lines);
             this.align = align;

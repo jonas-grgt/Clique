@@ -3,7 +3,7 @@ package io.github.kusoroadeolu.clique;
 import io.github.kusoroadeolu.clique.ansi.RGBColor;
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
@@ -32,12 +32,12 @@ final class CliqueStyles {
 
     // PARSER
 
-    public static AnsiStringParser parser() {
-        return new AnsiStringParser();
+    public static MarkupParser parser() {
+        return new MarkupParser();
     }
 
-    public static AnsiStringParser parser(ParserConfiguration configuration) {
-        return new AnsiStringParser(configuration);
+    public static MarkupParser parser(ParserConfiguration configuration) {
+        return new MarkupParser(configuration);
     }
 
     // RGB
