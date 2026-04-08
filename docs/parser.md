@@ -17,7 +17,7 @@ System.out.println(styled);
 ### Getting the Original String
 After parsing, you can retrieve the original text without markup tags:
 ```java
-AnsiStringParser parser = Clique.parser();
+MarkupParser parser = Clique.parser();
 String original = parser.getOriginalString("[red, bold]Hello[/] World"); // Returns "Hello World"
 ```
 
@@ -43,7 +43,7 @@ ParserConfiguration configuration = ParserConfiguration
         .delimiter(' ')          // Use space instead of comma as delimiter
         .build();
 
-AnsiStringParser configuredParser = Clique.parser(configuration);
+MarkupParser configuredParser = Clique.parser(configuration);
 
 // Now you can use space-separated styles
 configuredParser.print("[red bold]Hello[blue] World");
@@ -66,7 +66,7 @@ ParserConfiguration config = ParserConfiguration.builder()
     .enableStrictParsing()
     .build();
     
-AnsiStringParser parser = Clique.parser(config);
+MarkupParser parser = Clique.parser(config);
 
 // Throws UnidentifiedStyleException because "bol" is not a recognized style
 parser.parse("[red, bol]Text[/]");
