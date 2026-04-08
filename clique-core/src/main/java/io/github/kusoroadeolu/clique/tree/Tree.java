@@ -9,6 +9,7 @@ import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
@@ -57,8 +58,8 @@ public class Tree implements Borderless {
         return tree;
     }
 
-    public Tree parent(){
-        return parent;
+    public Optional<Tree> parent(){
+        return Optional.ofNullable(parent);
     }
 
     private void buildTree(Tree node, String prefix, boolean isLast, StyleBuilder sb) {
