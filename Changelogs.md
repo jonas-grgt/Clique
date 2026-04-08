@@ -213,3 +213,6 @@ _(no changes noted)_
 - `Clique#table` overloads to return `PendingTable` interface, in place of `TableDimensionBuilder`
 - `Tree#parent` returns an `Optional<Tree>` type instead of a `Tree` type.
 - `AnsiStringParser` to `MarkupParser`
+- 
+## clique-spi [2.0.0] - 2026-04-03
+- `AnsiCode#toString()` contract renamed to `AnsiCode#ansiSequence()`

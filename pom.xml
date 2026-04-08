@@ -44,7 +44,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <clique-core.version>3.2.2</clique-core.version>
-        <clique-spi.version>1.0.7</clique-spi.version>
+        <clique-spi.version>2.0.0</clique-spi.version>
         <junit.version>5.11.4</junit.version>
         <clique-themes.version>1.0.0</clique-themes.version>
     </properties>

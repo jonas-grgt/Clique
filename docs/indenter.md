@@ -60,7 +60,7 @@ indenter.add("Item A", "Item B", "Item C");   // varargs
 List<String> items = List.of("X", "Y", "Z");
 indenter.add(items);                           // collection
 
-indenter.add(42);                              // any object, calls toString()
+indenter.add(42);                              // any object, calls ansiSequence()
 ```
 
 ## Built-in Flags

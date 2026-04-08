@@ -55,7 +55,7 @@ public class MyTheme implements CliqueTheme {
     }
 
     private record Rgb(String code) implements AnsiCode {
-        @Override public String toString() { return code; }
+        @Override public String ansiSequence() { return code; }
     }
 }
 ```
@@ -121,7 +121,7 @@ public class SolarizedDarkTheme implements CliqueTheme {
     }
 
     private record Rgb(String code) implements AnsiCode {
-        @Override public String toString() { return code; }
+        @Override public String ansiSequence() { return code; }
     }
 }
 ```
@@ -240,7 +240,7 @@ theme.styles().forEach((name, code) -> {
 });
 ```
 
-It's rough, but it catches the common mistakes, missing `toString()`, forgotten colors, names that clash.
+It's rough, but it catches the common mistakes, missing `ansiSequence()`, forgotten colors, names that clash.
 
 ---
 

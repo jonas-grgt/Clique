@@ -2,7 +2,6 @@ package io.github.kusoroadeolu.clique.tables;
 
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.tables.PendingTable;
 
 import java.util.Objects;
 

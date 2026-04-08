@@ -40,7 +40,12 @@ public enum StyleCode implements AnsiCode {
      * @return The ANSI escape code string.
      */
     @Override
-    public String toString() {
+    public String ansiSequence() {
+        return code;
+    }
+
+    @Override
+    public String toString(){
         return code;
     }
 }
