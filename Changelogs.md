@@ -118,7 +118,7 @@ _(no changes noted)_
 - `Clique` facade overloads now accept `BorderSpec` instead of a `BorderStyle`
 - `builder()` is now the standard entry point for all configuration classes
 - Parser escape syntax replaced — `[content[/]]` is removed in favor of `\[` (e.g. `\[red]` renders as `[red]`)
-- `enableAutoCloseTags` now correctly described as style leak prevention — resets styles when a new tag is encountered rather than forgiving malformed tags
+- `enableAutoReset` now correctly described as style leak prevention — resets styles when a new tag is encountered rather than forgiving malformed tags
 - `enableStrictParsing` no longer throws on unrecognized or structurally unusual brackets — only throws `UnidentifiedStyleException` when a valid tag contains an unrecognized style
 
 ### Fixed
@@ -185,14 +185,12 @@ _(no changes noted)_
 _(no changes noted)_
 
 
-# Changelog
-
 ## Clique [4.0.0] - [UNRELEASED]
-### Added 
+### Added
 - `AnsiCode` varargs and `String` overloads in `Clique` facade in place of `BorderSpec` types. These overloads provide uniform styling across each component's borders, removing the use of per edge control.
 - `flagColor()` method to `IndenterConfiguration` which applies a default color to all flags with `AnsiCode...` and `String` overloads. Markup applied on flags still takes precedence
-- `connectorColor()` method to `TreeConfiguration`with `AnsiCode...` and `String` overloads
-
+- `connectorColor()` method to `TreeConfiguration` with `AnsiCode...` and `String` overloads
+- `StyleContext` support in `ParserConfiguration` via `styleContext(StyleContext)` and `addStyle(String, AnsiCode)` builder methods, allowing custom styles scoped to a specific parser instance
 
 ### Fixed
 - An off by one error in `Frame` when a title wider than the frame's content was aligned left or right.
@@ -213,6 +211,7 @@ _(no changes noted)_
 - `Clique#table` overloads to return `PendingTable` interface, in place of `TableDimensionBuilder`
 - `Tree#parent` returns an `Optional<Tree>` type instead of a `Tree` type.
 - `AnsiStringParser` to `MarkupParser`
-- 
-## clique-spi [2.0.0] - 2026-04-03
+- `enableAutoCloseTags()` renamed to `enableAutoReset()` in `ParserConfiguration` to better reflect its behavior of resetting ANSI codes after each styled segment
+
+## clique-spi [2.0.0] - [UNRELEASED]
 - `AnsiCode#toString()` contract renamed to `AnsiCode#ansiSequence()`

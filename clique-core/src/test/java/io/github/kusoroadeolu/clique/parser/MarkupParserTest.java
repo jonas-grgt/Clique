@@ -10,11 +10,9 @@ import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,7 +58,7 @@ class MarkupParserTest {
     void testAutoCloseTags() {
         ParserConfiguration config = ParserConfiguration
                 .builder()
-                .enableAutoCloseTags()
+                .enableAutoReset()
                 .build();
         MarkupParser parser = new MarkupParser(config);
         String output = parser.parse("[red]Text");
@@ -79,11 +77,18 @@ class MarkupParserTest {
     }
 
     @Test
-    void localStyleShouldResolveBeforeGlobal() {
+    void assert_localStyleResolvesBeforeGlobal() {
         var config = ParserConfiguration.builder().addStyle("mycolor", ColorCode.BLUE).build();
         GlobalStyleRegistry.registerStyle("mycolor", ColorCode.RED);
         String output = Clique.parser(config).parse("[mycolor]Hello"); //Should contain blue instead of red
         assertTrue(output.contains(ColorCode.BLUE.ansiSequence()));
+    }
+
+    @Test
+    void assert_globalStyleResolvesBeforePredefined() {
+        GlobalStyleRegistry.registerStyle("blue", ColorCode.RED);
+        String output = Clique.parser().parse("[blue]Hello"); //Should contain red instead of blue
+        assertTrue(output.contains(ColorCode.RED.ansiSequence()));
     }
 
 

@@ -81,7 +81,7 @@ public class IndenterConfiguration {
 
     public static class IndenterConfigurationBuilder {
         private int indentLevel = 1;
-        private MarkupParser parser = new MarkupParser(ParserConfiguration.builder().enableAutoCloseTags().build());
+        private MarkupParser parser = new MarkupParser(ParserConfiguration.builder().enableAutoReset().build());
         private String defaultFlag = BLANK;
         private AnsiCode[] flagColor = {};
 

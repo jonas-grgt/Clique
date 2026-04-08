@@ -12,6 +12,7 @@ import java.util.Objects;
 @Experimental(since = "4.0.0")
 public final class StyleContext {
     private final Map<String, AnsiCode> localStyles;
+    public static final StyleContext NONE = new StyleContext();
 
     public static StyleContextBuilder builder(){
         return new StyleContextBuilder();
@@ -28,6 +29,10 @@ public final class StyleContext {
 
     StyleContext(StyleContextBuilder builder) {
         this.localStyles = builder.localStyles;
+    }
+
+    StyleContext() {
+        this.localStyles = new HashMap<>();
     }
 
     public static class StyleContextBuilder {

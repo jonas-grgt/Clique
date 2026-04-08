@@ -1,6 +1,6 @@
 # Parser
 
-Clique's parser allows you to use a simple markup format for styling text instead of verbose `styleBuilder` calls or raw ANSI codes.
+Clique's parser allows you to use a simple markup format for styling text instead of verbose `StyleBuilder` calls or raw ANSI codes.
 
 ## Basic Usage
 ### Parse and Print
@@ -39,7 +39,7 @@ Customize how the parser behaves using `ParserConfiguration`:
 ```java
 ParserConfiguration configuration = ParserConfiguration
         .builder()
-        .enableAutoCloseTags()  // Automatically reset styles between tags to prevent leaking
+        .enableAutoReset()  // Automatically reset styles between tags to prevent leaking
         .delimiter(' ')          // Use space instead of comma as delimiter
         .build();
 
@@ -52,8 +52,65 @@ configuredParser.print("[red bold]Hello[blue] World");
 ### Configuration Options
 
 - **`delimiter(char)`** - Set the delimiter between style attributes (default: `,`)
-- **`enableAutoCloseTags()`** - Automatically resets styles when a new tag is encountered, preventing styles from leaking into subsequent tags
+- **`enableAutoReset()`** - Automatically resets styles when a new tag is encountered, preventing styles from leaking into subsequent tags
 - **`enableStrictParsing()`** - Throw exceptions for unrecognized styles on otherwise valid tags
+- **`addStyle(String, AnsiCode)`** - Register a single custom style for this parser instance
+- **`styleContext(StyleContext)`** - Attach a full `StyleContext` of custom styles to this parser instance
+
+## Local Styles with StyleContext
+
+`StyleContext` lets you register custom styles scoped to a specific parser instance, without touching the global style registry. This is useful when you want custom markup that only applies in a specific context.
+
+```java
+StyleContext ctx = StyleContext.builder()
+        .add("highlight", ColorCode.YELLOW)
+        .add("muted", StyleCode.DIM)
+        .build();
+
+ParserConfiguration config = ParserConfiguration.builder()
+        .styleContext(ctx)
+        .build();
+
+MarkupParser parser = Clique.parser(config);
+parser.print("[highlight]This is highlighted[/] and [muted]this is muted[/]");
+```
+
+You can also register a single style directly on the builder without constructing a full `StyleContext`:
+
+```java
+ParserConfiguration config = ParserConfiguration.builder()
+        .addStyle("highlight", ColorCode.YELLOW)
+        .build();
+```
+
+### Style Resolution Order
+
+When the parser encounters a markup tag, it resolves styles in the following order:
+
+1. **Local styles** — defined via `styleContext()` or `addStyle()` on this parser's configuration
+2. **Global custom styles** — registered via `Clique.registerStyle()`
+3. **Predefined styles** — built-in colors, backgrounds, and text styles
+
+This means local styles always win. If you define `highlight` locally and something with the same name exists globally, the local one takes precedence.
+
+### Combining with Other Configuration
+
+`StyleContext` composes naturally with the rest of `ParserConfiguration`:
+
+```java
+StyleContext ctx = StyleContext.builder()
+        .add("tag", ColorCode.CYAN)
+        .add("warn", ColorCode.YELLOW)
+        .build();
+
+ParserConfiguration config = ParserConfiguration.builder()
+        .styleContext(ctx)
+        .enableAutoReset()
+        .enableStrictParsing()
+        .build();
+
+Clique.parser(config).print("[tag]INFO[/] [warn]Something looks off[/]");
+```
 
 ## Parser Exceptions
 When strict parsing is enabled, the parser throws exceptions for unrecognized styles on valid tags:
@@ -63,9 +120,9 @@ When strict parsing is enabled, the parser throws exceptions for unrecognized st
 Thrown when a valid tag contains a style that doesn't exist:
 ```java
 ParserConfiguration config = ParserConfiguration.builder()
-    .enableStrictParsing()
-    .build();
-    
+        .enableStrictParsing()
+        .build();
+
 MarkupParser parser = Clique.parser(config);
 
 // Throws UnidentifiedStyleException because "bol" is not a recognized style
@@ -87,8 +144,8 @@ Clique.parser().print("\\[red]");
 **Examples:**
 ```java
 "\\[red]"               // Displays: [red]
-"\\[red, bold]"         // Displays: [red, bold]
-"Coords: \\[10, 20]"    // Displays: Coords: [10, 20]
+        "\\[red, bold]"         // Displays: [red, bold]
+        "Coords: \\[10, 20]"    // Displays: Coords: [10, 20]
 ```
 
 ## Markup Syntax Reference

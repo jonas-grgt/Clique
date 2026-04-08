@@ -15,7 +15,7 @@ public class ParserConfiguration {
 
     private final String delimiter;
     private final boolean enableStrictParsing;
-    private final boolean enableAutoCloseTags;
+    private final boolean enableAutoReset;
     private final StyleContext styleContext;
 
 
@@ -27,7 +27,7 @@ public class ParserConfiguration {
     private ParserConfiguration(ParserConfigurationBuilder builder) {
         this.delimiter = builder.delimiter;
         this.enableStrictParsing = builder.enableStrictParsing;
-        this.enableAutoCloseTags = builder.enableAutoCloseTags;
+        this.enableAutoReset = builder.enableAutoReset;
         this.styleContext = builder.context;
     }
 
@@ -39,8 +39,8 @@ public class ParserConfiguration {
         return enableStrictParsing;
     }
 
-    public boolean getEnableAutoCloseTags() {
-        return enableAutoCloseTags;
+    public boolean getEnableAutoReset() {
+        return enableAutoReset;
     }
 
     public String getDelimiter() {
@@ -56,12 +56,12 @@ public class ParserConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         ParserConfiguration that = (ParserConfiguration) object;
-        return enableStrictParsing == that.enableStrictParsing && enableAutoCloseTags == that.enableAutoCloseTags && delimiter.equals(that.delimiter);
+        return enableStrictParsing == that.enableStrictParsing && enableAutoReset == that.enableAutoReset && delimiter.equals(that.delimiter);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(enableAutoCloseTags, enableStrictParsing, delimiter);
+        return Objects.hash(enableAutoReset, enableStrictParsing, delimiter);
     }
 
     @Override
@@ -69,19 +69,19 @@ public class ParserConfiguration {
         return "ParserConfiguration[" +
                 "delimiter='" + delimiter + '\'' +
                 ", enableStrictParsing=" + enableStrictParsing +
-                ", enableAutoCloseTags=" + enableAutoCloseTags +
+                ", enableAutoReset=" + enableAutoReset +
                 ']';
     }
 
     public static class ParserConfigurationBuilder {
         private String delimiter = String.valueOf(',');
         private boolean enableStrictParsing = false;
-        private boolean enableAutoCloseTags = false;
+        private boolean enableAutoReset = false;
         private final StyleContext.StyleContextBuilder styleContextBuilder = StyleContext.builder();
-        private StyleContext context;
+        private StyleContext context = StyleContext.NONE;
 
-        public ParserConfigurationBuilder enableAutoCloseTags() {
-            this.enableAutoCloseTags = true;
+        public ParserConfigurationBuilder enableAutoReset() {
+            this.enableAutoReset = true;
             return this;
         }
 

@@ -27,7 +27,7 @@ public record MarkupParser(ParserConfiguration parserConfiguration) {
     public String parse(String stringToParse) {
         if (stringToParse == null || stringToParse.isBlank()) return stringToParse;
         final ParseResult result = this.getParseResult(stringToParse);
-        String styled = StyleResolver.resolve(result.tokens(), stringToParse, this.parserConfiguration.getEnableAutoCloseTags());
+        String styled = StyleResolver.resolve(result.tokens(), stringToParse, this.parserConfiguration.getEnableAutoReset());
         return postProcess(styled);
 
     }
