@@ -93,7 +93,7 @@ Use `BoxConfiguration` to customize box appearance and behavior. You can access 
 | Option | Default |
 |---|---|
 | `textAlign` | `TextAlign.CENTER` |
-| `parser` | `AnsiStringParser.DEFAULT` |
+| `parser` | `MarkupParser.DEFAULT` |
 | `borderColor` | `{}` (no color) |
 | `padding` | `2` |
 

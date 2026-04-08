@@ -94,7 +94,7 @@ Use `TableConfiguration` to customize table appearance and behavior. Access the 
 | Option | Default |
 |---|---|
 | `alignment` | `CellAlign.LEFT` |
-| `parser` | `AnsiStringParser.DEFAULT` |
+| `parser` | `MarkupParser.DEFAULT` |
 | `borderColor` | `{}` (no color) |
 | `padding` | `1` |
 | `nullReplacement` | `""` (empty string) |

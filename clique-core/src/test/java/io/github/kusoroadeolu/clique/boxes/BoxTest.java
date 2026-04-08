@@ -3,7 +3,7 @@ package io.github.kusoroadeolu.clique.boxes;
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.config.TextAlign;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +14,7 @@ class BoxTest {
         var box = Clique.box()
                 .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_CENTER);
-        var output = AnsiStringParser.DEFAULT.getOriginalString(box.get());
+        var output = MarkupParser.DEFAULT.getOriginalString(box.get());
         var lines = output.lines().toList();
         assertEquals(52, lines.getFirst().length()); // Width + borders 50 + 2 borders
     }
@@ -82,7 +82,7 @@ class BoxTest {
         var box = Clique.box(BoxType.ROUNDED)
                 .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_LEFT);
-        var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        var lines = MarkupParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1); //So it should be border + padding(2), so 3 substring before we get our content
         String firstChar = second.substring(3, 4);
         assertEquals("T", firstChar);
@@ -94,7 +94,7 @@ class BoxTest {
         var box = Clique.box(BoxType.ROUNDED)
                 .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_RIGHT);
-        var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        var lines = MarkupParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1);
         String firstChar = second.substring(second.length() - 7, second.length() - 6);
         assertEquals("T", firstChar);
@@ -107,7 +107,7 @@ class BoxTest {
         var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.builder().textAlign(TextAlign.TOP_RIGHT).build())
                 .dimensions(50, 9)
                 .content("Test");
-        var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        var lines = MarkupParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1);
         String firstChar = second.substring(second.length() - 7, second.length() - 6);
         assertEquals("T", firstChar);
@@ -118,7 +118,7 @@ class BoxTest {
         var box = Clique.box(BoxType.ROUNDED, BoxConfiguration.builder().textAlign(TextAlign.TOP_LEFT).build())
                 .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_RIGHT);
-        var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        var lines = MarkupParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1);
         String firstChar = second.substring(second.length() - 7, second.length() - 6);
         assertEquals("T", firstChar);  //Should be top right
@@ -130,7 +130,7 @@ class BoxTest {
         var box = Clique.box(BoxType.ROUNDED)
                 .dimensions(50, 9)
                 .content("Test", TextAlign.TOP_RIGHT);
-        var lines = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        var lines = MarkupParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second  = lines.get(1);
         String firstChar = second.substring(second.length() - 7, second.length() - 6);
         assertEquals("T", firstChar);  //Should be top right
@@ -138,7 +138,7 @@ class BoxTest {
         box.content("Test", TextAlign.TOP_LEFT);
 
         // Assert Top left
-        var lines1 = AnsiStringParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
+        var lines1 = MarkupParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
         String second1  = lines1.get(1); //So it should be border + padding(2), so 3 substring before we get our content
         String firstChar1 = second1.substring(3, 4);
         assertEquals("T", firstChar1);

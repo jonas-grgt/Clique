@@ -140,8 +140,7 @@ For all colors to display correctly, your terminal must support truecolor (24-bi
 - Terminal compatibility: Ensure your terminal emulator supports 24-bit color (most modern terminals like iTerm2, Alacritty, Kitty, Windows Terminal, and recent versions of GNOME Terminal do)
   Without truecolor support, themes may appear with reduced color accuracy or fall back to the nearest 256-color approximation.
 
-
-
+  
 ## See Also
 
 - [Parser Documentation](parser.md) - Learn how to use the parser

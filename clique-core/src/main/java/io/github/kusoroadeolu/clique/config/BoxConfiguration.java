@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class BoxConfiguration {
     public static final BoxConfiguration DEFAULT = new BoxConfiguration();
 
     private final TextAlign textAlign;
-    private final AnsiStringParser parser;
+    private final MarkupParser parser;
     private final AnsiCode[] borderColor;
     private final int padding;
 
@@ -49,7 +49,7 @@ public class BoxConfiguration {
         return this.textAlign;
     }
 
-    public AnsiStringParser getParser() {
+    public MarkupParser getParser() {
         return this.parser;
     }
 
@@ -78,7 +78,7 @@ public class BoxConfiguration {
 
     public static class BoxConfigurationBuilder {
         private TextAlign textAlign = TextAlign.CENTER;
-        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
+        private MarkupParser parser = MarkupParser.DEFAULT;
         private AnsiCode[] borderColor = {};
         private int padding = 2;
 
@@ -104,7 +104,7 @@ public class BoxConfiguration {
             return this;
         }
 
-        public BoxConfigurationBuilder parser(AnsiStringParser parser) {
+        public BoxConfigurationBuilder parser(MarkupParser parser) {
             this.parser = parser;
             return this;
         }

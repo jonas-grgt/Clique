@@ -4,7 +4,7 @@ package io.github.kusoroadeolu.clique.config;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.indent.Flag;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.BLANK;
 public class IndenterConfiguration {
     public static final IndenterConfiguration DEFAULT = new IndenterConfiguration();
 
-    private final AnsiStringParser parser;
+    private final MarkupParser parser;
     private final int indentLevel;
     private final String defaultFlag;
     private final AnsiCode[] flagColor;
@@ -63,7 +63,7 @@ public class IndenterConfiguration {
         return Objects.hash(parser, indentLevel, defaultFlag, Arrays.hashCode(flagColor));
     }
 
-    public AnsiStringParser getParser() {
+    public MarkupParser getParser() {
         return parser;
     }
 
@@ -81,7 +81,7 @@ public class IndenterConfiguration {
 
     public static class IndenterConfigurationBuilder {
         private int indentLevel = 1;
-        private AnsiStringParser parser = new AnsiStringParser(ParserConfiguration.builder().enableAutoCloseTags().build());
+        private MarkupParser parser = new MarkupParser(ParserConfiguration.builder().enableAutoCloseTags().build());
         private String defaultFlag = BLANK;
         private AnsiCode[] flagColor = {};
 
@@ -91,7 +91,7 @@ public class IndenterConfiguration {
             return this;
         }
 
-        public IndenterConfigurationBuilder parser(AnsiStringParser parser) {
+        public IndenterConfigurationBuilder parser(MarkupParser parser) {
             this.parser = parser;
             return this;
         }

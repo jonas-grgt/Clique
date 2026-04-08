@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class FrameConfiguration {
 
     private final int padding;
     private final FrameAlign align;
-    private final AnsiStringParser parser;
+    private final MarkupParser parser;
     private final AnsiCode[] borderColor;
 
     private FrameConfiguration() {
@@ -47,7 +47,7 @@ public class FrameConfiguration {
         return this.align;
     }
 
-    public AnsiStringParser getParser() {
+    public MarkupParser getParser() {
         return this.parser;
     }
 
@@ -77,7 +77,7 @@ public class FrameConfiguration {
     public static class FrameConfigurationBuilder {
         private int padding = 2;
         private FrameAlign frameAlign = FrameAlign.CENTER;
-        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
+        private MarkupParser parser = MarkupParser.DEFAULT;
         private AnsiCode[] borderColor = {};
 
         public FrameConfigurationBuilder padding(int padding) {
@@ -102,7 +102,7 @@ public class FrameConfiguration {
             return this;
         }
 
-        public FrameConfigurationBuilder parser(AnsiStringParser parser) {
+        public FrameConfigurationBuilder parser(MarkupParser parser) {
             this.parser = parser;
             return this;
         }

@@ -23,7 +23,7 @@ class AnsiStringParserImplTest {
                 .builder()
                 .delimiter(' ')
                 .build();
-        AnsiStringParser parser = new AnsiStringParser(config);
+        MarkupParser parser = new MarkupParser(config);
         String output = parser.parse("[red bold]Text[/]");
         assertTrue(output.contains(ColorCode.RED.toString()));
         assertTrue(output.contains(StyleCode.BOLD.toString()));
@@ -58,7 +58,7 @@ class AnsiStringParserImplTest {
                 .builder()
                 .enableStrictParsing()
                 .build();
-        AnsiStringParser parser = new AnsiStringParser(config);
+        MarkupParser parser = new MarkupParser(config);
         assertThrows(UnidentifiedStyleException.class,
                 () -> parser.parse("[invalid]Text[/]"));
     }
@@ -69,7 +69,7 @@ class AnsiStringParserImplTest {
                 .builder()
                 .enableAutoCloseTags()
                 .build();
-        AnsiStringParser parser = new AnsiStringParser(config);
+        MarkupParser parser = new MarkupParser(config);
         String output = parser.parse("[red]Text");
         assertTrue(output.endsWith(StyleCode.RESET.toString()));
     }
@@ -116,14 +116,14 @@ class AnsiStringParserImplTest {
     //ORIGINAL STRING TESTS
     @Test
     void test_getOriginalString_stripsAnsi(){
-        var parser = AnsiStringParser.DEFAULT;
+        var parser = MarkupParser.DEFAULT;
         var string = parser.parse("[red, bold]Hello");
         assertEquals("Hello", parser.getOriginalString(string));
     }
 
     @Test
     void test_getOriginalString_withNoAnsi_returnsEqualString(){
-        var parser = AnsiStringParser.DEFAULT;
+        var parser = MarkupParser.DEFAULT;
         var string = parser.parse("Hello");
         assertEquals("Hello", parser.getOriginalString(string));
     }
@@ -131,7 +131,7 @@ class AnsiStringParserImplTest {
 
     @Test
     void onNullString_returnsEmptyString(){
-        var parser = AnsiStringParser.DEFAULT;
+        var parser = MarkupParser.DEFAULT;
         var string = parser.parse(null);
         assertNull(string);
     }

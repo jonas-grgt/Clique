@@ -129,7 +129,7 @@ Use `FrameConfiguration` to customize frame appearance and behavior. Access the 
 | Option | Default |
 |---|---|
 | `frameAlign` | `FrameAlign.CENTER` |
-| `parser` | `AnsiStringParser.DEFAULT` |
+| `parser` | `MarkupParser.DEFAULT` |
 | `borderColor` | `{}` (no color) |
 | `padding` | `2` |
 

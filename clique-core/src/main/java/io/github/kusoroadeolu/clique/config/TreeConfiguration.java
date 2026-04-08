@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
-import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import java.util.Objects;
  * */
 @Stable(since = "3.2.0")
 public class TreeConfiguration {
-    private final AnsiStringParser parser;
+    private final MarkupParser parser;
     private final AnsiCode[] connectorColor;
     public static final TreeConfiguration DEFAULT = new TreeConfiguration();
 
@@ -30,7 +30,7 @@ public class TreeConfiguration {
         return new TreeConfigurationBuilder();
     }
 
-    public AnsiStringParser getParser() {
+    public MarkupParser getParser() {
         return parser;
     }
 
@@ -63,10 +63,10 @@ public class TreeConfiguration {
 
     public static class TreeConfigurationBuilder {
         private AnsiCode[] connectorColor = {};
-        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
+        private MarkupParser parser = MarkupParser.DEFAULT;
 
 
-        public TreeConfigurationBuilder parser(AnsiStringParser parser) {
+        public TreeConfigurationBuilder parser(MarkupParser parser) {
             this.parser = parser;
             return this;
         }

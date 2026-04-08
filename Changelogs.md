@@ -212,3 +212,4 @@ _(no changes noted)_
 - `BoxConfiguration`, `FrameConfiguration`, and `TableConfiguration` now accept border color via `AnsiCode[]` instead of `BorderStyle`, exposed through a `getBorderColor()` getter and `borderColor(AnsiCode...)` / `borderColor(String)` builder methods
 - `Clique#table` overloads to return `PendingTable` interface, in place of `TableDimensionBuilder`
 - `Tree#parent` returns an `Optional<Tree>` type instead of a `Tree` type.
+- `AnsiStringParser` to `MarkupParser`
