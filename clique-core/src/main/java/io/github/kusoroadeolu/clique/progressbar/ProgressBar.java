@@ -74,7 +74,7 @@ public class ProgressBar implements Bordered {
 
     private void easeTick(int amount, EasingConfiguration easingConfig) {
         int startValue = this.currentTick;
-        int targetValue = Math.clamp(currentTick + amount, ZERO, total);
+        int targetValue = Math.clamp(currentTick + (long) amount, ZERO, total);
         int diff = targetValue - startValue;
 
         int frames = easingConfig.getFrames();

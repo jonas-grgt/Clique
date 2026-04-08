@@ -11,6 +11,8 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnsiStringParserImplTest {
@@ -97,7 +99,7 @@ class AnsiStringParserImplTest {
     //Ansi code methods
     @Test
     void testAnsiCodes(){
-        var ls = ParserUtils.getAnsiCodes("red, blue, cyan");
+        var ls = Arrays.stream(ParserUtils.getAnsiCodes("red, blue, cyan")).toList();
         assertEquals(3, ls.size());
         AnsiCode[] arr = {ColorCode.RED, ColorCode.BLUE, ColorCode.CYAN};
         for (var ansi : arr){

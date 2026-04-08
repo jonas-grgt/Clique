@@ -9,7 +9,7 @@ import io.github.kusoroadeolu.clique.progressbar.IterableProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
 import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
+import io.github.kusoroadeolu.clique.tables.PendingTable;
 import io.github.kusoroadeolu.clique.tables.TableFactory;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.tree.Tree;
@@ -27,35 +27,35 @@ final class CliqueComponents {
 
     // TABLE
 
-    public static TableHeaderBuilder table() {
+    public static PendingTable table() {
         return TableFactory.getTableBuilder(TableType.BOX_DRAW);
     }
 
-    public static TableHeaderBuilder table(TableConfiguration configuration) {
+    public static PendingTable table(TableConfiguration configuration) {
         return TableFactory.getTableBuilder(TableType.BOX_DRAW, configuration);
     }
 
-    public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) {
+    public static PendingTable table(TableType type, TableConfiguration configuration) {
         return TableFactory.getTableBuilder(type, configuration);
     }
 
-    public static TableHeaderBuilder table(TableType type) {
+    public static PendingTable table(TableType type) {
         return TableFactory.getTableBuilder(type);
     }
 
-    public static TableHeaderBuilder table(String borderColor) {
+    public static PendingTable table(String borderColor) {
         return table(TableConfiguration.builder().borderColor(borderColor).build());
     }
 
-    public static TableHeaderBuilder table(TableType type, String borderColor) {
+    public static PendingTable table(TableType type, String borderColor) {
         return table(type, TableConfiguration.builder().borderColor(borderColor).build());
     }
 
-    public static TableHeaderBuilder table(AnsiCode... borderColor) {
+    public static PendingTable table(AnsiCode... borderColor) {
         return table(TableConfiguration.builder().borderColor(borderColor).build());
     }
 
-    public static TableHeaderBuilder table(TableType type, AnsiCode... borderColor) {
+    public static PendingTable table(TableType type, AnsiCode... borderColor) {
         return table(type, TableConfiguration.builder().borderColor(borderColor).build());
     }
 

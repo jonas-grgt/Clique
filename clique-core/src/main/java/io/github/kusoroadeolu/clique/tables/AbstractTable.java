@@ -16,7 +16,7 @@ import static io.github.kusoroadeolu.clique.core.utils.TableUtils.*;
 import static java.util.Objects.isNull;
 
 @InternalApi(since = "3.2.0")
-public abstract class AbstractTable implements Table {
+abstract class AbstractTable implements Table {
     final List<WidthAwareList> columns; //This is used to track the max height in that column
     final List<WidthAwareList> rows;
     final TableConfiguration configuration;
@@ -119,21 +119,11 @@ public abstract class AbstractTable implements Table {
 
 
 
-    public static class TableHeaderBuilder{
+    public static class TableHeaderBuilder implements PendingTable{
         private final AbstractTable table;
 
         public TableHeaderBuilder(Table table) {
             this.table = (AbstractTable) table;
-        }
-
-        @Deprecated(forRemoval = true, since = "3.1")
-        public Table addHeaders(String... headers){
-            return headers(headers);
-        }
-
-        @Deprecated(forRemoval = true, since = "3.1")
-        public Table addHeaders(Collection<String> headers){
-            return headers(headers);
         }
 
         public Table headers(String... headers) {
