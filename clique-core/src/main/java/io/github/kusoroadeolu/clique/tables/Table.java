@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.tables;
 
 
-import io.github.kusoroadeolu.clique.core.display.Bordered;
+import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 
 import java.util.Collection;
@@ -10,7 +10,7 @@ import java.util.Collection;
  * @since 1.0.0
  * */
 @InternalApi(since = "3.2.0")
-public interface Table extends Bordered {
+public interface Table extends Component {
     @Deprecated
     default Table addRows(String... rows){
         return row(rows);

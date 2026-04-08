@@ -4,7 +4,12 @@ package io.github.kusoroadeolu.clique.core.utils;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.structures.Cell;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
+import java.util.Objects;
+
+import static io.github.kusoroadeolu.clique.ansi.StyleCode.RESET;
+import static io.github.kusoroadeolu.clique.core.utils.AnsiDetector.ansiEnabled;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 
 @InternalApi(since = "3.2.0")
@@ -50,7 +55,34 @@ public final class StringUtils {
         return pos < s.length() && s.charAt(pos) == isEqualTo;
     }
 
-    public static boolean nextCharEquals(StringBuilder s, int pos, char isEqualTo){
-        return pos < s.length() && s.charAt(pos) == isEqualTo;
+    public static String format(StringBuilder sb, String text, AnsiCode... ansiCodes) {
+        style(text, sb, ansiCodes);
+        String result = sb.toString();
+        clearStringBuilder(sb);
+        return result;
+    }
+
+
+    public static String formatAndReset(StringBuilder sb, String text, AnsiCode... ansiCodes) {
+        style(text, sb, ansiCodes).append(RESET);
+        String result = sb.toString();
+        clearStringBuilder(sb);
+        return result;
+    }
+
+    //A helper method to style text with the given codes
+    public static StringBuilder style(String text, StringBuilder sb, AnsiCode... ansiCodes) {
+        Objects.requireNonNull(text, "Text cannot be null");
+        Objects.requireNonNull(ansiCodes, "Ansi codes cannot be null");
+
+        //Check if ansi is enabled
+        if (ansiEnabled()) {
+            for (AnsiCode code : ansiCodes) {
+                if (code != null) sb.append(code.ansiSequence());
+
+            }
+        }
+
+        return sb.append(text);
     }
 }

@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.indent;
 
 import io.github.kusoroadeolu.clique.config.IndenterConfiguration;
-import io.github.kusoroadeolu.clique.core.display.Borderless;
+import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
@@ -13,12 +13,11 @@ import java.util.Deque;
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 
 @InternalApi(since = "3.2.0")
-public class Indenter implements Borderless {
+public class Indenter implements Component {
     private final Deque<Indent> indents;
     private final StringBuilder sb;
     private final IndenterConfiguration configuration;
@@ -120,19 +119,13 @@ public class Indenter implements Borderless {
         return this.sb.toString();
     }
 
-    public void flush() {
-        this.indents.clear();
-        clearStringBuilder(this.sb);
-        this.resetLevel();
-    }
-
     private String parseString(String str) {
         return StringUtils.parseIfPresent(str, this.configuration.getParser());
     }
 
     private String parseFlag(String flag) {
         if (configuration.getFlagColor().length != ZERO){
-          flag = StyleBuilder.formatAndReset(new StringBuilder(), flag, configuration.getFlagColor());
+          flag = StringUtils.formatAndReset(new StringBuilder(), flag, configuration.getFlagColor());
         }
 
         return StringUtils.parseIfPresent(flag, this.configuration.getParser());

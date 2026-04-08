@@ -8,9 +8,9 @@ import io.github.kusoroadeolu.clique.core.utils.Constants;
 import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.formatAndReset;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.core.utils.TableUtils.chooseColAlignment;
-import static io.github.kusoroadeolu.clique.style.StyleBuilder.formatAndReset;
 
 class MarkdownTable extends AbstractTable {
     private String hLine;

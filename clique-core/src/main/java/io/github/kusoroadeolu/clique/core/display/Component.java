@@ -2,6 +2,10 @@ package io.github.kusoroadeolu.clique.core.display;
 
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 
+import java.io.PrintStream;
+
+import static java.util.Objects.requireNonNull;
+
 /**
  * @since 2.0.0
  * */
@@ -12,4 +16,13 @@ public interface Component {
      *
      */
     String get();
+
+    default void render() {
+        this.render(System.out);
+    }
+
+    default void render(PrintStream stream) {
+        requireNonNull(stream, "Print stream cannot be null");
+        stream.println(get());
+    }
 }
