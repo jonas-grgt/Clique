@@ -1,0 +1,215 @@
+package io.github.kusoroadeolu.clique.components;
+
+import io.github.kusoroadeolu.clique.configuration.FrameAlign;
+import io.github.kusoroadeolu.clique.internal.exception.InvalidDimensionException;
+import io.github.kusoroadeolu.clique.internal.utils.StringUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+
+import static io.github.kusoroadeolu.clique.internal.Constants.NEWLINE;
+import static org.junit.jupiter.api.Assertions.*;
+
+class FrameTest {
+
+    private Frame frame;
+
+    @BeforeEach
+    public void setup(){
+        this.frame = new Frame();
+    }
+
+    private static Component component(String output) {
+        return () -> output;
+    }
+
+    private static String[] lines(String rendered) {
+        return rendered.split(NEWLINE);
+    }
+
+    private static String stripAnsi(String s) {
+        return StringUtils.stripAnsi(s);
+    }
+
+
+    @Test
+    void throwsWhenTitleWiderThanFrameAtRenderTime() {
+        assertThrows(InvalidDimensionException.class, () ->
+                frame.width(5)
+                        .title("This title is way too long")
+                        .nest("hi")
+                        .render()
+        );
+    }
+
+    @Test
+    void throwsWhenNodeContentWiderThanExplicitWidth() {
+        assertThrows(InvalidDimensionException.class, () ->
+                frame.width(3)
+                        .nest("this string is too wide")
+                        .get()
+        );
+    }
+
+    @Test
+    void throwsWhenWidthIsNegative() {
+        assertThrows(InvalidDimensionException.class, () ->
+                frame.width(-1)
+        );
+    }
+
+    @Test
+    void throwsWhenSelfNested(){
+        assertThrows(IllegalArgumentException.class, () ->
+                frame.nest(frame)
+        );
+    }
+
+    // -------------------------
+    // Title rendering tests
+    // -------------------------
+
+    @Test
+    void frameWithNoTitleHasPlainTopBorder() {
+        String rendered = stripAnsi(
+                frame.nest("hello")
+                        .get()
+        );
+        String topLine = lines(rendered)[0];
+        // Top border should have no spaces, since no title has been embedded
+        assertFalse(topLine.contains(" "));
+    }
+
+    @Test
+    void titleIsSurroundedBySpacesInTopBorder() {
+        String rendered = stripAnsi(
+                frame.title("T")
+                        .nest("some content")
+                        .get()
+        );
+        String topLine = lines(rendered)[0];
+        assertTrue(topLine.contains(" T "));
+    }
+
+    @Test
+    void topAndBottomBorderHaveSameWidth() {
+        String rendered = stripAnsi(
+                frame.title("Title")
+                        .nest("hello world")
+                        .get()
+        );
+        String[] ls = lines(rendered);
+        assertEquals(ls[0].length(), ls[ls.length - 1].length());
+    }
+
+    // -------------------------
+    // Nested component tests
+    // -------------------------
+
+    @Test
+    void nestedComponentOutputAppearsInFrame() {
+        Component comp = component("foo");
+        String rendered = stripAnsi(
+                frame.nest(comp)
+                        .get()
+        );
+        assertTrue(rendered.contains("foo"));
+    }
+
+    @Test
+    void allContentLinesHaveSameWidth() {
+        String rendered = stripAnsi(
+                frame.nest("short", FrameAlign.LEFT)
+                        .width(28)
+                        .nest("a much longer line")
+                        .get()
+        );
+        System.out.println(rendered);
+        String[] ls = lines(rendered);
+        int expectedWidth = ls[0].length();
+        for (String line : ls) {
+            assertEquals(expectedWidth, line.length(), "Line width mismatch: [" + line + "]");
+        }
+    }
+
+    @Test
+    void frameWidthDerivedFromWidestNode() {
+        String wide = "a much longer string";
+        String narrow = "hi";
+        String rendered = stripAnsi(
+                frame.nest(wide)
+                        .nest(narrow)
+                        .get()
+        );
+        // Every line should be the same width, driven by the wider content
+        String[] ls = lines(rendered);
+        int expectedWidth = ls[0].length();
+        for (String line : ls) {
+            assertEquals(expectedWidth, line.length());
+        }
+    }
+
+    @Test
+    void nestedComponentWithMultilineOutput() {
+        Component comp = component("line one\nline two\nline three");
+        String rendered = stripAnsi(
+                frame.nest(comp)
+                        .get()
+        );
+        assertTrue(rendered.contains("line one"));
+        assertTrue(rendered.contains("line two"));
+        assertTrue(rendered.contains("line three"));
+    }
+
+    @Test
+    void leftAlignedNodeIsPaddedToLeftBorder() {
+        String rendered = stripAnsi(
+                frame.nest("hi", FrameAlign.LEFT)
+                        .nest("much wider content here")
+                        .get()
+        );
+        // Line with "hi" should have it immediately after the vline with no leading spaces
+        String hiLine = Arrays.stream(lines(rendered))
+                .filter(l -> l.contains("hi") && !l.contains("much"))
+                .findFirst()
+                .get();
+
+        // after the vline char, next char should be 'h'
+        assertEquals('h', hiLine.charAt(3));
+    }
+
+    @Test
+    void test_frameHeight(){
+        String str = new Frame()
+                .nest("Hello")
+                .get();
+
+        assertEquals(3, str.lines().toList().size());
+    }
+
+
+    @Test
+    void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedLeft(){
+        Frame frame = new Frame();
+        assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.LEFT).get());
+    }
+
+    @Test
+    void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedRight(){
+        Frame frame = new Frame();
+        assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.RIGHT).get());
+    }
+
+    @Test
+    void test_autosizeFrame_whenTitleWidth_greaterThanFrameContent_andAlignedCenter(){
+        Frame frame = new Frame();
+        assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(20), FrameAlign.CENTER).get());
+    }
+
+    @Test
+    void test_givenWidthFrame_whenTitleWidth_equalToContent_andAlignedLeft(){
+        Frame frame = new Frame();
+        assertDoesNotThrow(() -> frame.nest("Hello").title(" ".repeat(5), FrameAlign.LEFT).width(9).get());
+    }
+}

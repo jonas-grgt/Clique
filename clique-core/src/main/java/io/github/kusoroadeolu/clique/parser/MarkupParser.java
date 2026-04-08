@@ -1,22 +1,22 @@
 package io.github.kusoroadeolu.clique.parser;
 
 
-import io.github.kusoroadeolu.clique.config.ParserConfiguration;
-import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.parser.ParseResult;
-import io.github.kusoroadeolu.clique.core.parser.ParseToken;
-import io.github.kusoroadeolu.clique.core.parser.StyleResolver;
-import io.github.kusoroadeolu.clique.core.parser.Tokenizer;
+import io.github.kusoroadeolu.clique.configuration.ParserConfiguration;
+import io.github.kusoroadeolu.clique.internal.documentation.Stable;
+import io.github.kusoroadeolu.clique.internal.markup.ParseResult;
+import io.github.kusoroadeolu.clique.internal.markup.ParseToken;
+import io.github.kusoroadeolu.clique.internal.markup.StyleResolver;
+import io.github.kusoroadeolu.clique.internal.markup.Tokenizer;
 
 import java.util.List;
 
-import static io.github.kusoroadeolu.clique.core.parser.MarkupPostProcessor.postProcess;
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;
+import static io.github.kusoroadeolu.clique.internal.markup.MarkupPostProcessor.postProcess;
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.stripAnsi;
 
 /**
  * @since 1.0.0
  * */
-@InternalApi(since = "3.2.0")
+@Stable(since = "3.2.0")
 public record MarkupParser(ParserConfiguration parserConfiguration) {
     public static final MarkupParser DEFAULT = new MarkupParser();
 

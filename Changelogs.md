@@ -205,6 +205,7 @@ _(no changes noted)_
 - `fromBorderStyle(BorderSpec)` factory methods from `BoxConfiguration`, `FrameConfiguration`, and `TableConfiguration`
 - `getBorderStyle()` getters and `borderStyle(BorderSpec)` builder methods from all three configuration classes
 - Deprecated `immutableBuilder()` methods in configuration classes
+- `flush()` methods from `Tree` and `StyleBuilder`
 
 ### Updated
 - `Box` and `BoxConfiguration` `equals()` and `hashcode()` contracts
@@ -213,6 +214,7 @@ _(no changes noted)_
 - `Tree#parent` returns an `Optional<Tree>` type instead of a `Tree` type.
 - `AnsiStringParser` to `MarkupParser`
 - `enableAutoCloseTags()` renamed to `enableAutoReset()` in `ParserConfiguration` to better reflect its behavior of resetting ANSI codes after each styled segment
+- `Tree` calls `render()` instead of `print()`
 
 ## clique-spi [2.0.0] - [UNRELEASED]
 - `AnsiCode#toString()` contract renamed to `AnsiCode#ansiSequence()`

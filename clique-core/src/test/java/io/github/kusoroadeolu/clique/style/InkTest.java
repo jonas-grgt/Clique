@@ -1,10 +1,7 @@
 package io.github.kusoroadeolu.clique.style;
 
-import io.github.kusoroadeolu.clique.ansi.BackgroundCode;
-import io.github.kusoroadeolu.clique.ansi.ColorCode;
-import io.github.kusoroadeolu.clique.ansi.StyleCode;
-import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
-import io.github.kusoroadeolu.clique.parser.StyleContext;
+import io.github.kusoroadeolu.clique.configuration.StyleContext;
+import io.github.kusoroadeolu.clique.internal.exception.UnidentifiedStyleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Nested;

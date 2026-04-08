@@ -2,13 +2,13 @@ package io.github.kusoroadeolu.clique.parser;
 
 
 import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.ansi.ColorCode;
-import io.github.kusoroadeolu.clique.ansi.CompositeColor;
-import io.github.kusoroadeolu.clique.ansi.StyleCode;
-import io.github.kusoroadeolu.clique.config.ParserConfiguration;
-import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
-import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
-import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
+import io.github.kusoroadeolu.clique.style.ColorCode;
+import io.github.kusoroadeolu.clique.internal.CompositeColor;
+import io.github.kusoroadeolu.clique.style.StyleCode;
+import io.github.kusoroadeolu.clique.configuration.ParserConfiguration;
+import io.github.kusoroadeolu.clique.internal.exception.UnidentifiedStyleException;
+import io.github.kusoroadeolu.clique.internal.markup.GlobalStyleRegistry;
+import io.github.kusoroadeolu.clique.internal.markup.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import org.junit.jupiter.api.Test;
 

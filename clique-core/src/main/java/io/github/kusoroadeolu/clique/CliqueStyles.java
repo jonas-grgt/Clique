@@ -1,16 +1,16 @@
 package io.github.kusoroadeolu.clique;
 
-import io.github.kusoroadeolu.clique.ansi.RGBColor;
-import io.github.kusoroadeolu.clique.config.ParserConfiguration;
-import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
+import io.github.kusoroadeolu.clique.configuration.ParserConfiguration;
+import io.github.kusoroadeolu.clique.configuration.StyleContext;
+import io.github.kusoroadeolu.clique.internal.RGBColor;
+import io.github.kusoroadeolu.clique.internal.markup.GlobalStyleRegistry;
+import io.github.kusoroadeolu.clique.internal.themeloader.CliqueThemeLoader;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
-import io.github.kusoroadeolu.clique.parser.StyleContext;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
 import io.github.kusoroadeolu.clique.style.Ink;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
-import io.github.kusoroadeolu.clique.themeloader.CliqueThemeLoader;
 
 import java.util.Collection;
 import java.util.List;
