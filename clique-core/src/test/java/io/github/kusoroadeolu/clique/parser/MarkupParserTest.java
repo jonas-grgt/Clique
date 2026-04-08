@@ -3,12 +3,13 @@ package io.github.kusoroadeolu.clique.parser;
 
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.ansi.ColorCode;
+import io.github.kusoroadeolu.clique.ansi.CompositeColor;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
+import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -57,7 +58,7 @@ class MarkupParserTest {
     void testAutoCloseTags() {
         ParserConfiguration config = ParserConfiguration
                 .builder()
-                .enableAutoCloseTags()
+                .enableAutoReset()
                 .build();
         MarkupParser parser = new MarkupParser(config);
         String output = parser.parse("[red]Text");
@@ -73,6 +74,21 @@ class MarkupParserTest {
     void testInvalidStyleIgnored() {
         String output = Clique.parser().parse("[notacolor]Text");
         assertFalse(output.contains("\u001B["));
+    }
+
+    @Test
+    void assert_localStyleResolvesBeforeGlobal() {
+        var config = ParserConfiguration.builder().addStyle("mycolor", ColorCode.BLUE).build();
+        GlobalStyleRegistry.registerStyle("mycolor", ColorCode.RED);
+        String output = Clique.parser(config).parse("[mycolor]Hello"); //Should contain blue instead of red
+        assertTrue(output.contains(ColorCode.BLUE.ansiSequence()));
+    }
+
+    @Test
+    void assert_globalStyleResolvesBeforePredefined() {
+        GlobalStyleRegistry.registerStyle("blue", ColorCode.RED);
+        String output = Clique.parser().parse("[blue]Hello"); //Should contain red instead of blue
+        assertTrue(output.contains(ColorCode.RED.ansiSequence()));
     }
 
 
@@ -100,23 +116,5 @@ class MarkupParserTest {
         var parser = MarkupParser.DEFAULT;
         var string = parser.parse("Hello");
         assertEquals("Hello", parser.getOriginalString(string));
-    }
-}
-
-class CompositeColor implements AnsiCode {
-    private final String compositeCode;
-
-    public CompositeColor(AnsiCode... codes) {
-        StringBuilder sb = new StringBuilder();
-        for (AnsiCode code : codes) {
-            sb.append(code.ansiSequence());
-        }
-        this.compositeCode = sb.toString();
-    }
-
-
-    @Override
-    public String ansiSequence() {
-        return compositeCode;
     }
 }

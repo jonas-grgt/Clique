@@ -2,6 +2,7 @@ package io.github.kusoroadeolu.clique.core.parser;
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
+import io.github.kusoroadeolu.clique.parser.StyleContext;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.ArrayList;
@@ -23,18 +24,20 @@ public final class Tokenizer {
     private static final char ESCAPE_SEQUENCE = '\\';
     private Tokenizer(){}
 
-    public static ParseResult tokenize(String input, String delimiter, boolean enableStrictParsing){
-        return tokenize(input, delimiter, enableStrictParsing, new ArrayList<>());
+    public static ParseResult tokenize(String input, String delimiter, boolean enableStrictParsing) {
+        return tokenize(input, delimiter, enableStrictParsing, StyleContext.builder().build());
     }
 
-    /**
-     * Extracts valid tokens and form tags from the given string
-     *
-     * @param input The string to parse
-     * @return A parse result containing the form tags and the parser tokens
-     *
-     */
-    public static ParseResult tokenize(String input, String delimiter, boolean enableStrictParsing, List<ParseToken> tokens) {
+
+        /**
+         * Extracts valid tokens and form tags from the given string
+         *
+         * @param input The string to parse
+         * @return A parse result containing the form tags and the parser tokens
+         *
+         */
+    public static ParseResult tokenize(String input, String delimiter, boolean enableStrictParsing, StyleContext context) {
+        List<ParseToken> tokens = new ArrayList<>();
         final String delimiterPattern = Pattern.quote(delimiter);
 
         if (input == null || input.isEmpty()) return new ParseResult(List.of());
@@ -59,7 +62,7 @@ public final class Tokenizer {
 
                 if (fsDepth == 1 && fcDepth == 1){ //Only if we dont have nested tags, with both open and closed tags
                     final String fullTag = input.substring(idx, i + 1); //Parse the extracted input, something like this[tag]
-                    final List<AnsiCode> validStyles = getValidStyles(fullTag, delimiterPattern, enableStrictParsing);
+                    final List<AnsiCode> validStyles = getValidStyles(fullTag, delimiterPattern, context ,enableStrictParsing);
                     if (!validStyles.isEmpty()) {
                         tokens.add(new ParseToken(idx, i, validStyles));
                     }
@@ -87,7 +90,7 @@ public final class Tokenizer {
 
     //Check if there are valid styles in the extracted string
     //ESP -> Enable strict parsing
-    private static List<AnsiCode> getValidStyles(String tag, String delimiterPattern, boolean esp) {
+    private static List<AnsiCode> getValidStyles(String tag, String delimiterPattern, StyleContext context ,boolean esp) {
         if (tag.length() <= 2) return List.of();  //Check if the extracted string is just empty braces, or a malformed tag
         tag = removeForms(tag); //Clean the string
 
@@ -95,41 +98,22 @@ public final class Tokenizer {
         final List<AnsiCode> validStyles = new ArrayList<>();
         for (String s : styles) {
             s = s.toLowerCase(Locale.ROOT).trim();
-            addValidStyles(s, validStyles, esp);
+            addValidStyles(s, validStyles, context ,esp);
         }
 
         return validStyles;
     }
 
 
-    //Replaces forms with empty strings
     private static String removeForms(String s) {
         return s.substring(1, s.length() - 1);
     }
 
     // A helper method that checks if each map contains a key of the given string
-    private static void addValidStyles(String s, List<AnsiCode> validStyles, boolean enableStrictParsing) {
-        AnsiCode code = StyleMaps.CUSTOM_STYLE_CODES.get(s);
-        if (code != null) {
-            validStyles.add(code);
-            return;
-        }
-
-        code = StyleMaps.COLOR_CODES.get(s);
-        if (code != null) {
-            validStyles.add(code);
-            return;
-        }
-
-        code = StyleMaps.BACKGROUND_CODES.get(s);
-        if (code != null) {
-            validStyles.add(code);
-            return;
-        }
-
-        code = StyleMaps.STYLE_CODES.get(s);
-        if (code != null) {
-            validStyles.add(code);
+    private static void addValidStyles(String s, List<AnsiCode> list, StyleContext context, boolean enableStrictParsing) {
+        AnsiCode code = PredefinedStyleContext.get(s, context);
+        if (code != null){
+            list.add(code);
             return;
         }
 
