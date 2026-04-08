@@ -1,6 +1,5 @@
 package io.github.kusoroadeolu.clique.config;
 
-import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
@@ -34,14 +33,6 @@ public class FrameConfiguration {
 
     public static FrameConfigurationBuilder builder() {
         return new FrameConfigurationBuilder();
-    }
-
-    /**
-     * @deprecated As of 3.1.3, use {@link FrameConfiguration#builder()} instead. This will be removed in a future release.
-     */
-    @Deprecated(since = "3.1.3", forRemoval = true)
-    public static FrameConfigurationBuilder immutableBuilder() {
-        return builder();
     }
 
     public int getPadding() {

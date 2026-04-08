@@ -41,14 +41,6 @@ public class TableConfiguration {
         return new TableConfigurationBuilder();
     }
 
-    /**
-     * @deprecated As of 3.1.3, use {@link TableConfiguration#builder()} instead. This will be removed in a future release.
-     */
-    @Deprecated(since = "3.1.3", forRemoval = true)
-    public static TableConfigurationBuilder immutableBuilder() {
-        return builder();
-    }
-
     public int getPadding() {
         return this.padding;
     }

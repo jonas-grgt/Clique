@@ -47,14 +47,6 @@ public class EasingConfiguration {
         return new EasingConfigurationBuilder();
     }
 
-    /**
-     * @deprecated As of 3.1.3, use {@link EasingConfiguration#builder()} instead. This will be removed in a future release.
-     * */
-    @Deprecated(since = "3.1.3", forRemoval = true)
-    public static EasingConfigurationBuilder immutableBuilder() {
-        return builder();
-    }
-
     public EasingFunction getFunction() {
         return function;
     }

@@ -31,14 +31,6 @@ public class ParserConfiguration {
         return new ParserConfigurationBuilder();
     }
 
-    /**
-     * @deprecated As of 3.2.0, use {@link ParserConfiguration#builder()} instead. This will be removed in a future release.
-     * */
-    @Deprecated(since = "3.2.0", forRemoval = true)
-    public static ParserConfigurationBuilder immutableBuilder() {
-        return builder();
-    }
-
     public boolean getEnableStrictParsing() {
         return enableStrictParsing;
     }

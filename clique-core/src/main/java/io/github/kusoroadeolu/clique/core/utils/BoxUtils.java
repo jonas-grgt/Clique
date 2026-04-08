@@ -19,8 +19,9 @@ import static io.github.kusoroadeolu.clique.style.StyleBuilder.formatAndReset;
 @InternalApi(since = "3.2.0")
 public class BoxUtils {
 
-    private final static String RESET = StyleCode.RESET.toString();
+    private BoxUtils(){}
 
+    private final static String RESET = StyleCode.RESET.toString();
 
     public static void alignText(StringBuilder sb, int idx, TextAlign textAlign, String spaces, List<Cell> wordWrap, String vLine, int padding) {
         final Cell cell = wordWrap.get(idx);

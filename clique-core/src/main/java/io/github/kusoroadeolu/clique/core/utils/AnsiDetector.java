@@ -9,11 +9,9 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 @InternalApi(since = "3.2.0")
 public class AnsiDetector {
 
-    private AnsiDetector() {
-        throw new AssertionError("Cannot instantiate this");
-    }
+    private AnsiDetector() {}
 
-    private final static AtomicBoolean ANSI_ENABLED = new AtomicBoolean(autoDetect());
+    private static final AtomicBoolean ANSI_ENABLED = new AtomicBoolean(autoDetect());
 
 
     //FOR TESTS

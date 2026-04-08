@@ -6,7 +6,6 @@ import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
-import java.util.List;
 
 @InternalApi(since = "3.2.0")
 public class ParserUtils {
