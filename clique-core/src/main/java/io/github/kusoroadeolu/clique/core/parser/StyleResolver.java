@@ -3,7 +3,6 @@ package io.github.kusoroadeolu.clique.core.parser;
 
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
-import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public final class StyleResolver {
 
     //Restyle the extracted string with the given colors
     public static String resolve(List<ParseToken> tokens, String string, boolean autoReset) {
-        final StyleBuilder sb = new DefaultStyleBuilder();
+        final StyleBuilder sb = new StyleBuilder();
         String val;
         final int size = tokens.size();
 

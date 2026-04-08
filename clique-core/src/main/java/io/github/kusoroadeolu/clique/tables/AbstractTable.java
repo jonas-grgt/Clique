@@ -19,13 +19,13 @@ import static java.util.Objects.isNull;
 public abstract class AbstractTable implements Table {
     final List<WidthAwareList> columns; //This is used to track the max height in that column
     final List<WidthAwareList> rows;
-    final TableConfiguration tableConfiguration;
+    final TableConfiguration configuration;
     String cachedString = null;
 
      AbstractTable(TableConfiguration configuration) {
         this.columns = new ArrayList<>();
         this.rows = new ArrayList<>();
-        this.tableConfiguration = configuration;
+        this.configuration = configuration;
     }
 
      AbstractTable() {
@@ -46,13 +46,13 @@ public abstract class AbstractTable implements Table {
         for (int i = 0; i < headerSize; i++) {
             String row;
             //Pad the cells with null replacements
-            if (i >= rows.length) row = this.tableConfiguration.getNullReplacement();
+            if (i >= rows.length) row = this.configuration.getNullReplacement();
             else {
                 row = rows[i];
-                row = handleNulls(row, this.tableConfiguration.getNullReplacement());
+                row = handleNulls(row, this.configuration.getNullReplacement());
             }
 
-            final Cell c = parseToCellIfPresent(row, this.tableConfiguration.getParser());
+            final Cell c = parseToCellIfPresent(row, this.configuration.getParser());
             rowList.add(c);
             final WidthAwareList colList = this.columns.get(i);
             colList.add(c);
@@ -75,7 +75,7 @@ public abstract class AbstractTable implements Table {
 
     public AbstractTable removeCell(int row, int col) {
         validateHeaders(row);
-        this.updateCell(row, col, this.tableConfiguration.getNullReplacement());
+        this.updateCell(row, col, this.configuration.getNullReplacement());
         return this;
     }
 
@@ -85,7 +85,7 @@ public abstract class AbstractTable implements Table {
 
         final WidthAwareList rl = this.rows.get(row);
         final WidthAwareList cl = this.columns.get(col);
-        final Cell c = parseToCellIfPresent(text, this.tableConfiguration.getParser());
+        final Cell c = parseToCellIfPresent(text, this.configuration.getParser());
         rl.update(col, c);
         cl.update(row, c);
         nullCachedString();
@@ -96,24 +96,24 @@ public abstract class AbstractTable implements Table {
         cachedString = null;
     }
 
-    abstract void styleTableBorders();
+    abstract void colorTableBorders();
 
     public boolean equals(Object object) {
         if (isNull(object) || getClass() != object.getClass()) return false;
 
         AbstractTable that = (AbstractTable) object;
-        return columns.equals(that.columns) && rows.equals(that.rows) && Objects.equals(tableConfiguration, that.tableConfiguration);
+        return columns.equals(that.columns) && rows.equals(that.rows) && Objects.equals(configuration, that.configuration);
     }
 
     public int hashCode() {
-        return Objects.hash(columns, rows, tableConfiguration);
+        return Objects.hash(columns, rows, configuration);
     }
 
     public String toString() {
         return "Table[" +
                 "columns=" + columns +
                 ", rows=" + rows +
-                ", tableConfiguration=" + tableConfiguration +
+                ", tableConfiguration=" + configuration +
                 ']';
     }
 
@@ -145,8 +145,8 @@ public abstract class AbstractTable implements Table {
 
             for (int i = 0; i < headers.length; i++) {
                 String header = headers[i];
-                header = handleNulls(header, table.tableConfiguration.getNullReplacement());
-                final var cell = parseToCellIfPresent(header, table.tableConfiguration.getParser());
+                header = handleNulls(header, table.configuration.getNullReplacement());
+                final var cell = parseToCellIfPresent(header, table.configuration.getParser());
                 rowList.add(cell);
                 final var colList = new WidthAwareList(); //To keep track of all values in this column
                 colList.add(cell);

@@ -7,5 +7,9 @@ import io.github.kusoroadeolu.clique.core.documentation.Stable;
  * */
 @Stable(since = "3.2.0")
 public interface Component {
+    /**
+     * @return the content of the component
+     *
+     */
     String get();
 }

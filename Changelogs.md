@@ -188,15 +188,21 @@ _(no changes noted)_
 # Changelog
 
 ## Clique [4.0.0] - [UNRELEASED]
+### Added 
+- `AnsiCode` varargs and `String` overloads in `Clique` facade in place of `BorderSpec` types. These overloads provide uniform styling across each component's borders, removing the use of per edge control.
+
 ### Fixed
 - An off by one error in `Frame` when a title wider than the frame's content was aligned left or right.
 
-
 ### Removed
 - Deprecated customizable variants of `Table` and `Box` and the `Customizable` interface
-- `AbstractBox`, instead folding all pre-existing logic into `DefaultBox` 
+- `AbstractBox`, instead folding all pre-existing logic into `DefaultBox`
 - `BoxDimensionBuilder`, taking along `autosize()` and `withDimensions()` build steps. Boxes now autosize if `dimensions()` is not called
 - Deprecated `autosize()`, `centerPadding()`, `getAutosize()` and `getCenterPadding()` methods from `BoxConfiguration`
+- `BorderStyle` and `BorderSpec` types entirely, along with their usages across `BoxConfiguration`, `FrameConfiguration`, and `TableConfiguration`
+- `fromBorderStyle(BorderSpec)` factory methods from `BoxConfiguration`, `FrameConfiguration`, and `TableConfiguration`
+- `getBorderStyle()` getters and `borderStyle(BorderSpec)` builder methods from all three configuration classes
 
 ### Updated
 - `Box` and `BoxConfiguration` `equals()` and `hashcode()` contracts
+- `BoxConfiguration`, `FrameConfiguration`, and `TableConfiguration` now accept border color via `AnsiCode[]` instead of `BorderStyle`, exposed through a `getBorderColor()` getter and `borderColor(AnsiCode...)` / `borderColor(String)` builder methods

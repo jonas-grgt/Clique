@@ -1,27 +1,20 @@
 package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.Clique;
-import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.config.TextAlign;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoxTest {
     @Test
     void testBoxWidth() {
-        var config = BoxConfiguration
-                .builder()
-                .textAlign(TextAlign.TOP_CENTER)
-                .build();
-        var box = Clique.box(BoxType.ROUNDED, config)
+        var box = Clique.box()
                 .dimensions(50, 9)
-                .content("Test");
-        var output = box.get();
+                .content("Test", TextAlign.TOP_CENTER);
+        var output = AnsiStringParser.DEFAULT.getOriginalString(box.get());
         var lines = output.lines().toList();
         assertEquals(52, lines.getFirst().length()); // Width + borders 50 + 2 borders
     }
@@ -82,56 +75,6 @@ class BoxTest {
         assertNotNull(output1);
         assertSame(output1, output);
     }
-
-    @Test
-    void borderStyleConfig_shouldApplyGivenChanges(){
-        var box = Clique.box(BoxType.DEFAULT)
-                .content("Hello"); //ASCII //ASCII Box
-        List<String> lines = box.get().lines().toList();
-        var line1 = lines.getFirst();
-        var line2 = lines.get(1);
-        assertTrue(line1.contains("+"));
-        assertTrue(line1.contains("-")); //Asserting line 1 contains both the corners and horizontal chars
-        assertTrue(line2.contains("|")); //Assert line2 contains the vlines
-
-        BorderStyle style = BorderStyle
-                .builder()
-                .cornerChar('o')
-                .horizontalChar('~')
-                .verticalChar('/')
-                .build();
-
-
-        var frame2 = Clique.box(BoxType.DEFAULT, style)
-                .content("Hello"); //ASCII
-        List<String> lines2 = frame2.get().lines().toList();
-        var lines2_1 = lines2.getFirst();
-        var lines2_2 = lines2.get(1);
-        assertTrue(lines2_1.contains("o"));
-        assertTrue(lines2_1.contains("~")); //Asserting line 1 contains both the corners and horizontal chars
-        assertTrue(lines2_2.contains("/")); //Assert line2 contains the vlines
-    }
-
-    @Test
-    void borderStyleConfig_shouldNotApplyChanges_onBlankChars(){
-        BorderStyle style = BorderStyle
-                .builder()
-                .cornerChar(' ')
-                .build();
-
-        var config = BoxConfiguration
-                .builder()
-                .borderStyle(style)
-                .build();
-
-        var frame2 = Clique.box(BoxType.DEFAULT, config)
-                .content("Hello"); //ASCII
-        List<String> lines2 = frame2.get().lines().toList();
-        var lines2_1 = lines2.getFirst();
-        assertFalse(lines2_1.contains(" "));
-        assertTrue(lines2_1.contains("+"));
-    }
-
 
     //TESTS FOR API CHANGES
     @Test

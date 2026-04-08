@@ -21,7 +21,7 @@ class AnsiStringParserImplTest {
                 .builder()
                 .delimiter(' ')
                 .build();
-        AnsiStringParser parser = new AnsiStringParserImpl(config);
+        AnsiStringParser parser = new AnsiStringParser(config);
         String output = parser.parse("[red bold]Text[/]");
         assertTrue(output.contains(ColorCode.RED.toString()));
         assertTrue(output.contains(StyleCode.BOLD.toString()));
@@ -56,7 +56,7 @@ class AnsiStringParserImplTest {
                 .builder()
                 .enableStrictParsing()
                 .build();
-        AnsiStringParser parser = new AnsiStringParserImpl(config);
+        AnsiStringParser parser = new AnsiStringParser(config);
         assertThrows(UnidentifiedStyleException.class,
                 () -> parser.parse("[invalid]Text[/]"));
     }
@@ -67,7 +67,7 @@ class AnsiStringParserImplTest {
                 .builder()
                 .enableAutoCloseTags()
                 .build();
-        AnsiStringParser parser = new AnsiStringParserImpl(config);
+        AnsiStringParser parser = new AnsiStringParser(config);
         String output = parser.parse("[red]Text");
         assertTrue(output.endsWith(StyleCode.RESET.toString()));
     }

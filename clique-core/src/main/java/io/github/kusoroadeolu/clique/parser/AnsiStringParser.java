@@ -1,27 +1,68 @@
 package io.github.kusoroadeolu.clique.parser;
 
-import io.github.kusoroadeolu.clique.core.documentation.Stable;
+
+import io.github.kusoroadeolu.clique.config.ParserConfiguration;
+import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
+import io.github.kusoroadeolu.clique.core.parser.ParseResult;
+import io.github.kusoroadeolu.clique.core.parser.ParseToken;
+import io.github.kusoroadeolu.clique.core.parser.StyleResolver;
+import io.github.kusoroadeolu.clique.core.parser.Tokenizer;
+
+import java.util.List;
+
+import static io.github.kusoroadeolu.clique.core.parser.MarkupPostProcessor.postProcess;
+import static io.github.kusoroadeolu.clique.core.utils.StringUtils.stripAnsi;
 
 /**
  * @since 1.0.0
  * */
-@Stable(since = "3.2.0")
-public interface AnsiStringParser {
-    AnsiStringParser DEFAULT = new AnsiStringParserImpl();
+@InternalApi(since = "3.2.0")
+public record AnsiStringParser(ParserConfiguration parserConfiguration) {
+    public static final AnsiStringParser DEFAULT = new AnsiStringParser();
 
-
-    String parse(String stringToParse);
-
-    default void print(String string) {
-        System.out.println(this.parse(string));
+    public AnsiStringParser() {
+        this(ParserConfiguration.DEFAULT);
     }
 
-    default void print(Object object) {
-        this.print(object.toString());
+    public String parse(String stringToParse) {
+        if (stringToParse == null || stringToParse.isBlank()) return stringToParse;
+        final ParseResult result = this.getParseResult(stringToParse);
+        String styled = StyleResolver.resolve(result.tokens(), stringToParse, this.parserConfiguration.getEnableAutoCloseTags());
+        return postProcess(styled);
+
     }
 
-    String parse(Object object);
+    public void print(String string) {
+        System.out.println(parse(string));
+    }
 
-    String getOriginalString(String string);
+    public String getOriginalString(String tokenedString) {
+        if (tokenedString == null || tokenedString.isBlank()) return tokenedString;
+        ParseResult result = this.getParseResult(tokenedString);
 
+        if (!result.isPresent()) {
+            return stripAnsi(postProcess(tokenedString));
+        }
+
+        final List<ParseToken> tokens = result.tokens();
+        final StringBuilder sb = new StringBuilder(tokenedString.length());
+        int cursor = 0;
+
+        for (ParseToken token : tokens) {
+            sb.append(tokenedString, cursor, token.start());
+            cursor = token.end() + 1;
+        }
+
+        sb.append(tokenedString, cursor, tokenedString.length());
+
+        return stripAnsi(postProcess(sb.toString()));
+    }
+
+    ParseResult getParseResult(String input) {
+        return Tokenizer.tokenize(
+                input,
+                parserConfiguration.getDelimiter(),
+                parserConfiguration.getEnableStrictParsing()
+        );
+    }
 }

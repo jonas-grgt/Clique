@@ -33,9 +33,9 @@ Tables support dynamic updates after creation:
 ### Update a Cell
 ```java
 Table table = Clique.table(TableType.DEFAULT)
-    .headers("Name", "Age", "Status")
-    .row("Alice", "25", "Active")
-    .row("Bob", "30", "Inactive");
+        .headers("Name", "Age", "Status")
+        .row("Alice", "25", "Active")
+        .row("Bob", "30", "Inactive");
 
 // Update a specific cell (row 1, column 2)
 table.updateCell(1, 2, "Active");
@@ -64,37 +64,48 @@ System.out.println(tableString);
 Tables automatically parse markup tags when you add content:
 ```java
 Table table = Clique.table(TableType.BOX_DRAW)
-    .headers(
-        "[cyan, bold]Product[/]",
-        "[cyan, bold]Price[/]",
-        "[cyan, bold]Stock[/]"
-    )
-    .row(
-        "[yellow]Widget[/]",
-        "[green]$19.99[/]",
-        "[red, bold]Low[/]"
-    )
-    .row(
-        "[yellow]Gadget[/]",
-        "[green]$29.99[/]",
-        "In Stock"
-    );
+        .headers(
+                "[cyan, bold]Product[/]",
+                "[cyan, bold]Price[/]",
+                "[cyan, bold]Stock[/]"
+        )
+        .row(
+                "[yellow]Widget[/]",
+                "[green]$19.99[/]",
+                "[red, bold]Low[/]"
+        )
+        .row(
+                "[yellow]Gadget[/]",
+                "[green]$29.99[/]",
+                "In Stock"
+        );
 
 table.render();
 ```
 
 ## Table Configuration
 
-Use `TableConfiguration` to customize table appearance and behavior.
+Use `TableConfiguration` to customize table appearance and behavior. Access the builder via `TableConfiguration.builder()`, which returns a `TableConfigurationBuilder`.
 
 **Note:** Markup parsing is enabled by default.
+
+### Default Values
+
+| Option | Default |
+|---|---|
+| `alignment` | `CellAlign.LEFT` |
+| `parser` | `AnsiStringParser.DEFAULT` |
+| `borderColor` | `{}` (no color) |
+| `padding` | `1` |
+| `nullReplacement` | `""` (empty string) |
+| `columnAlignment` | `{}` (empty map) |
 
 ### Basic Configuration
 ```java
 TableConfiguration config = TableConfiguration
     .builder()
     .alignment(CellAlign.CENTER)  // Center all cells
-    .padding(2)                    // Add 2 spaces padding
+    .padding(2)                   // Add 2 spaces padding
     .build();
 
 Clique.table(TableType.DEFAULT, config)
@@ -124,9 +135,21 @@ Available alignments:
 - `CellAlign.CENTER` - Centered
 - `CellAlign.RIGHT` - Right-aligned
 
+You can also set multiple column alignments at once by passing a `Map<Integer, CellAlign>`:
+```java
+Map<Integer, CellAlign> colAligns = new HashMap<>();
+colAligns.put(0, CellAlign.LEFT);
+colAligns.put(2, CellAlign.RIGHT);
+
+TableConfiguration config = TableConfiguration
+    .builder()
+    .columnAlignment(colAligns)
+    .build();
+```
+
 #### Padding
 
-Add whitespace around cell content to prevent cramping:
+Add whitespace around cell content to prevent cramping. Default is `1`. Padding cannot be negative.
 ```java
 TableConfiguration config = TableConfiguration
     .builder()
@@ -134,7 +157,7 @@ TableConfiguration config = TableConfiguration
     .build();
 ```
 
-### Null Handling
+#### Null Handling
 
 When cells are null or removed, Clique replaces them with a configurable value:
 ```java
@@ -148,52 +171,24 @@ Clique.table(TableType.DEFAULT, config)
     .render();
 ```
 
-#### Border Styling
+#### Border Coloring
 
-For quick uniform border coloring, pass a `BorderColor` directly to the factory method — no configuration object needed:
+Set a uniform border color using a color name string or `AnsiCode` values directly:
 
-> **Note:** Uniform styling is recommended for tables. Due to their more complex layout, per-edge color control (horizontal/vertical) may not fully align visually.
+> **Note:** Uniform styling is recommended for tables. Due to their more complex layout, passing multiple `AnsiCode` values may not fully align visually.
 
 ```java
-// Static factory
-Clique.table(BorderColor.of(ColorCode.BLUE))
-    .headers("Name", "Age")
-    .row("Alice", "25")
-    .render();
-
-
-// With a specific table type
-Clique.table(TableType.BOX_DRAW, BorderColor.of("blue")) //Uniform styling
-    .headers("Name", "Age")
-    .row("Alice", "25")
-    .render();
-```
-
-For per-edge color control, you can use `BorderColor` via `TableConfiguration`:
-```java
-BorderColor color = BorderColor.builder()
-    .horizontalStyle("cyan")
-    .verticalStyle("magenta")
-    .cornerStyle("yellow")
-    .build();
-
+// Using a color name string
 TableConfiguration config = TableConfiguration
     .builder()
-    .borderStyle(color)
+    .borderColor("blue")
     .build();
 
-Clique.table(TableType.BOX_DRAW, config)
-    .headers("Name", "Age")
-    .row("Alice", "25")
-    .render();
-```
-
-`BorderStyle` also works directly as a `BorderSpec` for backward compatibility:
-```java
-Clique.table(BorderStyle.builder().uniformStyle("blue").build())
-    .headers("Name", "Age")
-    .row("Alice", "25")
-    .render();
+// Using AnsiCode values directly
+TableConfiguration config = TableConfiguration
+    .builder()
+    .borderColor(ColorCode.BLUE)
+    .build();
 ```
 
 #### Custom Parser
@@ -215,9 +210,9 @@ TableConfiguration config = TableConfiguration
 ```java
 TableConfiguration config = TableConfiguration
     .builder()
-    .columnAlignment(0, CellAlign.LEFT)  // Overrides table-wide alignment
-    .borderStyle(BorderSpec.of("red"))
-    .alignment(CellAlign.CENTER)          // Table-wide alignment
+    .columnAlignment(0, CellAlign.LEFT)
+    .borderColor("red")
+    .alignment(CellAlign.CENTER)
     .padding(1)
     .build();
 
@@ -228,32 +223,11 @@ Clique.table(TableType.MARKDOWN, config)
     .render();
 ```
 
-### Border Char Customization
-
-Only the `DEFAULT` table type supports custom border characters:
-```java
-BorderStyle style = BorderStyle.builder()
-    .horizontalChar('=')
-    .verticalChar('|')
-    .cornerChar('+')
-    .build();
-
-TableConfiguration config = TableConfiguration
-    .builder()
-    .borderStyle(style)
-    .padding(1)
-    .build();
-
-Clique.table(TableType.DEFAULT, config)
-    .headers("A", "B")
-    .row("1", "2")
-    .render();
-```
-
 ## Things to Watch Out For
 - **Column alignment** always overrides table-wide alignment settings.
-- **Customization** — only the `DEFAULT` table type supports border char customization. Other types will throw during construction if `horizontalChar()`, `verticalChar()`, or `cornerChar()` is set on the `BorderStyle`.
-- Blank chars for customization are not applied; the previous default char of the `TableType` is used instead.
+- `null` values for `alignment`, `parser`, `borderColor`, `nullReplacement`, or `columnAlignment` in the builder will throw a `NullPointerException`.
+- Padding cannot be negative — an `IllegalArgumentException` will be thrown.
+- Column index in `columnAlignment(int, CellAlign)` cannot be negative — an `IllegalArgumentException` will be thrown.
 
 ## See Also
 - [Markup Reference](markup-reference.md) - Styling options for table content

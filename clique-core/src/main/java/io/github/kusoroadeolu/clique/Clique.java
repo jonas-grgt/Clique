@@ -47,9 +47,13 @@ public final class Clique {
     public static TableHeaderBuilder table(TableType type) { return CliqueComponents.table(type); }
     public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) { return CliqueComponents.table(type, configuration); }
 
-    public static TableHeaderBuilder table(TableType type, BorderSpec style){return CliqueComponents.table(type, style);}
+    public static TableHeaderBuilder table(TableType type, AnsiCode... borderColor){return CliqueComponents.table(type, borderColor);}
 
-    public static TableHeaderBuilder table(BorderSpec style){return CliqueComponents.table(style);}
+    public static TableHeaderBuilder table(AnsiCode... borderColor){return CliqueComponents.table(borderColor);}
+
+    public static TableHeaderBuilder table(TableType type, String borderColor){return CliqueComponents.table(type, borderColor);}
+
+    public static TableHeaderBuilder table(String borderColor){return CliqueComponents.table(borderColor);}
 
 
     // BOX
@@ -58,13 +62,18 @@ public final class Clique {
     public static Box box(BoxType type, BoxConfiguration configuration) { return CliqueComponents.box(type, configuration); }
     public static Box box(BoxType type) { return CliqueComponents.box(type); }
 
-    public static Box box(BoxType type, BorderSpec style){ return CliqueComponents.box(type, style);}
+    public static Box box(BoxType type, AnsiCode... borderColor){ return CliqueComponents.box(type, borderColor);}
 
-    public static Box box(BorderSpec style){return CliqueComponents.box(style);}
+    public static Box box(AnsiCode... borderColor){return CliqueComponents.box(borderColor);}
+
+    public static Box box(BoxType type, String borderColor){ return CliqueComponents.box(type, borderColor);}
+
+    public static Box box(String borderColor){return CliqueComponents.box(borderColor);}
 
     // INDENTER
     public static Indenter indenter() { return CliqueComponents.indenter(); }
     public static Indenter indenter(IndenterConfiguration indenterConfiguration) { return CliqueComponents.indenter(indenterConfiguration); }
+
 
     // PROGRESS BAR
     public static ProgressBar progressBar(int total) { return CliqueComponents.progressBar(total); }
@@ -94,13 +103,20 @@ public final class Clique {
     public static Frame frame(BoxType type) { return CliqueComponents.frame(type); }
     public static Frame frame(BoxType type, FrameConfiguration configuration) { return CliqueComponents.frame(type, configuration); }
 
-    public static Frame frame(BoxType type, BorderSpec style){return CliqueComponents.frame(type, style);}
+    public static Frame frame(BoxType type, AnsiCode... borderColor){return CliqueComponents.frame(type, borderColor);}
 
-    public static Frame frame(BorderSpec style){return CliqueComponents.frame(style);}
+    public static Frame frame(AnsiCode... borderColor){return CliqueComponents.frame(borderColor);}
+
+    public static Frame frame(BoxType type, String borderColor){return CliqueComponents.frame(type, borderColor);}
+
+    public static Frame frame(String borderColor){return CliqueComponents.frame(borderColor);}
 
     // TREE
     public static Tree tree(String label) { return CliqueComponents.tree(label); }
     public static Tree tree(String label, TreeConfiguration configuration) { return CliqueComponents.tree(label, configuration); }
+
+    public static Tree tree(String label, String connectorColor) { return CliqueComponents.tree(label, connectorColor); }
+        public static Tree tree(String label, AnsiCode... connectorColor) { return CliqueComponents.tree(label, connectorColor); }
 
     // CLIQUE CONFIG
     public static void enableCliqueColors(boolean enable) {

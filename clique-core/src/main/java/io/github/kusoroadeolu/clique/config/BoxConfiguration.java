@@ -1,12 +1,12 @@
 package io.github.kusoroadeolu.clique.config;
 
-import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
+import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.parser.AnsiStringParser;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
+import java.util.Arrays;
 import java.util.Objects;
-
-import static io.github.kusoroadeolu.clique.core.utils.MiscUtils.assertStyleNotNull;
 
 /**
  * A class for styling table borders
@@ -18,7 +18,7 @@ public class BoxConfiguration {
 
     private final TextAlign textAlign;
     private final AnsiStringParser parser;
-    private final BorderStyle borderStyle;
+    private final AnsiCode[] borderColor;
     private final int padding;
 
     private BoxConfiguration() {
@@ -28,7 +28,7 @@ public class BoxConfiguration {
     private BoxConfiguration(BoxConfigurationBuilder builder) {
         this.textAlign = builder.textAlign;
         this.parser = builder.parser;
-        this.borderStyle = builder.borderStyle;
+        this.borderColor = builder.borderColor;
         this.padding = builder.padding;
     }
 
@@ -37,21 +37,13 @@ public class BoxConfiguration {
     }
 
 
-    @InternalApi(since = "3.1.3")
-    public static BoxConfiguration fromBorderStyle(BorderSpec style) {
-        assertStyleNotNull(style);
-        return BoxConfiguration
-                .builder()
-                .borderStyle(style)
-                .build();
-    }
 
     public int getPadding() {
         return this.padding;
     }
 
-    public BorderStyle getBorderStyle() {
-        return this.borderStyle;
+    public AnsiCode[] getBorderColor() {
+        return this.borderColor;
     }
 
     public TextAlign getTextAlign() {
@@ -67,7 +59,7 @@ public class BoxConfiguration {
         return "BoxConfiguration[" +
                 "textAlign=" + textAlign +
                 ", parser=" + parser +
-                ", borderStyle=" + borderStyle +
+                ", borderColor=" + Arrays.toString(borderColor) +
                 ", padding=" + padding +
                 ']';
     }
@@ -77,18 +69,18 @@ public class BoxConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         BoxConfiguration that = (BoxConfiguration) object;
-        return textAlign == that.textAlign && parser.equals(that.parser) && Objects.equals(borderStyle, that.borderStyle) && padding == that.padding;
+        return textAlign == that.textAlign && parser.equals(that.parser) &&  padding == that.padding && Arrays.equals(borderColor, that.borderColor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(padding, textAlign, parser, borderStyle);
+        return Objects.hash(padding, textAlign, parser, Arrays.hashCode(borderColor));
     }
 
     public static class BoxConfigurationBuilder {
         private TextAlign textAlign = TextAlign.CENTER;
         private AnsiStringParser parser = AnsiStringParser.DEFAULT;
-        private BorderStyle borderStyle = null;
+        private AnsiCode[] borderColor = {};
         private int padding = 2;
 
         public BoxConfigurationBuilder padding(int padding) {
@@ -97,9 +89,13 @@ public class BoxConfiguration {
             return this;
         }
 
-        public BoxConfigurationBuilder borderStyle(BorderSpec spec) {
-            Objects.requireNonNull(spec, "Border style cannot be null");
-            this.borderStyle = BorderStyle.fromSpec(spec);
+        public BoxConfigurationBuilder borderColor(String borderColor) {
+            return borderColor(ParserUtils.getAnsiCodes(borderColor, parser));
+        }
+
+        public BoxConfigurationBuilder borderColor(AnsiCode... borderColor) {
+            Objects.requireNonNull(borderColor, "Border color cannot be null");
+            this.borderColor = borderColor;
             return this;
         }
 

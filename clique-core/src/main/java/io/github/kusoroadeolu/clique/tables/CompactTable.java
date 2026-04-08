@@ -1,11 +1,9 @@
 package io.github.kusoroadeolu.clique.tables;
 
 
-import io.github.kusoroadeolu.clique.config.BorderStyle;
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.structures.WidthAwareList;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
-import io.github.kusoroadeolu.clique.style.DefaultStyleBuilder;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.Objects;
@@ -21,9 +19,9 @@ class CompactTable extends AbstractTable {
 
     public CompactTable(TableConfiguration tableConfiguration) {
         super(tableConfiguration);
-        this.vLine = Constants.BLANK.repeat(this.tableConfiguration.getPadding());  //VLINE is blank
+        this.vLine = Constants.BLANK.repeat(this.configuration.getPadding());  //VLINE is blank
         this.hLine = "-";
-        this.styleTableBorders();
+        this.colorTableBorders();
     }
 
     public String get() {
@@ -36,14 +34,14 @@ class CompactTable extends AbstractTable {
             final WidthAwareList list = this.rows.get(i);
 
             for (int j = 0; j < list.size(); j++) {
-                var cellAlign = this.tableConfiguration.getAlignment();
+                var cellAlign = this.configuration.getAlignment();
                 final String styledCell = list.getStyledText(j);
                 final int displayWidth = list.get(j).width();
                 final WidthAwareList cl = this.columns.get(j);
                 final int longest = cl.longest(); //Longest str height in each column
 
                 final int offset = longest - displayWidth;
-                cellAlign = chooseColAlignment(j, cellAlign, this.tableConfiguration.getColumnAlignment());
+                cellAlign = chooseColAlignment(j, cellAlign, this.configuration.getColumnAlignment());
                 tableBuilder.append(align(cellAlign, sb, offset, styledCell, EMPTY));
 
                 if (j < list.size() - 1) {
@@ -78,19 +76,8 @@ class CompactTable extends AbstractTable {
     }
 
 
-    protected void styleTableBorders() {
-        BorderStyle borderStyle = this.tableConfiguration.getBorderStyle();
-        if (borderStyle == null) return;
-        if (borderStyle.hasModifiedChar()) {
-            throw new IllegalArgumentException(
-                    "Border character customization is only supported for DEFAULT tables. " +
-                            "TableType.Compact" + " does not support character overrides."
-            );
-        }
-
-        final StyleBuilder sb = new DefaultStyleBuilder();
-        this.hLine = sb.formatAndReset(this.hLine, borderStyle.getHorizontalStyle());
-
+    protected void colorTableBorders() {
+        this.hLine = StyleBuilder.formatAndReset(new StringBuilder(), this.hLine, configuration.getBorderColor());
     }
 
     @Override
@@ -114,7 +101,7 @@ class CompactTable extends AbstractTable {
                 ", vLine='" + vLine + '\'' +
                 ", columns=" + columns +
                 ", rows=" + rows +
-                ", tableConfiguration=" + tableConfiguration +
+                ", tableConfiguration=" + configuration +
                 ']';
     }
 }
