@@ -37,7 +37,6 @@ public class BoxConfiguration {
     }
 
 
-
     public int getPadding() {
         return this.padding;
     }

@@ -40,14 +40,6 @@ public class IndenterConfiguration {
         return new IndenterConfigurationBuilder();
     }
 
-    /**
-     * @deprecated As of 3.1.3, use {@link IndenterConfiguration#builder()} instead. This will be removed in a future release.
-     * */
-    @Deprecated(since = "3.1.3", forRemoval = true)
-    public static IndenterConfigurationBuilder immutableBuilder() {
-        return builder();
-    }
-
     @Override
     public String toString() {
         return "IndenterConfiguration[" +

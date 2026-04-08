@@ -190,6 +190,9 @@ _(no changes noted)_
 ## Clique [4.0.0] - [UNRELEASED]
 ### Added 
 - `AnsiCode` varargs and `String` overloads in `Clique` facade in place of `BorderSpec` types. These overloads provide uniform styling across each component's borders, removing the use of per edge control.
+- `flagColor()` method to `IndenterConfiguration` which applies a default color to all flags with `AnsiCode...` and `String` overloads. Markup applied on flags still takes precedence
+- `connectorColor()` method to `TreeConfiguration`with `AnsiCode...` and `String` overloads
+
 
 ### Fixed
 - An off by one error in `Frame` when a title wider than the frame's content was aligned left or right.
@@ -202,6 +205,7 @@ _(no changes noted)_
 - `BorderStyle` and `BorderSpec` types entirely, along with their usages across `BoxConfiguration`, `FrameConfiguration`, and `TableConfiguration`
 - `fromBorderStyle(BorderSpec)` factory methods from `BoxConfiguration`, `FrameConfiguration`, and `TableConfiguration`
 - `getBorderStyle()` getters and `borderStyle(BorderSpec)` builder methods from all three configuration classes
+- Deprecated `immutableBuilder()` methods in configuration classes
 
 ### Updated
 - `Box` and `BoxConfiguration` `equals()` and `hashcode()` contracts

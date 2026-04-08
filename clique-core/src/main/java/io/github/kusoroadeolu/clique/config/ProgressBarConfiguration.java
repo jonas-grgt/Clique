@@ -41,14 +41,6 @@ public class ProgressBarConfiguration {
         return new ProgressBarConfigurationBuilder();
     }
 
-    /**
-     * @deprecated As of 3.2.0, use {@link ProgressBarConfiguration#builder()} instead. This will be removed in a future release.
-     * */
-    @Deprecated(since = "3.2.0", forRemoval = true)
-    public static ProgressBarConfigurationBuilder immutableBuilder() {
-        return builder();
-    }
-
     @Stable(since = "3.2.1")
     public static ProgressBarConfigurationBuilder fromPreset(ProgressBarPreset preset) {
         Objects.requireNonNull(preset, "Preset cannot be null");
