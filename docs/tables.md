@@ -18,7 +18,7 @@ Clique provides 5 built-in table styles:
 
 ### Creating a Simple Table
 ```java
-Table table = Clique.table(TableType.DEFAULT);
+PendingTable table = Clique.table(TableType.DEFAULT);
 table.headers("Name", "Age", "Class")
     .row("John", "25", "Class A")
     .row("Doe", "26", "Class B");

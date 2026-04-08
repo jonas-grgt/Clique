@@ -15,7 +15,7 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
-import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
+import io.github.kusoroadeolu.clique.tables.PendingTable;
 import io.github.kusoroadeolu.clique.tables.TableType;
 import io.github.kusoroadeolu.clique.tree.Tree;
 
@@ -42,18 +42,18 @@ public final class Clique {
     public static AnsiStringParser parser(ParserConfiguration configuration) { return CliqueStyles.parser(configuration); }
 
     // TABLE
-    public static TableHeaderBuilder table() { return CliqueComponents.table(); }
-    public static TableHeaderBuilder table(TableConfiguration configuration) { return CliqueComponents.table(configuration); }
-    public static TableHeaderBuilder table(TableType type) { return CliqueComponents.table(type); }
-    public static TableHeaderBuilder table(TableType type, TableConfiguration configuration) { return CliqueComponents.table(type, configuration); }
+    public static PendingTable table() { return CliqueComponents.table(); }
+    public static PendingTable table(TableConfiguration configuration) { return CliqueComponents.table(configuration); }
+    public static PendingTable table(TableType type) { return CliqueComponents.table(type); }
+    public static PendingTable table(TableType type, TableConfiguration configuration) { return CliqueComponents.table(type, configuration); }
 
-    public static TableHeaderBuilder table(TableType type, AnsiCode... borderColor){return CliqueComponents.table(type, borderColor);}
+    public static PendingTable table(TableType type, AnsiCode... borderColor){return CliqueComponents.table(type, borderColor);}
 
-    public static TableHeaderBuilder table(AnsiCode... borderColor){return CliqueComponents.table(borderColor);}
+    public static PendingTable table(AnsiCode... borderColor){return CliqueComponents.table(borderColor);}
 
-    public static TableHeaderBuilder table(TableType type, String borderColor){return CliqueComponents.table(type, borderColor);}
+    public static PendingTable table(TableType type, String borderColor){return CliqueComponents.table(type, borderColor);}
 
-    public static TableHeaderBuilder table(String borderColor){return CliqueComponents.table(borderColor);}
+    public static PendingTable table(String borderColor){return CliqueComponents.table(borderColor);}
 
 
     // BOX

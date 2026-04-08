@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.tables;
 
 import io.github.kusoroadeolu.clique.config.TableConfiguration;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.tables.AbstractTable.TableHeaderBuilder;
+import io.github.kusoroadeolu.clique.tables.PendingTable;
 
 import java.util.Objects;
 
@@ -13,12 +13,12 @@ public class TableFactory {
         throw new AssertionError();
     }
 
-    public static TableHeaderBuilder getTableBuilder(TableType type, TableConfiguration config) {
+    public static PendingTable getTableBuilder(TableType type, TableConfiguration config) {
         var table = ofTable(type, config);
-        return new TableHeaderBuilder(table);
+        return new AbstractTable.TableHeaderBuilder(table);
     }
 
-    public static TableHeaderBuilder getTableBuilder(TableType type) {
+    public static PendingTable getTableBuilder(TableType type) {
         return getTableBuilder(type, TableConfiguration.DEFAULT);
     }
 
