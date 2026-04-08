@@ -63,19 +63,5 @@ class TreeTest {
         assertThrows(UnsupportedOperationException.class, () -> tree.add(tree));
     }
 
-    @Test
-    public void onFlush_assert_childHasNoParent(){
-        Tree tree = Clique.tree("Some label");
-        Tree child = tree.add("Node");
-        tree.flush();
-        assertTrue(child.parent().isEmpty());
-    }
-
-    @Test
-    public void onFlush_assert_parentHasNoChild(){
-        Tree tree = Clique.tree("Some label");
-        tree.flush();
-        assertTrue(tree.children().isEmpty());
-    }
 
 }

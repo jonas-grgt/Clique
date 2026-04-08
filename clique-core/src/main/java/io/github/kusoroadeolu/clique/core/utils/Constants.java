@@ -7,12 +7,10 @@ public class Constants {
     public static final String NEWLINE = "\n";
     public static final String EMPTY = "";
     public static final String BLANK = " ";
-    public static final char BLANK_CHAR = ' ';
     public static final int ZERO = 0;
     public static final char ANSI_END = 'm';
     public static final char ESC = '\u001b';
     public static final char LBRACKET = '[';
-    public static final char RBRACKET = ']';
 
     //FOR ANSI DETECTOR
     public static final String TERM = "TERM";

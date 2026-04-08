@@ -3,7 +3,6 @@ package io.github.kusoroadeolu.clique.frame;
 import io.github.kusoroadeolu.clique.boxes.BoxType;
 import io.github.kusoroadeolu.clique.config.FrameAlign;
 import io.github.kusoroadeolu.clique.config.FrameConfiguration;
-import io.github.kusoroadeolu.clique.core.display.Bordered;
 import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
@@ -20,7 +19,7 @@ import static io.github.kusoroadeolu.clique.core.utils.Constants.*;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.parseToCellIfPresent;
 
 @InternalApi(since = "3.2.0")
-public class Frame implements Bordered {
+public class Frame implements Component {
     private final List<FrameNode> nodes;
     private final FrameConfiguration configuration;
     private final BoxType type;

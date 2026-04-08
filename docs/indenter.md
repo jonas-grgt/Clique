@@ -16,7 +16,7 @@ Indenter indenter = Clique.indenter()
     .unindent()
     .add("Back to Root");
 
-indenter.print();
+indenter.render();
 ```
 
 ### Custom Flags Per Level
@@ -32,7 +32,7 @@ Clique.indenter()
     .add("Nested item")
     .unindent()
     .add("Back to first level")
-    .print();
+    .render();
 ```
 
 ## Indent Methods
@@ -108,7 +108,7 @@ Clique.indenter(config)
     .add("[blue, bold]Root[/]")
     .indent()
     .add("[green]Nested item[/]")
-    .print();
+    .render();
 ```
 
 ### Custom Parser
@@ -141,7 +141,7 @@ Clique.indenter()
     .indent()
     .add("[green]Item one[/]")
     .add("[yellow]Item two[/]")
-    .print();
+    .render();
 ```
 
 ## Examples
@@ -164,7 +164,7 @@ Clique.indenter()
     .add("Code review")
     .unindent()
     .add("Deployment")
-    .print();
+    .render();
 ```
 
 ### CLI Menu
@@ -194,7 +194,7 @@ Clique.indenter(config)
     .add("Paste")
     .unindent()
     .add("View")
-    .print();
+    .render();
 ```
 
 ### Styled Log / Report Output
@@ -214,7 +214,7 @@ Clique.indenter()
     .unindent()
     .indent("  [red]✗[/] ")
     .add("Coverage below threshold (74%)")
-    .print();
+    .render();
 ```
 
 ## See Also

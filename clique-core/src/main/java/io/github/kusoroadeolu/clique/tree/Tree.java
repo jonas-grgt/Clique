@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.tree;
 
 import io.github.kusoroadeolu.clique.config.TreeConfiguration;
-import io.github.kusoroadeolu.clique.core.display.Borderless;
+import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
@@ -14,7 +14,7 @@ import java.util.Optional;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.core.utils.Constants.NEWLINE;
 
-public class Tree implements Borderless {
+public class Tree implements Component {
     private final String label;
     private final List<Tree> children; //Accumulates children
     private final TreeConfiguration treeConfiguration;
@@ -78,13 +78,6 @@ public class Tree implements Borderless {
 
     void validateLabel(String label){
         Objects.requireNonNull(label, "Label cannot be null");
-    }
-
-    @Override
-    public void flush() {;
-        children.forEach(Tree::flush);
-        parent = null;
-        children.clear();
     }
 
     @Override

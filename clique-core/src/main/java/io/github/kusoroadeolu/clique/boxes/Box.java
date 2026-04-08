@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.boxes;
 
 import io.github.kusoroadeolu.clique.config.BoxConfiguration;
 import io.github.kusoroadeolu.clique.config.TextAlign;
-import io.github.kusoroadeolu.clique.core.display.Bordered;
+import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.exceptions.InvalidDimensionException;
 import io.github.kusoroadeolu.clique.core.structures.BorderChars;
@@ -16,7 +16,7 @@ import static io.github.kusoroadeolu.clique.core.utils.BoxUtils.drawBox;
 import static java.util.Objects.requireNonNull;
 
 @InternalApi(since = "3.2.0")
-public class Box implements Bordered {
+public class Box implements Component {
     private int width;
     private int height; //If width and height == 0
     private String content;

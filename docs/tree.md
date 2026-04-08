@@ -11,7 +11,7 @@ Tree tree = Clique.tree("project/")
     .add("README.md")
     .add("build.gradle");
 
-tree.print();
+tree.render();
 ```
 
 ### Nested Tree
@@ -27,7 +27,7 @@ test.add("MainTest.java");
 
 tree.add("README.md");
 
-tree.print();
+tree.render();
 ```
 
 Output:
@@ -78,7 +78,7 @@ src.add("[red]Broken.java      [dim]✗ error");
 
 tree.add("[dim].gitignore");
 
-tree.print();
+tree.render();
 ```
 
 ## Tree Configuration
@@ -144,7 +144,7 @@ tests.add("[dim, strike]TreeTest.java       skipped");
 tree.add("[white]README.md");
 tree.add("[dim].gitignore");
 
-tree.print();
+tree.render();
 ```
 
 ## Getting the Tree as a String

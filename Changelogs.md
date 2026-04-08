@@ -188,7 +188,6 @@ _(no changes noted)_
 ## Clique [4.0.0] - [UNRELEASED]
 ### Added
 - `AnsiCode` varargs and `String` overloads in `Clique` facade in place of `BorderSpec` types. These overloads provide uniform styling across each component's borders, removing the use of per edge control.
-- `flagColor()` method to `IndenterConfiguration` which applies a default color to all flags with `AnsiCode...` and `String` overloads. Markup applied on flags still takes precedence
 - `connectorColor()` method to `TreeConfiguration` with `AnsiCode...` and `String` overloads
 - `StyleContext` support in `ParserConfiguration` via `styleContext(StyleContext)` and `addStyle(String, AnsiCode)` builder methods, allowing custom styles scoped to a specific parser instance
 
