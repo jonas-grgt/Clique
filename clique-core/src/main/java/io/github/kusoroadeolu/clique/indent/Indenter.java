@@ -5,12 +5,14 @@ import io.github.kusoroadeolu.clique.core.display.Borderless;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
+import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.Objects;
 
+import static io.github.kusoroadeolu.clique.core.utils.Constants.ZERO;
 import static io.github.kusoroadeolu.clique.core.utils.StringUtils.clearStringBuilder;
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
@@ -37,11 +39,12 @@ public class Indenter implements Borderless {
     public Indenter indent(int level, String flag) {
         requireNonNull(flag, "Flag cannot be null");
         if (level < 0) throw new IllegalArgumentException("Level cannot be less than 0");
-        if (flag.isEmpty()) flag = configuration.getDefaultFlag();
+        if (flag.isEmpty())
+            flag = configuration.getDefaultFlag();
 
-        flag = parseString(flag);
+        flag = parseFlag(flag);
+
         this.currentLevel += level;
-
         this.currentFlag = flag;
         this.indents.push(new Indent(this.currentFlag, this.currentLevel));
         return this;
@@ -126,6 +129,15 @@ public class Indenter implements Borderless {
     private String parseString(String str) {
         return StringUtils.parseIfPresent(str, this.configuration.getParser());
     }
+
+    private String parseFlag(String flag) {
+        if (configuration.getFlagColor().length != ZERO){
+          flag = StyleBuilder.formatAndReset(new StringBuilder(), flag, configuration.getFlagColor());
+        }
+
+        return StringUtils.parseIfPresent(flag, this.configuration.getParser());
+    }
+
 
     public Indenter resetLevel() {
         this.currentLevel = 0;

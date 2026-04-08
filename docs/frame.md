@@ -122,12 +122,21 @@ If you don't call `.width()`, the frame measures all nested children and sizes i
 
 ## Frame Configuration
 
-Use `FrameConfiguration` to customize frame appearance and behavior.
+Use `FrameConfiguration` to customize frame appearance and behavior. Access the builder via `FrameConfiguration.builder()`, which returns a `FrameConfigurationBuilder`.
+
+### Default Values
+
+| Option | Default |
+|---|---|
+| `frameAlign` | `FrameAlign.CENTER` |
+| `parser` | `AnsiStringParser.DEFAULT` |
+| `borderColor` | `{}` (no color) |
+| `padding` | `2` |
 
 ### Basic Configuration
 ```java
 FrameConfiguration config = FrameConfiguration.builder()
-    .frameAlign(FrameAlign.LEFT)  // Default alignment for all children
+    .frameAlign(FrameAlign.LEFT)
     .padding(1)
     .build();
 
@@ -150,51 +159,26 @@ FrameConfiguration config = FrameConfiguration.builder()
 
 #### Padding
 
-Set the horizontal padding inside the frame:
+Set the horizontal padding inside the frame. Default is `2`. Padding cannot be negative.
 ```java
 FrameConfiguration config = FrameConfiguration.builder()
     .padding(4)
     .build();
 ```
 
-#### Border Styling
+#### Border Coloring
 
-For quick uniform border coloring, pass a `BorderSpec` directly to the factory method — no configuration object needed:
+Set a uniform border color using a color name string or `AnsiCode` values directly:
 ```java
-// Static factory
-Clique.frame(BorderColor.of("red"))
-    .nest(table)
-    .render();
-
-// With a specific frame type
-Clique.frame(BoxType.CLASSIC, BorderColor.of("red"))
-    .nest(table)
-    .render();
-```
-
-
-For per-edge or more manual color control, you can use `BorderColor` via `FrameConfiguration`:
-```java
-BorderColor style = BorderColor.builder()
-    .horizontalStyle("cyan")
-    .verticalStyle("magenta")
-    .cornerStyle("yellow")
-    .build();
-
+// Using a color name string
 FrameConfiguration config = FrameConfiguration.builder()
-    .borderStyle(style)
+    .borderColor("red")
     .build();
 
-Clique.frame(BoxType.CLASSIC, config)
-    .nest(table)
-    .render();
-```
-
-`BorderStyle` also works directly as a `BorderSpec` for backward compatibility:
-```java
-Clique.frame(BorderStyle.builder().uniformStyle("red").build())
-    .nest(table)
-    .render();
+// Using AnsiCode values directly
+FrameConfiguration config = FrameConfiguration.builder()
+    .borderColor(ColorCode.RED)
+    .build();
 ```
 
 #### Custom Parser
@@ -211,31 +195,12 @@ FrameConfiguration config = FrameConfiguration.builder()
     .build();
 ```
 
-### Customizing Frames
-
-All frame types support border char customization via `BorderStyle`:
-```java
-BorderStyle style = BorderStyle.builder()
-    .horizontalStyle("cyan")
-    .verticalStyle("magenta")
-    .cornerStyle("yellow")
-    .build();
-
-FrameConfiguration config = FrameConfiguration.builder()
-    .borderStyle(style)
-    .build();
-
-Clique.frame(BoxType.ROUNDED, config)
-    .nest(table)
-    .render();
-```
-
 ### Full Configuration Example
 ```java
 FrameConfiguration config = FrameConfiguration.builder()
     .frameAlign(FrameAlign.CENTER)
     .padding(3)
-    .borderStyle(BorderSpec.of("blue"))
+    .borderColor("blue")
     .build();
 
 Clique.frame(BoxType.DOUBLE_LINE, config)
@@ -293,7 +258,7 @@ tests.add("[dim, strike]TreeTest.java       skipped");
 tree.add("[white]README.md");
 tree.add("[dim].gitignore");
 
-Clique.frame(BoxType.CLASSIC, BorderColor.of("blue"))
+Clique.frame(BoxType.CLASSIC)
     .title("Project Structure", FrameAlign.LEFT)
     .nest(tree)
     .render();
@@ -304,7 +269,8 @@ Clique.frame(BoxType.CLASSIC, BorderColor.of("blue"))
 - A nested component's content width **cannot exceed the frame's width**. If it does, an exception is thrown.
 - The **title width cannot exceed the frame width**. Keep titles shorter than the frame's content.
 - Frame width is derived from the **widest child** automatically, so you generally don't need to set it manually.
-- Blank chars for customization are not applied, and the previous default char of the `BoxType` is used instead.
+- `null` values for `frameAlign`, `parser`, or `borderColor` in the builder will throw a `NullPointerException`.
+- Padding cannot be negative — an `IllegalArgumentException` will be thrown.
 
 ## See Also
 

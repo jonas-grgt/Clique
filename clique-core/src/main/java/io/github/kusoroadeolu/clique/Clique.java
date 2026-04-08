@@ -74,6 +74,7 @@ public final class Clique {
     public static Indenter indenter() { return CliqueComponents.indenter(); }
     public static Indenter indenter(IndenterConfiguration indenterConfiguration) { return CliqueComponents.indenter(indenterConfiguration); }
 
+
     // PROGRESS BAR
     public static ProgressBar progressBar(int total) { return CliqueComponents.progressBar(total); }
     public static ProgressBar progressBar(int total, ProgressBarConfiguration configuration) { return CliqueComponents.progressBar(total, configuration); }
@@ -115,7 +116,7 @@ public final class Clique {
     public static Tree tree(String label, TreeConfiguration configuration) { return CliqueComponents.tree(label, configuration); }
 
     public static Tree tree(String label, String connectorColor) { return CliqueComponents.tree(label, connectorColor); }
-    public static Tree tree(String label, String connectorColor) { return CliqueComponents.tree(label, connectorColor); }
+        public static Tree tree(String label, AnsiCode... connectorColor) { return CliqueComponents.tree(label, connectorColor); }
 
     // CLIQUE CONFIG
     public static void enableCliqueColors(boolean enable) {

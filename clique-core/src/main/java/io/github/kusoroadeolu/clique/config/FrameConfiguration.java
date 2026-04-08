@@ -64,8 +64,9 @@ public class FrameConfiguration {
     public String toString() {
         return "FrameConfiguration[" +
                 "padding=" + padding +
-                ", frameAlign=" + align +
+                ", align=" + align +
                 ", parser=" + parser +
+                ", borderColor=" + Arrays.toString(borderColor) +
                 ']';
     }
 
@@ -74,7 +75,7 @@ public class FrameConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         FrameConfiguration that = (FrameConfiguration) object;
-        return padding == that.padding && align == that.align && parser.equals(that.parser);
+        return padding == that.padding && align == that.align && parser.equals(that.parser) && Arrays.equals(borderColor, that.borderColor);
     }
 
     @Override
@@ -85,8 +86,8 @@ public class FrameConfiguration {
     public static class FrameConfigurationBuilder {
         private int padding = 2;
         private FrameAlign frameAlign = FrameAlign.CENTER;
-        private AnsiStringParser parser = Clique.parser();
-        private AnsiCode[] borderColor = new AnsiCode[0];
+        private AnsiStringParser parser = AnsiStringParser.DEFAULT;
+        private AnsiCode[] borderColor = {};
 
         public FrameConfigurationBuilder padding(int padding) {
             if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative");
@@ -95,7 +96,7 @@ public class FrameConfiguration {
         }
 
         public FrameConfigurationBuilder borderColor(String borderColor) {
-            return borderColor(ParserUtils.getAnsiCodes(borderColor, parser).toArray(AnsiCode[]::new));
+            return borderColor(ParserUtils.getAnsiCodes(borderColor, parser));
         }
 
         public FrameConfigurationBuilder borderColor(AnsiCode... borderColor) {

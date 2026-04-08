@@ -78,7 +78,7 @@ public class TableConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
         TableConfiguration that = (TableConfiguration) object;
         return padding == that.padding && alignment == that.alignment && parser.equals(that.parser)
-                && nullReplacement.equals(that.nullReplacement) && columnAlignment.equals(that.columnAlignment);
+                && nullReplacement.equals(that.nullReplacement) && columnAlignment.equals(that.columnAlignment) && Arrays.equals(borderColor, that.borderColor);
     }
 
     @Override
@@ -94,6 +94,7 @@ public class TableConfiguration {
                 ", parser=" + parser +
                 ", nullReplacement='" + nullReplacement + '\'' +
                 ", columnAlignment=" + columnAlignment +
+                ", borderColor=" + Arrays.toString(borderColor) +
                 ']';
     }
 
@@ -103,7 +104,7 @@ public class TableConfiguration {
         private AnsiStringParser parser = AnsiStringParser.DEFAULT;
         private String nullReplacement = "";
         private Map<Integer, CellAlign> columnAlignment = new HashMap<>();
-        private AnsiCode[] borderColor = new AnsiCode[0];
+        private AnsiCode[] borderColor = {};
 
         public TableConfigurationBuilder padding(int padding) {
             if (padding < 0) throw new IllegalArgumentException("Padding cannot be negative.");
@@ -129,7 +130,7 @@ public class TableConfiguration {
         }
 
         public TableConfigurationBuilder borderColor(String borderColor) {
-            return borderColor(ParserUtils.getAnsiCodes(borderColor, parser).toArray(AnsiCode[]::new));
+            return borderColor(ParserUtils.getAnsiCodes(borderColor, parser));
         }
 
         public TableConfigurationBuilder borderColor(AnsiCode... borderColor) {

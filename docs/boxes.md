@@ -18,8 +18,8 @@ Clique provides 4 built-in box styles:
 ### Creating a Simple Box
 ```java
 Box box = Clique.box()
-    .dimensions(10, 20)  // Width, height
-    .content("This is my first box");
+        .dimensions(10, 20)  // Width, height
+        .content("This is my first box");
 
 box.render(); // Print the box to terminal
 ```
@@ -35,13 +35,6 @@ Clique.box()
     .render();
 ```
 
-**AutoSized boxes**
-No dimension set, autosizes the box
-```java
-Clique.box()
-    .content("An autosized box")
-    .render();
-```
 
 ### Using Markup in Boxes
 
@@ -74,7 +67,6 @@ Clique.box(BoxType.CLASSIC)
 Boxes support a range of text alignments, with the default being centered:
 ```java
 Clique.box(BoxType.CLASSIC)
-    .autosize()
     .content(
         """
             [green, bold]Success![/]
@@ -91,9 +83,19 @@ Available alignments:
 - `TextAlign.BOTTOM_LEFT`, `TextAlign.BOTTOM_CENTER`, `TextAlign.BOTTOM_RIGHT`
 
 Default `TextAlign` is `CENTER`
+
 ## Box Configuration
 
-Use `BoxConfiguration` to customize box appearance and behavior.
+Use `BoxConfiguration` to customize box appearance and behavior. You can access the builder via `BoxConfiguration.builder()`, which returns a `BoxConfigurationBuilder`.
+
+### Default Values
+
+| Option | Default |
+|---|---|
+| `textAlign` | `TextAlign.CENTER` |
+| `parser` | `AnsiStringParser.DEFAULT` |
+| `borderColor` | `{}` (no color) |
+| `padding` | `2` |
 
 ### Basic Configuration
 ```java
@@ -115,33 +117,28 @@ BoxConfiguration config = BoxConfiguration.builder()
 
 #### Padding
 
-Adds padding to each side of the box, this padding is taken from the given width of the box, and is not added to the box
+Adds padding to each side of the box. This padding is taken from the given width of the box and is not added to it. Default padding is `2`.
 ```java
-BoxConfigurationBuilder builder = BoxConfiguration.builder().padding(3).build();
+BoxConfiguration config = BoxConfiguration.builder()
+    .padding(3)
+    .build();
 ```
+
+> Padding cannot be negative — an `IllegalArgumentException` will be thrown.
+
 #### Border Coloring
 
-For quick uniform border coloring
+Set a uniform border color using a color name string or `AnsiCode` values directly:
 ```java
-// Static factory
-Clique.box(BorderColor.of(ColorCode.BLUE))
-    .dimensions(40, 10)
-    .content("Blue border box")
-    .render();
+// Using a color name string
+BoxConfiguration config = BoxConfiguration.builder()
+    .borderColor("blue")
+    .build();
 
-// With a specific box type
-Clique.box(BoxType.CLASSIC, "blue")
-    .dimensions(40, 10)
-    .content("Blue border box")
-    .render();
-```
-
-`BorderStyle` also works directly as a `BorderSpec` for backward compatibility:
-```java
-Clique.box(BorderStyle.builder().uniformStyle("blue").build())
-    .dimensions(40, 10)
-    .content("Blue border box")
-    .render();
+// Using AnsiCode values directly
+BoxConfiguration config = BoxConfiguration.builder()
+    .borderColor(ColorCode.BLUE)
+    .build();
 ```
 
 #### Custom Parser
@@ -160,31 +157,14 @@ BoxConfiguration config = BoxConfiguration.builder()
 
 ### Full Configuration Example
 ```java
-BoxConfigurationBuilder builder = BoxConfiguration.builder()
-    .borderStyle(BorderColor.of("blue"))
+BoxConfiguration config = BoxConfiguration.builder()
+    .borderColor("blue")
     .textAlign(TextAlign.CENTER)
-    .parser(Clique.parser());
-BoxConfiguration config = builder.build();
+    .parser(Clique.parser())
+    .build();
 
 Clique.box(BoxType.DOUBLE_LINE, config)
     .content("[bold, blue]This is a configured box[/]")
-    .render();
-```
-
-## Border Char Customization
-
-All box types support custom border characters via `BorderStyle`:
-```java
-BorderStyle style = BorderStyle.builder()
-    .uniformStyle("blue")
-    .cornerChar('*')
-    .horizontalChar('~')
-    .verticalChar('I')
-    .build();
-
-Clique.box(style)
-    .dimensions(40, 10)
-    .content("[red]This is my custom box :)[/]")
     .render();
 ```
 
@@ -211,7 +191,8 @@ Clique.box()
 
 ## Things to Watch Out For
 - `Clique.box()` defaults to `BoxType.ROUNDED`
-- Blank chars for customization are not applied; the previous default char of the `BoxType` is used instead
+- `null` values for `textAlign`, `parser`, or `borderColor` in the builder will throw a `NullPointerException`
+- Padding is deducted from the box's given width, not added on top of it
 
 ## See Also
 

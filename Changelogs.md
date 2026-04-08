@@ -206,4 +206,3 @@ _(no changes noted)_
 ### Updated
 - `Box` and `BoxConfiguration` `equals()` and `hashcode()` contracts
 - `BoxConfiguration`, `FrameConfiguration`, and `TableConfiguration` now accept border color via `AnsiCode[]` instead of `BorderStyle`, exposed through a `getBorderColor()` getter and `borderColor(AnsiCode...)` / `borderColor(String)` builder methods
-- `toString()` and `equals()` in all three configuration classes updated to reflect the removal of `borderStyle` and no longer include it in output or equality checks

@@ -70,7 +70,7 @@ public class TreeConfiguration {
     }
 
     public static class TreeConfigurationBuilder {
-        private AnsiCode[] connectorColor = new AnsiCode[0];
+        private AnsiCode[] connectorColor = {};
         private AnsiStringParser parser = AnsiStringParser.DEFAULT;
 
 
@@ -86,7 +86,7 @@ public class TreeConfiguration {
         }
 
         public TreeConfigurationBuilder connectorColor(String connectorColor){
-            return connectorColor(ParserUtils.getAnsiCodes(connectorColor, parser).toArray(AnsiCode[]::new));
+            return connectorColor(ParserUtils.getAnsiCodes(connectorColor, parser));
         }
 
         public TreeConfiguration build() {

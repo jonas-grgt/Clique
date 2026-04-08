@@ -10,16 +10,16 @@ import java.util.List;
 
 @InternalApi(since = "3.2.0")
 public class ParserUtils {
-    public static List<AnsiCode> getAnsiCodes(String string) {
+    public static AnsiCode[] getAnsiCodes(String string) {
         return getAnsiCodes(string, (AnsiStringParser) AnsiStringParser.DEFAULT);
     }
 
-    public static List<AnsiCode> getAnsiCodes(String string, AnsiStringParser parser) {
-        if (string.isBlank()) return List.of();
+    public static AnsiCode[] getAnsiCodes(String string, AnsiStringParser parser) {
+        if (string.isBlank()) return new AnsiCode[0];
         return Arrays.stream(string.split(parser.parserConfiguration().getDelimiter()))
                 .map(s -> StyleMaps.findStyle(s.trim())
                         .orElseThrow(() -> new UnidentifiedStyleException("Failed to find ansi code mapped to style: %s".formatted(s)))
                 )
-                .toList();
+                .toArray(AnsiCode[]::new);
     }
 }

@@ -59,6 +59,7 @@ public class BoxConfiguration {
         return "BoxConfiguration[" +
                 "textAlign=" + textAlign +
                 ", parser=" + parser +
+                ", borderColor=" + Arrays.toString(borderColor) +
                 ", padding=" + padding +
                 ']';
     }
@@ -68,7 +69,7 @@ public class BoxConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         BoxConfiguration that = (BoxConfiguration) object;
-        return textAlign == that.textAlign && parser.equals(that.parser) &&  padding == that.padding;
+        return textAlign == that.textAlign && parser.equals(that.parser) &&  padding == that.padding && Arrays.equals(borderColor, that.borderColor);
     }
 
     @Override
@@ -79,7 +80,7 @@ public class BoxConfiguration {
     public static class BoxConfigurationBuilder {
         private TextAlign textAlign = TextAlign.CENTER;
         private AnsiStringParser parser = AnsiStringParser.DEFAULT;
-        private AnsiCode[] borderColor = new AnsiCode[0];
+        private AnsiCode[] borderColor = {};
         private int padding = 2;
 
         public BoxConfigurationBuilder padding(int padding) {
@@ -89,7 +90,7 @@ public class BoxConfiguration {
         }
 
         public BoxConfigurationBuilder borderColor(String borderColor) {
-            return borderColor(ParserUtils.getAnsiCodes(borderColor, parser).toArray(AnsiCode[]::new));
+            return borderColor(ParserUtils.getAnsiCodes(borderColor, parser));
         }
 
         public BoxConfigurationBuilder borderColor(AnsiCode... borderColor) {

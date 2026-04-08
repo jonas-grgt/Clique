@@ -102,6 +102,14 @@ final class CliqueComponents {
         return new Indenter(indenterConfiguration);
     }
 
+    public static Indenter indenter(String flagColor) {
+        return new Indenter(IndenterConfiguration.builder().flagColor(flagColor).build());
+    }
+
+    public static Indenter indenter(AnsiCode... flagColor) {
+        return new Indenter(IndenterConfiguration.builder().flagColor(flagColor).build());
+    }
+
     // PROGRESS BAR
 
     public static ProgressBar progressBar(int total) {
