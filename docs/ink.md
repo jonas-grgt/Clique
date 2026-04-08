@@ -168,7 +168,7 @@ ink.of("ctp_mauve").bold().on("Hello")
 ink.of("ctp_sky").on("World")
 ```
 
-Styles are resolved in this order: local `StyleContext` → `GlobalStyleRegistry` → predefined colors and styles.
+Styles are resolved in this order: local `StyleContext` -> `GlobalStyleRegistry` -> predefined colors and styles.
 
 ---
 

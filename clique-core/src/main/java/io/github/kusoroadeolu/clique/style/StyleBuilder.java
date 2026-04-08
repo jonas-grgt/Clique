@@ -1,11 +1,10 @@
 package io.github.kusoroadeolu.clique.style;
 
 
-import io.github.kusoroadeolu.clique.ansi.StyleCode;
-import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
+import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
-import static io.github.kusoroadeolu.clique.core.utils.StringUtils.style;
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.style;
 
 @InternalApi(since = "3.2.0")
 public class StyleBuilder {

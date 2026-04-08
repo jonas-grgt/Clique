@@ -1,0 +1,119 @@
+package io.github.kusoroadeolu.clique.components;
+
+
+import io.github.kusoroadeolu.clique.configuration.TableConfiguration;
+import io.github.kusoroadeolu.clique.internal.Cell;
+import io.github.kusoroadeolu.clique.internal.WidthAwareList;
+import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCellIfPresent;
+import static io.github.kusoroadeolu.clique.internal.utils.TableUtils.*;
+import static java.util.Objects.isNull;
+
+@InternalApi(since = "3.2.0")
+abstract class AbstractTable implements Table {
+    final List<WidthAwareList> columns; //This is used to track the max height in that column
+    final List<WidthAwareList> rows;
+    final TableConfiguration configuration;
+    String cachedString = null;
+
+     AbstractTable(TableConfiguration configuration) {
+        this.columns = new ArrayList<>();
+        this.rows = new ArrayList<>();
+        this.configuration = configuration;
+    }
+
+     AbstractTable() {
+        this(TableConfiguration.DEFAULT);
+    }
+
+    public Table row(Collection<String> rows) {
+        return this.row(rows.toArray(String[]::new));
+    }
+
+    public Table row(String... rows) {
+        Objects.requireNonNull(rows, "Rows cannot be null");
+        //Get the header's size
+        final int headerSize = this.rows.getFirst().size();
+        final WidthAwareList rowList = new WidthAwareList();
+        this.rows.add(rowList);
+
+        for (int i = 0; i < headerSize; i++) {
+            String row;
+            //Pad the cells with null replacements
+            if (i >= rows.length) row = this.configuration.getNullReplacement();
+            else {
+                row = rows[i];
+                row = handleNulls(row, this.configuration.getNullReplacement());
+            }
+
+            final Cell c = parseToCellIfPresent(row, this.configuration.getParser());
+            rowList.add(c);
+            final WidthAwareList colList = this.columns.get(i);
+            colList.add(c);
+        }
+        nullCachedString();
+        return this;
+    }
+
+    public Table removeRow(int index) {
+        validateHeaders(index);
+        validateRowIndex(index, this.rows);
+
+        this.rows.remove(index);
+        for (WidthAwareList cl : this.columns) {
+            cl.remove(cl.get(index));
+        }
+        nullCachedString();
+        return this;
+    }
+
+    public Table removeCell(int row, int col) {
+        validateHeaders(row);
+        this.updateCell(row, col, this.configuration.getNullReplacement());
+        return this;
+    }
+
+    public Table updateCell(int row, int col, String text) {
+        validateRowIndex(row, this.rows);
+        validateColumnIndex(col, this.columns);
+
+        final WidthAwareList rl = this.rows.get(row);
+        final WidthAwareList cl = this.columns.get(col);
+        final Cell c = parseToCellIfPresent(text, this.configuration.getParser());
+        rl.update(col, c);
+        cl.update(row, c);
+        nullCachedString();
+        return this;
+    }
+
+    void nullCachedString(){
+        cachedString = null;
+    }
+
+    abstract void colorTableBorders();
+
+    public boolean equals(Object object) {
+        if (isNull(object) || getClass() != object.getClass()) return false;
+
+        AbstractTable that = (AbstractTable) object;
+        return columns.equals(that.columns) && rows.equals(that.rows) && Objects.equals(configuration, that.configuration);
+    }
+
+    public int hashCode() {
+        return Objects.hash(columns, rows, configuration);
+    }
+
+    public String toString() {
+        return "Table[" +
+                "columns=" + columns +
+                ", rows=" + rows +
+                ", tableConfiguration=" + configuration +
+                ']';
+    }
+}

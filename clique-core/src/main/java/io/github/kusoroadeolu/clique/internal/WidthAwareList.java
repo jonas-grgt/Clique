@@ -1,0 +1,93 @@
+package io.github.kusoroadeolu.clique.internal;
+
+import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@InternalApi(since = "3.2.0")
+public class WidthAwareList {
+    private final List<Cell> list;
+    private int longest;
+
+    public WidthAwareList() {
+        this(new ArrayList<>());
+    }
+
+    public WidthAwareList(List<Cell> list) {
+        this.list = list;
+        if (list.isEmpty()) longest = 0;
+        else longest = calculateLongest();
+    }
+
+
+    public void add(Cell c) {
+        this.updateLongest(c);
+        this.list.add(c);
+    }
+
+    public void update(int i, Cell c) {
+        this.updateLongest(c);
+        this.list.set(i, c);
+    }
+
+
+    public void updateLongest(Cell c) {
+        final int len = c.width();
+        if (len > this.longest) {
+            this.longest = len;
+        }
+    }
+
+
+    //Gets the styled text from the table
+    public String getStyledText(int pos) {
+        return this.list.get(pos).styledText();
+    }
+
+    public Cell get(int pos) {
+        return this.list.get(pos);
+    }
+
+
+    public void remove(Cell c) {
+        if (c == null) return;
+
+        final int len = c.width();
+        this.list.remove(c);
+
+        if (this.list.isEmpty()) {
+            this.longest = 0;
+        } else if(len == this.longest) {
+            this.longest = this.calculateLongest();
+        }
+
+    }
+
+    public int longest() {
+        return this.longest;
+    }
+
+    //Get the styled text from the list
+    public List<String> list() {
+        return this.list.stream()
+                .map(Cell::styledText)
+                .toList();
+    }
+
+    public List<Cell> cells() {
+        return new ArrayList<>(list);
+    }
+
+    public int size() {
+        return this.list.size();
+    }
+
+    private int calculateLongest() {
+        return this.list.stream()
+                .mapToInt(Cell::width)
+                .max()
+                .orElse(0);
+    }
+
+}

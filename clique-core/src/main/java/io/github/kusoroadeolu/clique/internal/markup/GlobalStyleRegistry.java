@@ -1,0 +1,24 @@
+package io.github.kusoroadeolu.clique.internal.markup;
+
+
+import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
+
+import java.util.Map;
+
+@InternalApi(since = "3.2.0")
+public class GlobalStyleRegistry {
+    private GlobalStyleRegistry() {
+        throw new AssertionError();
+    }
+
+    public static void registerStyle(String style, AnsiCode code) {
+        PredefinedStyleContext.CUSTOM_STYLE_CODES.put(style, code);
+    }
+
+    public static void registerStyles(Map<String, AnsiCode> codes) {
+        PredefinedStyleContext.CUSTOM_STYLE_CODES.putAll(codes);
+    }
+
+
+}

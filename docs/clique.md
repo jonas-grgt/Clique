@@ -24,7 +24,20 @@ Clique.styleBuilder()
 ```
 
 **Methods:**
-- `styleBuilder()` - Create a new style builder
+- `ink()` - Create a new ink class
+
+### StyleBuilder
+Immutable and fluent API for building styled strings:
+```java
+Clique.ink()
+    .red()
+    .bold()
+    .on("Hello")
+```
+
+**Methods:**
+- `ink()` - create a new `Ink` class
+- `ink(StyleContext)` - create a new `Ink` class with a style context
 
 ### RGB Colors
 Create custom RGB colors for use with the style API:

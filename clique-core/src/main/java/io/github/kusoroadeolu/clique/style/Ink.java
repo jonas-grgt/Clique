@@ -1,13 +1,9 @@
 package io.github.kusoroadeolu.clique.style;
 
-import io.github.kusoroadeolu.clique.ansi.BackgroundCode;
-import io.github.kusoroadeolu.clique.ansi.ColorCode;
-import io.github.kusoroadeolu.clique.ansi.RGBColor;
-import io.github.kusoroadeolu.clique.ansi.StyleCode;
-import io.github.kusoroadeolu.clique.core.documentation.Experimental;
-import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
-import io.github.kusoroadeolu.clique.core.parser.PredefinedStyleContext;
-import io.github.kusoroadeolu.clique.parser.StyleContext;
+import io.github.kusoroadeolu.clique.configuration.StyleContext;
+import io.github.kusoroadeolu.clique.internal.RGBColor;
+import io.github.kusoroadeolu.clique.internal.documentation.Experimental;
+import io.github.kusoroadeolu.clique.internal.markup.PredefinedStyleContext;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.ArrayList;

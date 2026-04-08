@@ -1,25 +1,15 @@
 package io.github.kusoroadeolu.clique;
 
-import io.github.kusoroadeolu.clique.boxes.Box;
-import io.github.kusoroadeolu.clique.boxes.BoxType;
-import io.github.kusoroadeolu.clique.config.*;
-import io.github.kusoroadeolu.clique.core.documentation.Stable;
-import io.github.kusoroadeolu.clique.core.utils.AnsiDetector;
-import io.github.kusoroadeolu.clique.frame.Frame;
-import io.github.kusoroadeolu.clique.indent.Indenter;
+import io.github.kusoroadeolu.clique.components.*;
+import io.github.kusoroadeolu.clique.configuration.*;
+import io.github.kusoroadeolu.clique.internal.documentation.Stable;
+import io.github.kusoroadeolu.clique.internal.utils.AnsiDetector;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
-import io.github.kusoroadeolu.clique.parser.StyleContext;
-import io.github.kusoroadeolu.clique.progressbar.IterableProgressBar;
-import io.github.kusoroadeolu.clique.progressbar.ProgressBar;
-import io.github.kusoroadeolu.clique.progressbar.ProgressBarPreset;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
 import io.github.kusoroadeolu.clique.style.Ink;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
-import io.github.kusoroadeolu.clique.tables.PendingTable;
-import io.github.kusoroadeolu.clique.tables.TableType;
-import io.github.kusoroadeolu.clique.tree.Tree;
 
 import java.util.Collection;
 import java.util.List;
