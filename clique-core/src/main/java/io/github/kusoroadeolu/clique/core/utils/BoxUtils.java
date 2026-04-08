@@ -21,7 +21,7 @@ public class BoxUtils {
 
     private BoxUtils(){}
 
-    private final static String RESET = StyleCode.RESET.toString();
+    private final static String RESET = StyleCode.RESET.ansiSequence();
 
     public static void alignText(StringBuilder sb, int idx, TextAlign textAlign, String spaces, List<Cell> wordWrap, String vLine, int padding) {
         final Cell cell = wordWrap.get(idx);

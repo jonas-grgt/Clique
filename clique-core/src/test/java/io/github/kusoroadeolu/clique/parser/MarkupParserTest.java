@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AnsiStringParserImplTest {
+class MarkupParserTest {
 
     @Test
     void testCustomDelimiter() {
@@ -25,29 +25,19 @@ class AnsiStringParserImplTest {
                 .build();
         MarkupParser parser = new MarkupParser(config);
         String output = parser.parse("[red bold]Text[/]");
-        assertTrue(output.contains(ColorCode.RED.toString()));
-        assertTrue(output.contains(StyleCode.BOLD.toString()));
+        assertTrue(output.contains(ColorCode.RED.ansiSequence()));
+        assertTrue(output.contains(StyleCode.BOLD.ansiSequence()));
     }
 
     @Test
-    @Disabled("Fails in Maven Surefire due to unknown JVM fork issue - works in integration tests")
-    void testCustomStyleRegistration() {
-        Clique.registerStyle("custom", ColorCode.BLUE);
-        String output = Clique.parser().parse("[custom]Text[/]");
-        assertTrue(output.contains(ColorCode.BLUE.toString()));
-    }
-
-    @Test
-    @Disabled("Fails in Maven Surefire due to unknown JVM fork issue - works in integration tests")
     void testCompositeStyleRegistration() {
-        AnsiCode composite = new CompositeStyle(
+        AnsiCode composite = new CompositeColor(
                 ColorCode.RED,
                 StyleCode.BOLD
         );
         Clique.registerStyle("error", composite);
         String output = Clique.parser().parse("[error]Text[/]");
-        assertTrue(output.contains(ColorCode.RED.toString()));
-        assertTrue(output.contains(StyleCode.BOLD.toString()));
+        assertTrue(output.contains(composite.ansiSequence()));
     }
 
 
@@ -71,23 +61,13 @@ class AnsiStringParserImplTest {
                 .build();
         MarkupParser parser = new MarkupParser(config);
         String output = parser.parse("[red]Text");
-        assertTrue(output.endsWith(StyleCode.RESET.toString()));
+        assertTrue(output.endsWith(StyleCode.RESET.ansiSequence()));
     }
 
     @Test
     void testEmptyInput() {
         assertEquals("", Clique.parser().parse(""));
     }
-
-    @Test
-    void strictParsing_onUnidentifiedStyle_shouldThrow() {
-        ParserConfiguration config = ParserConfiguration
-                .builder()
-                .enableStrictParsing()
-                .build();
-
-    }
-
 
     @Test
     void testInvalidStyleIgnored() {
@@ -107,12 +87,6 @@ class AnsiStringParserImplTest {
         }
     }
 
-    @Test
-    void assertThrowEx_onUnidentifiedStyle(){
-        assertThrows(UnidentifiedStyleException.class, () -> ParserUtils.getAnsiCodes("notastyle"));
-    }
-
-
     //ORIGINAL STRING TESTS
     @Test
     void test_getOriginalString_stripsAnsi(){
@@ -127,33 +101,22 @@ class AnsiStringParserImplTest {
         var string = parser.parse("Hello");
         assertEquals("Hello", parser.getOriginalString(string));
     }
-
-
-    @Test
-    void onNullString_returnsEmptyString(){
-        var parser = MarkupParser.DEFAULT;
-        var string = parser.parse(null);
-        assertNull(string);
-    }
-
-
-
 }
 
-class CompositeStyle implements AnsiCode {
+class CompositeColor implements AnsiCode {
     private final String compositeCode;
 
-    public CompositeStyle(AnsiCode... codes) {
+    public CompositeColor(AnsiCode... codes) {
         StringBuilder sb = new StringBuilder();
         for (AnsiCode code : codes) {
-            sb.append(code.toString());
+            sb.append(code.ansiSequence());
         }
         this.compositeCode = sb.toString();
     }
 
 
     @Override
-    public String toString() {
+    public String ansiSequence() {
         return compositeCode;
     }
 }

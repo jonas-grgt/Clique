@@ -32,7 +32,7 @@ public class TestTheme implements CliqueTheme {
     private record TestAnsiCode(String code) implements AnsiCode {
 
         @Override
-        public String toString() {
+        public String ansiSequence() {
             return code;
         }
     }

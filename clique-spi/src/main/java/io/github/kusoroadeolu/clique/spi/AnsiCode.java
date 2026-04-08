@@ -7,5 +7,5 @@ public interface AnsiCode {
      *
      * @return the ANSI escape sequence
      */
-    String toString();
+    String ansiSequence();
 }

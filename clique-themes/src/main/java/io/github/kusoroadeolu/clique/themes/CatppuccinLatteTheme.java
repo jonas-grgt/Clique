@@ -79,12 +79,12 @@ public class CatppuccinLatteTheme implements CliqueTheme {
 
     @Override
     public String author() {
-        return Constants.AUTHOR;
+        return MetadataConstants.AUTHOR;
     }
 
     @Override
     public String url() {
-        return Constants.URL;
+        return MetadataConstants.URL;
     }
 
 

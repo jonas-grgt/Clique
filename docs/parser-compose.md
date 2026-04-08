@@ -8,13 +8,13 @@ Everything the parser understands is an `AnsiCode`. Colors, styles, themes — t
 
 ```java
 public interface AnsiCode {
-    String toString(); // return your ANSI escape sequence here
+    String ansiSequence(); // return your ANSI escape sequence here
 }
 ```
 
-That's it. If your class returns a valid ANSI escape string from `toString()`, the parser will use it. This means you can plug in anything — RGB colors, 256-color codes, composite styles, values loaded from a config file — as long as it speaks ANSI.
+That's it. If your class returns an ANSI escape string from `ansiSequence()`, the parser will use it. This means you can plug in anything — RGB colors, 256-color codes, composite styles, values loaded from a config file — as long as it speaks ANSI.
 
-> **Tip:** Compute your escape sequence once in the constructor and just return the stored value in `toString()`. No need to recompute it on every call.
+> **Tip:** Compute your escape sequence once in the constructor and just return the stored value in `ansiSequence()`. No need to recompute it on every call.
 
 ## Custom Colors
 
@@ -31,7 +31,7 @@ public class Color256 implements AnsiCode {
     }
 
     @Override
-    public String toString() { return code; }
+    public String ansiSequence() { return code; }
 }
 
 Clique.registerStyle("orange", new Color256(214, false));
@@ -49,11 +49,11 @@ public class CompositeStyle implements AnsiCode {
     public CompositeStyle(AnsiCode... codes) {
         var sb = new StringBuilder();
         for (AnsiCode c : codes) sb.append(c);
-        this.code = sb.toString();
+        this.code = sb.ansiSequence();
     }
 
     @Override
-    public String toString() { return code; }
+    public String ansiSequence() { return code; }
 }
 
 // Semantic styles that actually mean something

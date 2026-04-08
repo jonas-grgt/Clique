@@ -65,7 +65,7 @@ public class StyleBuilder implements Borderless {
      */
     public StyleBuilder append(String text, AnsiCode... ansiCodes) {
         this.stack(text, ansiCodes);
-        this.textBuilder.append(RESET);
+        this.textBuilder.append(RESET.ansiSequence());
         return this;
     }
 
@@ -91,7 +91,7 @@ public class StyleBuilder implements Borderless {
         //Check if ansi is enabled
         if (ansiEnabled()) {
             for (AnsiCode code : ansiCodes) {
-                if (code != null) sb.append(code);
+                if (code != null) sb.append(code.ansiSequence());
 
             }
         }
