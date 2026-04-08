@@ -13,11 +13,11 @@ public class GlobalStyleRegistry {
     }
 
     public static void registerStyle(String style, AnsiCode code) {
-        StyleMaps.CUSTOM_STYLE_CODES.put(style, code);
+        PredefinedStyleContext.CUSTOM_STYLE_CODES.put(style, code);
     }
 
     public static void registerStyles(Map<String, AnsiCode> codes) {
-        StyleMaps.CUSTOM_STYLE_CODES.putAll(codes);
+        PredefinedStyleContext.CUSTOM_STYLE_CODES.putAll(codes);
     }
 
 

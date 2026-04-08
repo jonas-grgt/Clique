@@ -3,15 +3,18 @@ package io.github.kusoroadeolu.clique.parser;
 
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.ansi.ColorCode;
+import io.github.kusoroadeolu.clique.ansi.CompositeColor;
 import io.github.kusoroadeolu.clique.ansi.StyleCode;
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.exceptions.UnidentifiedStyleException;
+import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.core.parser.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,6 +78,14 @@ class MarkupParserTest {
         assertFalse(output.contains("\u001B["));
     }
 
+    @Test
+    void localStyleShouldResolveBeforeGlobal() {
+        var config = ParserConfiguration.builder().addStyle("mycolor", ColorCode.BLUE).build();
+        GlobalStyleRegistry.registerStyle("mycolor", ColorCode.RED);
+        String output = Clique.parser(config).parse("[mycolor]Hello"); //Should contain blue instead of red
+        assertTrue(output.contains(ColorCode.BLUE.ansiSequence()));
+    }
+
 
     //Ansi code methods
     @Test
@@ -100,23 +111,5 @@ class MarkupParserTest {
         var parser = MarkupParser.DEFAULT;
         var string = parser.parse("Hello");
         assertEquals("Hello", parser.getOriginalString(string));
-    }
-}
-
-class CompositeColor implements AnsiCode {
-    private final String compositeCode;
-
-    public CompositeColor(AnsiCode... codes) {
-        StringBuilder sb = new StringBuilder();
-        for (AnsiCode code : codes) {
-            sb.append(code.ansiSequence());
-        }
-        this.compositeCode = sb.toString();
-    }
-
-
-    @Override
-    public String ansiSequence() {
-        return compositeCode;
     }
 }

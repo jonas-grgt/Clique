@@ -62,7 +62,8 @@ public record MarkupParser(ParserConfiguration parserConfiguration) {
         return Tokenizer.tokenize(
                 input,
                 parserConfiguration.getDelimiter(),
-                parserConfiguration.getEnableStrictParsing()
+                parserConfiguration.getEnableStrictParsing(),
+                parserConfiguration.getStyleContext()
         );
     }
 }

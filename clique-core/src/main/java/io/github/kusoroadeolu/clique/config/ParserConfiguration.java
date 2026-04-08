@@ -1,6 +1,8 @@
 package io.github.kusoroadeolu.clique.config;
 
 import io.github.kusoroadeolu.clique.core.documentation.Stable;
+import io.github.kusoroadeolu.clique.parser.StyleContext;
+import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Objects;
 
@@ -14,6 +16,7 @@ public class ParserConfiguration {
     private final String delimiter;
     private final boolean enableStrictParsing;
     private final boolean enableAutoCloseTags;
+    private final StyleContext styleContext;
 
 
     //Default Configuration
@@ -25,6 +28,7 @@ public class ParserConfiguration {
         this.delimiter = builder.delimiter;
         this.enableStrictParsing = builder.enableStrictParsing;
         this.enableAutoCloseTags = builder.enableAutoCloseTags;
+        this.styleContext = builder.context;
     }
 
     public static ParserConfigurationBuilder builder() {
@@ -41,6 +45,10 @@ public class ParserConfiguration {
 
     public String getDelimiter() {
         return delimiter;
+    }
+
+    public StyleContext getStyleContext() {
+        return styleContext;
     }
 
     @Override
@@ -69,6 +77,8 @@ public class ParserConfiguration {
         private String delimiter = String.valueOf(',');
         private boolean enableStrictParsing = false;
         private boolean enableAutoCloseTags = false;
+        private final StyleContext.StyleContextBuilder styleContextBuilder = StyleContext.builder();
+        private StyleContext context;
 
         public ParserConfigurationBuilder enableAutoCloseTags() {
             this.enableAutoCloseTags = true;
@@ -81,11 +91,22 @@ public class ParserConfiguration {
         }
 
         public ParserConfigurationBuilder delimiter(char delimiter) {
-            this.delimiter = String.valueOf(delimiter);
+            this.delimiter = Character.toString(delimiter);
+            return this;
+        }
+
+        public ParserConfigurationBuilder addStyle(String markup, AnsiCode code){
+            styleContextBuilder.add(markup, code);
+            return this;
+        }
+
+        public ParserConfigurationBuilder styleContext(StyleContext styleContext){
+            this.styleContextBuilder.add(styleContext);
             return this;
         }
 
         public ParserConfiguration build() {
+            this.context = styleContextBuilder.build();
             return new ParserConfiguration(this);
         }
     }
