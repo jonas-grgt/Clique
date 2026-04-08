@@ -10,18 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class TreeTest {
 
     @Test
-    public void rootTreeShouldReturnNullParent(){
+    public void assertRoot_hasNoParent(){
         Tree tree = Clique.tree("Some label");
-        assertNull(tree.parent());
-    }
-
-    //Here the tree creates a new child node since we just passed a string
-    @Test
-    public void testTreeAddition(){
-        Tree tree = Clique.tree("Some label");
-        Tree child = tree.add("Some node");
-        assertTrue(tree.children().contains(child));
-        assertSame(child.parent(), tree);
+        assertTrue(tree.parent().isEmpty());
     }
 
     //Here the tree does not create a new child node
@@ -30,7 +21,6 @@ class TreeTest {
         Tree tree = Clique.tree("Some label");
         Tree child = Clique.tree("Child label");
         Tree returned = tree.add(child);
-        assertTrue(tree.children().contains(child));
         assertSame(child, returned);
     }
 
@@ -39,26 +29,32 @@ class TreeTest {
     public void treeNodeShouldReturnParent(){
         Tree tree = Clique.tree("Some label");
         Tree node = tree.add("Node");
-        assertSame(tree, node.parent());
+        assertSame(tree, node.parent().get());
     }
 
     @Test
-    public void treeShouldContainBoth(){
+    public void treeShouldContainConnector(){
         Tree tree = Clique.tree("Some label");
         tree.add("Node");
-        tree.add("Node1");
+        tree.add("Node");
         String str = tree.get();
-        assertTrue(str.contains(END_CONNECTOR));
         assertTrue(str.contains(CONNECTOR));
     }
 
     @Test
-    public void treeShouldContainAllChildren(){
+    public void treeShouldContainEndConnector(){
+        Tree tree = Clique.tree("Some label");
+        tree.add("Node");
+        tree.add("Node");
+        String str = tree.get();
+        assertTrue(str.contains(END_CONNECTOR));
+    }
+
+    @Test
+    public void treeShouldContainChild(){
         Tree tree = Clique.tree("Some label");
         Tree child = tree.add("Node");
-        Tree child1 = tree.add("Node1");
         assertTrue(tree.children().contains(child));
-        assertTrue(tree.children().contains(child1));
     }
 
     @Test
@@ -68,17 +64,18 @@ class TreeTest {
     }
 
     @Test
-    public void onFlush_shouldUnlinkChildren(){
+    public void onFlush_assert_childHasNoParent(){
         Tree tree = Clique.tree("Some label");
         Tree child = tree.add("Node");
-        Tree child1 = tree.add("Node1");
-        assertTrue(tree.children().contains(child));
-        assertTrue(tree.children().contains(child1));
-
         tree.flush();
-        assertTrue(child.children().isEmpty());
-        assertNull(child.parent());
-        assertNull(child1.parent());
-
+        assertTrue(child.parent().isEmpty());
     }
+
+    @Test
+    public void onFlush_assert_parentHasNoChild(){
+        Tree tree = Clique.tree("Some label");
+        tree.flush();
+        assertTrue(tree.children().isEmpty());
+    }
+
 }

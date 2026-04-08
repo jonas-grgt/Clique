@@ -168,8 +168,8 @@ tree.flush();
 Tree src = tree.add("src/");
 Tree main = src.add("Main.java");
 
-main.parent(); // returns src
-tree.parent();  // returns null — root has no parent
+main.parent(); // returns Optional.of(src)
+tree.parent();  // returns Optional.empty() — root has no parent
 ```
 
 ## Factory Methods
