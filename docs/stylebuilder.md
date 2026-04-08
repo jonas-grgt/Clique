@@ -4,7 +4,7 @@ StyleBuilder provides a fluent API for chaining styled strings together. It's pe
 
 ## Basic Usage
 
-### Append and Reset
+### Append
 
 The `append()` method applies styles to text and automatically resets the terminal style after each call:
 ```java
@@ -16,7 +16,7 @@ Clique.styleBuilder()
 
 Each `append()` call starts with a clean slate, so styles don't carry over to the next text.
 
-### Stack Without Reset
+### Stack
 
 The `stack()` method applies styles but doesn't reset the terminal style. This gives you more control:
 ```java
@@ -28,23 +28,6 @@ Clique.styleBuilder()
 
 Use `stack()` when you want styles to accumulate or when you need manual control over when styles reset.
 
-## Formatting Methods
-
-### Format (No Reset)
-
-Apply styles to text without resetting the terminal style:
-```java
-String styledText = Clique.styleBuilder()
-    .format("This text is red", ColorCode.RED);
-```
-
-### Format with Reset
-
-Apply styles to text and reset the terminal style:
-```java
-String styledText = Clique.styleBuilder()
-    .formatAndReset("This text is red", ColorCode.RED, StyleCode.BOLD);
-```
 
 ## Getting the Result
 
@@ -54,21 +37,11 @@ Retrieve the built string without printing it:
 ```java
 String styledText = Clique.styleBuilder()
     .stack("Hello", ColorCode.BLUE, StyleCode.BOLD, StyleCode.UNDERLINE)
-    .stack("World", ColorCode.RED, StyleCode.DIM)
-    .get();
+    .stack("World", ColorCode.RED, StyleCode.DIM);
 
 // Use it later
 System.out.println(styledText);
 ```
-
-### Print Directly
-
-Print the styled string to the terminal:
-```java
-Clique.styleBuilder()
-    .append("Success: ", ColorCode.GREEN, StyleCode.BOLD)
-    .append("Operation completed", ColorCode.WHITE)
- ```
 
 ## Available Codes
 
@@ -133,20 +106,6 @@ String output = Clique.styleBuilder()
 
 System.out.println(output);
 ```
-
-## When to Use StyleBuilder vs Parser
-
-**Use StyleBuilder when:**
-- You need programmatic control over styling
-- You're building strings dynamically in loops or conditionals
-- You prefer explicit, type-safe APIs
-- You want IDE autocomplete for available colors/styles
-
-**Use Parser when:**
-- You have pre-written formatted text
-- You want more readable, markup-based syntax
-- You're working with templates or config files
-- You need to quickly prototype styled output
 
 ## See Also
 

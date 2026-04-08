@@ -4,9 +4,11 @@ import io.github.kusoroadeolu.clique.ansi.RGBColor;
 import io.github.kusoroadeolu.clique.config.ParserConfiguration;
 import io.github.kusoroadeolu.clique.core.parser.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
+import io.github.kusoroadeolu.clique.parser.StyleContext;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
+import io.github.kusoroadeolu.clique.style.Ink;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 import io.github.kusoroadeolu.clique.themeloader.CliqueThemeLoader;
 
@@ -20,9 +22,7 @@ import java.util.Optional;
  */
 final class CliqueStyles {
 
-    private CliqueStyles() {
-        throw new AssertionError();
-    }
+    private CliqueStyles() {}
 
     // STYLE BUILDER
 
@@ -39,6 +39,15 @@ final class CliqueStyles {
     public static MarkupParser parser(ParserConfiguration configuration) {
         return new MarkupParser(configuration);
     }
+
+    public static Ink ink() {
+        return new Ink();
+    }
+
+    public static Ink ink(StyleContext context) {
+        return new Ink(context);
+    }
+
 
     // RGB
 

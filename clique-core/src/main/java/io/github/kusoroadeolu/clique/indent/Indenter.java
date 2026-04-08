@@ -5,7 +5,6 @@ import io.github.kusoroadeolu.clique.core.display.Component;
 import io.github.kusoroadeolu.clique.core.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.core.utils.Constants;
 import io.github.kusoroadeolu.clique.core.utils.StringUtils;
-import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
