@@ -9,9 +9,7 @@ import java.util.Objects;
 
 @InternalApi(since = "3.2.0")
 public class GlobalStyleRegistry {
-    private GlobalStyleRegistry() {
-        throw new AssertionError();
-    }
+    private GlobalStyleRegistry() {}
 
     public static void registerStyle(String style, AnsiCode code) {
         Objects.requireNonNull(style, "Style cannot be null");

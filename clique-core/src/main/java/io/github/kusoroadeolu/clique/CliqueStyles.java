@@ -4,7 +4,7 @@ import io.github.kusoroadeolu.clique.configuration.ParserConfiguration;
 import io.github.kusoroadeolu.clique.configuration.StyleContext;
 import io.github.kusoroadeolu.clique.internal.RGBColor;
 import io.github.kusoroadeolu.clique.internal.markup.GlobalStyleRegistry;
-import io.github.kusoroadeolu.clique.internal.themeloader.CliqueThemeLoader;
+import io.github.kusoroadeolu.clique.internal.themeloader.ThemeLoader;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
@@ -72,30 +72,30 @@ final class CliqueStyles {
     // THEMES
 
     public static void registerTheme(String name) {
-        CliqueThemeLoader.register(name);
+        ThemeLoader.register(name);
     }
 
     public static void registerThemes(String... themes) {
-        CliqueThemeLoader.registerThemes(themes);
+        ThemeLoader.registerThemes(themes);
     }
 
     public static void registerTheme(CliqueTheme theme) {
-        CliqueThemeLoader.register(theme);
+        ThemeLoader.register(theme);
     }
 
     public static void registerThemes(Collection<String> themes) {
-        CliqueThemeLoader.registerThemes(themes);
+        ThemeLoader.registerThemes(themes);
     }
 
     public static void registerAvailableThemes() {
-        CliqueThemeLoader.registerAll();
+        ThemeLoader.registerAll();
     }
 
     public static List<CliqueTheme> findAvailableThemes() {
-        return CliqueThemeLoader.discover();
+        return ThemeLoader.findAvailableThemes();
     }
 
     public static Optional<CliqueTheme> findTheme(String name) {
-        return CliqueThemeLoader.find(name);
+        return ThemeLoader.find(name);
     }
 }

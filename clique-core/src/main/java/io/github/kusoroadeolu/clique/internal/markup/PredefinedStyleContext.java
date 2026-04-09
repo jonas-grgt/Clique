@@ -119,7 +119,7 @@ public final class PredefinedStyleContext {
 
     public static AnsiCode getOrThrow(String s, StyleContext ctx){
         AnsiCode code = get(s, ctx);
-        if (code == null) throw new UnidentifiedStyleException("Failed to find ansi code mapped to style: %s".formatted(s));
+        if (code == null) throw new UnidentifiedStyleException(s);
         return code;
     }
 }

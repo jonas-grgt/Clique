@@ -27,7 +27,7 @@ public final class Cell {
         return width;
     }
 
-    public boolean isBlank() {
+    public boolean isEmpty() {
         return width() == 0;
     }
 

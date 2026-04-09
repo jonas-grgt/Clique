@@ -4,6 +4,9 @@ package io.github.kusoroadeolu.clique.style;
 import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
+import java.io.PrintStream;
+import java.util.Objects;
+
 import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.style;
 
 @InternalApi(since = "3.2.0")
@@ -48,6 +51,16 @@ public final class StyleBuilder {
     public String toString() {
         return this.textBuilder.toString();
     }
+
+    public void print(PrintStream stream) {
+        Objects.requireNonNull(stream, "Print stream cannot be null");
+        stream.println(this);
+    }
+
+    public void print() {
+        print(System.out);
+    }
+
 
     @Override
     public boolean equals(Object object) {

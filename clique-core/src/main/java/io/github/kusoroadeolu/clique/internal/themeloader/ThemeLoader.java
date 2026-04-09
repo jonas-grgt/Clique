@@ -11,12 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import static java.util.Objects.requireNonNull;
 
 @InternalApi(since = "3.2.0")
-public class CliqueThemeLoader {
+public class ThemeLoader {
     private final static Map<String, CliqueTheme> THEMES = new ConcurrentHashMap<>();
 
-    private CliqueThemeLoader() {}
+    private ThemeLoader() {}
 
-    public static List<CliqueTheme> discover() {
+    public static List<CliqueTheme> findAvailableThemes() {
         return ServiceLoader.load(CliqueTheme.class)
                 .stream()
                 .map(ServiceLoader.Provider::get)
@@ -27,7 +27,7 @@ public class CliqueThemeLoader {
         requireNonNull(name, "Theme name cannot be null");
         return Optional.ofNullable(
                 THEMES.computeIfAbsent(name, k ->
-                        discover().stream()
+                        findAvailableThemes().stream()
                                 .filter(t -> t.themeName().equals(k))
                                 .findFirst()
                                 .orElse(null)
@@ -59,6 +59,6 @@ public class CliqueThemeLoader {
     }
 
     public static void registerAll() {
-        discover().forEach(t -> Clique.registerStyles(t.styles()));
+        findAvailableThemes().forEach(t -> Clique.registerStyles(t.styles()));
     }
 }

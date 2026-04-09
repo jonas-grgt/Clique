@@ -222,13 +222,13 @@ public class Frame implements Component {
 
         int givenWidth = (noWidthSet() ? nodesMaxWidth + (configuration.getPadding() * 2) : this.width);
 
-        if (noWidthSet() && !parsedTitle.isBlank()) {
+        if (noWidthSet() && !parsedTitle.isEmpty()) {
             givenWidth = Math.max(givenWidth, titleWidth + 1);
         }
 
         int availableWidth = givenWidth - (configuration.getPadding() * 2);
 
-        if (!parsedTitle.isBlank()) validateTitleWidth(titleWidth, givenWidth);
+        if (!parsedTitle.isEmpty()) validateTitleWidth(titleWidth, givenWidth);
 
         if (nodesMaxWidth > availableWidth) {
             throw new InvalidDimensionException(
@@ -300,7 +300,7 @@ public class Frame implements Component {
     }
 
     void appendTitleToBox(Cell parsedTitle, int givenWidth, int titleWidth, StringBuilder sb){
-        if (!parsedTitle.isBlank()) {
+        if (!parsedTitle.isEmpty()) {
             int leftWidth = findTitleBlockOffset(givenWidth, titleWidth, titleAlign);
             sb.append(borderChars.topLeft())
                     .append(borderChars.hLine().repeat(leftWidth))

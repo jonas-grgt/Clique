@@ -96,10 +96,7 @@ public class ItemListConfiguration {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(parser);
-        result = 31 * result + indentSize;
-        result = 31 * result + symbolSpacing;
-        return result;
+       return Objects.hash(indentSize, symbolSpacing, parser);
     }
 
     @Override

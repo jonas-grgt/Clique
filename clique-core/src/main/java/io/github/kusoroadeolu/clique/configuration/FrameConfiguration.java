@@ -168,8 +168,7 @@ public final class FrameConfiguration {
          *
          * <p>The markup string is resolved against the parser set via
          * {@link #parser(MarkupParser)} at the time this method is called.
-         * If {@link MarkupParser#NONE} is in use, the string is not consumed and
-         * no color codes will be applied.
+
          *
          * @param borderColor a markup string representing the desired border color;
          *                    must not be {@code null}
@@ -212,9 +211,6 @@ public final class FrameConfiguration {
          * Sets the markup parser used to interpret inline style tags in nested content
          * and border color markup strings.
          *
-         * <p>If {@link MarkupParser#NONE} is passed, markup tags will not be consumed
-         * by the parser and will be passed through as literal text. This also affects
-         * subsequent calls to {@link #borderColor(String)}.
          *
          * @param parser the parser to use; must not be {@code null}
          * @return this builder

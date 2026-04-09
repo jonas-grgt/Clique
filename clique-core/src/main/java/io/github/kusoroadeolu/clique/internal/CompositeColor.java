@@ -1,10 +1,12 @@
 package io.github.kusoroadeolu.clique.internal;
 
+import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
 import java.util.Arrays;
 import java.util.Collection;
 
+@InternalApi(since = "3.2.0")
 public class CompositeColor implements AnsiCode {
     private final String ansiSequence;
 

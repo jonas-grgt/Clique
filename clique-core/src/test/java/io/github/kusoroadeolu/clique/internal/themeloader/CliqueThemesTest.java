@@ -25,7 +25,7 @@ class CliqueThemesTest {
 
     @Test
     void testDiscoverThemes() {
-        List<CliqueTheme> themes = CliqueThemeLoader.discover();
+        List<CliqueTheme> themes = ThemeLoader.findAvailableThemes();
         System.out.println("Discovered themes count: " + themes.size());
         themes.forEach(t -> System.out.println("Theme: " + t.themeName()));
         assertNotNull(themes);
@@ -34,23 +34,23 @@ class CliqueThemesTest {
 
     @Test
     void testFindTheme() {
-        Optional<CliqueTheme> theme = CliqueThemeLoader.find("test");
+        Optional<CliqueTheme> theme = ThemeLoader.find("test");
         assertTrue(theme.isPresent());
         assertEquals("test", theme.get().themeName());
     }
 
     @Test
     void testFindNonExistentTheme() {
-        Optional<CliqueTheme> theme = CliqueThemeLoader.find("does-not-exist");
+        Optional<CliqueTheme> theme = ThemeLoader.find("does-not-exist");
         assertFalse(theme.isPresent());
     }
 
     @Test
     void testThemeCaching() {
         // First call should discover
-        Optional<CliqueTheme> theme1 = CliqueThemeLoader.find("test");
+        Optional<CliqueTheme> theme1 = ThemeLoader.find("test");
         // Second call should use the map
-        Optional<CliqueTheme> theme2 = CliqueThemeLoader.find("test");
+        Optional<CliqueTheme> theme2 = ThemeLoader.find("test");
 
         assertTrue(theme1.isPresent());
         assertTrue(theme2.isPresent());
@@ -59,7 +59,7 @@ class CliqueThemesTest {
 
     @Test
     void testRegisterTheme() {
-        CliqueThemeLoader.register("test");
+        ThemeLoader.register("test");
 
         // Verify the styles are registered in Clique
         String parsed = Clique.parser().parse("[test-red]Red[/]");

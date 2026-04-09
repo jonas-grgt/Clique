@@ -118,7 +118,7 @@ public final class Tokenizer {
         }
 
         if (enableStrictParsing) {
-            throw new UnidentifiedStyleException("Failed to find style: `%s` in given string".formatted(s));
+            throw new UnidentifiedStyleException(s);
         }
     }
 

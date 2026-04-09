@@ -17,8 +17,6 @@ import java.util.Objects;
  *       ({@code ├─}, {@code └─}, {@code │}) that link nodes in the rendered output.
  *       Node labels are not affected.</li>
  *   <li><b>Parser</b> — the {@link MarkupParser} used to resolve inline markup tags
- *       in node labels at render time. Pass {@link MarkupParser#NONE} to disable
- *       markup processing.</li>
  * </ul>
  *
  * <p>The {@link #DEFAULT} constant provides a pre-built configuration with no connector
