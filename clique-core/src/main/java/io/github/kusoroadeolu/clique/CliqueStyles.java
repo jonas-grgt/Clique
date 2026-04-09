@@ -79,15 +79,19 @@ final class CliqueStyles {
         CliqueThemeLoader.registerThemes(themes);
     }
 
+    public static void registerTheme(CliqueTheme theme) {
+        CliqueThemeLoader.register(theme);
+    }
+
     public static void registerThemes(Collection<String> themes) {
         CliqueThemeLoader.registerThemes(themes);
     }
 
-    public static void registerAllThemes() {
+    public static void registerAvailableThemes() {
         CliqueThemeLoader.registerAll();
     }
 
-    public static List<CliqueTheme> discoverThemes() {
+    public static List<CliqueTheme> findAvailableThemes() {
         return CliqueThemeLoader.discover();
     }
 

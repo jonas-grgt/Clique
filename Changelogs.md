@@ -193,6 +193,8 @@ _(no changes noted)_
 - `Ink` — a lightweight, functional, chainable ANSI string builder accessible via `Clique.ink()` and `Clique.ink(StyleContext)`. Supports all predefined colors, bright variants, background colors, text styles, 24-bit RGB via `rgb()` and `bgRgb()`, and named style lookup via `of()`.
 - `ItemList` — a new declarative, composable list component accessible via `Clique.list()` and `Clique.list(ItemListConfiguration)`. Replaces `Indenter` with a structured `item(symbol, content)` API where nesting is expressed through composition rather than manual level tracking.
 - `ItemListConfiguration` — configuration for `ItemList`, supporting `indentSize`, `symbolSpacing`, and `parser`. Config cascades automatically into nested sublists.
+- `Clique#registerTheme(CliqueTheme)` as a separate overload for more programmatic control of the string based theme registeration
+- `Clique#disableCliqueColors()`
 
 ### Fixed
 - An off by one error in `Frame` when a title wider than the frame's content was aligned left or right.
@@ -209,6 +211,7 @@ _(no changes noted)_
 - `flush()` methods from `Tree` and `StyleBuilder`
 - `Indenter` and `IndenterConfiguration` — fully removed in favour of `ItemList` and `ItemListConfiguration`
 - `Clique.indenter()` factory method — replaced by `Clique.list()` and `Clique.list(ItemListConfiguration)`
+- `Clique#enableCliqueColors(boolean)`
 
 ### Updated
 - `Box` and `BoxConfiguration` `equals()` and `hashcode()` contracts
@@ -217,7 +220,9 @@ _(no changes noted)_
 - `Tree#parent` returns an `Optional<Tree>` type instead of a `Tree` type.
 - `AnsiStringParser` to `MarkupParser`
 - `enableAutoCloseTags()` renamed to `enableAutoReset()` in `ParserConfiguration` to better reflect its behavior of resetting ANSI codes after each styled segment
-- `Tree` calls `render()` instead of `print()`
+- `Tree#print` to `Tree#render()`
+- `Clique#discoverThemes()` to `Clique#findAvailableThemes()`
+- `Clique#registerAllThemes` to `Clique#registerAvailableThemes()`
 
 ## clique-spi [2.0.0] - [UNRELEASED]
 - `AnsiCode#toString()` contract renamed to `AnsiCode#ansiSequence()`
