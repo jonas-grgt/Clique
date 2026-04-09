@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import static io.github.kusoroadeolu.clique.internal.markup.PredefinedStyleContext.getOrThrow;
+
 /**
  * A lightweight, functional, chainable ANSI string builder.
  *
@@ -61,10 +63,9 @@ public final class Ink {
      * Applies the accumulated ANSI codes to the given value and returns the styled string.
      * Appends a reset sequence at the end.
      *
-     * @param value the value to style; {@code toString()} is called on it
+     * @param value the String to style;
      * @throws NullPointerException if value is null
-     * @return the styled string with ANSI sequences applied, or just
-     *         {@code value.toString()} if no styles were accumulated
+     * @return the styled string with ANSI sequences applied, or just the raw String if no styles were accumulated
      */
     public String on(String value) {
         Objects.requireNonNull(value, "Value cannot be null");
@@ -79,6 +80,20 @@ public final class Ink {
         return sb.toString();
     }
 
+    /**
+     * Applies the accumulated ANSI codes to the given value and returns the styled string.
+     * Appends a reset sequence at the end.
+     *
+     * @param value the Object to style; {@code toString()} is called on it
+     * @throws NullPointerException if value is null
+     * @return the styled string with ANSI sequences applied, or just
+     *         {@code value.toString()} if no styles were accumulated
+     */
+    public String on(Object value){
+        Objects.requireNonNull(value, "Value cannot be null");
+        return on(value.toString());
+    }
+
 
 
     /**
@@ -91,7 +106,7 @@ public final class Ink {
      */
     public Ink of(String style) {
         Objects.requireNonNull(style, "Style cannot be null");
-        AnsiCode code = PredefinedStyleContext.getOrThrow(style, context);
+        AnsiCode code = getOrThrow(style, context);
         return with(code);
     }
 

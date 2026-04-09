@@ -9,6 +9,7 @@ import io.github.kusoroadeolu.clique.internal.markup.StyleResolver;
 import io.github.kusoroadeolu.clique.internal.markup.Tokenizer;
 
 import java.util.List;
+import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.internal.markup.MarkupPostProcessor.postProcess;
 import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.stripAnsi;
@@ -24,16 +25,25 @@ public record MarkupParser(ParserConfiguration parserConfiguration) {
         this(ParserConfiguration.DEFAULT);
     }
 
-    public String parse(String stringToParse) {
-        if (stringToParse == null || stringToParse.isBlank()) return stringToParse;
-        final ParseResult result = this.getParseResult(stringToParse);
-        String styled = StyleResolver.resolve(result.tokens(), stringToParse, this.parserConfiguration.getEnableAutoReset());
+    public String parse(String string) {
+        if (string == null || string.isBlank()) return string;
+        final ParseResult result = this.getParseResult(string);
+        String styled = StyleResolver.resolve(result.tokens(), string, this.parserConfiguration.getEnableAutoReset());
         return postProcess(styled);
+    }
 
+    public String parse(Object object) {
+        Objects.requireNonNull(object, "Object cannot be null");
+        return parse(object.toString());
     }
 
     public void print(String string) {
         System.out.println(parse(string));
+    }
+
+    public void print(Object object) {
+        Objects.requireNonNull(object, "Object cannot be null");
+        print(object.toString());
     }
 
     public String getOriginalString(String tokenedString) {
