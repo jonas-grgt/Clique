@@ -9,7 +9,7 @@ import java.util.Objects;
  * @since 1.0.0
  * */
 @Stable(since = "3.2.0")
-public class ParserConfiguration {
+public final class ParserConfiguration {
     public static final ParserConfiguration DEFAULT = new ParserConfiguration();
 
     private final String delimiter;

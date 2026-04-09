@@ -12,7 +12,6 @@ import io.github.kusoroadeolu.clique.style.Ink;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -73,9 +72,9 @@ public final class Clique {
 
     public static Box box(String borderColor){return CliqueComponents.box(borderColor);}
 
-    // INDENTER
-    public static Indenter indenter() { return CliqueComponents.indenter(); }
-    public static Indenter indenter(IndenterConfiguration indenterConfiguration) { return CliqueComponents.indenter(indenterConfiguration); }
+    // ITEM LIST
+    public static ItemList list() { return CliqueComponents.list(); }
+    public static ItemList list(ItemListConfiguration itemListConfiguration) { return CliqueComponents.list(itemListConfiguration); }
 
 
     // PROGRESS BAR
@@ -139,7 +138,7 @@ public final class Clique {
     public static void registerThemes(String... names) { CliqueStyles.registerThemes(names); }
     public static void registerThemes(Collection<String> themes) { CliqueStyles.registerThemes(themes); }
     public static void registerAllThemes() { CliqueStyles.registerAllThemes(); }
-    public static List<CliqueTheme> discoverThemes() { return CliqueStyles.discoverThemes(); }
+    public static java.util.List<CliqueTheme> discoverThemes() { return CliqueStyles.discoverThemes(); }
     public static Optional<CliqueTheme> findTheme(String name) { return CliqueStyles.findTheme(name); }
 
 }

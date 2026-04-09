@@ -14,7 +14,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 @Stable(since = "3.2.0")
-public class TableConfiguration {
+public final class TableConfiguration {
     public static final TableConfiguration DEFAULT = new TableConfiguration();
 
     private final int padding;

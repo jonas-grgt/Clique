@@ -88,7 +88,7 @@ Use `TreeConfiguration` to customize the guide connector style.
 ### Basic Configuration
 ```java
 TreeConfiguration config = TreeConfiguration.builder()
-    .guideStyle("cyan, bold")
+    .connectorColor("cyan, bold")
     .build();
 
 Tree tree = Clique.tree("project/", config);
@@ -156,12 +156,6 @@ String result = tree.get();
 System.out.println(result);
 ```
 
-## Flushing
-
-Recursively clears all children from the root and null out their parent references:
-```java
-tree.flush();
-```
 
 ## Parent
 ```java
@@ -188,4 +182,4 @@ Clique.tree("label", config);
 
 - [Markup Reference](markup-reference.md) - Available colors and styles for labels
 - [Parser Documentation](parser.md) - How markup parsing works
-- [Indenter Documentation](indenter.md) - Lower level but more verbose indenting
+- [Item List Documentation](itemList.md) - Lower level functional hierarchical building

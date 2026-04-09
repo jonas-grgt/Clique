@@ -139,7 +139,7 @@ Clique.tree("root")
 
 Create hierarchical text structures with nested indentation.
 ```java
-Clique.indenter()
+Clique.itemList()
     .indent("→")
     .add("Root item")
     .indent("•")
@@ -150,8 +150,8 @@ Clique.indenter()
 ```
 
 **Methods:**
-- `indenter()` - Create indenter with default configuration
-- `indenter(IndenterConfiguration)` - Create with custom configuration
+- `itemList()` - Create itemList with default configuration
+- `itemList(IndenterConfiguration)` - Create with custom configuration
 
 ## Progress Bars
 

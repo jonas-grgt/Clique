@@ -191,7 +191,8 @@ _(no changes noted)_
 - `connectorColor()` method to `TreeConfiguration` with `AnsiCode...` and `String` overloads
 - `StyleContext` support in `ParserConfiguration` via `styleContext(StyleContext)` and `addStyle(String, AnsiCode)` builder methods, allowing custom styles scoped to a specific parser instance
 - `Ink` — a lightweight, functional, chainable ANSI string builder accessible via `Clique.ink()` and `Clique.ink(StyleContext)`. Supports all predefined colors, bright variants, background colors, text styles, 24-bit RGB via `rgb()` and `bgRgb()`, and named style lookup via `of()`.
-
+- `ItemList` — a new declarative, composable list component accessible via `Clique.list()` and `Clique.list(ItemListConfiguration)`. Replaces `Indenter` with a structured `item(symbol, content)` API where nesting is expressed through composition rather than manual level tracking.
+- `ItemListConfiguration` — configuration for `ItemList`, supporting `indentSize`, `symbolSpacing`, and `parser`. Config cascades automatically into nested sublists.
 
 ### Fixed
 - An off by one error in `Frame` when a title wider than the frame's content was aligned left or right.
@@ -206,6 +207,8 @@ _(no changes noted)_
 - `getBorderStyle()` getters and `borderStyle(BorderSpec)` builder methods from all three configuration classes
 - Deprecated `immutableBuilder()` methods in configuration classes
 - `flush()` methods from `Tree` and `StyleBuilder`
+- `Indenter` and `IndenterConfiguration` — fully removed in favour of `ItemList` and `ItemListConfiguration`
+- `Clique.indenter()` factory method — replaced by `Clique.list()` and `Clique.list(ItemListConfiguration)`
 
 ### Updated
 - `Box` and `BoxConfiguration` `equals()` and `hashcode()` contracts

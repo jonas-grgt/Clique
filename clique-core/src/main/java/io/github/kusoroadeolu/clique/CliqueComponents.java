@@ -85,21 +85,14 @@ final class CliqueComponents {
 
 
     // INDENTER
-    public static Indenter indenter() {
-        return new Indenter();
+    public static ItemList list() {
+        return new ItemList();
     }
 
-    public static Indenter indenter(IndenterConfiguration indenterConfiguration) {
-        return new Indenter(indenterConfiguration);
+    public static ItemList list(ItemListConfiguration itemListConfiguration) {
+        return new ItemList(itemListConfiguration);
     }
 
-    public static Indenter indenter(String flagColor) {
-        return new Indenter(IndenterConfiguration.builder().flagColor(flagColor).build());
-    }
-
-    public static Indenter indenter(AnsiCode... flagColor) {
-        return new Indenter(IndenterConfiguration.builder().flagColor(flagColor).build());
-    }
 
     // PROGRESS BAR
 

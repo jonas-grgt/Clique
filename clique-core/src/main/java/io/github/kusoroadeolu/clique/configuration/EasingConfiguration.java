@@ -10,7 +10,7 @@ import java.util.Objects;
  * @since 3.0.0
  * */
 @Stable(since = "3.2.0")
-public class EasingConfiguration {
+public final class EasingConfiguration {
     public static final EasingConfiguration DEFAULT = new EasingConfiguration();
     public static final EasingConfiguration DISABLED = disabledConfig();
     private final EasingFunction function;

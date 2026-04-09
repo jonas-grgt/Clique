@@ -58,7 +58,7 @@ bar.tickAnimated(3);   // below threshold — jumps instantly
 
 ### function
 
-The curve that controls how the animation accelerates and decelerates. See the [full list below](#easing-functions).
+The curve that controls how the animation accelerates and decelerates. See the [full itemList below](#easing-functions).
 
 ```java
 .function(EasingFunction.EASE_OUT_CUBIC)
