@@ -3,8 +3,8 @@ package io.github.kusoroadeolu.clique.style;
 import io.github.kusoroadeolu.clique.configuration.StyleContext;
 import io.github.kusoroadeolu.clique.internal.exception.UnidentifiedStyleException;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
