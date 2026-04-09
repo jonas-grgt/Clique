@@ -1,12 +1,11 @@
-package io.github.kusoroadeolu.clique.internal.themeloader;
+package io.github.kusoroadeolu.clique.testsupport;
 
-import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
+
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 
 import java.util.Map;
 
-@InternalApi(since = "3.1.3")
 public class TestTheme implements CliqueTheme {
     public String themeName() {
         return "test";
@@ -18,6 +17,7 @@ public class TestTheme implements CliqueTheme {
                 "test-blue", new TestAnsiCode("\u001B[34m")
         );
     }
+
 
     @Override
     public String author() {
