@@ -8,7 +8,7 @@ import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import java.util.List;
 
 import static io.github.kusoroadeolu.clique.internal.Constants.ZERO;
-import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCellIfPresent;
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.parser.MarkupParser.DEFAULT;
 
 @InternalApi(since = "3.2.0")
@@ -26,12 +26,12 @@ public sealed interface FrameNode permits FrameNode.StringNode, FrameNode.Compon
     }
 
     static List<Cell> splitComponentLines(String str){
-        return str.lines().map(s -> parseToCellIfPresent(s, DEFAULT)).toList(); //Original to styled string for components, we actually need to parse here with a default parser
+        return str.lines().map(s -> parseToCell(s, DEFAULT)).toList(); //Original to styled string for components, we actually need to parse here with a default parser
     }
 
     //For raw strings, we need to handle the case in which the string has markup, however for components, when we call the get method, they apply their markup so it's good
     static List<Cell> splitLines(String str, MarkupParser parser){
-        return str.lines().map(s -> parseToCellIfPresent(s, parser)).toList();
+        return str.lines().map(s -> parseToCell(s, parser)).toList();
     }
 
 

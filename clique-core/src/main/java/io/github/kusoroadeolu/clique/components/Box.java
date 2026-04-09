@@ -173,7 +173,7 @@ public class Box implements Component {
         if (content == null || content.isEmpty()) return new WidthAwareList();
         var parser = configuration.getParser();
         var cellList = content.lines()
-                .map(s -> StringUtils.parseToCellIfPresent(s, parser))
+                .map(s -> StringUtils.parseToCell(s, parser))
                 .toList();
         return new WidthAwareList(cellList);
     }

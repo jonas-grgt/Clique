@@ -29,7 +29,7 @@ import java.util.Objects;
  * FrameConfiguration config = FrameConfiguration.builder()
  *     .padding(3)
  *     .frameAlign(FrameAlign.LEFT)
- *     .borderColor("[red]")
+ *     .borderColor("red")
  *     .build();
  * }</pre>
  *
@@ -106,9 +106,6 @@ public final class FrameConfiguration {
      * Returns the markup parser used to interpret inline style tags in nested strings
      * and border color specifications.
      *
-     * <p>If {@link MarkupParser#NONE} was set, markup tags are passed through
-     * unmodified rather than being consumed and converted to ANSI sequences.
-     *
      * @return the parser; never {@code null}
      */
     public MarkupParser getParser() {
@@ -173,8 +170,6 @@ public final class FrameConfiguration {
          * {@link #parser(MarkupParser)} at the time this method is called.
          * If {@link MarkupParser#NONE} is in use, the string is not consumed and
          * no color codes will be applied.
-         *
-         * <p>Equivalent to {@code borderColor(ParserUtils.getAnsiCodes(borderColor, parser))}.
          *
          * @param borderColor a markup string representing the desired border color;
          *                    must not be {@code null}

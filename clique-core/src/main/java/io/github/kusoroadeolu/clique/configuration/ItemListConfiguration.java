@@ -18,9 +18,18 @@ import java.util.Objects;
  *
  * <p><b>Thread Safety:</b> This class is immutable and thread-safe.
  *
- * @since 1.1.0
+ * <p>Example:
+ * <pre>{@code
+ * ItemListConfiguration config = ItemListConfiguration.builder()
+ *     .indentSize(1)
+ *     .symbolSpacing(2)
+ *     .parser(Clique.parser())
+ *     .build();
+ * }</pre>
+ *
+ * @since 4.0.0
  */
-@Stable(since = "3.2.0")
+@Stable(since = "4.0.0")
 public class ItemListConfiguration {
     /**
      * The default item list configuration.
@@ -127,9 +136,6 @@ public class ItemListConfiguration {
 
         /**
          * Sets the parser for markup resolution.
-         *
-         * <p><b>Note:</b> If {@link MarkupParser#NONE} is used, list symbols and
-         * content will not be processed for markup tags.
          *
          * @param parser the parser to use; must not be {@code null}
          * @return this builder

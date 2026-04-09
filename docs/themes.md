@@ -14,20 +14,20 @@ Themes live in a separate package from core. You need both:
     <dependency>
         <groupId>io.github.kusoroadeolu</groupId>
         <artifactId>clique-core</artifactId>
-        <version>3.2.2</version>
+        <version>4.0.0</version>
     </dependency>
     <dependency>
         <groupId>io.github.kusoroadeolu</groupId>
         <artifactId>clique-themes</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 </dependencies>
 ```
 
 ```gradle
 // Gradle
-implementation 'io.github.kusoroadeolu:clique-core:3.2.2'
-implementation 'io.github.kusoroadeolu:clique-themes:1.0.0'
+implementation 'io.github.kusoroadeolu:clique-core:4.0.0'
+implementation 'io.github.kusoroadeolu:clique-themes:1.0.1'
 ```
 
 ---
@@ -61,7 +61,7 @@ Clique.parser().print("[bg_ctp_surface0, ctp_blue] INFO [/] Starting up...");
 Need more than one? Register them all at once:
 
 ```java
-Clique.registerAllThemes();
+Clique.registerAvailableThemes();
 
 Clique.parser().print("[ctp_mauve]Catppuccin[/] meets [tokyo_cyan]Tokyo Night[/]");
 Clique.parser().print("[nord_frost0]Nord[/] meets [drac_pink]Dracula[/]");

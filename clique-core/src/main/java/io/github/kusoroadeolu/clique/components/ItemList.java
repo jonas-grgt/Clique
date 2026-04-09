@@ -120,7 +120,7 @@ public class ItemList implements Component {
     }
 
     private String parseString(String str) {
-        return StringUtils.parseIfPresent(str, this.configuration.getParser());
+        return StringUtils.parse(str, this.configuration.getParser());
     }
 
     /**

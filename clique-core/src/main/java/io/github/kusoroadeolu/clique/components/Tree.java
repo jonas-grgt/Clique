@@ -138,7 +138,7 @@ public class Tree implements Component {
         }
 
         var parser = treeConfiguration.getParser();
-        return StringUtils.parseIfPresent(sb.toString(), parser);
+        return StringUtils.parse(sb.toString(), parser);
     }
 
     //For Tests

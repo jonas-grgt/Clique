@@ -15,7 +15,7 @@ import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.internal.Constants.*;
 import static io.github.kusoroadeolu.clique.internal.utils.BoxUtils.applyAnsiToBorders;
-import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCellIfPresent;
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.style.StyleCode.RESET;
 
 /**
@@ -214,7 +214,7 @@ public class Frame implements Component {
         if (configuration.getParser() != null && !title.isEmpty()) appendedTitle = title + RESET; //Add a reset flag to prevent title colors from bleeding
 
 
-        var parsedTitle = parseToCellIfPresent(appendedTitle, configuration.getParser());
+        var parsedTitle = parseToCell(appendedTitle, configuration.getParser());
 
         //Note that we align the title width by +1 or -1 based on if the frame align is left or right, so to prevent an issue where the title width is left and the frame size = title size, we add one to the width to make up for the by one offset
         int titleWidth = parsedTitle.width() + 2;

@@ -30,17 +30,6 @@ tree.add("README.md");
 tree.render();
 ```
 
-Output:
-```
-project/
-├─ src/
-│  ├─ Main.java
-│  └─ Utils.java
-├─ test/
-│  └─ MainTest.java
-└─ README.md
-```
-
 ## Adding Nodes
 
 ### Add a Child

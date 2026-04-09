@@ -10,62 +10,97 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * A container for custom markup-to-ANSI mappings used during the parsing process.
+ * A scoped registry of custom markup styles, mapping markup names to {@link AnsiCode}
+ * instances.
  *
- * <p>A {@code StyleContext} allows users to define custom tags (e.g., "error]")
- * that map to specific {@link AnsiCode} sequences. These mappings are checked
- * during the style resolution phase of parsing.
+ * <p>A {@code StyleContext} attached to a {@link io.github.kusoroadeolu.clique.configuration.ParserConfiguration}
+ * takes precedence over global custom styles and predefined styles during tag resolution.
+ * See {@link ParserConfiguration} for the full resolution order.
  *
- * <p><b>Resolution Order:</b> Local styles defined in this context take
- * precedence over global or default styles during parsing. When multiple
- * {@code AnsiCode} values are mapped to a single tag via the builder, they
- * are resolved as a composite style.
+ * <p>Instances are obtained via {@link #builder()}, {@link #from(Map)}, or
+ * {@link #from(StyleContext)}. {@link #NONE} is a sentinel representing an empty context
+ * with no registered styles.
  *
- * <p><b>Thread Safety:</b> This class is immutable and thread-safe. The
- * internal map is fixed upon construction.
+ * <p>This class is immutable and thread-safe. {@link StyleContextBuilder} is
+ * <b>not</b> thread-safe; external synchronization is required if a builder instance
+ * is shared across threads.
+ *
+ * <p>Example:
+ * <pre>{@code
+ * StyleContext ctx = StyleContext.builder()
+ *     .add("highlight", ColorCode.YELLOW)
+ *     .add("muted", StyleCode.DIM)
+ *     .build();
+ *
+ * ParserConfiguration config = ParserConfiguration.builder()
+ *     .styleContext(ctx)
+ *     .build();
+ * }</pre>
  *
  * @since 4.0.0
  */
 @Experimental(since = "4.0.0")
 public final class StyleContext {
+
     private final Map<String, AnsiCode> localStyles;
 
     /**
-     * An empty style context containing no local mappings.
+     * A sentinel {@code StyleContext} with no registered styles.
+     *
+     * <p>Passing this to {@link ParserConfiguration.ParserConfigurationBuilder#styleContext(StyleContext)}
+     * is a no-op; no local styles will be added to the parser's resolution chain.
      */
     public static final StyleContext NONE = new StyleContext();
 
     /**
-     * Creates a new builder for constructing a {@code StyleContext}.
+     * Returns a new builder for constructing a {@code StyleContext}.
      *
-     * @return a new builder instance
+     * @return a new {@link StyleContextBuilder}
      */
-    public static StyleContextBuilder builder(){
+    public static StyleContextBuilder builder() {
         return new StyleContextBuilder();
     }
 
     /**
-     * Creates a {@code StyleContext} from the provided map of mappings.
+     * Creates a {@code StyleContext} from an existing map of style names to
+     * {@link AnsiCode} instances.
      *
-     * @param codes a map where keys are markup tags and values are ANSI codes;
-     * must not be {@code null}
-     * @return a new style context
+     * <p>The provided map is copied; subsequent modifications to it do not affect
+     * the returned context.
+     *
+     * @param codes a map of markup names to ANSI codes; must not be {@code null}
+     * @return a new {@code StyleContext} containing the given styles
      * @throws NullPointerException if {@code codes} is {@code null}
      */
-    public static StyleContext from(Map<String, AnsiCode> codes){
+    public static StyleContext from(Map<String, AnsiCode> codes) {
         return new StyleContextBuilder().add(codes).build();
     }
 
     /**
-     * Retrieves the {@link AnsiCode} associated with the specified markup tag.
+     * Creates a shallow copy of an existing {@code StyleContext}.
      *
-     * @param s the markup tag to look up
-     * @return the associated ANSI code, or {@code null} if no mapping exists
+     * <p>The registered styles are copied; the returned context is independent of
+     * the source.
+     *
+     * @param context the context to copy; must not be {@code null}
+     * @return a new {@code StyleContext} containing the same styles
+     * @throws NullPointerException if {@code context} is {@code null}
      */
-    public AnsiCode get(String s){
-        return localStyles.get(s);
+    public static StyleContext from(StyleContext context) {
+        Objects.requireNonNull(context, "Style context cannot be null");
+        return new StyleContextBuilder().add(context.localStyles).build();
     }
 
+    /**
+     * Returns the {@link AnsiCode} registered under the given markup name, or
+     * {@code null} if no style is registered for that name.
+     *
+     * @param s the markup name to look up
+     * @return the associated {@link AnsiCode}, or {@code null} if not present
+     */
+    public AnsiCode get(String s) {
+        return localStyles.get(s);
+    }
 
     StyleContext(StyleContextBuilder builder) {
         this.localStyles = new HashMap<>(builder.localStyles);
@@ -96,10 +131,14 @@ public final class StyleContext {
     }
 
     /**
-     * Builder for {@link StyleContext} instances.
+     * Builder for {@link StyleContext}.
      *
-     * <p>Mappings added to the builder will overwrite existing mappings
-     * for the same markup tag. This builder is <b>not thread-safe</b>.
+     * <p>Multiple {@code add} calls accumulate; later registrations for the same
+     * markup name overwrite earlier ones. All overloads ultimately store a single
+     * {@link AnsiCode} per name — multi-code overloads wrap their arguments in a
+     * {@link CompositeColor}.
+     *
+     * <p>This builder is <b>not</b> thread-safe.
      */
     public static class StyleContextBuilder {
         private final Map<String, AnsiCode> localStyles;
@@ -109,82 +148,90 @@ public final class StyleContext {
         }
 
         /**
-         * Adds a single mapping to the context.
+         * Registers a single {@link AnsiCode} under the given markup name.
          *
-         * @param markup the tag name (e.g., "myStyle")
-         * @param code the ANSI code to associate with the tag
+         * @param style the markup name; must not be {@code null}
+         * @param code  the ANSI code to associate; must not be {@code null}
          * @return this builder
-         * @throws NullPointerException if either parameter is {@code null}
+         * @throws NullPointerException if {@code style} or {@code code} is {@code null}
          */
-        public StyleContextBuilder add(String markup, AnsiCode code){
-            Objects.requireNonNull(markup, "Markup cannot be null");
+        public StyleContextBuilder add(String style, AnsiCode code) {
+            Objects.requireNonNull(style, "Style name cannot be null");
             Objects.requireNonNull(code, "Ansi code cannot be null");
-            localStyles.put(markup, code);
+            localStyles.put(style, code);
             return this;
         }
 
         /**
-         * Adds a mapping that resolves to multiple ANSI codes.
+         * Registers multiple {@link AnsiCode} instances under the given markup name,
+         * combining them into a {@link CompositeColor}.
          *
-         * @param markup the tag name
-         * @param code the ANSI codes to associate with the tag
+         * @param style the markup name; must not be {@code null}
+         * @param code  one or more ANSI codes to combine; must not be {@code null}
          * @return this builder
-         * @throws NullPointerException if either parameter is {@code null}
+         * @throws NullPointerException if {@code style} or {@code code} is {@code null}
          */
-        public StyleContextBuilder add(String markup, AnsiCode... code){
-            Objects.requireNonNull(markup, "Markup cannot be null");
+        public StyleContextBuilder add(String style, AnsiCode... code) {
+            Objects.requireNonNull(style, "Style name cannot be null");
             Objects.requireNonNull(code, "Ansi codes cannot be null");
-            localStyles.put(markup, new CompositeColor(code));
+            localStyles.put(style, new CompositeColor(code));
             return this;
         }
 
         /**
-         * Adds a mapping that resolves to a collection of ANSI codes.
+         * Registers a collection of {@link AnsiCode} instances under the given markup
+         * name, combining them into a {@link CompositeColor}.
          *
-         * @param markup the tag name
-         * @param code the collection of ANSI codes; must not be {@code null}
+         * @param style the markup name; must not be {@code null}
+         * @param code  a collection of ANSI codes to combine; must not be {@code null}
          * @return this builder
-         * @throws NullPointerException if either parameter is {@code null}
+         * @throws NullPointerException if {@code style} or {@code code} is {@code null}
          */
-        public StyleContextBuilder add(String markup, Collection<AnsiCode> code){
-            Objects.requireNonNull(markup, "Markup cannot be null");
+        public StyleContextBuilder add(String style, Collection<AnsiCode> code) {
+            Objects.requireNonNull(style, "Style Name cannot be null");
             Objects.requireNonNull(code, "Ansi codes cannot be null");
-            localStyles.put(markup, new CompositeColor(code));
+            localStyles.put(style, new CompositeColor(code));
             return this;
         }
 
         /**
-         * Adds all mappings from the specified map to the builder.
+         * Bulk-registers all entries from the given map.
          *
-         * @param codes the map of mappings to add
+         * <p>Entries are added in iteration order; if the map contains a name already
+         * registered in this builder, the map's value overwrites the existing one.
+         *
+         * @param codes a map of markup names to ANSI codes; must not be {@code null}
          * @return this builder
          * @throws NullPointerException if {@code codes} is {@code null}
          */
-        public StyleContextBuilder add(Map<String, AnsiCode> codes){
+        public StyleContextBuilder add(Map<String, AnsiCode> codes) {
             Objects.requireNonNull(codes, "Map cannot be null");
             localStyles.putAll(codes);
             return this;
         }
 
         /**
-         * Merges the mappings from an existing {@code StyleContext} into this builder.
+         * Merges all styles from an existing {@link StyleContext} into this builder.
          *
-         * @param context the context to merge; must not be {@code null}
+         * <p>If a name from {@code context} is already registered in this builder,
+         * the incoming value overwrites the existing one.
+         *
+         * @param context the context whose styles to merge; must not be {@code null}
          * @return this builder
          * @throws NullPointerException if {@code context} is {@code null}
          */
-        public StyleContextBuilder add(StyleContext context){
+        public StyleContextBuilder add(StyleContext context) {
             Objects.requireNonNull(context, "Style context cannot be null");
-            this.localStyles.putAll(context.localStyles);
+            localStyles.putAll(context.localStyles);
             return this;
         }
 
         /**
-         * Builds a new {@link StyleContext} instance.
+         * Constructs a new {@link StyleContext} from the current builder state.
          *
-         * @return a new style context
+         * @return a new, immutable {@code StyleContext}
          */
-        public StyleContext build(){
+        public StyleContext build() {
             return new StyleContext(this);
         }
     }

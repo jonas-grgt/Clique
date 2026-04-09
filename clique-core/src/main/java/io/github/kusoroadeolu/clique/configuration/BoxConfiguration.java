@@ -9,18 +9,27 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Immutable configuration for {@link io.github.kusoroadeolu.clique.components.Box}
- * and {@link io.github.kusoroadeolu.clique.components.Frame} components.
+ * Immutable configuration for a {@link io.github.kusoroadeolu.clique.components.Box}.
  *
- * <p>Instances are created via {@link #builder()}. A shared default instance is
- * available via {@link #DEFAULT}, which uses center alignment, a padding of {@code 2},
- * no border color, and the default markup parser.</p>
+ * <p>Instances are obtained via {@link #builder()}. The {@link #DEFAULT} constant provides
+ * a pre-built configuration with the following values:
+ * <ul>
+ *   <li>padding: {@code 2}</li>
+ *   <li>textAlign: {@link TextAlign#CENTER}</li>
+ *   <li>parser: {@link MarkupParser#DEFAULT}</li>
+ *   <li>borderColor: empty (no color applied)</li>
+ * </ul>
  *
+ * <p>This class is immutable and thread-safe. {@link BoxConfigurationBuilder} is
+ * <b>not</b> thread-safe; external synchronization is required if a builder instance
+ * is shared across threads.
+ *
+ * <p>Example:
  * <pre>{@code
  * BoxConfiguration config = BoxConfiguration.builder()
- *     .padding(1)
- *     .textAlign(TextAlign.LEFT)
- *     .borderColor(ColorCode.CYAN)
+ *     .padding(3)
+ *     .textAlign(TextAlign.CENTER)
+ *     .borderColor("blue")
  *     .build();
  * }</pre>
  *
@@ -30,8 +39,8 @@ import java.util.Objects;
 public final class BoxConfiguration {
 
     /**
-     * A shared default configuration with center alignment, padding of {@code 2},
-     * no border color, and the default markup parser.
+     * A default {@code BoxConfiguration} with padding {@code 2}, center alignment,
+     * the default markup parser, and no border color.
      */
     public static final BoxConfiguration DEFAULT = new BoxConfiguration();
 
@@ -52,45 +61,50 @@ public final class BoxConfiguration {
     }
 
     /**
-     * Returns a new {@link BoxConfigurationBuilder} with default values.
+     * Returns a new builder for constructing a {@code BoxConfiguration}.
      *
-     * @return a new builder instance
+     * @return a new {@link BoxConfigurationBuilder}
      */
     public static BoxConfigurationBuilder builder() {
         return new BoxConfigurationBuilder();
     }
 
     /**
-     * Returns the horizontal padding applied to each side of the content.
+     * Returns the number of blank characters inserted between the box border and
+     * its content on each side.
      *
-     * @return the padding value; always non-negative
+     * <p>Padding is deducted from the box's configured width, not added on top of it.
+     *
+     * @return the padding value; always {@code >= 0}
      */
     public int getPadding() {
         return this.padding;
     }
 
     /**
-     * Returns the ANSI codes applied to the box border, or an empty array if none was set.
+     * Returns the ANSI codes applied to the box border, or an empty array if no
+     * border color has been set.
      *
-     * @return the border color codes; never {@code null}
+     * @return a defensive copy of the border color codes; never {@code null}, may be empty
      */
     public AnsiCode[] getBorderColor() {
         return this.borderColor.clone();
     }
 
     /**
-     * Returns the text alignment applied to content within the box.
+     * Returns the horizontal alignment applied to content within the box.
      *
-     * @return the text alignment
+     * @return the text alignment; never {@code null}
      */
     public TextAlign getTextAlign() {
         return this.textAlign;
     }
 
     /**
-     * Returns the markup parser used to resolve styled markup in content.
+     * Returns the markup parser used to interpret inline style tags in box content
+     * and border color specifications.
      *
-     * @return the markup parser; never {@code null}
+     * @return the parser; never {@code null}
      */
     public MarkupParser getParser() {
         return this.parser;
@@ -111,7 +125,7 @@ public final class BoxConfiguration {
         if (object == null || getClass() != object.getClass()) return false;
 
         BoxConfiguration that = (BoxConfiguration) object;
-        return textAlign == that.textAlign && parser.equals(that.parser) &&  padding == that.padding && Arrays.equals(borderColor, that.borderColor);
+        return textAlign == that.textAlign && parser.equals(that.parser) && padding == that.padding && Arrays.equals(borderColor, that.borderColor);
     }
 
     @Override
@@ -122,8 +136,10 @@ public final class BoxConfiguration {
     /**
      * Builder for {@link BoxConfiguration}.
      *
-     * <p>Default values: {@link TextAlign#CENTER}, padding {@code 2}, no border color,
-     * and {@link MarkupParser#DEFAULT}.</p>
+     * <p>Default values match those of {@link BoxConfiguration#DEFAULT}. Methods
+     * may be called in any order; each returns {@code this} for chaining.
+     *
+     * <p>This builder is <b>not</b> thread-safe.
      */
     public static class BoxConfigurationBuilder {
         private TextAlign textAlign = TextAlign.CENTER;
@@ -132,9 +148,11 @@ public final class BoxConfiguration {
         private int padding = 2;
 
         /**
-         * Sets the horizontal padding applied to each side of the content.
+         * Sets the padding applied between the box border and its content.
          *
-         * @param padding the padding value; must not be negative
+         * <p>Padding is deducted from the box's configured width, not added on top of it.
+         *
+         * @param padding the number of blank characters on each side; must be {@code >= 0}
          * @return this builder
          * @throws IllegalArgumentException if {@code padding} is negative
          */
@@ -145,10 +163,16 @@ public final class BoxConfiguration {
         }
 
         /**
-         * Sets the border color from a named or markup-encoded color string,
-         * resolved via the currently configured parser e.g "red, bold". Note that the markup brackets are not included here
+         * Sets the border color by parsing a markup string using the currently
+         * configured parser.
          *
-         * @param borderColor the color name or markup string; must not be {@code null}
+         * <p>The markup string is resolved against the parser set via
+         * {@link #parser(MarkupParser)} at the time this method is called.
+         * If {@link MarkupParser#NONE} is in use, the string is not consumed and
+         * no color codes will be applied.
+         *
+         * @param borderColor a markup string representing the desired border color;
+         *                    must not be {@code null}
          * @return this builder
          */
         public BoxConfigurationBuilder borderColor(String borderColor) {
@@ -156,7 +180,7 @@ public final class BoxConfiguration {
         }
 
         /**
-         * Sets the border color from one or more {@link AnsiCode} values.
+         * Sets the border color directly from one or more {@link AnsiCode} instances.
          *
          * @param borderColor the ANSI codes to apply to the border; must not be {@code null}
          * @return this builder
@@ -169,7 +193,7 @@ public final class BoxConfiguration {
         }
 
         /**
-         * Sets the text alignment for content within the box.
+         * Sets the horizontal alignment for content within the box.
          *
          * @param textAlign the alignment to apply; must not be {@code null}
          * @return this builder
@@ -182,10 +206,16 @@ public final class BoxConfiguration {
         }
 
         /**
-         * Sets the markup parser used to resolve styled markup in content.
+         * Sets the markup parser used to interpret inline style tags in box content
+         * and border color markup strings.
          *
-         * @param parser the parser to use; must not be {@code null}. If {@link MarkupParser#NONE} is passed, valid markups tags will not get consumed
+         * <p>If {@link MarkupParser#NONE} is passed, markup tags will not be consumed
+         * by the parser and will be passed through as literal text. This also affects
+         * subsequent calls to {@link #borderColor(String)}.
+         *
+         * @param parser the parser to use; must not be {@code null}
          * @return this builder
+         * @throws NullPointerException if {@code parser} is {@code null}
          */
         public BoxConfigurationBuilder parser(MarkupParser parser) {
             Objects.requireNonNull(parser, "Parser cannot be null");
@@ -194,9 +224,9 @@ public final class BoxConfiguration {
         }
 
         /**
-         * Builds and returns a new {@link BoxConfiguration} from the current builder state.
+         * Constructs a new {@link BoxConfiguration} from the current builder state.
          *
-         * @return a new {@code BoxConfiguration} instance
+         * @return a new, immutable {@code BoxConfiguration}
          */
         public BoxConfiguration build() {
             return new BoxConfiguration(this);

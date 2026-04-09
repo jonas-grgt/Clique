@@ -11,11 +11,32 @@ import java.util.concurrent.TimeUnit;
 
 import static io.github.kusoroadeolu.clique.internal.Constants.BLANK;
 import static io.github.kusoroadeolu.clique.internal.Constants.ZERO;
-import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseIfPresent;
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parse;
 
 /**
+ * A terminal progress bar component that tracks incremental progress toward a total.
+ *
+ * <p>Progress is advanced via {@link #tick()} or {@link #tick(int)}, each of which
+ * re-renders the bar in place. The bar is considered complete when {@code currentTick >= total},
+ * at which point {@link #isDone()} returns {@code true} and a newline is emitted on the
+ * next {@link #render(PrintStream)} call.
+ *
+ * <p>Rendering uses a format string from {@link ProgressBarConfiguration} that supports
+ * the following tokens:
+ * <ul>
+ *   <li>{@code :bar} — the filled/unfilled bar segment</li>
+ *   <li>{@code :progress} — current tick count, right-aligned to total width</li>
+ *   <li>{@code :total} — the total tick count</li>
+ *   <li>{@code :percent} — completion percentage, right-aligned to 3 characters</li>
+ *   <li>{@code :elapsed} — elapsed time in {@code mm:ss}</li>
+ *   <li>{@code :remaining} — estimated remaining time in {@code mm:ss}, or {@code --:--} if unavailable</li>
+ * </ul>
+ *
+ * <p>This class is <b>not</b> thread-safe. Concurrent calls to {@link #tick(int)} or
+ * {@link #tickAnimated(int)} from multiple threads require external synchronization.
+ *
  * @since 3.0.0
- * */
+ */
 @Stable(since = "3.0.0")
 public class ProgressBar implements Component {
     final int total;
@@ -47,11 +68,28 @@ public class ProgressBar implements Component {
         this(ZERO, total, false, System.currentTimeMillis(), ProgressBarConfiguration.DEFAULT);
     }
 
+    /**
+     * Advances the progress bar by {@code 1} tick and re-renders it.
+     *
+     * <p>Equivalent to {@link #tick(int) tick(1)}.
+     *
+     * @return this instance
+     */
     public ProgressBar tick() {
         return this.tick(1);
     }
 
-
+        /**
+     * Advances the progress bar by the given number of ticks and re-renders it.
+     *
+     * <p>The current tick is clamped to {@code [0, total]}. If this call causes
+     * {@code currentTick >= total}, {@link #isDone()} will return {@code true} and
+     * a newline is emitted on the next render.
+     *
+     * @param amount the number of ticks to advance; must be {@code >= 1}
+     * @return this instance
+     * @throws IllegalArgumentException if {@code amount} is less than {@code 1}
+     */
     public ProgressBar tick(int amount) {
         if (amount < 1) throw new IllegalArgumentException("Tick amount cannot be less than 1");
         currentTick = Math.clamp(currentTick + amount, ZERO, total);
@@ -60,7 +98,20 @@ public class ProgressBar implements Component {
         return this;
     }
 
-
+    /**
+     * Advances the progress bar by the given amount, applying easing if configured.
+     *
+     * <p>If the active {@link ProgressBarConfiguration} has an {@link EasingConfiguration}
+     * whose {@code shouldEase(amount)} returns {@code true}, the tick is interpolated
+     * across multiple frames using the configured easing function and frame delay.
+     * Otherwise, delegates directly to {@link #tick(int)}.
+     *
+     * <p>This method blocks the calling thread for the duration of the animation when
+     * easing is applied.
+     *
+     * @param amount the number of ticks to advance; must be {@code >= 1}
+     * @return this instance
+     */
     public ProgressBar tickAnimated(int amount) {
         var config = this.progressBarConfiguration;
         if (config != null && config.getEasing().shouldEase(amount)) {
@@ -101,12 +152,26 @@ public class ProgressBar implements Component {
         if (currentTick >= total && !isDone) isDone = true;
     }
 
+
+    /**
+     * Returns whether the progress bar has reached its total.
+     *
+     * @return {@code true} if {@code currentTick >= total}; {@code false} otherwise
+     */
     public boolean isDone() {
         return isDone;
     }
 
 
     //Modified this to first check if we can tick by an actual valid value
+    /**
+     * Advances the progress bar to completion and re-renders it.
+     *
+     * <p>Equivalent to ticking by {@code total - currentTick}. If the bar is already
+     * complete, this method ticks by {@code 1} to ensure a valid tick amount.
+     *
+     * @return this instance
+     */
     public ProgressBar complete() {
         return this.tick(Math.max(1, total - currentTick));
     }
@@ -152,7 +217,16 @@ public class ProgressBar implements Component {
         else return null;
     }
 
-
+    /**
+     * Returns the current rendered string representation of the progress bar,
+     * with all format tokens resolved.
+     *
+     * <p>The format string is sourced from {@link ProgressBarConfiguration#getFormatForPercent(int)}
+     * based on the current completion percentage. Markup tags in the resolved string
+     * are parsed if a parser is configured.
+     *
+     * @return the rendered progress bar string; never {@code null}
+     */
     public String get() {
         var currentPercent = this.percent();
         var format = progressBarConfiguration.getFormatForPercent(currentPercent);
@@ -178,12 +252,20 @@ public class ProgressBar implements Component {
         var remaining = interval(remainingTime());
         format = format.replace(":remaining", remaining);
 
-        return parseIfPresent(format, this.progressBarConfiguration.parser());
+        return parse(format, this.progressBarConfiguration.getParser());
     }
 
-
+    /**
+     * Renders the progress bar to the given {@link PrintStream} in place, using a
+     * carriage return ({@code \r}) to overwrite the current line.
+     *
+     * <p>When {@link #isDone()} is {@code true}, a newline is appended after the final
+     * render to advance the cursor past the completed bar.
+     *
+     * @param printStream the stream to render to; must not be {@code null}
+     */
     public void render(PrintStream printStream) {
-        printStream.print("\r" + this.get());
+        printStream.print("\r" + get());
         if (isDone) printStream.println();
         printStream.flush();
     }

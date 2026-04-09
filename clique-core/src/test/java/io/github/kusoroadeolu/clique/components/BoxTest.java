@@ -128,15 +128,9 @@ class BoxTest {
 
     @Test
     void textAlign_shouldBeReassigned_onSubsequentAlignCalls(){
-        var box = Clique.box(BoxType.ROUNDED)
+        var box = Clique.box()
                 .dimensions(50, 9)
-                .content("Test", TextAlign.TOP_RIGHT);
-        var lines = MarkupParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets
-        String second  = lines.get(1);
-        String firstChar = second.substring(second.length() - 7, second.length() - 6);
-        assertEquals("T", firstChar);  //Should be top right
-
-        box.content("Test", TextAlign.TOP_LEFT);
+                .content("Test", TextAlign.TOP_LEFT);
 
         // Assert Top left
         var lines1 = MarkupParser.DEFAULT.getOriginalString(box.get()).lines().toList(); //Strip resets

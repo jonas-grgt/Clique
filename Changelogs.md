@@ -226,3 +226,6 @@ _(no changes noted)_
 
 ## clique-spi [2.0.0] - [UNRELEASED]
 - `AnsiCode#toString()` contract renamed to `AnsiCode#ansiSequence()`
+
+## clique-themes [1.1.0] - [UNRELEASED]
+- Registered theme ansi codes now align with the updated interface contract

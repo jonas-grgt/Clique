@@ -186,7 +186,6 @@ public final class TableConfiguration {
         /**
          * Sets the parser for markup resolution.
          *
-         * <p><b>Note:</b> If {@link MarkupParser#NONE} is provided, markup tags in cell
          * content will be treated as literal text and will not be parsed into ANSI sequences.
          *
          * @param parser the parser to use; must not be {@code null}

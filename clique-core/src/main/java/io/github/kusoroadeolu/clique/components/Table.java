@@ -11,7 +11,7 @@ import java.util.Collection;
  * dynamic content manipulation. This component does not support multi-line
  * cell content; strings containing newlines may result in malformed output.
  *
- * <p><b>Markup Handling:</b> Content added to rows or cells is automatically
+ * <p><b>Markup Handling:</b> Content added to cells is automatically
  * processed via the configured {@code MarkupParser}.
  *
  * <p><b>Thread Safety:</b> Implementations of this interface are <b>not thread-safe</b>.
@@ -21,7 +21,7 @@ import java.util.Collection;
  * @since 1.0.0
  */
 @Stable(since = "3.0.0")
-public interface Table extends Component {
+public sealed interface Table extends Component permits AbstractTable{
 
     /**
      * Appends a new row to the end of the table.

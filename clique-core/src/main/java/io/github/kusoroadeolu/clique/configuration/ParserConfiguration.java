@@ -6,7 +6,7 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import java.util.Objects;
 
 /**
- * Immutable configuration for a {@link io.github.kusoroadeolu.clique.parser.MarkupParser}.
+ * An immutable configuration for a {@link io.github.kusoroadeolu.clique.parser.MarkupParser}.
  *
  * <p>Instances are obtained via {@link #builder()}. The {@link #DEFAULT} constant provides
  * a pre-built configuration with the following values:

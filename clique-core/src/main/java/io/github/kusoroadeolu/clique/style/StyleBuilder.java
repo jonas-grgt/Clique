@@ -7,7 +7,7 @@ import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.style;
 
 @InternalApi(since = "3.2.0")
-public class StyleBuilder {
+public final class StyleBuilder {
 
     private static final AnsiCode RESET = StyleCode.RESET;
     private final StringBuilder textBuilder;

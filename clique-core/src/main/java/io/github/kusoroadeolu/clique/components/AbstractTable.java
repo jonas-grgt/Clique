@@ -11,12 +11,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCellIfPresent;
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.internal.utils.TableUtils.*;
 import static java.util.Objects.isNull;
 
 @InternalApi(since = "3.2.0")
-abstract class AbstractTable implements Table {
+abstract non-sealed class AbstractTable implements Table {
     final List<WidthAwareList> columns; //This is used to track the max height in that column
     final List<WidthAwareList> rows;
     final TableConfiguration configuration;
@@ -52,7 +52,7 @@ abstract class AbstractTable implements Table {
                 row = handleNulls(row, this.configuration.getNullReplacement());
             }
 
-            final Cell c = parseToCellIfPresent(row, this.configuration.getParser());
+            final Cell c = parseToCell(row, this.configuration.getParser());
             rowList.add(c);
             final WidthAwareList colList = this.columns.get(i);
             colList.add(c);
@@ -85,7 +85,7 @@ abstract class AbstractTable implements Table {
 
         final WidthAwareList rl = this.rows.get(row);
         final WidthAwareList cl = this.columns.get(col);
-        final Cell c = parseToCellIfPresent(text, this.configuration.getParser());
+        final Cell c = parseToCell(text, this.configuration.getParser());
         rl.update(col, c);
         cl.update(row, c);
         nullCachedString();
