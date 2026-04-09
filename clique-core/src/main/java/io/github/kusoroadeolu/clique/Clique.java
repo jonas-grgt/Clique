@@ -12,6 +12,7 @@ import io.github.kusoroadeolu.clique.style.Ink;
 import io.github.kusoroadeolu.clique.style.StyleBuilder;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -121,24 +122,27 @@ public final class Clique {
         public static Tree tree(String label, AnsiCode... connectorColor) { return CliqueComponents.tree(label, connectorColor); }
 
     // CLIQUE CONFIG
-    public static void enableCliqueColors(boolean enable) {
-        if (enable) AnsiDetector.enableCliqueColors();
-        else AnsiDetector.disableCliqueColors();
+    public static void disableCliqueColors() {
+        AnsiDetector.disableCliqueColors();
     }
-    public static void enableCliqueColors() { enableCliqueColors(true); }
+    public static void enableCliqueColors() { AnsiDetector.enableCliqueColors(); }
 
     // RGB
     public static RGBAnsiCode rgb(int r, int g, int b) { return CliqueStyles.rgb(r, g, b); }
     public static RGBAnsiCode rgb(int r, int g, int b, boolean background) { return CliqueStyles.rgb(r, g, b, background); }
 
-    // THEMES AND STYLE REGISTRATION
+    //STYLE REGISTRATION
     public static void registerStyle(String style, AnsiCode code) { CliqueStyles.registerStyle(style, code); }
     public static void registerStyles(Map<String, AnsiCode> codes) { CliqueStyles.registerStyles(codes); }
+
+
+    //THEMES
     public static void registerTheme(String name) { CliqueStyles.registerTheme(name); }
+    public static void registerTheme(CliqueTheme theme) {CliqueStyles.registerTheme(theme);}
     public static void registerThemes(String... names) { CliqueStyles.registerThemes(names); }
     public static void registerThemes(Collection<String> themes) { CliqueStyles.registerThemes(themes); }
-    public static void registerAllThemes() { CliqueStyles.registerAllThemes(); }
-    public static java.util.List<CliqueTheme> discoverThemes() { return CliqueStyles.discoverThemes(); }
+    public static void registerAvailableThemes() { CliqueStyles.registerAvailableThemes(); }
+    public static List<CliqueTheme> findAvailableThemes() { return CliqueStyles.findAvailableThemes(); }
     public static Optional<CliqueTheme> findTheme(String name) { return CliqueStyles.findTheme(name); }
 
 }
