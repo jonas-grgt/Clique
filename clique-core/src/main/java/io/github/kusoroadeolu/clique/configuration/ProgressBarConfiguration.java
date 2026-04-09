@@ -13,7 +13,7 @@ import static java.util.Objects.requireNonNull;
  * @since 3.0.0
  * */
 @Stable(since = "3.2.0")
-public class ProgressBarConfiguration {
+public final class ProgressBarConfiguration {
     public static final ProgressBarConfiguration DEFAULT = ProgressBarPreset.BLOCKS.getConfiguration();
 
     private final int length;

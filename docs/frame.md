@@ -55,7 +55,7 @@ Any Clique component that implements `Component` can be nested:
 Clique.frame()
     .nest(table)
     .nest(progressBar)
-    .nest(indenter)
+    .nest(itemList)
     .render();
 ```
 

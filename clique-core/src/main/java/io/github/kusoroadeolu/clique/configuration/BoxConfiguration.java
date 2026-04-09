@@ -13,7 +13,7 @@ import java.util.Objects;
  * @since 1.1.0
  * */
 @Stable(since = "3.2.0")
-public class BoxConfiguration {
+public final class BoxConfiguration {
     public static final BoxConfiguration DEFAULT = new BoxConfiguration();
 
     private final TextAlign textAlign;

@@ -12,7 +12,7 @@ import java.util.Objects;
  * @since 3.1.0
  * */
 @Stable(since = "3.2.0")
-public class TreeConfiguration {
+public final class TreeConfiguration {
     private final MarkupParser parser;
     private final AnsiCode[] connectorColor;
     public static final TreeConfiguration DEFAULT = new TreeConfiguration();

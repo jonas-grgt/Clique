@@ -150,11 +150,11 @@ Clique.parser().print("\\[red]");
 
 ## Markup Syntax Reference
 
-See [markup-reference.md](markup-reference.md) for a complete list of default supported colors, background colors, and text styles.
+See [markup-reference.md](markup-reference.md) for a complete itemList of default supported colors, background colors, and text styles.
 
 ## Using Parser with Other Features
 
-The parser is integrated into tables, boxes, and indenters. By default, markup parsing is enabled for all of these features:
+The parser is integrated into every component. By default, markup parsing is enabled for all of those features:
 ```java
 // Tables with markup
 Clique.table(TableType.DEFAULT)
@@ -167,12 +167,6 @@ Clique.box(BoxType.ROUNDED)
     .autosize()
     .content("[bold, blue]This is a configured box[/]")
     .render();
-
-// Indenter with markup
-Clique.indenter()
-    .indent()
-    .add("[blue, bold]Root[/]")
-    .print();
 ```
 
 You can also pass a custom configured parser to these features through their configuration objects.

@@ -12,7 +12,7 @@ import java.util.Objects;
  * @since 3.1.0
  */
 @Stable(since = "3.2.0")
-public class FrameConfiguration {
+public final class FrameConfiguration {
     public static final FrameConfiguration DEFAULT = new FrameConfiguration();
 
     private final int padding;
