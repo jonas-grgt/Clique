@@ -6,6 +6,7 @@ import io.github.kusoroadeolu.clique.internal.RGBColor;
 import io.github.kusoroadeolu.clique.internal.markup.GlobalStyleRegistry;
 import io.github.kusoroadeolu.clique.internal.themeloader.CliqueThemeLoader;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
+import io.github.kusoroadeolu.clique.parser.MarkupParser.MarkupParserInstance;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.CliqueTheme;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
@@ -33,11 +34,11 @@ final class CliqueStyles {
     // PARSER
 
     public static MarkupParser parser() {
-        return new MarkupParser();
+        return new MarkupParserInstance();
     }
 
     public static MarkupParser parser(ParserConfiguration configuration) {
-        return new MarkupParser(configuration);
+        return new MarkupParserInstance(configuration);
     }
 
     public static Ink ink() {

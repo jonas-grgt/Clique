@@ -16,6 +16,21 @@ import static io.github.kusoroadeolu.clique.internal.utils.BoxUtils.applyAnsiToB
 import static io.github.kusoroadeolu.clique.internal.utils.BoxUtils.drawBox;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A single-cell bordered container that renders text content within a styled box.
+ *
+ * <p>Boxes can be sized explicitly via {@link #dimensions(int, int)} or left to
+ * autosize based on content. When no dimensions are set, width and height are
+ * derived from the longest line and line count of the content respectively.</p>
+ *
+ * <p>The rendered string is cached after the first call to {@link #get()} and
+ * invalidated whenever {@link #content(String)} or {@link #content(String, TextAlign)}
+ * is called.</p>
+ *
+ * <p><b>Note:</b> This class is not thread-safe.</p>
+ *
+ * @since 1.1.0
+ */
 @InternalApi(since = "3.2.0")
 public class Box implements Component {
     private int width;
@@ -47,6 +62,16 @@ public class Box implements Component {
         this(BoxConfiguration.DEFAULT);
     }
 
+    /**
+     * Renders and returns the box as a string.
+     *
+     * <p>The result is cached after the first invocation and reused on subsequent
+     * calls until the content is updated. Text alignment is resolved from the
+     * per-call override set via {@link #content(String, TextAlign)} if present,
+     * falling back to the value in {@link BoxConfiguration}.</p>
+     *
+     * @return the rendered box as a string
+     */
     public String get() {
         if (cachedString != null) return cachedString;
         WidthAwareList cells = resolveLines();
@@ -65,6 +90,16 @@ public class Box implements Component {
         return (cachedString = sb.toString());
     }
 
+    /**
+     * Sets the content of this box and invalidates the render cache.
+     *
+     * <p>Text alignment is inherited from the {@link BoxConfiguration} provided
+     * at construction time.</p>
+     *
+     * @param content the text content to display; must not be {@code null}
+     * @return this box instance
+     * @throws NullPointerException if {@code content} is {@code null}
+     */
     public Box content(String content) {
         Objects.requireNonNull(content, BOX_CONTENT_NOT_NULL);
         this.content = content;
@@ -72,6 +107,17 @@ public class Box implements Component {
         return this;
     }
 
+    /**
+     * Sets the content and text alignment of this box, invalidating the render cache.
+     *
+     * <p>The provided {@code align} takes precedence over the alignment specified
+     * in the {@link BoxConfiguration}.</p>
+     *
+     * @param content the text content to display; must not be {@code null}
+     * @param align   the text alignment to apply; must not be {@code null}
+     * @return this box instance
+     * @throws NullPointerException if {@code content} or {@code align} is {@code null}
+     */
     public Box content(String content, TextAlign align) {
         Objects.requireNonNull(content, BOX_CONTENT_NOT_NULL);
         Objects.requireNonNull(align, TEXT_ALIGN_NOT_NULL);
@@ -81,6 +127,19 @@ public class Box implements Component {
         return this;
     }
 
+    /**
+     * Sets explicit dimensions for this box.
+     *
+     * <p>When dimensions are set, content that exceeds the usable inner width
+     * (width minus padding) or the specified height will throw an
+     * {@link InvalidDimensionException} at render time. If this method is never
+     * called, the box autosizes to fit its content.</p>
+     *
+     * @param width  the total outer width of the box; must be greater than 0
+     * @param height the total outer height of the box; must be greater than 0
+     * @return this box instance
+     * @throws IllegalArgumentException if {@code width} or {@code height} is not greater than 0
+     */
     public Box dimensions(int width, int height) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException(
@@ -160,4 +219,3 @@ public class Box implements Component {
                 ']';
     }
 }
-

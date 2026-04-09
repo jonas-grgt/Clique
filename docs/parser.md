@@ -157,13 +157,13 @@ See [markup-reference.md](markup-reference.md) for a complete itemList of defaul
 The parser is integrated into every component. By default, markup parsing is enabled for all of those features:
 ```java
 // Tables with markup
-Clique.table(TableType.DEFAULT)
+Clique.table(TableType.ASCII)
     .headers("[green, bold]Name[/]", "[green, bold]Age[/]")
     .row("[red]John[/]", "25")
     .render();
 
 // Boxes with markup
-Clique.box(BoxType.ROUNDED)
+Clique.box()
     .autosize()
     .content("[bold, blue]This is a configured box[/]")
     .render();

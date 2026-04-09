@@ -23,7 +23,7 @@ public class BorderChars {
 
     public static BorderChars from(BoxType type) {
         return switch (type) {
-            case DEFAULT      -> new BorderChars("-", "|", "+", "+", "+", "+");
+            case ASCII -> new BorderChars("-", "|", "+", "+", "+", "+");
             case DOUBLE_LINE  -> new BorderChars("═", "║", "╔", "╗", "╚", "╝");
             case CLASSIC      -> new BorderChars("─", "│", "┌", "┐", "└", "┘");
             case ROUNDED      -> new BorderChars("─", "│", "╭", "╮", "╰", "╯");

@@ -19,7 +19,7 @@ public class IterableProgressBar<T>  implements Iterable<T>{
 
     public IterableProgressBar(Collection<T> collection, ProgressBarConfiguration configuration){
         Objects.requireNonNull(collection, "Collection cannot be null");
-        Objects.requireNonNull(configuration, "Parser configuration cannot be null");
+        Objects.requireNonNull(configuration, "Progress bar configuration cannot be null");
         this.iterator = collection.iterator();
         progressBar = new ProgressBar(collection.size(), configuration);
     }

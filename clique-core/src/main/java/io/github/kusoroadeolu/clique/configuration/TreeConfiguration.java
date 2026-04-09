@@ -1,7 +1,7 @@
 package io.github.kusoroadeolu.clique.configuration;
 
 import io.github.kusoroadeolu.clique.internal.documentation.Stable;
-import io.github.kusoroadeolu.clique.internal.markup.ParserUtils;
+import io.github.kusoroadeolu.clique.internal.utils.ParserUtils;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 
@@ -35,7 +35,7 @@ public final class TreeConfiguration {
     }
 
     public AnsiCode[] getConnectorColor() {
-        return connectorColor;
+        return connectorColor.clone();
     }
 
     @Override
@@ -67,6 +67,7 @@ public final class TreeConfiguration {
 
 
         public TreeConfigurationBuilder parser(MarkupParser parser) {
+            Objects.requireNonNull(parser, "Parser cannot be null");
             this.parser = parser;
             return this;
         }

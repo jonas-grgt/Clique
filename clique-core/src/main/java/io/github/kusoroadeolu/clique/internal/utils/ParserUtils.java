@@ -1,4 +1,4 @@
-package io.github.kusoroadeolu.clique.internal.markup;
+package io.github.kusoroadeolu.clique.internal.utils;
 
 import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.parser.MarkupParser;
@@ -19,7 +19,7 @@ public class ParserUtils {
     }
 
     public static AnsiCode[] getAnsiCodes(String string, MarkupParser parser) {
-        if (string.isBlank() || parser == null) return NONE;
+        if (string.isBlank() || parser == MarkupParser.NONE) return NONE;
         return Arrays.stream(string.split(parser.parserConfiguration().getDelimiter()))
                 .map(s -> getOrThrow(s.trim(), parser.parserConfiguration().getStyleContext()))
                 .toArray(AnsiCode[]::new);

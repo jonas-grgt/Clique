@@ -80,7 +80,7 @@ class TableTest {
     @Test
     void assertPadding_shouldHaveThreeSpaces_whenLeftAligned(){
         var config = TableConfiguration.builder().padding(3).build();
-        Table table = Clique.table(TableType.DEFAULT, config)
+        Table table = Clique.table(TableType.ASCII, config)
                 .headers("A", "B")
                 .row("1", "2");
         var lines = table.get().lines().toList();
@@ -97,7 +97,7 @@ class TableTest {
                 .columnAlignment(Map.of(0, CellAlign.RIGHT, 1, CellAlign.RIGHT))
                 .padding(3)
                 .build();
-        Table table = Clique.table(TableType.DEFAULT, config)
+        Table table = Clique.table(TableType.ASCII, config)
                 .headers("A")
                 .row("1");
         var lines = table.get().lines().toList();
@@ -111,7 +111,7 @@ class TableTest {
 
     @Test
     void assertSame_onSubsequentGetCalls_withoutModification(){
-        Table table = Clique.table(TableType.DEFAULT)
+        Table table = Clique.table(TableType.ASCII)
                 .headers("A", "B")
                 .row("1", "2");
 
@@ -121,7 +121,7 @@ class TableTest {
 
     @Test
     void assertNotSame_onSubsequentGetCalls_onRemoveCall(){ //This should cover for both update/remove since remove depends on update
-        Table table = Clique.table(TableType.DEFAULT)
+        Table table = Clique.table(TableType.ASCII)
                 .headers("A", "B")
                 .row("1", "2");
         var str1 = table.get();
@@ -132,7 +132,7 @@ class TableTest {
 
     @Test
     void assertNotSame_onSubsequentGetCalls_onRowCall(){
-        Table table = Clique.table(TableType.DEFAULT)
+        Table table = Clique.table(TableType.ASCII)
                 .headers("A", "B")
                 .row("1", "2");
         var str1 = table.get();

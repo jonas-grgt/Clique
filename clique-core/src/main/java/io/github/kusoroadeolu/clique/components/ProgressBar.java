@@ -31,6 +31,7 @@ public class ProgressBar implements Component {
             long creationTime,
             ProgressBarConfiguration configuration
     ) {
+        if (total < 0) throw new IllegalArgumentException("Progress bar total cannot be negative");
         this.currentTick = currentTick;
         this.total = total;
         this.isDone = isDone;

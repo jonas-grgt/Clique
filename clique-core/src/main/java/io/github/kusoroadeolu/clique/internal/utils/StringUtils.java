@@ -22,12 +22,12 @@ public final class StringUtils {
     }
 
     public static Cell parseToCellIfPresent(String text, MarkupParser parser) {
-        if (parser != null) return new Cell(parser.getOriginalString(text), parser.parse(text));
+        if (parser != MarkupParser.NONE) return new Cell(parser.getOriginalString(text), parser.parse(text));
         else return new Cell(text, text);
     }
 
     public static String parseIfPresent(String text, MarkupParser parser) {
-        if (parser != null) return parser.parse(text);
+        if (parser != MarkupParser.NONE) return parser.parse(text);
         else return text;
     }
 
