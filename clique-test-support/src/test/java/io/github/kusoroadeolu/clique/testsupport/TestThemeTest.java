@@ -17,7 +17,6 @@ class TestThemeTest {
 
         try (var in = url.openStream()) {
             String content = new String(in.readAllBytes());
-            System.out.println("Service file content: '" + content + "'");
             assertTrue(content.contains("TestTheme"));
         }
     }
@@ -60,7 +59,6 @@ class TestThemeTest {
 
         // Verify the styles are registered in Clique
         String parsed = Clique.parser().parse("[test-red]Red[/]");
-        assertNotNull(parsed);
         // Should contain ANSI codes, not the raw tag
         assertFalse(parsed.contains("[test-red]"));
     }
