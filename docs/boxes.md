@@ -6,7 +6,7 @@ Boxes are single-cell containers that display text with borders. They're perfect
 
 Clique provides 4 built-in box styles:
 
-1. **DEFAULT** - Standard box with ASCII borders
+1. **ASCII** - Standard box with ASCII borders
 2. **CLASSIC** - Classic box style
 3. **ROUNDED** - Box with rounded corners (default)
 4. **DOUBLE_LINE** - Box with double-line borders

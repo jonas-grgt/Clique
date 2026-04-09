@@ -6,7 +6,7 @@ Frames are layout containers that vertically stack nested Clique components insi
 
 Clique provides 4 built-in frame styles:
 
-1. **DEFAULT** - Standard frame with ASCII borders
+1. **ASCII** - Standard frame with ASCII borders
 2. **CLASSIC** - Classic frame style
 3. **ROUNDED** - Frame with rounded corners
 4. **DOUBLE_LINE** - Frame with double-line borders

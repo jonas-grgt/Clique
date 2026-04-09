@@ -1,8 +1,10 @@
 # ItemList
 
-`ItemList` lets you build nested, symbol-driven lists with full markup support. Each item gets a symbol, some content, and optionally a sublist — and the whole thing composes cleanly without any manual level tracking.
+`ItemList` builds nested, symbol-driven lists with full markup support. Each item gets a symbol, content, and optionally a sublist. Levels are tracked automatically — you just compose.
 
-> **Heads up:** If you're trying to render a file tree or parent-child hierarchy with `├─` / `└─` connectors, [`Tree`](tree.md) is what you want. `ItemList` is for when *you* decide the structure — task lists, CLI output, menus, anything where the symbols are part of the design.
+> **`@Experimental` since `4.0.0`.** The API may change between releases.
+
+> **Looking for file trees?** If you need `├─` / `└─` connectors, check out [`Tree`](tree.md) instead. `ItemList` is for when *you* own the structure — task lists, build output, menus, etc.
 
 ---
 
@@ -16,17 +18,11 @@ Clique.list()
     .render();
 ```
 
-```
-• Buy groceries
-• Write tests
-• Ship it
-```
-
 ---
 
 ## Nesting
 
-Pass a sublist as a third argument to `item()`. Config cascades automatically — no need to pass it at every level.
+Pass a sublist as the third argument to `item()`. The parent's config cascades down automatically — no need to configure each level separately.
 
 ```java
 Clique.list()
@@ -44,33 +40,28 @@ Clique.list()
     .render();
 ```
 
-```
-→ Backend
-  ✓ Auth service
-  ✓ User service
-  ✗ Payment gateway
-→ Frontend
-  ✓ Landing page
-  ✗ Dashboard
-```
+A few things worth knowing:
+- Passing `null` as a sublist throws `NullPointerException`
+- Nesting a list within itself throws `IllegalArgumentException`
+- Sublists render depth-first — each sublist fully resolves before the next sibling item
 
 ---
 
 ## `item()` Overloads
 
 ```java
-.item("•", "content")                          // symbol + content
-.item("•", "content", Clique.list()...)        // symbol + content + sublist
+.item("•", "content")                    // symbol + content
+.item("•", "content", Clique.list()...)  // symbol + content + sublist
 ```
 
-Symbols are full markup strings — `"[red]✗[/]"` is valid.
+Symbols are full markup strings — `"[red]✗[/]"` works fine.
 
 ---
 
 ## Getting the Output
 
 ```java
-list.render();        // prints to stdout
+list.render();         // prints to stdout
 String s = list.get(); // returns the rendered string
 ```
 
@@ -82,7 +73,7 @@ String s = list.get(); // returns the rendered string
 ItemListConfiguration config = ItemListConfiguration.builder()
     .indentSize(4)            // spaces per level, default: 2
     .symbolSpacing(2)         // spaces between symbol and content, default: 1
-    .parser(Clique.parser())  // default: new MarkupParser()
+    .parser(Clique.parser())  // default: MarkupParser.DEFAULT
     .build();
 
 Clique.list(config)
@@ -93,31 +84,31 @@ Clique.list(config)
     .render();
 ```
 
-### Configuration Options
+Config set on a parent list cascades into all nested sublists — you set it once at the top.
 
-| Option        | Default              | Constraint               |
-|---------------|----------------------|--------------------------|
-| indentSize    | 2                    | Cannot be less than 1    |
-| symbolSpacing | 1                    | Cannot be negative       |
-| parser        | MarkupParser.DEFAULT | —                      |
+### Options
 
-Config set on a parent list cascades into all nested sublists automatically.
+| Option          | Default              | Constraint            |
+|-----------------|----------------------|-----------------------|
+| `indentSize`    | `2`                  | Cannot be less than 1 |
+| `symbolSpacing` | `1`                  | Cannot be negative    |
+| `parser`        | `MarkupParser.DEFAULT` | —                   |
 
 ---
 
 ## Markup Support
 
-Markup works anywhere — symbols, content, or both:
+Markup works in symbols, content, or both:
 
 ```java
 Clique.list()
     .item("[cyan]▸[/]", "[bold]Section Title[/]",
-        Clique.list()
+          Clique.list()
             .item("[green]✓[/]", "Thing that worked")
             .item("[yellow]~[/]", "Thing that kind of worked")
             .item("[red]✗[/]", "Thing that did not work")
     )
-    .render();
+            .render();
 ```
 
 ---
@@ -129,20 +120,20 @@ Clique.list()
 ```java
 Clique.list()
     .item("→", "[bold]Sprint 12[/]",
-        Clique.list()
+          Clique.list()
             .item("[green]✓[/]", "[dim, strike]Auth service[/]")
             .item("[green]✓[/]", "[dim, strike]User profile page[/]")
             .item("[yellow]~[/]", "Notification system — [yellow]in review[/]",
-                Clique.list()
+                  Clique.list()
                     .item("!", "Waiting on design sign-off")
             )
-            .item("[red]✗[/]", "[red]Payment integration[/]",
-                Clique.list()
+                    .item("[red]✗[/]", "[red]Payment integration[/]",
+                          Clique.list()
                     .item("!", "Stripe keys not in env")
                     .item("!", "Webhook endpoint missing")
             )
-    )
-    .render();
+                    )
+                    .render();
 ```
 
 ### Build Report
@@ -150,42 +141,42 @@ Clique.list()
 ```java
 Clique.list()
     .item("[bold]>[/]", "[bold, cyan]Build Report — v2.4.1[/]",
-        Clique.list()
+          Clique.list()
             .item("[green]✓[/]", "Compiled 42 files in 1.3s")
             .item("[green]✓[/]", "108 tests passed")
             .item("[yellow]⚠[/]", "2 deprecation warnings",
-                Clique.list()
+                  Clique.list()
                     .item("–", "StringUtils.format() — use formatAndReset()")
                     .item("–", "Flag enum — superseded by markup symbols")
             )
-            .item("[red]✗[/]", "Coverage at 74% — threshold is 80%")
+                    .item("[red]✗[/]", "Coverage at 74% — threshold is 80%")
     )
-    .render();
+            .render();
 ```
 
 ### Nested CLI Menu
 
 ```java
 ItemListConfiguration config = ItemListConfiguration.builder()
-    .indentSize(3)
-    .build();
+        .indentSize(3)
+        .build();
 
 Clique.list(config)
     .item("▸", "[cyan, bold]Main Menu[/]",
-        Clique.list()
+          Clique.list()
             .item("▸", "File",
-                Clique.list()
+                  Clique.list()
                     .item("–", "New")
                     .item("–", "Open")
                     .item("–", "Save")
             )
-            .item("▸", "Edit",
-                Clique.list()
+                    .item("▸", "Edit",
+                          Clique.list()
                     .item("–", "Cut")
                     .item("–", "Copy")
                     .item("–", "Paste")
             )
-            .item("▸", "View")
+                    .item("▸", "View")
     )
-    .render();
+            .render();
 ```

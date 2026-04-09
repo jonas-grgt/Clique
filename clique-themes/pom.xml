@@ -7,19 +7,18 @@
     <parent>
         <groupId>io.github.kusoroadeolu</groupId>
         <artifactId>clique</artifactId>
-        <version>3.1.0</version>
+        <version>4.0.0</version>
     </parent>
 
     <name>clique-themes</name>
 
     <artifactId>clique-themes</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <dependencies>
         <dependency>
             <groupId>io.github.kusoroadeolu</groupId>
             <artifactId>clique-spi</artifactId>
-            <version>2.0.0</version>
         </dependency>
     </dependencies>
 

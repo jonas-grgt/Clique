@@ -14,6 +14,20 @@ import java.util.Optional;
 import static io.github.kusoroadeolu.clique.internal.Constants.EMPTY;
 import static io.github.kusoroadeolu.clique.internal.Constants.NEWLINE;
 
+/**
+ * A tree component that renders hierarchical data as an indented, connector-linked structure.
+ *
+ * <p>Each {@code Tree} instance represents a node. Children are added via {@link #add(String)}
+ * or {@link #add(Tree)}, and both return the child node, allowing subtrees to be built
+ * by chaining calls on the returned reference.</p>
+ *
+ * <p>Rendering is performed from the root node via {@link #get()}. Calling {@code get()}
+ * on a child node renders only the subtree rooted at that node.</p>
+ *
+ * <p><b>Note:</b> This class is not thread-safe.</p>
+ *
+ * @since 3.1.0
+ */
 @Stable(since = "3.1.0")
 public class Tree implements Component {
     private final String label;
@@ -44,6 +58,16 @@ public class Tree implements Component {
         this.connectorColor = treeConfiguration.getConnectorColor();
     }
 
+    /**
+     * Creates a new child node with the given label and appends it to this node's children.
+     *
+     * <p>The child inherits this node's {@link TreeConfiguration}. The returned node
+     * is the newly created child, not this node.</p>
+     *
+     * @param label the label for the child node; must not be {@code null}
+     * @return the newly created child node
+     * @throws NullPointerException if {@code label} is {@code null}
+     */
     public Tree add(String label) {
         validateLabel(label);
         var child = new Tree(label, treeConfiguration, this);
@@ -51,6 +75,17 @@ public class Tree implements Component {
         return child;
     }
 
+    /**
+     * Appends an existing {@code Tree} as a child of this node.
+     *
+     * <p>The provided tree is re-parented to this node. The returned node is the
+     * provided child, not this node.</p>
+     *
+     * @param tree the tree to append as a child; must not be {@code null} or this node
+     * @return the provided child node
+     * @throws NullPointerException          if {@code tree} is {@code null}
+     * @throws UnsupportedOperationException if {@code tree} is this node
+     */
     public Tree add(Tree tree) {
         Objects.requireNonNull(tree, "Tree cannot be null");
         assertNotSelf(tree);
@@ -59,6 +94,11 @@ public class Tree implements Component {
         return tree;
     }
 
+    /**
+     * Returns the parent of this node, or an empty {@link Optional} if this is the root.
+     *
+     * @return an {@code Optional} containing the parent node, or empty if none
+     */
     public Optional<Tree> parent(){
         return Optional.ofNullable(parent);
     }
@@ -81,6 +121,14 @@ public class Tree implements Component {
         Objects.requireNonNull(label, "Label cannot be null");
     }
 
+    /**
+     * Renders this node and all its descendants as a formatted tree string.
+     *
+     * <p>If a parser is configured via {@link TreeConfiguration}, markup in node
+     * labels is resolved before the string is returned.</p>
+     *
+     * @return the rendered tree as a string
+     */
     @Override
     public String get() {
         var sb = new StyleBuilder();
@@ -90,7 +138,7 @@ public class Tree implements Component {
         }
 
         var parser = treeConfiguration.getParser();
-        return StringUtils.parseIfPresent(sb.toString(), parser);
+        return StringUtils.parse(sb.toString(), parser);
     }
 
     //For Tests

@@ -5,7 +5,7 @@ import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
 
 import java.util.Collection;
 
-import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCellIfPresent;
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.internal.utils.TableUtils.handleNulls;
 import static java.util.Objects.isNull;
 
@@ -27,7 +27,7 @@ public class TableHeaderBuilder implements PendingTable{
             for (int i = 0; i < headers.length; i++) {
                 String header = headers[i];
                 header = handleNulls(header, table.configuration.getNullReplacement());
-                final var cell = parseToCellIfPresent(header, table.configuration.getParser());
+                final var cell = parseToCell(header, table.configuration.getParser());
                 rowList.add(cell);
                 final var colList = new WidthAwareList(); //To keep track of all values in this column
                 colList.add(cell);

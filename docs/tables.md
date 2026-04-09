@@ -6,7 +6,7 @@ Tables help you display structured data in a clean, formatted way. Clique suppor
 
 Clique provides 5 built-in table styles:
 
-1. **DEFAULT** - Standard table with ASCII characters
+1. **ASCII** - Standard table with ASCII characters
 2. **COMPACT** (or **MINIMAL**) - Minimalist table with fewer borders
 3. **BOX_DRAW** - Table using box drawing characters
 4. **ROUNDED_BOX_DRAW** - Box-draw table with rounded corners
@@ -18,7 +18,7 @@ Clique provides 5 built-in table styles:
 
 ### Creating a Simple Table
 ```java
-PendingTable table = Clique.table(TableType.DEFAULT);
+PendingTable table = Clique.table(TableType.ASCII);
 table.headers("Name", "Age", "Class")
     .row("John", "25", "Class A")
     .row("Doe", "26", "Class B");
@@ -32,7 +32,7 @@ Tables support dynamic updates after creation:
 
 ### Update a Cell
 ```java
-Table table = Clique.table(TableType.DEFAULT)
+Table table = Clique.table(TableType.ASCII)
         .headers("Name", "Age", "Status")
         .row("Alice", "25", "Active")
         .row("Bob", "30", "Inactive");
@@ -108,7 +108,7 @@ TableConfiguration config = TableConfiguration
     .padding(2)                   // Add 2 spaces padding
     .build();
 
-Clique.table(TableType.DEFAULT, config)
+Clique.table(TableType.ASCII, config)
     .headers("Name", "Age", "Class")
     .row("John", "25", "Class A")
     .render();
@@ -165,7 +165,7 @@ TableConfiguration config = TableConfiguration.builder()
     .nullReplacement("N/A")  // Default is empty string
     .build();
 
-Clique.table(TableType.DEFAULT, config)
+Clique.table(TableType.ASCII, config)
     .headers("Name", "Age", "City")
     .row("Alice", null, "NYC")  // null becomes "N/A"
     .render();

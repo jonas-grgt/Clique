@@ -16,7 +16,7 @@ import static io.github.kusoroadeolu.clique.internal.markup.PredefinedStyleConte
 /**
  * A lightweight, functional, chainable ANSI string builder.
  *
- * <p>Similar in spirit to <a href="https://github.com/chalk/chalk">Chalk</a> — each method
+ * <p>Similar in spirit to <a href="https://github.com/chalk/chalk">Chalk</a>. Each method
  * returns a new {@code Ink} instance, leaving the original unchanged. Call {@link #on(String)}
  * to produce the final styled string.
  *

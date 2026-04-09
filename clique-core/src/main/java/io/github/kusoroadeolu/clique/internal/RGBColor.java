@@ -14,6 +14,9 @@ public class RGBColor implements RGBAnsiCode {
     private final String ansiSequence;
 
     public RGBColor(int red, int green, int blue, boolean isBackground) {
+        if (red < 0 || red > 255) throw new IllegalArgumentException("Red must be 0-255");
+        if (green < 0 || green > 255) throw new IllegalArgumentException("Green must be 0-255");
+        if (blue < 0 || blue > 255) throw new IllegalArgumentException("Blue must be 0-255");
         this.red = red;
         this.green = green;
         this.blue = blue;

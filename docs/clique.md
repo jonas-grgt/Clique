@@ -24,9 +24,9 @@ Clique.styleBuilder()
 ```
 
 **Methods:**
-- `ink()` - Create a new ink class
+- `styleBuilder()` - Create a new `StyleBuilder` instance
 
-### StyleBuilder
+### Ink
 Immutable and fluent API for building styled strings:
 ```java
 Clique.ink()
@@ -36,8 +36,8 @@ Clique.ink()
 ```
 
 **Methods:**
-- `ink()` - create a new `Ink` class
-- `ink(StyleContext)` - create a new `Ink` class with a style context
+- `ink()` - Create a new `Ink` instance
+- `ink(StyleContext)` - Create a new `Ink` instance with a style context
 
 ### RGB Colors
 Create custom RGB colors for use with the style API:
@@ -72,7 +72,7 @@ Clique.table()
 - `table(TableType, String)` - Create table with specific type and named border color
 
 **Available Types:**
-`DEFAULT`, `COMPACT`, `BOX_DRAW`, `ROUNDED_BOX_DRAW`, `MARKDOWN`
+`ASCII`, `COMPACT`, `BOX_DRAW`, `ROUNDED_BOX_DRAW`, `MARKDOWN`
 
 ## Boxes
 
@@ -95,7 +95,7 @@ Clique.box()
 - `box(BoxType, String)` - Create box with specific type and named border color
 
 **Available Types:**
-`DEFAULT`, `CLASSIC`, `ROUNDED`, `DOUBLE_LINE`
+`ASCII`, `CLASSIC`, `ROUNDED`, `DOUBLE_LINE`
 
 ## Frames
 
@@ -135,7 +135,7 @@ Clique.tree("root")
 - `tree(String label, String connectorColor)` - Create a tree with the given root label and connector color
 - `tree(String label, AnsiCode... connectorColor)` - Create a tree with the given root label and connector color
 
-## Indenter
+## Item List
 
 Create hierarchical text structures with nested indentation.
 ```java
@@ -150,8 +150,8 @@ Clique.itemList()
 ```
 
 **Methods:**
-- `itemList()` - Create itemList with default configuration
-- `itemList(IndenterConfiguration)` - Create with custom configuration
+- `list()` - Create list with default configuration
+- `list(ItemListConfiguration)` - Create with custom configuration
 
 ## Progress Bars
 
@@ -192,15 +192,16 @@ Clique.registerTheme("catppuccin-mocha");
 Clique.parser().print("[ctp_mauve]Styled with Catppuccin![/]");
 
 // Register all available themes
-Clique.registerAllThemes();
+Clique.registerAvailableThemes();
 ```
 
 **Methods:**
 - `registerTheme(String name)` - Register a single theme by name
-- `registerThemes(String... themes)` - Register multiple themes
+- `registerTheme(CliqueTheme)` - Register a theme instance directly
+- `registerThemes(String... themes)` - Register multiple themes by name
 - `registerThemes(Collection<String>)` - Register from collection
-- `registerAllThemes()` - Register all available themes
-- `discoverThemes()` - List all available themes
+- `registerAvailableThemes()` - Register all available themes
+- `findAvailableThemes()` - List all available themes, returns `List<CliqueTheme>`
 - `findTheme(String name)` - Find a specific theme by name, returns `Optional<CliqueTheme>`
 
 **Available Themes:**
@@ -230,19 +231,16 @@ Clique.registerStyles(styles);
 
 Enable or disable ANSI color output.
 ```java
-// Force disable colors
-Clique.enableCliqueColors(false);
+// Disable colors
+Clique.disableCliqueColors();
 
 // Re-enable colors
-Clique.enableCliqueColors(true);
-
-// Enable colors (no-arg shorthand)
 Clique.enableCliqueColors();
 ```
 
 **Methods:**
-- `enableCliqueColors(boolean enable)` - Control ANSI color output
-- `enableCliqueColors()` - Enable ANSI color output (shorthand)
+- `disableCliqueColors()` - Disable ANSI color output
+- `enableCliqueColors()` - Enable ANSI color output
 
 ## See Also
 - [Markup Reference](markup-reference.md) - Available colors and styles

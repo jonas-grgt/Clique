@@ -12,6 +12,29 @@ import java.util.Objects;
 import static io.github.kusoroadeolu.clique.internal.Constants.*;
 import static io.github.kusoroadeolu.clique.style.StyleCode.RESET;
 
+/**
+ * A component representing a hierarchical list of items with customizable symbols and indentation.
+ *
+ * <p>Lists support nesting to create multi-level structures. Each level of nesting
+ * increases the indentation based on the {@link ItemListConfiguration}.
+ *
+ * <p><b>Resolution Order:</b>
+ * <ol>
+ * <li>The parent list is traversed sequentially.</li>
+ * <li>For each item, the symbol and content are appended.</li>
+ * <li>If a sublist exists, it is recursively resolved with an incremented depth
+ * before the next item in the parent list is processed.</li>
+ * </ol>
+ *
+ * <p><b>Scoping:</b> Sublists added via {@link #item(String, String, ItemList)} are
+ * automatically reconfigured to inherit the configuration of the parent list.
+ * Self-nesting is strictly prohibited.
+ *
+ * <p><b>Thread Safety:</b> This class is <b>not thread-safe</b>. The internal item storage
+ * is mutable, and the configuration may be updated internally during nesting operations.
+ *
+ * @since 4.0.0
+ */
 @Experimental(since = "4.0.0")
 public class ItemList implements Component {
     private final List<ListItem> items;
@@ -27,6 +50,18 @@ public class ItemList implements Component {
         this(ItemListConfiguration.DEFAULT);
     }
 
+    /**
+     * Adds an item to the list with an associated sublist.
+     *
+     * <p>The sublist will be modified to use the parent's configuration.
+     *
+     * @param symbol the character or string to use as the item marker (e.g., "*", "-")
+     * @param content the text content of the item
+     * @param itemList the nested sublist; must not be {@code null}
+     * @return this list instance for method chaining
+     * @throws IllegalArgumentException if {@code itemList} is this instance
+     * @throws NullPointerException if {@code itemList} is {@code null}
+     */
     public ItemList item(String symbol, String content, ItemList itemList){
         Objects.requireNonNull(itemList, "Sublist cannot be null");
         assertNotSelf(itemList);
@@ -34,11 +69,24 @@ public class ItemList implements Component {
         return this;
     }
 
+    /**
+     * Adds a leaf item to the list with no sublist.
+     *
+     * @param symbol the character or string to use as the item marker
+     * @param content the text content of the item
+     * @return this list instance for method chaining
+     */
     public ItemList item(String symbol, String content){
         this.items.add(new ListItem(symbol, content, NONE));
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Returns the fully formatted hierarchical list as a string, with markup
+     * resolved according to the current configuration.
+     */
     @Override
     public String get() {
         StringBuilder sb = new StringBuilder();
@@ -66,23 +114,27 @@ public class ItemList implements Component {
     }
 
 
-    //Mutable setter, for allowing parents to pass configs to children
     ItemList setConfiguration(ItemListConfiguration configuration){
         this.configuration = configuration;
         return this;
     }
 
     private String parseString(String str) {
-        return StringUtils.parseIfPresent(str, this.configuration.getParser());
+        return StringUtils.parse(str, this.configuration.getParser());
     }
 
-    //FOR TESTS
+    /**
+     * Internal test helper to retrieve the first child sublist.
+     */
     ItemList child(){
         return items.stream().map(ListItem::sublist)
                 .toList()
                 .getFirst();
     }
 
+    /**
+     * Internal test helper to retrieve the current configuration.
+     */
     ItemListConfiguration configuration(){
         return configuration;
     }

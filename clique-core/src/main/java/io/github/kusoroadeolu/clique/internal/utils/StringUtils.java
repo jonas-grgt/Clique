@@ -21,14 +21,12 @@ public final class StringUtils {
         sb.setLength(ZERO);
     }
 
-    public static Cell parseToCellIfPresent(String text, MarkupParser parser) {
-        if (parser != null) return new Cell(parser.getOriginalString(text), parser.parse(text));
-        else return new Cell(text, text);
+    public static Cell parseToCell(String text, MarkupParser parser) {
+        return new Cell(parser.getOriginalString(text), parser.parse(text));
     }
 
-    public static String parseIfPresent(String text, MarkupParser parser) {
-        if (parser != null) return parser.parse(text);
-        else return text;
+    public static String parse(String text, MarkupParser parser) {
+        return parser.parse(text);
     }
 
     public static String stripAnsi(String styled) {

@@ -15,9 +15,28 @@ import java.util.Objects;
 
 import static io.github.kusoroadeolu.clique.internal.Constants.*;
 import static io.github.kusoroadeolu.clique.internal.utils.BoxUtils.applyAnsiToBorders;
-import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCellIfPresent;
+import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.parseToCell;
 import static io.github.kusoroadeolu.clique.style.StyleCode.RESET;
 
+/**
+ * A bordered, optionally titled container that renders its content as a formatted
+ * terminal box. Frames may contain strings or nested {@link Component} instances,
+ * each independently aligned within the frame.
+ *
+ * <p>Width resolution order:
+ * <ol>
+ *   <li>If {@link #width(int)} has been set, that value is used as the total inner width.</li>
+ *   <li>Otherwise, the width is derived from the widest nested node, plus padding on each side.
+ *       If a title is present and wider than the computed content width, the title width takes
+ *       precedence.</li>
+ * </ol>
+ *
+ * <p>Content width must not exceed {@code frameWidth - (padding * 2)}; if it does,
+ * {@link io.github.kusoroadeolu.clique.internal.exception.InvalidDimensionException} is thrown
+ * at render time.
+ *
+ * <p>This class is <b>not thread-safe</b>.
+ * */
 @Stable(since = "3.2.0")
 public class Frame implements Component {
     private final List<FrameNode> nodes;
@@ -55,6 +74,18 @@ public class Frame implements Component {
         this(configuration, BoxType.ROUNDED);
     }
 
+    /**
+     * Sets the frame title and its horizontal alignment within the top border.
+     *
+     * <p>The title is rendered inline with the top border line. If a color parser is configured,
+     * a reset sequence is automatically appended to prevent color bleed into the border.
+     *
+     * @param title     the title text; must not be {@code null}
+     * @param titleAlign the horizontal placement of the title; must not be {@code null}
+     * @return this frame, for chaining
+     * @throws NullPointerException if {@code title} or {@code titleAlign} is {@code null}
+     * @throws InvalidDimensionException if the title is wider than the resolved frame width, thrown at render time via {@link #get()}
+     */
     public Frame title(String title, FrameAlign titleAlign) {
         Objects.requireNonNull(title, "Title cannot be null");
         Objects.requireNonNull(titleAlign, NULL_FRAME_ALIGN);
@@ -63,10 +94,30 @@ public class Frame implements Component {
         return this;
     }
 
+    /**
+     * Sets the frame title with center alignment.
+     *
+     * <p>Equivalent to {@code title(title, FrameAlign.CENTER)}.
+     *
+     * @param title the title text; must not be {@code null}
+     * @return this frame, for chaining
+     * @throws NullPointerException if {@code title} is {@code null}
+     */
     public Frame title(String title) {
         return title(title, FrameAlign.CENTER);
     }
 
+    /**
+     * Sets the total inner width of the frame in characters, excluding the border columns.
+     *
+     * <p>When set, this width overrides auto-sizing. The available content width is
+     * {@code width - (padding * 2)}. Nested node widths must not exceed this value;
+     * violations are detected at render time via {@link #get()}.
+     *
+     * @param width the total inner width; must be greater than zero
+     * @return this frame, for chaining
+     * @throws InvalidDimensionException if {@code width} is less than or equal to zero
+     */
     public Frame width(int width) {
         if (width <= 0) throw new InvalidDimensionException(
                 "Frame width must be greater than zero, got: %d".formatted(width)
@@ -74,10 +125,29 @@ public class Frame implements Component {
         return this;
     }
 
+    /**
+     * Appends a string node to this frame using the alignment configured in
+     * {@link FrameConfiguration}.
+     *
+     * <p>Equivalent to {@code nest(str, configuration.getFrameAlign())}.
+     *
+     * @param str the string to nest; must not be {@code null}
+     * @return this frame, for chaining
+     * @throws NullPointerException if {@code str} is {@code null}
+     */
     public Frame nest(String str) {
         return nest(str, configuration.getFrameAlign());
     }
 
+
+    /**
+     * Appends a string node to this frame with the specified alignment.
+     *
+     * @param str   the string to nest; must not be {@code null}
+     * @param align the horizontal alignment of the string within the frame; must not be {@code null}
+     * @return this frame, for chaining
+     * @throws NullPointerException if {@code str} or {@code align} is {@code null}
+     */
     public Frame nest(String str, FrameAlign align) {
         Objects.requireNonNull(str, "String cannot be null");
         Objects.requireNonNull(align, NULL_FRAME_ALIGN);
@@ -86,10 +156,34 @@ public class Frame implements Component {
         return this;
     }
 
+    /**
+     * Appends a {@link Component} node to this frame using the alignment configured in
+     * {@link FrameConfiguration}.
+     *
+     * <p>Equivalent to {@code nest(component, configuration.getFrameAlign())}.
+     *
+     * @param component the component to nest; must not be {@code null} and must not be this frame
+     * @return this frame, for chaining
+     * @throws NullPointerException     if {@code component} is {@code null}
+     * @throws IllegalArgumentException if {@code component} is this frame instance
+     */
     public Frame nest(Component component) {
         return nest(component, configuration.getFrameAlign());
     }
 
+    /**
+     * Appends a {@link Component} node to this frame with the specified alignment.
+     *
+     * <p>A frame cannot nest itself. Attempting to do so throws {@link IllegalArgumentException}.
+     * Circular nesting through intermediate components is not detected and results in
+     * a {@link StackOverflowError} at render time.
+     *
+     * @param component the component to nest; must not be {@code null} and must not be this frame
+     * @param align     the horizontal alignment within the frame; must not be {@code null}
+     * @return this frame, for chaining
+     * @throws NullPointerException     if {@code component} or {@code align} is {@code null}
+     * @throws IllegalArgumentException if {@code component} is this frame instance
+     */
     public Frame nest(Component component, FrameAlign align) {
         Objects.requireNonNull(component, "Component cannot be null");
         Objects.requireNonNull(align, NULL_FRAME_ALIGN);
@@ -102,6 +196,17 @@ public class Frame implements Component {
         if (component == this) throw new IllegalArgumentException("Cannot nest a Frame in itself");
     }
 
+    /**
+     * Builds the frame and all its nested nodes to a string.
+     *
+     * <p>Width resolution, title placement, content alignment, and border drawing all
+     * occur during this call. No state is cached; each invocation performs a full render.
+     *
+     * @return the fully rendered frame as a multi-line string, terminated with a newline
+     * @throws InvalidDimensionException
+     *         if the title width exceeds the resolved frame width, or if any nested node's
+     *         content width exceeds the available content area
+     */
     public String get() {
         var appendedTitle = title;
 
@@ -109,7 +214,7 @@ public class Frame implements Component {
         if (configuration.getParser() != null && !title.isEmpty()) appendedTitle = title + RESET; //Add a reset flag to prevent title colors from bleeding
 
 
-        var parsedTitle = parseToCellIfPresent(appendedTitle, configuration.getParser());
+        var parsedTitle = parseToCell(appendedTitle, configuration.getParser());
 
         //Note that we align the title width by +1 or -1 based on if the frame align is left or right, so to prevent an issue where the title width is left and the frame size = title size, we add one to the width to make up for the by one offset
         int titleWidth = parsedTitle.width() + 2;
