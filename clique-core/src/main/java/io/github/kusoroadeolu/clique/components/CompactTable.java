@@ -60,7 +60,8 @@ public class CompactTable extends AbstractTable {
             tableBuilder.append(Constants.NEWLINE);
         }
 
-        return (cachedString = tableBuilder.toString());
+        cachedString = tableBuilder.toString();
+        return cachedString;
     }
 
     //Dynamically calculate the header for the table

@@ -1,4 +1,4 @@
-package io.github.kusoroadeolu.clique.internal.themeloader;
+package io.github.kusoroadeolu.clique.internal.loader;
 
 import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
@@ -12,7 +12,7 @@ import static java.util.Objects.requireNonNull;
 
 @InternalApi(since = "3.2.0")
 public class ThemeLoader {
-    private final static Map<String, CliqueTheme> THEMES = new ConcurrentHashMap<>();
+    private static final Map<String, CliqueTheme> THEMES = new ConcurrentHashMap<>();
 
     private ThemeLoader() {}
 

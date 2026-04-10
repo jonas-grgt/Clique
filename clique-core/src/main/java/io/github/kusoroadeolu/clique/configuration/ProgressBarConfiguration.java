@@ -234,6 +234,7 @@ public final class ProgressBarConfiguration {
         private MarkupParser parser = MarkupParser.DEFAULT;
         private List<ProgressBarPredicate> styles = new ArrayList<>();
         private EasingConfiguration easing = EasingConfiguration.DEFAULT;
+        private static final String FORMAT_ERR_MESSAGE = "Format cannot be null";
 
         public ProgressBarConfigurationBuilder length(int length) {
             if (length < 0) throw new IllegalArgumentException("Length must be positive");
@@ -252,7 +253,7 @@ public final class ProgressBarConfiguration {
         }
 
         public ProgressBarConfigurationBuilder format(String format) {
-            requireNonNull(format, "Format cannot be null");
+            requireNonNull(format, FORMAT_ERR_MESSAGE);
             this.format = format;
             return this;
         }
@@ -263,21 +264,21 @@ public final class ProgressBarConfiguration {
         }
 
         public ProgressBarConfigurationBuilder styleWhen(Predicate<Integer> condition, String format) {
-            requireNonNull(format, "Format cannot be null");
+            requireNonNull(format, FORMAT_ERR_MESSAGE);
             requireNonNull(condition, "Condition cannot be null");
             this.styles.add(new ProgressBarPredicate(condition, format));
             return this;
         }
 
         public ProgressBarConfigurationBuilder styleRange(int min, int max, String format) {
-            requireNonNull(format, "Format cannot be null");
+            requireNonNull(format, FORMAT_ERR_MESSAGE);
             if (min < 0) throw new IllegalArgumentException("Min must be positive");
             return this.styleWhen(p -> p >= min && p <= max, format);
         }
 
-        public ProgressBarConfigurationBuilder styles(Collection<ProgressBarPredicate> styles) {
-            requireNonNull(styles, "Styles cannot be null");
-            this.styles = new ArrayList<>(styles);
+        public ProgressBarConfigurationBuilder styles(Collection<ProgressBarPredicate> formats) {
+            requireNonNull(formats, "Format styles cannot be null");
+            this.styles = new ArrayList<>(formats);
             return this;
         }
 

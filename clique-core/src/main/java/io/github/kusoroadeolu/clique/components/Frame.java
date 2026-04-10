@@ -272,15 +272,13 @@ public class Frame implements Component {
                         .append(borderChar.vLine())
                         .append(NEWLINE);
 
-                case LEFT -> {
-                    sb.append(borderChar.vLine())
-                        .append(fixed)
-                        .append(content)
-                        .repeat(BLANK, Math.max(ZERO, availableWidth - lineWidth)) //Just append the remaining space here, we don't need rem here
-                        .append(fixed)
-                        .append(borderChar.vLine())
-                        .append(NEWLINE);
-                }
+                case LEFT -> sb.append(borderChar.vLine())
+                    .append(fixed)
+                    .append(content)
+                    .repeat(BLANK, Math.max(ZERO, availableWidth - lineWidth)) //Just append the remaining space here, we don't need rem here
+                    .append(fixed)
+                    .append(borderChar.vLine())
+                    .append(NEWLINE);
 
                 case CENTER -> {
                     int leftPad = rem / 2;

@@ -31,30 +31,30 @@ class BoxTest {
 
     @Test
     void assertThrows_whenWidthIsZero(){
+        Box box = Clique.box();
         assertThrows(IllegalArgumentException.class,
-                () -> Clique.box()
-                .dimensions(0, 10));
+                () -> box.dimensions(0, 10));
     }
 
     @Test
     void assertThrows_whenWidthIsNegative(){
+        Box box = Clique.box();
         assertThrows(IllegalArgumentException.class,
-                () -> Clique.box()
-                        .dimensions(-1, 10));
+                () -> box.dimensions(-1, 10));
     }
 
     @Test
     void assertThrows_whenHeightIsNegative(){
+        Box box = Clique.box();
         assertThrows(IllegalArgumentException.class,
-                () -> Clique.box()
-                        .dimensions(10, -1));
+                () -> box.dimensions(10, -1));
     }
 
     @Test
     void assertThrows_whenHeightIsZero(){
+        Box box = Clique.box();
         assertThrows(IllegalArgumentException.class,
-                () -> Clique.box()
-                        .dimensions(10, 0));
+                () -> box.dimensions(10, 0));
     }
 
 
@@ -73,7 +73,6 @@ class BoxTest {
         String output = box.get();
         assertNotNull(output);
         var output1 = box.get();
-        assertNotNull(output1);
         assertSame(output1, output);
     }
 

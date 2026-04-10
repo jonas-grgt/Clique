@@ -1,6 +1,6 @@
 package io.github.kusoroadeolu.clique.themes;
 class MetadataConstants {
     private MetadataConstants(){}
-    final static String AUTHOR = "Kusoro Adeolu";
-    final static String URL = "https://github.com/kusoroadeolu/Clique";
+    static final String AUTHOR = "Kusoro Adeolu";
+    static final String URL = "https://github.com/kusoroadeolu/Clique";
 }

@@ -49,7 +49,6 @@ public final class Tokenizer {
 
         for (int i = 0; i < len; i++) {
             final char c = input.charAt(i);
-
             if (c == FORM_START && charNotEquals(input, i - 1, ESC) && charNotEquals(input, i - 1, ESCAPE_SEQUENCE)) { //This will always switch the form start, if it finds another [ after this
                 //If we're still tracking, this means we have nested tag, just skip it
                 fcDepth = 0; //Next form start, reset fc depth. Basically means we had something like this ]some_string[
@@ -67,7 +66,6 @@ public final class Tokenizer {
                         tokens.add(new ParseToken(idx, i, validStyles));
                     }
                 }
-
                 fsDepth = Math.max(0, --fsDepth);
             }
         }

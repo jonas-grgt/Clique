@@ -92,7 +92,7 @@ public class ProgressBar implements Component {
      */
     public ProgressBar tick(int amount) {
         if (amount < 1) throw new IllegalArgumentException("Tick amount cannot be less than 1");
-        currentTick = Math.clamp(currentTick + amount, ZERO, total);
+        currentTick = Math.clamp(currentTick + (long) amount, ZERO, total);
         if (currentTick >= total && !isDone) isDone = true;
         this.render();
         return this;
@@ -264,6 +264,7 @@ public class ProgressBar implements Component {
      *
      * @param printStream the stream to render to; must not be {@code null}
      */
+    @Override
     public void render(PrintStream printStream) {
         printStream.print("\r" + get());
         if (isDone) printStream.println();

@@ -25,17 +25,20 @@ class StyleContextTest {
 
     @Test
     void assertThrows_onNullMarkupName(){
-        assertThrows(NullPointerException.class, () -> StyleContext.builder().add(null, ColorCode.BLUE).build());
+        var builder = StyleContext.builder();
+        assertThrows(NullPointerException.class, () -> builder.add(null, ColorCode.BLUE));
     }
 
     @Test
     void assertThrows_onNullAnsiCode(){
-        assertThrows(NullPointerException.class, () -> StyleContext.builder().add("mycolor", (AnsiCode) null).build());
+        var builder = StyleContext.builder();
+        assertThrows(NullPointerException.class, () -> builder.add("mycolor", (AnsiCode) null));
     }
 
     @Test
     void assertThrows_onNullMapGiven(){
-        assertThrows(NullPointerException.class, () -> StyleContext.builder().add((Map<String, AnsiCode>) null).build());
+        var builder = StyleContext.builder();
+        assertThrows(NullPointerException.class, () -> builder.add((Map<String, AnsiCode>) null));
     }
 
     @Test

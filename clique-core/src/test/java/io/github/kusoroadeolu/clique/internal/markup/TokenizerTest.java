@@ -1,11 +1,10 @@
 package io.github.kusoroadeolu.clique.internal.markup;
 
-import io.github.kusoroadeolu.clique.Clique;
 import io.github.kusoroadeolu.clique.internal.exception.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.style.StyleCode;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static io.github.kusoroadeolu.clique.internal.markup.Tokenizer.tokenize;
@@ -15,11 +14,7 @@ class TokenizerTest {
     
     private static final String DELIMITER = ",";
 
-    @BeforeEach
-    void setUp() {
-    }
 
-    // ── Happy path ────────────────────────────────────────────────────────────
 
     @Test
     void singleValidTag_producesOneToken() {
@@ -71,29 +66,18 @@ class TokenizerTest {
         assertEquals(2, result.tokens().getFirst().styles().size());
     }
 
-    // ── Malformed / edge case input ───────────────────────────────────────────
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"just plain text", "[]text", "[[red]]text", "[red hello"})
+    void givenInput_returnsEmptyResult(String input) {
+        var result = tokenize(input, DELIMITER, false);
+        assertTrue(result.tokens().isEmpty());
+    }
 
     @Test
     void nullInput_returnsEmptyResult() {
         var result = tokenize(null, DELIMITER, false);
-        assertTrue(result.tokens().isEmpty());
-    }
-
-    @Test
-    void emptyString_returnsEmptyResult() {
-        var result = tokenize("", DELIMITER, false);
-        assertTrue(result.tokens().isEmpty());
-    }
-
-    @Test
-    void noTags_returnsEmptyResult() {
-        var result = tokenize("just plain text", DELIMITER, false);
-        assertTrue(result.tokens().isEmpty());
-    }
-
-    @Test
-    void emptyBrackets_producesNoToken() {
-        var result = tokenize("[]text", DELIMITER, false);
         assertTrue(result.tokens().isEmpty());
     }
 
@@ -112,13 +96,6 @@ class TokenizerTest {
                 () -> tokenize("[bol]text[/]", DELIMITER, true));
     }
 
-    @Test
-    void unclosedTag_doesNotProduceToken() {
-        // [red with no closing ] — should not blow up, just no token
-        assertDoesNotThrow(() -> tokenize("[red hello", DELIMITER, false));
-        var result = tokenize("[red hello", DELIMITER, false);
-        assertTrue(result.tokens().isEmpty());
-    }
 
     @Test
     void unopenedClosingBracket_isIgnored() {
@@ -127,25 +104,10 @@ class TokenizerTest {
     }
 
     @Test
-    void nestedBrackets_outerTagSkipped() {
-        // [[red]] — nested, should be skipped entirely
-        var result = tokenize("[[red]]text", DELIMITER, false);
-        assertTrue(result.tokens().isEmpty());
-    }
-
-    @Test
-    void nestedBrackets_subsequentTagsAreIgnored() {
-        // After a nested/bad tag, valid tags after it should still work
-        var result = tokenize("[[red]] [bold]text[/]", DELIMITER, false);
-        Clique.parser().print("[[red]] [bold]text[/]");
-    }
-
-    @Test
     void deeplyNestedBrackets_handledGracefully() {
         assertDoesNotThrow(() -> tokenize("[[[[red]]]]text", DELIMITER, false));
     }
 
-    // ── Whitespace handling ───────────────────────────────────────────────────
 
     @Test
     void stylesWithExtraWhitespace_stillResolve() {
@@ -161,7 +123,6 @@ class TokenizerTest {
         assertEquals(2, result.tokens().size());
     }
 
-    // ── Stress / volume ───────────────────────────────────────────────────────
 
     @Test
     void manyTagsInOneString_allResolved() {
@@ -184,7 +145,6 @@ class TokenizerTest {
         assertEquals(20_000, result.tokens().size());
     }
 
-    // ── Token position correctness ────────────────────────────────────────────
 
     @Test
     void tokenStartPosition_isCorrect() {
