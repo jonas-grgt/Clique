@@ -96,7 +96,7 @@ src.add("Main.java");
 src.add("Utils.java");
 
 tree.add("README.md");
-tree.print();
+tree.render();
 ```
 ![Sample Tree](images/sample-tree.png)
 
