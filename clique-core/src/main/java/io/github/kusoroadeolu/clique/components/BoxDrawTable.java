@@ -50,13 +50,13 @@ public class BoxDrawTable extends AbstractTable {
         if (cachedString != null) return cachedString;
         //Declarations
         var tableBuilder = new StringBuilder();
-        final StringBuilder sb = new StringBuilder();
-        final String header = this.appendHeader(sb);
-        clearStringBuilder(sb);
-        final String footer = this.appendFooter(sb);
-        clearStringBuilder(sb);
-        final String headerEnd = this.drawHeaderEnd(sb);
-        clearStringBuilder(sb);
+        final StringBuilder helperBuilder = new StringBuilder();
+        final String header = this.appendHeader(helperBuilder);
+        clearStringBuilder(helperBuilder);
+        final String footer = this.appendFooter(helperBuilder);
+        clearStringBuilder(helperBuilder);
+        final String headerEnd = this.drawHeaderEnd(helperBuilder);
+        clearStringBuilder(helperBuilder);
         final int padding = this.configuration.getPadding();
 
         //Build
@@ -75,9 +75,9 @@ public class BoxDrawTable extends AbstractTable {
                 final int longest = cl.longest(); //Longest str height in each column
                 final int offset = (longest - displayWidth) + padding; //Add padding to avoid cramping
                 cellAlign = chooseColAlignment(j, cellAlign, this.configuration.getColumnAlignment());
-                tableBuilder.append(align(cellAlign, sb, offset, styledCell, vLine));
+                tableBuilder.append(align(cellAlign, helperBuilder, offset, styledCell, vLine));
 
-                clearStringBuilder(sb);
+                clearStringBuilder(helperBuilder);
             }
 
             if (i == 0) tableBuilder.append(Constants.NEWLINE).append(headerEnd);
@@ -87,7 +87,8 @@ public class BoxDrawTable extends AbstractTable {
         }
 
         tableBuilder.append(footer);
-        return (cachedString = tableBuilder.toString());
+        cachedString = tableBuilder.toString();
+        return cachedString;
     }
 
     public String appendHeader(StringBuilder sb) {

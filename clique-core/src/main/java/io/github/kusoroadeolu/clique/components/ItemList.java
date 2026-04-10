@@ -39,7 +39,7 @@ import static io.github.kusoroadeolu.clique.style.StyleCode.RESET;
 public class ItemList implements Component {
     private final List<ListItem> items;
     private ItemListConfiguration configuration;
-    private final static ItemList NONE = new ItemList();
+    private static final ItemList NONE = new ItemList();
 
     public ItemList(ItemListConfiguration configuration) {
         this.items = new ArrayList<>();

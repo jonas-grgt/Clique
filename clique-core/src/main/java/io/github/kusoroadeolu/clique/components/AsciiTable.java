@@ -14,12 +14,12 @@ import static io.github.kusoroadeolu.clique.internal.utils.TableUtils.align;
 import static io.github.kusoroadeolu.clique.internal.utils.TableUtils.chooseColAlignment;
 
 @Stable(since = "3.2.0")
-public class DefaultTable extends AbstractTable {
+public class AsciiTable extends AbstractTable {
     private String corner;
     private String hLine;
     private String vLine;
 
-    public DefaultTable(TableConfiguration tableConfiguration) {
+    public AsciiTable(TableConfiguration tableConfiguration) {
         super(tableConfiguration);
         this.corner = "+";
         this.hLine = "-";
@@ -63,7 +63,8 @@ public class DefaultTable extends AbstractTable {
             tableBuilder.append(headerAndFooter).append(Constants.NEWLINE);
         }
 
-        return (cachedString = tableBuilder.toString());
+        cachedString = tableBuilder.toString();
+        return cachedString;
     }
 
     //Dynamically calculate the header and footer for the table
@@ -93,7 +94,7 @@ public class DefaultTable extends AbstractTable {
         if (object == null || getClass() != object.getClass()) return false;
         if (!super.equals(object)) return false;
 
-        DefaultTable that = (DefaultTable) object;
+        AsciiTable that = (AsciiTable) object;
         return Objects.equals(corner, that.corner) && Objects.equals(hLine, that.hLine) && Objects.equals(vLine, that.vLine);
     }
 
@@ -104,7 +105,7 @@ public class DefaultTable extends AbstractTable {
 
     @Override
     public String toString() {
-        return "DefaultTable[" +
+        return "AsciiTable[" +
                 "tableConfiguration=" + configuration +
                 ", vLine='" + vLine + '\'' +
                 ", hLine='" + hLine + '\'' +

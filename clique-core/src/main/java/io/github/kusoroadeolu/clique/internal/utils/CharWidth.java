@@ -278,7 +278,6 @@ public final class CharWidth {
             int codePoint = s.codePointAt(i);
             int charCount = Character.charCount(codePoint);
             int cpWidth = ofCodePoint(codePoint);
-
             // Track ZWJ sequences to avoid breaking in the middle
             if (codePoint == 0x200D) {
                 // ZWJ - we're in a sequence, don't update safe break point
@@ -301,12 +300,10 @@ public final class CharWidth {
                 }
                 continue;
             }
-
             // Check if adding this character would exceed max width
             if (width + cpWidth > maxWidth) {
                 break;
             }
-
             // Check if this starts a ZWJ sequence
             int nextIdx = i + charCount;
             if (nextIdx < s.length() && s.codePointAt(nextIdx) == 0x200D) {
@@ -323,7 +320,6 @@ public final class CharWidth {
 
             width += cpWidth;
             i += charCount;
-
             // Update safe break point for non-ZWJ characters
             if (!inZwjSequence) {
                 lastSafeBreak = i;
@@ -444,7 +440,7 @@ public final class CharWidth {
             case MIDDLE -> {
                 int leftWidth = (availableWidth + 1) / 2;
                 int rightWidth = availableWidth / 2;
-                yield  substringByWidth(s, leftWidth) + ellipsis + substringByWidthFromEnd(s, rightWidth);
+                yield substringByWidth(s, leftWidth) + ellipsis + substringByWidthFromEnd(s, rightWidth);
             }
             
             case END -> substringByWidth(s, availableWidth) + ellipsis;

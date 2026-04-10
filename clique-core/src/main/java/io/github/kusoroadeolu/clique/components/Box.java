@@ -87,7 +87,8 @@ public class Box implements Component {
                 chars.topLeft(), chars.topRight(), chars.bottomRight(), chars.bottomLeft()
         );
         drawBox(sb, wrapper, ta);
-        return (cachedString = sb.toString());
+        cachedString = sb.toString();
+        return cachedString;
     }
 
     /**
@@ -152,7 +153,7 @@ public class Box implements Component {
         return this;
     }
 
-    protected void resolveDimensions(WidthAwareList cells) {
+    private void resolveDimensions(WidthAwareList cells) {
         int padding = this.configuration.getPadding();
 
         if ((width == 0 && height == 0)) { //if width and height == 0 autosize() was called
