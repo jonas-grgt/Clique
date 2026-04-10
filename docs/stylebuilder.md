@@ -1,12 +1,24 @@
 # StyleBuilder
 
-StyleBuilder provides a fluent API for chaining styled strings together. It's perfect when you prefer a programmatic and type safe pattern over markup syntax.
+StyleBuilder provides a fluent API for chaining styled strings together. It's perfect when you prefer a programmatic, type-safe pattern over markup syntax.
 
 ## Basic Usage
 
-### Append
+### appendAndReset
 
-The `append()` method applies styles to text and automatically resets the terminal style after each call:
+Applies styles to a segment of text and resets the terminal after. Subsequent segments start with a clean style state:
+
+```java
+Clique.styleBuilder()
+    .appendAndReset("Hello", ColorCode.BLUE, StyleCode.BOLD, StyleCode.UNDERLINE)
+    .appendAndReset("World", ColorCode.RED, StyleCode.DIM, StyleCode.REVERSE_VIDEO)
+    .print();
+```
+
+### append
+
+Applies styles without resetting. Use this when you want styles to carry over into the next segment:
+
 ```java
 Clique.styleBuilder()
     .append("Hello", ColorCode.BLUE, StyleCode.BOLD, StyleCode.UNDERLINE)
@@ -14,58 +26,49 @@ Clique.styleBuilder()
     .print();
 ```
 
-Each `append()` call starts with a clean slate, so styles don't carry over to the next text.
+### Combining Both
 
-### Stack
-
-The `stack()` method applies styles but doesn't reset the terminal style. This gives you more control:
 ```java
 Clique.styleBuilder()
-    .stack("Hello", ColorCode.BLUE, StyleCode.BOLD, StyleCode.UNDERLINE)
-    .stack("World", ColorCode.RED, StyleCode.DIM, StyleCode.REVERSE_VIDEO)
+    .append("WARN", ColorCode.YELLOW, StyleCode.BOLD)   // styles carry over
+    .append(": ",   ColorCode.YELLOW)
+    .appendAndReset("disk usage at 90%", ColorCode.WHITE) // clean slate after
+    .appendAndReset("action required",   ColorCode.RED, StyleCode.BOLD)
     .print();
 ```
 
-Use `stack()` when you want styles to accumulate or when you need manual control over when styles reset.
-
-
 ## Getting the Result
 
-### Get Styled String
-
-Retrieve the built string without printing it:
 ```java
-String styledText = Clique.styleBuilder()
-    .stack("Hello", ColorCode.BLUE, StyleCode.BOLD, StyleCode.UNDERLINE)
-    .stack("World", ColorCode.RED, StyleCode.DIM);
+String output = Clique.styleBuilder()
+    .appendAndReset("Title: ", ColorCode.CYAN, StyleCode.BOLD)
+    .appendAndReset("My Document", ColorCode.WHITE);
 
-// Use it later
-System.out.println(styledText);
+System.out.println(output);
 ```
 
 ## Available Codes
 
-### ColorCode Options
+### ColorCode
 
 All standard and bright ANSI colors are available:
 - Standard: `RED`, `GREEN`, `YELLOW`, `BLUE`, `MAGENTA`, `CYAN`, `WHITE`, `BLACK`
 - Bright: `BRIGHT_RED`, `BRIGHT_GREEN`, `BRIGHT_YELLOW`, etc.
 
-### StyleCode Options
+### StyleCode
 
-All ANSI text styles are supported:
 - `BOLD` - Bold/emphasized text
 - `DIM` - Dimmed text
 - `ITALIC` - Italic text
 - `UNDERLINE` - Underlined text
+- `DOUBLE_UNDERLINE` - Double underlined text
 - `REVERSE_VIDEO` - Swap foreground/background
 - `INVISIBLE` - Hidden text
 - `STRIKE` - Strikethrough text
-- `DOUBLE_UNDERLINE` - Double underlined text
 
 ### Background Colors
 
-Background colors follow the pattern `BG_[COLOR]`:
+Follow the pattern `BG_[COLOR]`:
 - Standard: `BG_RED`, `BG_GREEN`, `BG_YELLOW`, etc.
 - Bright: `BG_BRIGHT_RED`, `BG_BRIGHT_GREEN`, etc.
 
@@ -73,38 +76,26 @@ Background colors follow the pattern `BG_[COLOR]`:
 
 ### Success/Error Messages
 ```java
-// Success message
+// Success
 Clique.styleBuilder()
-    .append("✓ ", ColorCode.GREEN, StyleCode.BOLD)
-    .append("Build successful", ColorCode.WHITE)
+    .appendAndReset("✓ ", ColorCode.GREEN, StyleCode.BOLD)
+    .appendAndReset("Build successful", ColorCode.WHITE)
     .print();
 
-// Error message
+// Error
 Clique.styleBuilder()
-    .append("✗ ", ColorCode.RED, StyleCode.BOLD)
-    .append("Build failed: ", ColorCode.RED)
-    .append("Missing dependency", ColorCode.WHITE, StyleCode.DIM)
+    .appendAndReset("✗ ", ColorCode.RED, StyleCode.BOLD)
+    .appendAndReset("Build failed: ", ColorCode.RED)
+    .appendAndReset("Missing dependency", ColorCode.WHITE, StyleCode.DIM)
     .print();
 ```
 
 ### Highlighted Output
 ```java
 Clique.styleBuilder()
-    .append("Warning: ", ColorCode.YELLOW, StyleCode.BOLD)
-    .append("This action cannot be undone", ColorCode.WHITE)
+    .appendAndReset("Warning: ", ColorCode.YELLOW, StyleCode.BOLD)
+    .appendAndReset("This action cannot be undone", ColorCode.WHITE)
     .print();
-```
-
-### Multi-line Styled Text
-```java
-String output = Clique.styleBuilder()
-    .append("Title: ", ColorCode.CYAN, StyleCode.BOLD)
-    .append("My Document\n", ColorCode.WHITE)
-    .append("Status: ", ColorCode.CYAN, StyleCode.BOLD)
-    .append("Complete", ColorCode.GREEN)
-    .get();
-
-System.out.println(output);
 ```
 
 ## See Also

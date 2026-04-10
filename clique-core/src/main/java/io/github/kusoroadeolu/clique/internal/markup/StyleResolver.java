@@ -26,7 +26,7 @@ public final class StyleResolver {
 
         //Check if the styling starts from the beginning of the string
         if (tokens.getFirst().start() != 0) {
-            sb.stack(string.substring(ZERO, tokens.getFirst().start()));
+            sb.append(string.substring(ZERO, tokens.getFirst().start()));
         }
 
          for (int i = 0; i < size; i++) {
@@ -39,8 +39,8 @@ public final class StyleResolver {
                 final int end = next.start();
                 val = string.substring(start, end);
 
-                if (autoReset) sb.append(val, codes);
-                else sb.stack(val, codes);
+                if (autoReset) sb.appendAndReset(val, codes);
+                else sb.append(val, codes);
             }
 
         return sb.toString();

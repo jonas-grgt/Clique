@@ -185,7 +185,7 @@ _(no changes noted)_
 _(no changes noted)_
 
 
-## Clique [4.0.0] - [UNRELEASED]
+## Clique [4.0.0] - 2026-04-10
 ### Added
 - `AnsiCode` varargs and `String` overloads in `Clique` facade in place of `BorderSpec` types. These overloads provide uniform styling across each component's borders, removing the use of per edge control.
 - `connectorColor()` method to `TreeConfiguration` with `AnsiCode...` and `String` overloads
@@ -224,8 +224,8 @@ _(no changes noted)_
 - `Clique#discoverThemes()` to `Clique#findAvailableThemes()`
 - `Clique#registerAllThemes` to `Clique#registerAvailableThemes()`
 
-## clique-spi [2.0.0] - [UNRELEASED]
+## clique-spi [2.0.0] - 2026-04-10
 - `AnsiCode#toString()` contract renamed to `AnsiCode#ansiSequence()`
 
-## clique-themes [1.1.0] - [UNRELEASED]
-- Registered theme ansi codes now align with the updated interface contract
+## clique-themes [1.0.1] - 2026-04-10
+- Registered theme ansi codes now align with the updated interface contract. No breaking changes

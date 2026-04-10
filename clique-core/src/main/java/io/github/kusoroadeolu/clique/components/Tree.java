@@ -105,10 +105,10 @@ public class Tree implements Component {
 
     private void buildTree(Tree node, String prefix, boolean isLast, StyleBuilder sb) {
         String connector = isLast ? END_CONNECTOR : CONNECTOR;
-        sb.stack(prefix, this.connectorColor)
-                .append(connector)
-                .append(node.label)
-                .append(NEWLINE);
+        sb.append(prefix, this.connectorColor)
+                .appendAndReset(connector)
+                .appendAndReset(node.label)
+                .appendAndReset(NEWLINE);
 
         var childPrefix = prefix + (isLast ? SPACE : CONNECTING_LINE);
         for (int i = 0; i < node.children.size(); i++) {
@@ -132,7 +132,7 @@ public class Tree implements Component {
     @Override
     public String get() {
         var sb = new StyleBuilder();
-        sb.append(label).append(NEWLINE);
+        sb.appendAndReset(label).appendAndReset(NEWLINE);
         for (int i = 0; i < children.size(); i++) {
             buildTree(children.get(i), EMPTY, i == children.size() - 1, sb);
         }
