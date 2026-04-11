@@ -1,5 +1,6 @@
 /*
- * Copyright KusoroVictor/TamboUI Contributors
+ * Copyright Kusoro Victor
+ * Portions Copyright TamboUI Contributors
  * SPDX-License-Identifier: MIT
  */
 package io.github.kusoroadeolu.clique.internal.utils;
