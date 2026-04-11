@@ -236,3 +236,5 @@ _(no changes noted)_
 ### Added
 - `Ink#hyperlink(String url)` — wraps rendered text in OSC 8 escape sequences for clickable links in supported terminals
 - `Ink#gradient(RGBAnsiCode from, RGBAnsiCode to)` — applies a linear RGB gradient across rendered text, interpolating per visible character while preserving existing ANSI sequences
+- Coverage for **colored circles and squares** (`0x1F7E0..0x1F7F0`, E12.0–E14.0): 🟠🟡🟢🟣🟤⬛⬜🟥🟧🟨🟩🟦🟫🟰
+- Missing emoji-presentation BMP ranges 
