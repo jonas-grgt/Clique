@@ -87,6 +87,7 @@ public final class Ink {
      */
     public String on(String value) {
         Objects.requireNonNull(value, "Value cannot be null");
+        if (codes.isEmpty() && gradient == null && hyperlink == null) return value;
 
         StringBuilder sb = new StringBuilder();
         String styled;
