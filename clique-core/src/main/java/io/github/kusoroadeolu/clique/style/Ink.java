@@ -1,10 +1,13 @@
 package io.github.kusoroadeolu.clique.style;
 
 import io.github.kusoroadeolu.clique.configuration.StyleContext;
+import io.github.kusoroadeolu.clique.internal.Gradient;
+import io.github.kusoroadeolu.clique.internal.Hyperlink;
 import io.github.kusoroadeolu.clique.internal.RGBColor;
 import io.github.kusoroadeolu.clique.internal.documentation.Experimental;
 import io.github.kusoroadeolu.clique.internal.markup.PredefinedStyleContext;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
+import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,26 +39,41 @@ public final class Ink {
 
     private final List<AnsiCode> codes;
     private final StyleContext context;
+    private final Hyperlink hyperlink;
+    private final Gradient gradient;
 
     public Ink() {
         this(StyleContext.NONE);
     }
 
     public Ink(StyleContext context) {
-        Objects.requireNonNull(context, "Style context cannot be null");
-        this.codes = Collections.emptyList();
-        this.context = context;
+        this(Collections.emptyList(), context, null, null);
     }
 
     Ink(List<AnsiCode> codes, StyleContext context) {
+        this(codes, context, null, null);
+    }
+
+    Ink(List<AnsiCode> codes, StyleContext context, Hyperlink hyperLink, Gradient gradient) {
+        Objects.requireNonNull(context, "Style context cannot be null");
         this.codes = Collections.unmodifiableList(codes);
         this.context = context;
+        this.hyperlink = hyperLink;
+        this.gradient = gradient;
     }
 
     private Ink with(AnsiCode code) {
         List<AnsiCode> next = new ArrayList<>(codes);
         next.add(code);
-        return new Ink(next, context);
+        return new Ink(next, context, hyperlink, gradient);
+    }
+
+    private Ink with(Hyperlink hyperlink) {
+        return new Ink(new ArrayList<>(codes), context, hyperlink, gradient);
+    }
+
+    private Ink with(Gradient gradient) {
+        return new Ink(new ArrayList<>(codes), context, hyperlink, gradient);
     }
 
 
@@ -69,15 +87,27 @@ public final class Ink {
      */
     public String on(String value) {
         Objects.requireNonNull(value, "Value cannot be null");
-        if (codes.isEmpty()) return value;
 
         StringBuilder sb = new StringBuilder();
+        String styled;
         for (AnsiCode code : codes) {
             sb.append(code.ansiSequence());
         }
-        sb.append(value);
-        sb.append(StyleCode.RESET.ansiSequence());
-        return sb.toString();
+
+        styled = sb.append(value)
+                .append(StyleCode.RESET)
+                .toString();
+
+
+        if (gradient != null){
+            styled = gradient.apply(styled);
+        }
+
+        if (hyperlink != null){
+            styled = hyperlink.apply(styled);
+        }
+
+        return styled;
     }
 
     /**
@@ -122,6 +152,42 @@ public final class Ink {
     public Ink of(AnsiCode code) {
         Objects.requireNonNull(code, "Ansi code cannot be null");
         return with(code);
+    }
+
+    /**
+     * Applies a hyperlink to this {@code Ink} instance using the given URL.
+     * The hyperlink wraps rendered text in OSC 8 ANSI escape sequences
+     * ({@code \033]8;;<url>\033\\<text>\033]8;;\033\\}), supported by
+     * most modern terminals.
+     *
+     * @param url the URL to link to; must not be {@code null}
+     * @return a new {@code Ink} instance with the hyperlink accumulated
+     * @throws NullPointerException if {@code url} is {@code null}
+     */
+    public Ink hyperlink(String url) {
+        Objects.requireNonNull(url, "Hyper link url cannot be null");
+        return with(new Hyperlink(url));
+    }
+
+    /**
+     * Applies a color gradient to this {@code Ink} instance, transitioning
+     * from one {@link RGBAnsiCode} to another across the rendered text.
+     *
+     * <p>The gradient is computed by linearly interpolating the R, G, and B
+     * channels between {@code from} and {@code to} across each visible character.
+     * Existing ANSI escape sequences embedded in the text are preserved and
+     * excluded from the interpolation; only printable characters are colorized.
+     * A {@code RESET} sequence is appended at the end of the output.
+     *
+     * @param from the starting {@link RGBAnsiCode} of the gradient; must not be {@code null}
+     * @param to   the ending {@link RGBAnsiCode} of the gradient; must not be {@code null}
+     * @return a new {@code Ink} instance with the gradient accumulated
+     * @throws NullPointerException if {@code from} or {@code to} is {@code null}
+     */
+    public Ink gradient(RGBAnsiCode from, RGBAnsiCode to) {
+        Objects.requireNonNull(from, "From RGB code cannot be null");
+        Objects.requireNonNull(to, "To RGB code cannot be null");
+        return with(new Gradient(from, to));
     }
 
 

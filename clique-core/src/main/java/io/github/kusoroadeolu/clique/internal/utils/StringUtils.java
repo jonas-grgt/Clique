@@ -31,15 +31,15 @@ public final class StringUtils {
 
     public static String stripAnsi(String styled) {
         int i = 0;
-        boolean inAnsi = false;
+        boolean inEscape = false;
         var clean = new StringBuilder();
         while (i < styled.length()) {
             char c = styled.charAt(i);
             if (c == ESC && nextCharEquals(styled, i + 1, LBRACKET)) {
-                inAnsi = true;
-            } else if (inAnsi && (c = styled.charAt(i)) == ANSI_END) {
-                inAnsi = false;
-            }else if (!inAnsi){
+                inEscape = true;
+            } else if (inEscape && c == ANSI_END) {
+                inEscape = false;
+            }else if (!inEscape){
                 clean.append(c);
             }
 
@@ -49,8 +49,8 @@ public final class StringUtils {
         return clean.toString();
     }
 
-    public static boolean nextCharEquals(String s, int pos, char isEqualTo){
-        return pos < s.length() && s.charAt(pos) == isEqualTo;
+    public static boolean nextCharEquals(String s, int pos, char ch){
+        return pos < s.length() && s.charAt(pos) == ch;
     }
 
     public static String format(StringBuilder sb, String text, AnsiCode... ansiCodes) {

@@ -229,3 +229,10 @@ _(no changes noted)_
 
 ## clique-themes [1.0.1] - 2026-04-10
 - Registered theme ansi codes now align with the updated interface contract. No breaking changes
+
+# Changelogs
+
+## Clique [4.0.1] - 2026-04-12
+### Added
+- `Ink#hyperlink(String url)` — wraps rendered text in OSC 8 escape sequences for clickable links in supported terminals
+- `Ink#gradient(RGBAnsiCode from, RGBAnsiCode to)` — applies a linear RGB gradient across rendered text, interpolating per visible character while preserving existing ANSI sequences
