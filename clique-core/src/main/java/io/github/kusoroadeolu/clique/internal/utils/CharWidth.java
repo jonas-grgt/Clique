@@ -4,6 +4,7 @@
  */
 package io.github.kusoroadeolu.clique.internal.utils;
 
+import io.github.kusoroadeolu.clique.internal.Constants;
 import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
 
 import java.util.Arrays;
@@ -158,7 +159,75 @@ public final class CharWidth {
                 {0xF900, 0xFAFF},   // CJK Compatibility Ideographs
                 {0xFF01, 0xFF60},   // Fullwidth Forms
                 {0xFFE0, 0xFFE6},   // Fullwidth Signs
+                {0x2194, 0x2199},   // Arrows
+                {0x21A9, 0x21AA},   // Arrows with hook
+                {0x231A, 0x231B},   // Already there — Watch, Hourglass
+                {0x2328, 0x2328},   // Keyboard
+                {0x23CF, 0x23CF},   // Eject Button
+                {0x23ED, 0x23EF},   // Skip buttons
+                {0x23F1, 0x23F2},   // Stopwatch, Timer
+                {0x23F8, 0x23FA},   // Pause, Stop, Record
+                {0x24C2, 0x24C2},   // Circled M
+                {0x25AA, 0x25AB},   // Small squares
+                {0x25B6, 0x25B6},   // Play Button
+                {0x25C0, 0x25C0},   // Reverse Button
+                {0x25FB, 0x25FE},   // Medium squares
+                {0x2600, 0x2604},   // Sun, Cloud, Umbrella, Snowman, Comet
+                {0x260E, 0x260E},   // Telephone
+                {0x2611, 0x2611},   // Ballot Box with Check
+                {0x2618, 0x2618},   // Shamrock
+                {0x261D, 0x261D},   // Index Pointing Up
+                {0x2620, 0x2620},   // Skull and Crossbones
+                {0x2622, 0x2623},   // Radioactive, Biohazard
+                {0x2626, 0x2626},   // Orthodox Cross
+                {0x262A, 0x262A},   // Star and Crescent
+                {0x262E, 0x262F},   // Peace Symbol, Yin Yang
+                {0x2638, 0x263A},   // Wheel of Dharma, Smiley
+                {0x2640, 0x2640},   // Female Sign
+                {0x2642, 0x2642},   // Male Sign
+                {0x265F, 0x2660},   // Chess Pawn, Spade Suit
+                {0x2663, 0x2663},   // Club Suit
+                {0x2665, 0x2666},   // Heart, Diamond Suit
+                {0x2668, 0x2668},   // Hot Springs
+                {0x267B, 0x267B},   // Recycling Symbol
+                {0x267E, 0x267E},   // Infinity
+                {0x2692, 0x2692},   // Hammer and Pick
+                {0x2694, 0x2697},   // Various tool/science symbols
+                {0x2699, 0x2699},   // Gear
+                {0x269B, 0x269C},   // Atom, Fleur-de-lis
+                {0x26A0, 0x26A0},   // Warning Sign  ← your bug
+                {0x26B0, 0x26B1},   // Coffin, Funeral Urn
+                {0x26C8, 0x26C8},   // Thunder Cloud
+                {0x26CF, 0x26D1},   // Pick, Rescue Worker Helmet
+                {0x26D3, 0x26D3},   // Chains
+                {0x26E9, 0x26E9},   // Shinto Shrine
+                {0x26F0, 0x26F1},   // Mountain, Umbrella on Ground
+                {0x26F4, 0x26F4},   // Ferry
+                {0x26F7, 0x26F9},   // Skier, Sled, Person Bouncing Ball
+                {0x2702, 0x2702},   // Scissors
+                {0x2708, 0x2708},   // Airplane
+                {0x2709, 0x2709},   // Envelope
+                {0x270C, 0x270D},   // Victory Hand, Writing Hand
+                {0x270F, 0x270F},   // Pencil
+                {0x2712, 0x2712},   // Black Nib
+                {0x2714, 0x2714},   // Heavy Check Mark
+                {0x2716, 0x2716},   // Heavy Multiplication X
+                {0x271D, 0x271D},   // Latin Cross
+                {0x2721, 0x2721},   // Star of David
+                {0x2733, 0x2734},   // Eight Spoked/Pointed Asterisk
+                {0x2744, 0x2744},   // Snowflake
+                {0x2747, 0x2747},   // Sparkle
+                {0x2763, 0x2764},   // Heart Exclamation, Heart
+                {0x27A1, 0x27A1},   // Right Arrow
+                {0x2934, 0x2935},   // Arrows curving up/down
+                {0x2B05, 0x2B07},   // Already there
+                {0x2139, 0x2139},   // Information  ← your other bug
+                {0x3030, 0x3030},   // Wavy Dash
+                {0x303D, 0x303D},   // Part Alternation Mark
+                {0x3297, 0x3297},   // Circled Ideograph Congratulation
+                {0x3299, 0x3299},   // Circled Ideograph Secret
         };
+
         for (int[] range : wideRanges) {
             for (int cp = range[0]; cp <= range[1]; cp++) {
                 BMP_WIDTHS[cp] = 2;
@@ -379,7 +448,7 @@ public final class CharWidth {
      */
     public static String substringByWidthFromEnd(String s, int maxWidth) {
         if (s == null || s.isEmpty() || maxWidth <= 0) {
-            return "";
+            return Constants.EMPTY;
         }
         int i = s.length();
         int width = 0;
@@ -420,7 +489,7 @@ public final class CharWidth {
      */
     public static String truncateWithEllipsis(String s, int maxWidth, String ellipsis, TruncatePosition position) {
         if (s == null || s.isEmpty()) {
-            return "";
+            return Constants.EMPTY;
         }
         int stringWidth = of(s);
         if (stringWidth <= maxWidth) {
