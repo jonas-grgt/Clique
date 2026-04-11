@@ -29,7 +29,7 @@ bold.yellow().on("warn"); // bold + yellow — original `bold` instance untouche
 
 ### Terminal Method
 
-#### `on(Object value) → String`
+#### `on(Object value)`
 
 Applies the accumulated styles to `value` and returns the styled string. Calls `toString()` on the value and appends a reset sequence at the end.
 
@@ -43,7 +43,7 @@ Clique.ink().green().on(42)             // toString() called on numeric values
 
 ### Named Style Lookup
 
-#### `of(String name) → Ink`
+#### `of(String name)`
 
 Adds a named style looked up from the instance's `StyleContext` and `PredefinedStyleContext`. Useful for registered theme or custom styles that aren't statically knowable.
 
@@ -51,6 +51,14 @@ Throws `UndefinedStyleException` if the name isn't found in either context.
 
 ```java
 Clique.ink().of("ctp_mauve").bold().on("Hello")
+```
+
+#### `of(AnsiCode code)`
+
+Applies a known AnsiCode directly, bypassing style lookup. Use this when you already have a reference to an `AnsiCode` instance.
+
+```java
+Clique.ink().of(MyStyles.MAUVE).bold().on("Hello")
 ```
 
 ---
@@ -76,7 +84,7 @@ Clique.ink().of("ctp_mauve").bold().on("Hello")
 | `brightCyan()`  | Bright Cyan    |
 | `brightWhite()` | Bright White   |
 
-#### `rgb(int red, int green, int blue) → Ink`
+#### `rgb(int red, int green, int blue)`
 
 Applies a 24-bit foreground color using the provided RGB components. Requires truecolor terminal support.
 
@@ -107,7 +115,7 @@ Clique.ink().rgb(255, 94, 77).bold().on("Hot red")
 | `brightBgCyan()`  | Bright Cyan BG     |
 | `brightBgWhite()` | Bright White BG    |
 
-#### `bgRgb(int red, int green, int blue) → Ink`
+#### `bgRgb(int red, int green, int blue)`
 
 Applies a 24-bit background color using the provided RGB components. Requires truecolor terminal support.
 
@@ -132,6 +140,33 @@ Clique.ink().white().bgRgb(30, 30, 30).on("Dark background")
 
 ---
 
+## Effects
+
+#### `hyperlink(String url)`
+
+Wraps the rendered text in an OSC 8 hyperlink escape sequence, making it a clickable link in supported terminals.
+
+```java
+Clique.ink().cyan().underline().hyperlink("https://github.com").on("GitHub")
+```
+
+> Terminal support varies. Most modern terminals (iTerm2, Kitty, Windows Terminal) support OSC 8.
+
+---
+
+#### `gradient(RGBAnsiCode from, RGBAnsiCode to)`
+
+Applies a linear RGB gradient across the rendered text, interpolating R, G, and B channels per visible character. Existing ANSI escape sequences within the text are preserved and skipped during colorization. A reset sequence is appended automatically.
+
+Requires truecolor terminal support.
+
+```java
+RGBAnsiCode pink = Clique.rgb(255, 105, 180);
+RGBAnsiCode blue = Clique.rgb(255, 105, 180);
+
+Clique.ink().bold().gradient(pink, blue).on("Gradient text")
+```
+
 ## Combining Styles
 
 Any number of methods can be chained together:
@@ -148,9 +183,23 @@ Clique.ink().rgb(255, 94, 77).italic().on("Custom color")
 
 // Multiple styles
 Clique.ink().bold().underline().italic().on("Everything")
+
+// Gradient + style
+Clique.ink().bold().gradient(Clique.rgb(255, 105, 180), Clique.rgb(100, 149, 237)).on("Gradient text")
+
+// Gradient over already-styled text
+Clique.ink().italic().gradient(Clique.rgb(255, 105, 180), Clique.rgb(100, 149, 237)).on("Styled gradient")
+
+// Clickable hyperlink with color
+Clique.ink().cyan().underline().hyperlink("https://github.com").on("GitHub")
+
+// Hyperlink with background
+Clique.ink().white().bgBlue().hyperlink("https://github.com").on("GitHub")
 ```
 
 ---
+
+> **Note:** `gradient()` overrides any foreground color set earlier in the chain, since it applies per-character RGB sequences at render time.
 
 ## Using with a StyleContext
 
