@@ -1,5 +1,5 @@
 /*
- * Copyright TamboUI Contributors
+ * Copyright KusoroVictor/TamboUI Contributors
  * SPDX-License-Identifier: MIT
  */
 package io.github.kusoroadeolu.clique.internal.utils;
@@ -29,10 +29,11 @@ public final class CharWidth {
             0x1FA00, // Chess Symbols
             0x1FA70, // Symbols and Pictographs Extended-A
             0x20000, // CJK Unified Ideographs Extension B-F, CJK Compat Supplement
+            0x1F7E0  // Colored circles/squares + heavy equals (E12–E14)
     };
     private static final int[] SUPPLEMENTARY_WIDE_ENDS = {
             0x1F02F, 0x1F0FF, 0x1F1DF, 0x1F1FF, 0x1F2FF,
-            0x1F5FF, 0x1F64F, 0x1F6FF, 0x1F9FF, 0x1FA6F,
+            0x1F5FF, 0x1F64F, 0x1F6FF,  0x1F7F0, 0x1F9FF, 0x1FA6F,
             0x1FAFF, 0x2FA1F,
     };
     // Sorted start/end values of supplementary plane zero-width ranges
@@ -221,7 +222,7 @@ public final class CharWidth {
                 {0x27A1, 0x27A1},   // Right Arrow
                 {0x2934, 0x2935},   // Arrows curving up/down
                 {0x2B05, 0x2B07},   // Already there
-                {0x2139, 0x2139},   // Information  ← your other bug
+                {0x2139, 0x2139},   // Information
                 {0x3030, 0x3030},   // Wavy Dash
                 {0x303D, 0x303D},   // Part Alternation Mark
                 {0x3297, 0x3297},   // Circled Ideograph Congratulation

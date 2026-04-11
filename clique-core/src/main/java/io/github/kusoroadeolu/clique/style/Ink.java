@@ -4,7 +4,8 @@ import io.github.kusoroadeolu.clique.configuration.StyleContext;
 import io.github.kusoroadeolu.clique.internal.Gradient;
 import io.github.kusoroadeolu.clique.internal.Hyperlink;
 import io.github.kusoroadeolu.clique.internal.RGBColor;
-import io.github.kusoroadeolu.clique.internal.documentation.Experimental;
+import io.github.kusoroadeolu.clique.internal.documentation.Stable;
+import io.github.kusoroadeolu.clique.internal.documentation.Unstable;
 import io.github.kusoroadeolu.clique.internal.markup.PredefinedStyleContext;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.spi.RGBAnsiCode;
@@ -34,7 +35,7 @@ import static io.github.kusoroadeolu.clique.internal.markup.PredefinedStyleConte
  *
  * @since 4.0.0
  */
-@Experimental(since = "4.0.0")
+@Stable(since = "4.0.1")
 public final class Ink {
 
     private final List<AnsiCode> codes;
@@ -185,6 +186,7 @@ public final class Ink {
      * @return a new {@code Ink} instance with the gradient accumulated
      * @throws NullPointerException if {@code from} or {@code to} is {@code null}
      */
+    @Unstable(since = "4.0.1")
     public Ink gradient(RGBAnsiCode from, RGBAnsiCode to) {
         Objects.requireNonNull(from, "From RGB code cannot be null");
         Objects.requireNonNull(to, "To RGB code cannot be null");
