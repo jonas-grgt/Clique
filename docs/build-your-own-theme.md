@@ -15,13 +15,13 @@ Just the SPI module:
 <dependency>
     <groupId>io.github.kusoroadeolu</groupId>
     <artifactId>clique-spi</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
 </dependency>
 ```
 
 ```gradle
 // Gradle
-implementation 'io.github.kusoroadeolu:clique-spi:2.0.0'
+implementation 'io.github.kusoroadeolu:clique-spi:2.0.1'
 ```
 
 If you want to reference the built-in themes while building yours, add `clique-themes` too — but it's optional.

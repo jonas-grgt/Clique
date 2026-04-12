@@ -19,7 +19,7 @@ A dependency-free, lightweight, and extensible CLI library for beautifying Java 
 <dependency>
     <groupId>io.github.kusoroadeolu</groupId>
     <artifactId>clique-core</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
 </dependency>
 ```
 
