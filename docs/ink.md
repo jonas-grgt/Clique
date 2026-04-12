@@ -1,6 +1,6 @@
 # Ink
 
-`Ink` is a lightweight, functional, chainable ANSI string builder — similar in spirit to [Chalk](https://github.com/chalk/chalk). It applies colors and styles directly as ANSI escape sequences, with no markup parser involved.
+`Ink` is a lightweight, functional, chainable ANSI string builder; similar in spirit to [Chalk](https://github.com/chalk/chalk). It applies colors and styles directly as ANSI escape sequences, with no markup parser involved.
 
 Each method returns a **new `Ink` instance**, leaving the original unchanged. Call `on()` at the end of the chain to produce the final styled string.
 
@@ -199,7 +199,7 @@ Clique.ink().white().bgBlue().hyperlink("https://github.com").on("GitHub")
 
 ---
 
-> **Note:** `gradient()` overrides any foreground color set earlier in the chain, since it applies per-character RGB sequences at render time.
+> **Note:** `gradient()` overrides any foreground color set earlier in the chain, since it applies per-character RGB sequences.
 
 ## Using with a StyleContext
 

@@ -1,13 +1,23 @@
 ![Supported JVM Versions](https://img.shields.io/badge/JVM-21+-brightgreen.svg?&logo=openjdk)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/kusoroadeolu/Clique/blob/main/LICENSE)
+[![No Color](https://img.shields.io/badge/no--color.org-compliant-blue)](https://no-color.org)
 
 # CLIQUE
-A dependency-free, lightweight, and extensible CLI library for beautifying Java terminal applications.
+A dependency-free and extensible CLI library for beautifying Java terminal applications.
 
 ![Clique Hero](images/clique-hero.png)
 
 ## Why Clique?
 ![Ansi Comparison](images/comparison.png)
+
+---
+
+## Highlights
+
+- **RGB & Gradients** - Full 24-bit color support with per-character gradient rendering. [Ink docs](docs/ink.md)
+- **no-color.org compliant** - Respects the `NO_COLOR` environment variable out of the box. [no-color.org](https://no-color.org)
+- **GraalVM compatible** - Works with GraalVM native image, no reflection surprises.
+- **Unicode v16.0 emoji support** - Emoji handling compliant with the latest Unicode standard.
 
 ---
 
@@ -27,7 +37,7 @@ A dependency-free, lightweight, and extensible CLI library for beautifying Java 
 
 ```gradle
 dependencies {
-    implementation 'io.github.kusoroadeolu:clique-core:4.0.0'
+    implementation 'io.github.kusoroadeolu:clique-core:4.0.1'
 }
 ```
 
@@ -44,15 +54,19 @@ Clique.parser().print("[red, bold]Error:[/] Something went wrong");
 ### Ink
 A lightweight, chainable ANSI string builder — similar in spirit to [Chalk](https://github.com/chalk/chalk). Each method returns a new `Ink` instance, so you can safely reuse base styles:
 ```java
-// One-off
 Clique.ink().red().bold().on("Error");
 
 // Reusable base style
 Ink bold = Clique.ink().bold();
 bold.red().on("error");    // bold + red
-bold.yellow().on("warn");  // bold + yellow — original untouched
+bold.yellow().on("warn");  // bold + yellow. The original stays untouched
+
+// RGB & gradients
+RGBAnsiCode pink = Clique.rgb(255, 105, 180);
+RGBAnsiCode blue = Clique.rgb(100, 149, 237);
+Clique.ink().bold().gradient(pink, blue).on("Gradient text");
 ```
-- [Ink docs](docs/ink.md)
+![Sample Ink](images/ink.png)
 
 ### Themes
 Drop in popular color schemes with one line:
@@ -68,7 +82,7 @@ Clique.parser().print("[ctp_mauve]Styled with Catppuccin![/]");
 ### Tables
 Build tables with multiple styles:
 ```java
-Clique.table(TableType.DEFAULT)
+Clique.table()
     .headers("Name", "Age", "Status")
     .row("Alice", "25", "Active")
     .row("Bob", "30", "Inactive")
@@ -79,7 +93,7 @@ Clique.table(TableType.DEFAULT)
 ### Boxes
 Single-cell boxes with text wrapping:
 ```java
-Clique.box(BoxType.ROUNDED)
+Clique.box()
     .dimensions(40, 10) // Width, Height
     .content("Your message here")
     .render();
@@ -111,7 +125,7 @@ Clique.list()
     )
     .render();
 ```
-- [ItemList docs](docs/item-list.md)
+![Sample Item List](images/list.png)
 
 ### Frames
 Layout container that vertically stacks Clique components inside a border:
@@ -125,14 +139,22 @@ Clique.frame()
 ![Sample Frame](images/sample-frame.png)
 
 ### Progress Bars
-Visual feedback for long-running operations:
+Visual feedback for long-running operations - wrap a collection and the Clique handles the rest:
 ```java
-ProgressBar bar = Clique.progressBar(100);
-bar.tickAnimated(70);
+for (var file : Clique.progressBar(files)) {
+    process(file);
+}
 ```
+
 ![Sample Progress Bar](images/sample-pg-bar.png)
 
 > **Thread safety:** Style registration/lookup and config objects (once built) are thread-safe. All other components are not — avoid sharing instances across threads.
+
+---
+
+## Built with Clique
+
+- [Veneer](https://github.com/kusoroadeolu/veneer) — Syntax highlighting for Java, Python, Go, Lua, and JavaScript in the terminal
 
 ---
 
@@ -163,4 +185,4 @@ Apache 2.0
 
 ## Contributing
 
-Contributions are welcome! Feel free to open a PR.
+Contributions are welcome! 
