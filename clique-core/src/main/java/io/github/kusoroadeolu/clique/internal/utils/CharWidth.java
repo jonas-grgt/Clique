@@ -197,7 +197,7 @@ public final class CharWidth {
                 {0x2694, 0x2697},   // Various tool/science symbols
                 {0x2699, 0x2699},   // Gear
                 {0x269B, 0x269C},   // Atom, Fleur-de-lis
-                {0x26A0, 0x26A0},   // Warning Sign  ← your bug
+                {0x26A0, 0x26A0},   // Warning Sign
                 {0x26B0, 0x26B1},   // Coffin, Funeral Urn
                 {0x26C8, 0x26C8},   // Thunder Cloud
                 {0x26CF, 0x26D1},   // Pick, Rescue Worker Helmet
@@ -213,7 +213,7 @@ public final class CharWidth {
                 {0x270F, 0x270F},   // Pencil
                 {0x2712, 0x2712},   // Black Nib
                 {0x2714, 0x2714},   // Heavy Check Mark
-                {0x2716, 0x2716},   // Heavy Multiplication X
+                {0x2716, 0x2716},   // Heavy Multiplication
                 {0x271D, 0x271D},   // Latin Cross
                 {0x2721, 0x2721},   // Star of David
                 {0x2733, 0x2734},   // Eight Spoked/Pointed Asterisk
