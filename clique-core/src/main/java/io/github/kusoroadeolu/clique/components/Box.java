@@ -164,8 +164,8 @@ public class Box implements Component {
             int contentWidth = cells.longest();
             int contentHeight = cells.size();
 
-            if (contentWidth > usableWidth) throw new InvalidDimensionException("Content overflows: content is %s wide but usable inner width is only %s".formatted(this.width, contentWidth));
-            if (contentHeight > height) throw new InvalidDimensionException("Content overflows: %s lines of content cannot fit in a box of height %s".formatted(this.height, contentHeight));
+            if (contentWidth > usableWidth) throw new InvalidDimensionException("Content overflows: content is %s wide but usable inner width is only %s".formatted(contentWidth, this.width));
+            if (contentHeight > height) throw new InvalidDimensionException("Content overflows: %s lines of content cannot fit in a box of height %s".formatted(contentHeight, this.height));
         }
     }
 

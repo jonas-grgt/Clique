@@ -13,18 +13,18 @@ import static io.github.kusoroadeolu.clique.internal.Constants.BLANK;
 public class TableUtils {
     private TableUtils(){}
 
-    public static String align(CellAlign align, StringBuilder sb, int offset, String cell, String vLine) {
+    public static String align(CellAlign align, StringBuilder sb, int offset, String styled, String vLine) {
 
         final String spaces = BLANK.repeat(offset);
         return switch (align) {
-            case LEFT -> sb.append(cell).append(spaces).append(vLine).toString();
-            case RIGHT -> sb.append(spaces).append(cell).append(vLine).toString();
+            case LEFT -> sb.append(styled).append(spaces).append(vLine).toString();
+            case RIGHT -> sb.append(spaces).append(styled).append(vLine).toString();
             case CENTER -> {
                 final int len = spaces.length(); //Get the height of the spaces
                 final int rem = len % 2;
                 final int leftOffset = (len - rem) - (len / 2);
                 final int rightOffset = len - leftOffset;
-                yield sb.append(BLANK.repeat(leftOffset)).append(cell).append(BLANK.repeat(rightOffset)).append(vLine).toString();
+                yield sb.append(BLANK.repeat(leftOffset)).append(styled).append(BLANK.repeat(rightOffset)).append(vLine).toString();
             }
         };
     }

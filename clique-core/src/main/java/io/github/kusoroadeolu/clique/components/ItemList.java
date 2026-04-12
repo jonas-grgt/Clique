@@ -2,7 +2,7 @@ package io.github.kusoroadeolu.clique.components;
 
 import io.github.kusoroadeolu.clique.configuration.ItemListConfiguration;
 import io.github.kusoroadeolu.clique.internal.ListItem;
-import io.github.kusoroadeolu.clique.internal.documentation.Experimental;
+import io.github.kusoroadeolu.clique.internal.documentation.Stable;
 import io.github.kusoroadeolu.clique.internal.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import static io.github.kusoroadeolu.clique.style.StyleCode.RESET;
  *
  * @since 4.0.0
  */
-@Experimental(since = "4.0.0")
+@Stable(since = "4.0.1")
 public class ItemList implements Component {
     private final List<ListItem> items;
     private ItemListConfiguration configuration;
