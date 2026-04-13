@@ -91,7 +91,7 @@ Controls the color and style of the connector characters (`├─`, `└─`, `�
 
 ```java
 TreeConfiguration config = TreeConfiguration.builder()
-    .guideStyle("*blue, bold")
+    .connectorColor("*blue, bold")
     .build();
 ```
 
@@ -114,7 +114,7 @@ TreeConfiguration config = TreeConfiguration.builder()
 
 ```java
 TreeConfiguration config = TreeConfiguration.builder()
-        .guideStyle("*cyan, bold") //Do not add the markup tag borders i.e [*cyan, bold]
+        .connectorColor("*cyan, bold") //Do not add the markup tag borders i.e [*cyan, bold]
         .build();
 
 Tree tree = Clique.tree("[*magenta, bold]clique-lib/", config);

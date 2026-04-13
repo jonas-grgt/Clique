@@ -179,7 +179,7 @@ Clique.parser().print("[success]Connection established[/]");
 List everything available on the classpath:
 
 ```java
-List<CliqueTheme> themes = Clique.discoverThemes();
+List<CliqueTheme> themes = Clique.findAvailableThemes();
 themes.forEach(t -> System.out.println(t.themeName() + " by " + t.author()));
 ```
 

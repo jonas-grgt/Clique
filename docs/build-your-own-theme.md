@@ -65,7 +65,7 @@ public class MyTheme implements CliqueTheme {
 Register it, use it:
 
 ```java
-Clique.registerTheme("my-theme");
+Clique.registerTheme(new MyTheme());
 Clique.parser().print("[mt_blue, bold]Hello from my theme[/]");
 ```
 
@@ -160,7 +160,7 @@ addHex(colors, "corp_error",   "#C62828");
 
 ## Auto-discovery
 
-If you want your theme to work with `Clique.registerTheme("my-theme")` or `Clique.registerAllThemes()`, you need to tell Java's ServiceLoader where to find it.
+If you want your theme to work with `Clique.registerTheme("my-theme")` or `Clique.registerAvailableThemes()`, you need to tell Java's ServiceLoader where to find it.
 
 Create this file:
 
@@ -229,7 +229,7 @@ Before shipping, run through every color to make sure nothing's invisible or bro
 
 ```java
 var theme = new MyTheme();
-theme.register();
+Clique.registerTheme(theme);
 
 theme.styles().forEach((name, code) -> {
     if (name.startsWith("bg_")) {
@@ -259,7 +259,7 @@ my-clique-themes/
     └── io.github.kusoroadeolu.clique.spi.CliqueTheme
 ```
 
-Users add it as a dependency, and `Clique.registerAllThemes()` picks it up automatically. No extra setup on their end.
+Users add it as a dependency, and `Clique.registerAvailableThemes()` picks it up automatically. No extra setup on their end.
 
 ### Just for your own project
 

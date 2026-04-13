@@ -2,7 +2,7 @@
 
 `ItemList` builds nested, symbol-driven lists with full markup support. Each item gets a symbol, content, and optionally a sublist. Levels are tracked automatically — you just compose.
 
-> **`@Experimental` since `4.0.0`.** The API may change between releases.
+> **`@Stable` since `4.0.1`.**
 
 > **Looking for file trees?** If you need `├─` / `└─` connectors, check out [`Tree`](tree.md) instead. `ItemList` is for when *you* own the structure — task lists, build output, menus, etc.
 

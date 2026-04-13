@@ -1,6 +1,6 @@
 # StyleBuilder
 
-StyleBuilder provides a fluent API for chaining styled strings together. It's perfect when you prefer a programmatic, type-safe pattern over markup syntax.
+StyleBuilder provides a simpler API for chaining styled strings together . It's perfect when you prefer a programmatic imperative and type-safe pattern over markup syntax.
 
 ## Basic Usage
 

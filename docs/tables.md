@@ -12,8 +12,6 @@ Clique provides 5 built-in table styles:
 4. **ROUNDED_BOX_DRAW** - Box-draw table with rounded corners
 5. **MARKDOWN** - Markdown-style table format
 
-![Clique Tables](../images/tables.png)
-
 ## Basic Usage
 
 ### Creating a Simple Table
