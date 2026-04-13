@@ -12,7 +12,6 @@ Clique.parser().print("[red, bold]Error:[/] Something went wrong");
 String styled = Clique.parser().parse("[red, bold]Error:[/] Something went wrong");
 System.out.println(styled);
 ```
-![Ansi Output](../images/ansi.png)
 
 ### Getting the Original String
 After parsing, you can retrieve the original text without markup tags:
@@ -164,7 +163,6 @@ Clique.table(TableType.ASCII)
 
 // Boxes with markup
 Clique.box()
-    .autosize()
     .content("[bold, blue]This is a configured box[/]")
     .render();
 ```
