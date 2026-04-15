@@ -17,7 +17,7 @@ A dependency-free and extensible CLI library for beautifying Java terminal appli
 - **RGB & Gradients** - Full 24-bit color support with per-character gradient rendering. [Ink docs](docs/ink.md)
 - **no-color.org compliant** - Respects the `NO_COLOR` environment variable out of the box. [no-color.org](https://no-color.org)
 - **GraalVM compatible** - Works with GraalVM native image, no reflection surprises.
-- **Unicode v16.0 emoji support** - Emoji handling compliant with the latest Unicode standard.
+- **Better unicode emoji support** - Emoji handling compliant with most Unicode emojis
 
 ---
 
