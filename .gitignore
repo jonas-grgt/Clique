@@ -28,9 +28,12 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-.idea
 clique-core/target
 clique-spi/target
 clique-themes/target
 target
 docs/showcase.md
+
+## Intellij
+.idea
+*.iml

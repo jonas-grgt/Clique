@@ -1,0 +1,25 @@
+name: Verify Code
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        java: [ '21', '23', '24', '25', '26' ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version:  ${{ matrix.java }}
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B -ntp verify --file pom.xml
