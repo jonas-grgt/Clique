@@ -2,8 +2,6 @@ package io.github.kusoroadeolu.clique.internal.utils;
 
 import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import static io.github.kusoroadeolu.clique.internal.Constants.*;
 
 @InternalApi(since = "3.2.0")
@@ -11,24 +9,24 @@ public class AnsiDetector {
 
     private AnsiDetector() {}
 
-    private static volatile boolean ANSI_ENABLED = autoDetect();
+    private static volatile boolean ansiEnabled = autoDetect();
 
     public static void refresh() {
-        ANSI_ENABLED = autoDetect();
+        ansiEnabled = autoDetect();
     }
 
     public static boolean ansiEnabled() {
-        return ANSI_ENABLED;
+        return ansiEnabled;
     }
 
     public static void enableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, ALWAYS);
-        ANSI_ENABLED = true;
+        ansiEnabled = true;
     }
 
     public static void disableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, NEVER);
-        ANSI_ENABLED = false;
+        ansiEnabled = false;
     }
 
     private static boolean autoDetect() {
@@ -48,16 +46,18 @@ public class AnsiDetector {
         String colorTerm = System.getenv(COLOR_TERM);
         if (colorTerm != null) return true;
 
-        final String term = System.getenv(TERM);
-        if (term != null && !term.equalsIgnoreCase(DUMB) && !term.equalsIgnoreCase(PLAIN)) return true;
-
         String os = System.getProperty(OS_NAME, EMPTY).toLowerCase();
         if (System.console() == null) {
             if (!os.contains(WIN)) return false;
         }
 
-        if (System.getenv(WT_SESSION) != null) return true;
-        else return os.contains(WIN);
+        final String term = System.getenv(TERM);
+        if (term == null) {
+            if (System.getenv(WT_SESSION) != null) return true;
+            return os.contains(WIN);
+        }
+
+        return !term.equalsIgnoreCase(DUMB) && !term.equalsIgnoreCase(PLAIN);
     }
 
 

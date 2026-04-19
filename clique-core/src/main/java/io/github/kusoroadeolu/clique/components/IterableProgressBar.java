@@ -32,6 +32,7 @@ public class IterableProgressBar<T> implements Iterable<T> {
     private final Iterator<T> iterator;
     private boolean consumed = false;
     final ProgressBar progressBar;
+    @SuppressWarnings("java:S106")
     private PrintStream stream = System.out;
 
     /**
