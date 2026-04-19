@@ -47,18 +47,17 @@ public class AnsiDetector {
 
         String colorTerm = System.getenv(COLOR_TERM);
         if (colorTerm != null) return true;
+
+        final String term = System.getenv(TERM);
+        if (term != null && !term.equalsIgnoreCase(DUMB) && !term.equalsIgnoreCase(PLAIN)) return true;
+
         String os = System.getProperty(OS_NAME, EMPTY).toLowerCase();
         if (System.console() == null) {
             if (!os.contains(WIN)) return false;
         }
 
-        final String term = System.getenv(TERM);
-        if (term == null) {
-            if (System.getenv(WT_SESSION) != null) return true;
-            return os.contains(WIN);
-        }
-
-        return !term.equalsIgnoreCase(DUMB) && !term.equalsIgnoreCase(PLAIN);
+        if (System.getenv(WT_SESSION) != null) return true;
+        else return os.contains(WIN);
     }
 
 
