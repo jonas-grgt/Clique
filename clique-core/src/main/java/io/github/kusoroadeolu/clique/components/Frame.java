@@ -121,7 +121,9 @@ public class Frame implements Component {
     public Frame width(int width) {
         if (width <= 0) throw new InvalidDimensionException(
                 "Frame width must be greater than zero, got: %d".formatted(width)
-        );        this.width = width;
+        );
+
+        this.width = width;
         return this;
     }
 

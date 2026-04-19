@@ -3,6 +3,7 @@ package io.github.kusoroadeolu.clique.components;
 import io.github.kusoroadeolu.clique.configuration.ProgressBarConfiguration;
 import io.github.kusoroadeolu.clique.internal.documentation.Stable;
 
+import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
@@ -30,6 +31,8 @@ public class IterableProgressBar<T> implements Iterable<T> {
     private final Iterator<T> iterator;
     private boolean consumed = false;
     final ProgressBar progressBar;
+    @SuppressWarnings("java:S106")
+    private PrintStream stream = System.out;
 
     /**
      * Constructs an {@code IterableProgressBar} over the given collection with a
@@ -76,6 +79,11 @@ public class IterableProgressBar<T> implements Iterable<T> {
         return new ProgressBarIterator<>(this);
     }
 
+    public IterableProgressBar<T> printStream(PrintStream stream){
+        this.stream = Objects.requireNonNull(stream, "Print stream cannot be null");
+        return this;
+    }
+
     /**
      * Returns whether the underlying progress bar has reached its total.
      *
@@ -98,7 +106,9 @@ public class IterableProgressBar<T> implements Iterable<T> {
         @Override
         public T next() {
             T item = iterableProgressBar.iterator.next();
-            iterableProgressBar.progressBar.tick();
+            var bar = iterableProgressBar.progressBar;
+            bar.tick(false)
+                    .render(iterableProgressBar.stream);
             return item;
         }
     }

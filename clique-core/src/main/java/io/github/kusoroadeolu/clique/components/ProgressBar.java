@@ -69,7 +69,7 @@ public class ProgressBar implements Component {
     }
 
     /**
-     * Advances the progress bar by {@code 1} tick and re-renders it.
+     * Advances the progress bar by {@code 1} tick and re-renders it to {@link System#out}.
      *
      * <p>Equivalent to {@link #tick(int) tick(1)}.
      *
@@ -79,8 +79,8 @@ public class ProgressBar implements Component {
         return this.tick(1);
     }
 
-        /**
-     * Advances the progress bar by the given number of ticks and re-renders it.
+    /**
+     * Advances the progress bar by the given number of ticks and re-renders it to {@link System#out}.
      *
      * <p>The current tick is clamped to {@code [0, total]}. If this call causes
      * {@code currentTick >= total}, {@link #isDone()} will return {@code true} and
@@ -91,10 +91,39 @@ public class ProgressBar implements Component {
      * @throws IllegalArgumentException if {@code amount} is less than {@code 1}
      */
     public ProgressBar tick(int amount) {
+        return tick(amount, true);
+    }
+
+    /**
+     * Advances the progress bar by {@code 1} tick.
+     *
+     * @param render if the progress bar should be re-rendered to {@link System#out}
+     *
+     * <p>Equivalent to {@link #tick(int) tick(1)}.
+     *
+     * @return this instance
+     */
+    public ProgressBar tick(boolean render) {
+        return tick(1, render);
+    }
+
+    /**
+     * Advances the progress bar by the given number of ticks.
+     *
+     * <p>The current tick is clamped to {@code [0, total]}. If this call causes
+     * {@code currentTick >= total}, {@link #isDone()} will return {@code true} and
+     * a newline is emitted on the next render.
+     *
+     * @param amount the number of ticks to advance; must be {@code >= 1}
+     * @param render if the progress bar should be re-rendered to {@link System#out}
+     * @return this instance
+     * @throws IllegalArgumentException if {@code amount} is less than {@code 1}
+     */
+    public ProgressBar tick(int amount, boolean render){
         if (amount < 1) throw new IllegalArgumentException("Tick amount cannot be less than 1");
         currentTick = Math.clamp(currentTick + (long) amount, ZERO, total);
         if (currentTick >= total && !isDone) isDone = true;
-        this.render();
+        if (render) this.render();
         return this;
     }
 
@@ -174,6 +203,20 @@ public class ProgressBar implements Component {
      */
     public ProgressBar complete() {
         return this.tick(Math.max(1, total - currentTick));
+    }
+
+    /**
+     * Advances the progress bar to completion.
+     *
+     * <p>Equivalent to ticking by {@code total - currentTick}. If the bar is already
+     * complete, this method ticks by {@code 1} to ensure a valid tick amount.
+     *
+     * @param render if the progress bar should be re-rendered to {@link System#out}
+     *
+     * @return this instance
+     */
+    public ProgressBar complete(boolean render) {
+        return this.tick(Math.max(1, total - currentTick), render);
     }
 
     private int percent() {

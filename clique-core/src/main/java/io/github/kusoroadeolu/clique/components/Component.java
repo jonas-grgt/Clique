@@ -24,6 +24,7 @@ import static java.util.Objects.requireNonNull;
  * @since 2.0.0
  */
 @Stable(since = "3.2.0")
+@SuppressWarnings("java:S106")
 public interface Component {
 
     /**

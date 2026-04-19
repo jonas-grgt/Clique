@@ -25,6 +25,7 @@ import static io.github.kusoroadeolu.clique.internal.utils.StringUtils.style;
  * @since 1.0.0
  */
 @Stable(since = "3.2.0")
+@SuppressWarnings("java:S106")
 public final class StyleBuilder {
 
     private static final AnsiCode RESET = StyleCode.RESET;

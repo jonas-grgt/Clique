@@ -120,7 +120,6 @@ class FrameTest {
                         .nest("a much longer line")
                         .get()
         );
-        System.out.println(rendered);
         String[] ls = lines(rendered);
         int expectedWidth = ls[0].length();
         for (String line : ls) {
