@@ -45,11 +45,8 @@ public class AnsiDetector {
 
         String colorTerm = System.getenv(COLOR_TERM);
         if (colorTerm != null) return true;
-
         String os = System.getProperty(OS_NAME, EMPTY).toLowerCase();
-        if (System.console() == null) {
-            if (!os.contains(WIN)) return false;
-        }
+        if (System.console() == null && !os.contains(WIN)) return false;
 
         final String term = System.getenv(TERM);
         if (term == null) {

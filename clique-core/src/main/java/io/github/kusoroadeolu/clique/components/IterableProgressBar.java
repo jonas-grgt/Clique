@@ -1,7 +1,6 @@
 package io.github.kusoroadeolu.clique.components;
 
 import io.github.kusoroadeolu.clique.configuration.ProgressBarConfiguration;
-import io.github.kusoroadeolu.clique.internal.documentation.InternalApi;
 import io.github.kusoroadeolu.clique.internal.documentation.Stable;
 
 import java.io.PrintStream;
