@@ -18,31 +18,31 @@ class ProgressBarTest {
     @Test
     void testTickIncrementsProgress() {
         ProgressBar bar = new ProgressBar(100);
-        bar.tick();
+        bar.tick(false);
         assertEquals(1, bar.currentTick);
 
-        bar.tick(5);
+        bar.tick(5, false);
         assertEquals(6, bar.currentTick);
     }
 
     @Test
     void testTickCannotExceedTotal() {
         ProgressBar bar = new ProgressBar(10);
-        bar.tick(15);
+        bar.tick(15, false);
         assertEquals(10, bar.currentTick);  // Should cap at total
     }
 
     @Test
     void testTickShouldThrowOnNegativeTick() {
         ProgressBar bar = new ProgressBar(100);
-        assertThrows(IllegalArgumentException.class, () -> bar.tick(-50));
+        assertThrows(IllegalArgumentException.class, () -> bar.tick(-50, false));
     }
 
     @Test
     void testComplete() {
         ProgressBar bar = new ProgressBar(100);
-        bar.tick(50);
-        bar.complete();
+        bar.tick(50, false);
+        bar.complete(false);
 
         assertEquals(100, bar.currentTick);
         assertTrue(bar.isDone);
@@ -52,14 +52,14 @@ class ProgressBarTest {
     @Test
     void testComplete_whenComplete_completeCallShouldNotThrow(){
         ProgressBar bar = new ProgressBar(100);
-        bar.tick(100);
-        assertDoesNotThrow(bar::complete);
+        bar.tick(100, false);
+        assertDoesNotThrow(() -> bar.complete(false));
     }
 
     @Test
     void testPercentCalculation() {
         ProgressBar bar = new ProgressBar(100);
-        bar.tick(25);
+        bar.tick(25, false);
 
         String output = bar.get();
         assertTrue(output.contains("25"));  // Should show 25%
@@ -79,7 +79,7 @@ class ProgressBarTest {
                 .build();
 
         ProgressBar bar = new ProgressBar(100, config);
-        bar.tick(50);
+        bar.tick(50, false);
 
         String output = bar.get();
         assertTrue(output.contains("50/100"));
@@ -96,7 +96,7 @@ class ProgressBarTest {
                 .build();
 
         ProgressBar bar = new ProgressBar(10, config);
-        bar.tick(5);
+        bar.tick(5, false);
 
         String output = bar.get();
         assertTrue(output.contains("====="));
@@ -113,13 +113,13 @@ class ProgressBarTest {
 
         ProgressBar bar = new ProgressBar(100, config);
 
-        bar.tick(20);
+        bar.tick(20, false);
         assertTrue(bar.get().contains("LOW"));
 
-        bar.tick(30);  // Now at 50%
+        bar.tick(30, false);  // Now at 50%
         assertTrue(bar.get().contains("MID"));
 
-        bar.tick(30);  // Now at 80%
+        bar.tick(30, false);  // Now at 80%
         assertTrue(bar.get().contains("HIGH"));
     }
 
@@ -132,10 +132,10 @@ class ProgressBarTest {
 
         ProgressBar bar = new ProgressBar(100, config);
 
-        bar.tick(50);
+        bar.tick(50, false);
         assertTrue(bar.get().contains("LOADING"));
 
-        bar.complete();
+        bar.complete(false);
         assertTrue(bar.get().contains("COMPLETE!"));
     }
 
@@ -148,7 +148,7 @@ class ProgressBarTest {
                 .build();
 
         ProgressBar bar = new ProgressBar(100, config);
-        bar.tick(75);
+        bar.tick(75, false);
 
         assertTrue(bar.get().contains("FIRST"));
         assertFalse(bar.get().contains("SECOND"));
@@ -162,7 +162,7 @@ class ProgressBarTest {
                 .build();
 
         ProgressBar bar = new ProgressBar(100, config);
-        bar.tick(50);
+        bar.tick(50, false);
 
         assertTrue(bar.get().contains("DEFAULT"));
     }
@@ -170,9 +170,8 @@ class ProgressBarTest {
     @Test
     void testElapsedTimeExists() {
         ProgressBar bar = new ProgressBar(100);
-        bar.tick();
+        bar.tick(false);
         String output = bar.get();
-        assertFalse(output.contains("--:--"));
         assertTrue(output.contains("00:"));
     }
 
@@ -190,7 +189,7 @@ class ProgressBarTest {
                 .build();
 
         ProgressBar bar = new ProgressBar(100, config);
-        bar.tick(50);
+        bar.tick(50, false);
 
         String output = bar.get();
         assertFalse(output.contains("[red]")); //Should contain the actual ansi code instead

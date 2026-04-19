@@ -6,10 +6,13 @@ import io.github.kusoroadeolu.clique.configuration.ParserConfiguration;
 import io.github.kusoroadeolu.clique.internal.CompositeColor;
 import io.github.kusoroadeolu.clique.internal.exception.UnidentifiedStyleException;
 import io.github.kusoroadeolu.clique.internal.markup.GlobalStyleRegistry;
+import io.github.kusoroadeolu.clique.internal.utils.AnsiDetector;
 import io.github.kusoroadeolu.clique.internal.utils.ParserUtils;
 import io.github.kusoroadeolu.clique.spi.AnsiCode;
 import io.github.kusoroadeolu.clique.style.ColorCode;
 import io.github.kusoroadeolu.clique.style.StyleCode;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -18,16 +21,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MarkupParserTest {
 
+    @BeforeEach
+    void setup() {
+        AnsiDetector.enableCliqueColors();
+    }
+
+    @AfterEach
+    void tearDown() {
+        AnsiDetector.disableCliqueColors();
+    }
+
     @Test
     void testCustomDelimiter() {
+
         ParserConfiguration config = ParserConfiguration
                 .builder()
                 .delimiter(' ')
                 .build();
         MarkupParser parser = new MarkupParser(config);
         String output = parser.parse("[red bold]Text[/]");
-        assertTrue(output.contains(ColorCode.RED.ansiSequence()));
-        assertTrue(output.contains(StyleCode.BOLD.ansiSequence()));
+        assertTrue(output.contains(ColorCode.RED.ansiSequence()) && output.contains(StyleCode.BOLD.ansiSequence()));
+
     }
 
     @Test

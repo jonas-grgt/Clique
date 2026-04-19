@@ -76,7 +76,7 @@ public class Box implements Component {
         if (cachedString != null) return cachedString;
         WidthAwareList cells = resolveLines();
         this.resolveDimensions(cells);
-        TextAlign ta = this.align == null ? configuration.getTextAlign() : this.align;
+        var ta = this.align == null ? configuration.getTextAlign() : this.align;
 
 
         final var chars = this.borderChars;
@@ -126,6 +126,10 @@ public class Box implements Component {
         this.align = align;
         nullCachedString();
         return this;
+    }
+
+    TextAlign textAlign(){
+        return this.align;
     }
 
     /**

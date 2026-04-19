@@ -11,55 +11,50 @@ public class AnsiDetector {
 
     private AnsiDetector() {}
 
-    private static final AtomicBoolean ANSI_ENABLED = new AtomicBoolean(autoDetect());
+    private static volatile boolean ANSI_ENABLED = autoDetect();
 
-
-    //FOR TESTS
-    public static boolean testAnsiEnabled() {
-        String cliqueColor = System.getProperty(CLIQUE_COLOR);
-        if (ALWAYS.equals(cliqueColor)) return true;
-        if (NEVER.equals(cliqueColor)) return false;
-        return autoDetect();
+    public static void refresh() {
+        ANSI_ENABLED = autoDetect();
     }
 
     public static boolean ansiEnabled() {
-        return ANSI_ENABLED.get();
+        return ANSI_ENABLED;
     }
 
     public static void enableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, ALWAYS);
-        ANSI_ENABLED.set(true);
+        ANSI_ENABLED = true;
     }
 
     public static void disableCliqueColors() {
         System.setProperty(CLIQUE_COLOR, NEVER);
-        ANSI_ENABLED.set(false);
+        ANSI_ENABLED = false;
     }
 
     private static boolean autoDetect() {
         String noColor = System.getenv(NO_COLOR);
         if (noColor != null && !noColor.isEmpty()) return false;
 
+        String cliqueColor = System.getProperty(CLIQUE_COLOR);
+        if (ALWAYS.equals(cliqueColor)) return true;
+        if (NEVER.equals(cliqueColor)) return false;
+
         String cliColorForce = System.getenv(CLI_COLOR_FORCE);
-        if (cliColorForce != null && !cliColorForce.isEmpty()) return true;
+        if (cliColorForce != null && !cliColorForce.isEmpty() && !cliColorForce.equals("0")) return true;
 
         String forceColor = System.getenv(FORCE_COLOR);
         if (forceColor != null && !forceColor.isEmpty()) return true;
 
-
+        String colorTerm = System.getenv(COLOR_TERM);
+        if (colorTerm != null) return true;
+        String os = System.getProperty(OS_NAME, EMPTY).toLowerCase();
         if (System.console() == null) {
-            String os = System.getProperty(OS_NAME).toLowerCase();
             if (!os.contains(WIN)) return false;
         }
 
-        String colorTerm = System.getenv(COLOR_TERM);
-        if (colorTerm != null) return true;
-
         final String term = System.getenv(TERM);
-
         if (term == null) {
             if (System.getenv(WT_SESSION) != null) return true;
-            String os = System.getProperty(OS_NAME).toLowerCase();
             return os.contains(WIN);
         }
 
