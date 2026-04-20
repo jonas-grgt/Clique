@@ -17,11 +17,10 @@ class AnsiDetectorTest {
     @SystemStub
     private EnvironmentVariables envVars;
 
-
-
     @BeforeEach
     void clearProperties() {
         System.clearProperty(CLIQUE_COLOR);
+        envVars.remove(COLOR_TERM);
     }
 
     @Test
