@@ -42,39 +42,49 @@ public final class Ink {
     private final StyleContext context;
     private final Hyperlink hyperlink;
     private final Gradient gradient;
+    private final Padding padding;
 
     public Ink() {
         this(StyleContext.NONE);
     }
 
     public Ink(StyleContext context) {
-        this(Collections.emptyList(), context, null, null);
+        this(Collections.emptyList(), context, null, null, Padding.ZERO);
     }
 
     Ink(List<AnsiCode> codes, StyleContext context) {
-        this(codes, context, null, null);
+        this(codes, context, null, null, Padding.ZERO);
     }
 
     Ink(List<AnsiCode> codes, StyleContext context, Hyperlink hyperLink, Gradient gradient) {
+        this(codes, context, hyperLink, gradient, Padding.ZERO);
+    }
+
+    Ink(List<AnsiCode> codes, StyleContext context, Hyperlink hyperLink, Gradient gradient, Padding padding) {
         Objects.requireNonNull(context, "Style context cannot be null");
         this.codes = Collections.unmodifiableList(codes);
         this.context = context;
         this.hyperlink = hyperLink;
         this.gradient = gradient;
+        this.padding = padding;
     }
 
     private Ink with(AnsiCode code) {
         List<AnsiCode> next = new ArrayList<>(codes);
         next.add(code);
-        return new Ink(next, context, hyperlink, gradient);
+        return new Ink(next, context, hyperlink, gradient, padding);
     }
 
     private Ink with(Hyperlink hyperlink) {
-        return new Ink(new ArrayList<>(codes), context, hyperlink, gradient);
+        return new Ink(new ArrayList<>(codes), context, hyperlink, gradient, padding);
     }
 
     private Ink with(Gradient gradient) {
-        return new Ink(new ArrayList<>(codes), context, hyperlink, gradient);
+        return new Ink(new ArrayList<>(codes), context, hyperlink, gradient, padding);
+    }
+
+    private Ink withPadding(int horizontalPadding) {
+        return new Ink(new ArrayList<>(codes), context, hyperlink, gradient, new Padding(horizontalPadding, 0));
     }
 
 
@@ -88,7 +98,9 @@ public final class Ink {
      */
     public String on(String value) {
         Objects.requireNonNull(value, "Value cannot be null");
-        if (codes.isEmpty() && gradient == null && hyperlink == null) return value;
+        if (codes.isEmpty() && gradient == null && hyperlink == null) {
+            return padding(value);
+        }
 
         StringBuilder sb = new StringBuilder();
         String styled;
@@ -109,7 +121,12 @@ public final class Ink {
             styled = hyperlink.apply(styled);
         }
 
-        return styled;
+        return padding(styled);
+    }
+
+    private String padding(String value) {
+        String p = " ".repeat(this.padding.horizontal());
+        return p + value + p;
     }
 
     /**
@@ -193,6 +210,22 @@ public final class Ink {
         return with(new Gradient(from, to));
     }
 
+    /**
+     * Adds horizontal padding around the rendered text.
+     *
+     * <p>Adds the specified number of spaces to both the left and right
+     * sides of the text. Padding is applied after styles are rendered.
+     *
+     * @param spaces the number of spaces to padding on each side; must be non-negative
+     * @return a new {@code Ink} instance with padding configured
+     * @throws IllegalArgumentException if {@code spaces} is negative
+     */
+    public Ink padding(int spaces) {
+        if (spaces < 0) {
+            throw new IllegalArgumentException("Padding cannot be negative");
+        }
+        return withPadding(spaces);
+    }
 
     public Ink black()         { return with(ColorCode.BLACK);          }
     public Ink red()           { return with(ColorCode.RED);            }
@@ -254,13 +287,14 @@ public final class Ink {
         if (o == null || getClass() != o.getClass()) return false;
 
         Ink ink = (Ink) o;
-        return Objects.equals(codes, ink.codes) && Objects.equals(context, ink.context);
+        return Objects.equals(codes, ink.codes) && Objects.equals(context, ink.context) && padding == ink.padding;
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(codes);
         result = 31 * result + Objects.hashCode(context);
+        result = 31 * result + Objects.hashCode(padding);
         return result;
     }
 
